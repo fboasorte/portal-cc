@@ -4,5 +4,12 @@
     
 }
 .post.material-symbols-outlined{
-    font-size: 100px;
+    font-size: 50px;
+}
+.btn-cadastrar{
+    margin-top: 10px;
+}
+
+.search-control{
+    margin-left: auto;
 }
