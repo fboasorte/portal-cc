@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// TipoPostagem
+Route::get('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@create');
+
+Route::post('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@store')->name('create_tipo_postagem');
+
+Route::get('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@edit');
+
+Route::post('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@update')->name('update_tipo_postagem');
+
+
+// Postagem
+Route::get('/postagem/create', 'App\Http\Controllers\PostagemController@create');
+
+Route::post('/postagem/create', 'App\Http\Controllers\PostagemController@store')->name('registrar_postagem');
