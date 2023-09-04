@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\TipoPostagemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,18 +20,26 @@ Route::get('/', function () {
 });
 
 // TipoPostagem
-Route::get('/tipo-postagem/index', 'App\Http\Controllers\TipoPostagemController@index');
+Route::get('/tipo-postagem', [TipoPostagemController::class, 'index']);
+Route::get('/tipo-postagem/index', [TipoPostagemController::class, 'index']);
 
-Route::get('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@create')->name('create_tipo_postagem');
+Route::get('/tipo-postagem/create', [TipoPostagemController::class, 'create'])->name('create_tipo_postagem');
 
-Route::post('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@store')->name('store_tipo_postagem');
+Route::post('/tipo-postagem/create', [TipoPostagemController::class, 'store'])->name('store_tipo_postagem');
 
-Route::get('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@edit')->name('edit_tipo_postagem');
+Route::get('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'edit'])->name('edit_tipo_postagem');
 
-Route::post('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@update')->name('update_tipo_postagem');
+Route::post('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'update'])->name('update_tipo_postagem');
 
 
 // Postagem
-// Route::get('/postagem/create', 'App\Http\Controllers\PostagemController@create');
+Route::get('/postagem', [PostagemController::class, 'index']);
+Route::get('/postagem/index', [PostagemController::class, 'index']);
 
-// Route::post('/postagem/create', 'App\Http\Controllers\PostagemController@store')->name('registrar_postagem');
+Route::get('/postagem/create', [PostagemController::class, 'create'])->name('create_postagem');
+
+Route::post('/postagem/create', [PostagemController::class, 'store'])->name('store_postagem');
+
+Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('edit_postagem');
+
+Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
