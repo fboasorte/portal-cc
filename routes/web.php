@@ -18,16 +18,18 @@ Route::get('/', function () {
 });
 
 // TipoPostagem
-Route::get('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@create');
+Route::get('/tipo-postagem/index', 'App\Http\Controllers\TipoPostagemController@index');
 
-Route::post('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@store')->name('create_tipo_postagem');
+Route::get('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@create')->name('create_tipo_postagem');
 
-Route::get('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@edit');
+Route::post('/tipo-postagem/create', 'App\Http\Controllers\TipoPostagemController@store')->name('store_tipo_postagem');
+
+Route::get('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@edit')->name('edit_tipo_postagem');
 
 Route::post('/tipo-postagem/edit/{id}', 'App\Http\Controllers\TipoPostagemController@update')->name('update_tipo_postagem');
 
 
 // Postagem
-Route::get('/postagem/create', 'App\Http\Controllers\PostagemController@create');
+// Route::get('/postagem/create', 'App\Http\Controllers\PostagemController@create');
 
-Route::post('/postagem/create', 'App\Http\Controllers\PostagemController@store')->name('registrar_postagem');
+// Route::post('/postagem/create', 'App\Http\Controllers\PostagemController@store')->name('registrar_postagem');
