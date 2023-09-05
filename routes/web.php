@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\TipoPostagemController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,3 +44,14 @@ Route::post('/postagem/create', [PostagemController::class, 'store'])->name('sto
 Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('edit_postagem');
 
 Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
