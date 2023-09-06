@@ -7,9 +7,9 @@
 <h1>Gerenciar Alunos</h1>
     <div class="row">
         <div class="col-md-12">
-            <form action="" method="get">
+            <form action="{{ route('search_aluno') }}" method="get">
                 <div class="input-group mb-3">
-                    <input type="text" class="search-control" placeholder="Buscar Tipo" aria-label="Buscar" aria-describedby="button-addon2">
+                    <input type="text" name="campoNomeAluno" class="search-control" placeholder="Buscar aluno" aria-label="Buscar" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
                 </div>
             </form>

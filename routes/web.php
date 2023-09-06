@@ -75,4 +75,6 @@ Route::prefix('/aluno')->group(function(){
     Route::get('/delete/{id}', [AlunoController::class, 'deleteConfirm'])->name('delete_aluno_confirm');
 
     Route::post('/delete/{id}', [AlunoController::class, 'deleteAluno'])->name('delete_aluno');
+
+    Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });

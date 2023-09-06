@@ -60,5 +60,18 @@ class AlunoController extends Controller
         }
         return redirect('/aluno');
     }
+
+    public function search(Request $request) {
+        $nomeBusca = $request->campoNomeAluno;
+
+        if(!$nomeBusca) {
+            return redirect('/aluno');
+        }
+
+        $alunos = Aluno::where('nome','like', '%'.$nomeBusca.'%')->get();
+
+        return view('aluno.index', ['alunos' => $alunos]);
+
+    }
 }
 
