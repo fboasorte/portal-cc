@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,3 +57,18 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// ALUNO
+
+Route::prefix('/aluno')->group(function(){
+    Route::get('/', [AlunoController::class, 'index']);
+
+    Route::get('/create', [AlunoController::class, 'create'])->name('create_aluno');
+
+    Route::post('/create', [AlunoController::class, 'store'])->name('store_aluno');
+
+    Route::get('/edit/{id}', [AlunoController::class, 'edit'])->name('edit_aluno');
+
+    Route::post('/edit/{id}', [AlunoController::class, 'update'])->name('update_aluno');
+});
+
