@@ -4,6 +4,7 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Aluno;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
@@ -70,5 +71,8 @@ Route::prefix('/aluno')->group(function(){
     Route::get('/edit/{id}', [AlunoController::class, 'edit'])->name('edit_aluno');
 
     Route::post('/edit/{id}', [AlunoController::class, 'update'])->name('update_aluno');
-});
 
+    Route::get('/delete/{id}', [AlunoController::class, 'deleteConfirm'])->name('delete_aluno_confirm');
+
+    Route::post('/delete/{id}', [AlunoController::class, 'deleteAluno'])->name('delete_aluno');
+});

@@ -39,7 +39,7 @@
                                     <td>{{ $aluno->nome }}</td>
                                     <td>
                                         <a href="{{ route('edit_aluno', $aluno->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                        <a href="" class="btn btn-danger btn-sm">Excluir</a>
+                                        <a href="{{ route('delete_aluno', $aluno->id) }}" class="btn btn-danger btn-sm">Excluir</a>
                                     </td>
                                 </tr>
                                 @endforeach

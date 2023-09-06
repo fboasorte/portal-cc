@@ -19,11 +19,13 @@ class AlunoController extends Controller
     }
 
     public function store(Request $request) {
-        Aluno::create([
-            'nome' => $request->nome
-        ]);
 
-        return 'Novo aluno cadastrado com sucesso';
+        $aluno = new Aluno;
+
+        $aluno->nome = $request->nome;
+        $aluno->save();
+
+        return redirect('/aluno');
     }
 
     public function edit($id) {
@@ -33,12 +35,30 @@ class AlunoController extends Controller
     }
 
     public function update(Request $request, $id) {
+
         $aluno = Aluno::findOrFail($id);
 
         $aluno->update([
             'nome' => $request->nome
         ]);
 
-        return 'Aluno atualizado com sucesso.';
+        return redirect('/aluno');
+    }
+
+    public function deleteConfirm($id) {
+        $aluno = Aluno::findOrFail($id);
+
+        return view('aluno.delete', ['aluno' => $aluno]);
+    }
+
+    public function deleteAluno(Request $request, $id) {
+
+        $aluno = Aluno::findOrFail($id);
+
+        if($request->input('submit') == 1) {
+            $aluno->delete();
+        }
+        return redirect('/aluno');
     }
 }
+
