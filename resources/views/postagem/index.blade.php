@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         Postagens
-                        <a href="{{ route('create_postagem') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
+                        <a href="{{ route('postagem.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
                     <div class="card-body">
 
@@ -41,10 +41,10 @@
                                         <td>{{ $postagem->titulo }}</td>
                                         <td>{{ date_format($postagem->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td>
-                                            <form method="POST" action="{{ route('destroy_postagem', $postagem->id) }}">
+                                            <form method="POST" action="{{ route('postagem.destroy', $postagem->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <a href="{{ route('edit_postagem', $postagem->id) }}"
+                                                <a href="{{ route('postagem.edit', $postagem->id) }}"
                                                     class="btn btn-primary btn-sm">Editar</a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                                     onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>

@@ -3,8 +3,9 @@
 @section('title', 'Editar Postagem')
 
 @section('content')
-    <form method="post" action="{{ route('update_postagem', ['id' => $postagem->id]) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('postagem.update', ['id' => $postagem->id]) }}" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <label for="titulo">Título</label>
             <input type="text" value="{{ $postagem->titulo }}" name="titulo" id="titulo" class="form-control"

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\TipoPostagem;
-use Exception;
 use Illuminate\Http\Request;
 
 class TipoPostagemController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $buscar = $request->buscar;
@@ -21,26 +23,39 @@ class TipoPostagemController extends Controller
         return view('tipo-postagem.index', ['tipo_postagens' => $tipo_postagens, 'buscar' => $buscar]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('tipo-postagem.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         TipoPostagem::create([
             'nome' => $request->nome
         ]);
+
         return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Criado com Sucesso');
     }
 
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
         return view('tipo-postagem.edit', ['tipo_postagem' => $tipo_postagem]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
 
@@ -51,7 +66,10 @@ class TipoPostagemController extends Controller
         return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Alterado com Sucesso');
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
         $tipo_postagem->delete();

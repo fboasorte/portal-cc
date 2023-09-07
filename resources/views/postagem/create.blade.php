@@ -3,7 +3,7 @@
 @section('title', 'Criar Postagem')
 
 @section('content')
-    <form method="post" action="{{ route('store_postagem') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('postagem.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="titulo">Título</label>

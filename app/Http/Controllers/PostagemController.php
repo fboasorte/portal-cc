@@ -8,10 +8,12 @@ use App\Models\Postagem;
 use App\Models\TipoPostagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\URL;
 
 class PostagemController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $buscar = $request->buscar;
@@ -24,6 +26,9 @@ class PostagemController extends Controller
         return view('postagem.index', ['postagens' => $postagens, 'buscar' => $buscar]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         $tipo_postagens = TipoPostagem::pluck('nome', 'id');
@@ -33,6 +38,9 @@ class PostagemController extends Controller
         return view('postagem.create', compact('tipo_postagens', 'id'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $postagem = new Postagem([
@@ -71,7 +79,10 @@ class PostagemController extends Controller
         return redirect('postagem')->with('success', 'Postagem Criada com Sucesso');
     }
 
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $postagem =  Postagem::findOrFail($id);
         $tipo_postagens = TipoPostagem::pluck('nome', 'id');
@@ -79,7 +90,10 @@ class PostagemController extends Controller
         return view('postagem.edit', ['postagem' => $postagem, 'tipo_postagens' => $tipo_postagens]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
         $postagem =  Postagem::findOrFail($id);
 
@@ -117,7 +131,10 @@ class PostagemController extends Controller
         return redirect('postagem')->with('success', 'Postagem Alterada com Sucesso');
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
         $postagem =  Postagem::findOrFail($id);
         $postagem->delete();

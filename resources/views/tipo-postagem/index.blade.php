@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         Tipos de Postagens
-                        <a href="{{ route('create_tipo_postagem') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
+                        <a href="{{ route('tipo-postagem.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
                     <div class="card-body">
 
@@ -40,10 +40,10 @@
                                         <td>{{ $tipo_postagem->nome }}</td>
                                         <td>
                                             <form method="POST"
-                                                action="{{ route('destroy_tipo_postagem', $tipo_postagem->id) }}">
+                                                action="{{ route('tipo-postagem.destroy', $tipo_postagem->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <a href="{{ route('edit_tipo_postagem', $tipo_postagem->id) }}"
+                                                <a href="{{ route('tipo-postagem.edit', $tipo_postagem->id) }}"
                                                     class="btn btn-primary btn-sm">Editar</a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                                     onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>

@@ -3,7 +3,7 @@
 @section('title', 'Criar Tipo de Postagem')
 
 @section('content')
-<form method="post" action="{{ route('store_tipo_postagem') }}">
+<form method="post" action="{{ route('tipo-postagem.store') }}">
     @csrf
     <div class="form-group">
         <label for="nome">Nome</label>
