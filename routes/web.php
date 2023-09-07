@@ -35,6 +35,7 @@ Route::get('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'edit'])-
 
 Route::post('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'update'])->name('update_tipo_postagem');
 
+Route::delete('/tipo-postagem/delete/{id}', [TipoPostagemController::class, 'destroy'])->name('destroy_tipo_postagem');
 
 // Postagem
 Route::get('/postagem', [PostagemController::class, 'index']);
@@ -47,6 +48,7 @@ Route::post('/postagem/create', [PostagemController::class, 'store'])->name('sto
 Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('edit_postagem');
 
 Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -78,3 +80,9 @@ Route::prefix('/aluno')->group(function(){
 
     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });
+
+Route::delete('/postagem/delete/{id}', [PostagemController::class, 'destroy'])->name('destroy_postagem');
+
+Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('delete_imagem_postagem');
+
+Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('delete_arquivo_postagem');

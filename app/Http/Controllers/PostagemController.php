@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArquivoPostagem;
+use App\Models\ImagemPostagem;
 use App\Models\Postagem;
 use App\Models\TipoPostagem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\URL;
 
 class PostagemController extends Controller
 {
@@ -25,15 +29,40 @@ class PostagemController extends Controller
 
     public function store(Request $request)
     {
-        Postagem::create([
+        $postagem = new Postagem([
             'titulo' => $request->titulo,
             'texto' => $request->texto,
             'tipo_postagem_id' => $request->tipo_postagem_id,
-            'arquivo' => $request->arquivo,
-            'imagem' => $request->imagem,
         ]);
 
-        return "Postagem Criada com Sucesso";
+        $postagem->save();
+
+        if ($request->hasFile("imagens")) {
+            $imagens = $request->file("imagens");
+
+            foreach ($imagens as $imagem) {
+                $imagemPostagem = new ImagemPostagem();
+                $imagemPostagem->postagem_id = $postagem->id;
+                $imagemPostagem->imagem = $imagem->store('ImagemPostagem/' . $postagem->id);
+                $imagemPostagem->save();
+                unset($imagemPostagem);
+            }
+        }
+
+        if ($request->hasFile("arquivos")) {
+            $arquivos = $request->file("arquivos");
+
+            foreach ($arquivos as $arquivo) {
+                $arquivoPostagem = new ArquivoPostagem();
+                $arquivoPostagem->postagem_id = $postagem->id;
+                $arquivoPostagem->nome = $arquivo->getClientOriginalName();
+                $arquivoPostagem->path = $arquivo->store('ArquivoPostagem/' . $postagem->id);
+                $arquivoPostagem->save();
+                unset($arquivoPostagem);
+            }
+        }
+
+        return redirect('postagem')->with('success', 'Postagem Criada com Sucesso');
     }
 
     public function edit($id)
@@ -52,11 +81,62 @@ class PostagemController extends Controller
             'titulo' => $request->titulo,
             'texto' => $request->texto,
             'tipo_postagem_id' => $request->tipo_postagem_id,
-            'arquivo' => $request->arquivo,
-            'imagem' => $request->imagem,
         ]);
 
+        if ($request->hasFile("imagens")) {
+            $imagens = $request->file("imagens");
 
-        return "Postagem Atualizada com Sucesso";
+            foreach ($imagens as $imagem) {
+                $imagemPostagem = new ImagemPostagem();
+                $imagemPostagem->postagem_id = $postagem->id;
+                $imagemPostagem->imagem = $imagem->store('ImagemPostagem/' . $postagem->id);
+                $imagemPostagem->save();
+                unset($imagemPostagem);
+            }
+        }
+
+        if ($request->hasFile("arquivos")) {
+            $arquivos = $request->file("arquivos");
+
+            foreach ($arquivos as $arquivo) {
+                $arquivoPostagem = new ArquivoPostagem();
+                $arquivoPostagem->postagem_id = $postagem->id;
+                $arquivoPostagem->nome = $arquivo->getClientOriginalName();
+                $arquivoPostagem->path = $arquivo->store('ArquivoPostagem/' . $postagem->id);
+                $arquivoPostagem->save();
+                unset($arquivoPostagem);
+            }
+        }
+
+        return redirect('postagem')->with('success', 'Postagem Alterada com Sucesso');
+    }
+
+    public function destroy($id)
+    {
+        $postagem =  Postagem::findOrFail($id);
+        $postagem->delete();
+        return back()->with('success', 'Postagem Excluída com Sucesso');
+    }
+
+    public function deleteImagem($id)
+    {
+        $imagem = ImagemPostagem::findOrFail($id);
+        
+        if (File::exists("storage/"  . $imagem->imagem)) {
+            File::delete("storage/"  . $imagem->imagem);
+        }
+        $imagem->delete();
+        return back();
+    }
+
+    public function deleteArquivo($id)
+    {
+        $arquivo = ArquivoPostagem::findOrFail($id);
+        
+        if (File::exists("storage/"  . $arquivo->path)) {
+            File::delete("storage/"  . $arquivo->path);
+        }
+        $arquivo->delete();
+        return back();
     }
 }

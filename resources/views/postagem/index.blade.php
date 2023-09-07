@@ -39,9 +39,15 @@
                                         <td>{{ $postagem->titulo }}</td>
                                         <td>{{ date_format($postagem->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td>
-                                            <a href="{{ route('edit_postagem', $postagem->id) }}"
-                                                class="btn btn-primary btn-sm">Editar</a>
-                                            <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+                                            <form method="POST"
+                                                action="{{ route('destroy_postagem', $postagem->id) }}">
+                                                @csrf
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                <a href="{{ route('edit_postagem', $postagem->id) }}"
+                                                    class="btn btn-primary btn-sm">Editar</a>
+                                                <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

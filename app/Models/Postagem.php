@@ -12,7 +12,13 @@ class Postagem extends Model {
         'titulo',
         'texto',
         'tipo_postagem_id',
-        'imagem',
-        'arquivo'
     ];
+
+    public function imagens(){
+        return $this->hasMany(ImagemPostagem::class);
+    }
+
+    public function arquivos(){
+        return $this->hasMany(ArquivoPostagem::class);
+    }
 }

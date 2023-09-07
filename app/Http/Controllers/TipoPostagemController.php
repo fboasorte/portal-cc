@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TipoPostagem;
+use Exception;
 use Illuminate\Http\Request;
 
 class TipoPostagemController extends Controller
@@ -23,8 +24,7 @@ class TipoPostagemController extends Controller
         TipoPostagem::create([
             'nome' => $request->nome
         ]);
-
-        return "Tipo Postagem Criado com Sucesso";
+        return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Criado com Sucesso');
     }
 
     public function edit($id)
@@ -41,7 +41,13 @@ class TipoPostagemController extends Controller
             'nome' => $request->nome
         ]);
 
+        return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Alterado com Sucesso');
+    }
 
-        return "Tipo Postagem Atualizado com Sucesso";
+    public function destroy($id)
+    {
+        $tipo_postagem =  TipoPostagem::findOrFail($id);
+        $tipo_postagem->delete();
+        return back()->with('success', 'Tipo de Postagem Excluido com Sucesso');
     }
 }
