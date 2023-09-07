@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\URL;
 
 class PostagemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $postagens = Postagem::all();
-        return view('postagem.index')->with('postagens', $postagens);
+        $buscar = $request->buscar;
+        if ($buscar) {
+            $postagens = Postagem::where('titulo', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $postagens = Postagem::all();
+        }
+
+        return view('postagem.index', ['postagens' => $postagens, 'buscar' => $buscar]);
     }
 
     public function create()
@@ -121,7 +127,7 @@ class PostagemController extends Controller
     public function deleteImagem($id)
     {
         $imagem = ImagemPostagem::findOrFail($id);
-        
+
         if (File::exists("storage/"  . $imagem->imagem)) {
             File::delete("storage/"  . $imagem->imagem);
         }
@@ -132,7 +138,7 @@ class PostagemController extends Controller
     public function deleteArquivo($id)
     {
         $arquivo = ArquivoPostagem::findOrFail($id);
-        
+
         if (File::exists("storage/"  . $arquivo->path)) {
             File::delete("storage/"  . $arquivo->path);
         }

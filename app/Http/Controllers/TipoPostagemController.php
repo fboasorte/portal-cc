@@ -8,10 +8,17 @@ use Illuminate\Http\Request;
 
 class TipoPostagemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tipo_postagens = TipoPostagem::all();
-        return view('tipo-postagem.index')->with('tipo_postagens', $tipo_postagens);
+        $buscar = $request->buscar;
+
+        if ($buscar) {
+            $tipo_postagens = TipoPostagem::where('nome', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $tipo_postagens = TipoPostagem::all();
+        }
+
+        return view('tipo-postagem.index', ['tipo_postagens' => $tipo_postagens, 'buscar' => $buscar]);
     }
 
     public function create()

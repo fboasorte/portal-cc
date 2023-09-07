@@ -8,9 +8,11 @@
         <div class="col-md-12">
             <form action="" method="get">
                 <div class="input-group mb-3">
-                    <input type="text" class="search-control" placeholder="Buscar Tipo" aria-label="Buscar"
-                        aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+                    <form action="" method="get">
+                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
+                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+                    </form>
                 </div>
             </form>
         </div>
@@ -39,8 +41,7 @@
                                         <td>{{ $postagem->titulo }}</td>
                                         <td>{{ date_format($postagem->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td>
-                                            <form method="POST"
-                                                action="{{ route('destroy_postagem', $postagem->id) }}">
+                                            <form method="POST" action="{{ route('destroy_postagem', $postagem->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <a href="{{ route('edit_postagem', $postagem->id) }}"
