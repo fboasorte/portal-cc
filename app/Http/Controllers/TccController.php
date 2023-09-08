@@ -60,17 +60,35 @@ class TccController extends Controller
         return 'TCC alterado com sucesso';
     }
 
-    public function deleteView() {
+    public function deleteView($id) {
+        $tcc = Tcc::find($id);
 
+        return view('tcc.delete', ['tcc' => $tcc]);
     }
 
-    public function deleteTcc() {
+    public function deleteTcc(Request $request, $id) {
+        $tcc = Tcc::findOrFail($id);
 
+        if($request->input('submit') == 1) {
+            $tcc->delete();
+        } else {
+            return redirect('/tcc');
+        }
+
+        return 'TCC removido com sucesso';
     }
 
-    public function search() {
+    public function search(Request $request) {
+        $tituloBusca = $request->tituloBusca;
 
+        if(!$tituloBusca) {
+            return redirect('/tcc');
+        }
+
+        $tccs = Aluno::join('tcc', 'aluno.id', '=', 'tcc.aluno_id')
+        ->where('tcc.titulo', 'like', '%'.$tituloBusca.'%')
+        ->get();
+
+        return view('tcc.index', ['tccs' => $tccs]);
     }
-
-
 }

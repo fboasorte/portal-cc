@@ -7,9 +7,9 @@
 <h1>Gerenciar TCC</h1>
     <div class="row">
         <div class="col-md-12">
-            <form action="" method="get">
+            <form action="{{ route('search_tcc') }}" method="get">
                 <div class="input-group mb-3">
-                    <input type="text" name="" class="search-control" placeholder="Buscar título de TCC" aria-label="Buscar" aria-describedby="button-addon2">
+                    <input type="text" name="tituloBusca" class="search-control" placeholder="Buscar título de TCC" aria-label="Buscar" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
                 </div>
             </form>
@@ -40,7 +40,7 @@
                                     <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
                                     <td>
                                         <a href="{{ route('edit_tcc', [$tcc->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                                        <a href="" class="btn btn-danger btn-sm">Excluir</a>
+                                        <a href="{{ route('delete_view', [$tcc->id]) }}" class="btn btn-danger btn-sm">Excluir</a>
                                     </td>
                                 </tr>
                                 @endforeach
