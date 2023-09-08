@@ -9,7 +9,11 @@ use Illuminate\Http\Request;
 class TccController extends Controller
 {
     public function index(){
-        $tccs = Tcc::join('aluno', 'aluno.id', '=', 'tcc.aluno_id')->get();
+        // $tccs = Tcc::join('aluno','tcc.aluno_id', '=', 'aluno.id');
+        // $tccs = Tcc::join('aluno', 'aluno.id', '=', 'tcc.aluno_id')->get();
+        // $tccs = Aluno::join('tcc', 'tcc.aluno_id', '=', 'aluno.id');
+
+        $tccs = Aluno::join('tcc', 'aluno.id', '=', 'tcc.aluno_id')->get();
 
         return view('tcc.index', ['tccs' => $tccs]);
     }
@@ -35,15 +39,25 @@ class TccController extends Controller
     }
 
     public function edit($id) {
-        $tcc = Tcc::join('aluno', 'aluno.id', '=', 'tcc.aluno_id')
-        ->where('tcc.id', '=', $id)
-        ->get();
+        $tcc = Tcc::find($id);
+        $alunos = Aluno::pluck('nome', 'id');
+        $alunoId = $tcc->aluno_id;
 
-        return view('tcc.edit', ['tcc' => $tcc]);
+        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos,'id' => $alunoId]);
     }
 
-    public function update() {
+    public function update(Request $request, $id) {
+        $tcc = Tcc::find($request->id);
 
+        $tcc->update([
+            'titulo' => $request->titulo,
+            'resumo' => $request->resumo,
+            'link' => $request->link,
+            'ano' => $request->data,
+            'aluno_id' => $request->aluno_id
+        ]);
+
+        return 'TCC alterado com sucesso';
     }
 
     public function deleteView() {

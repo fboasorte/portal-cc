@@ -26,7 +26,7 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Título</th>
+                                    <th>Título (id)</th>
                                     <th>Resumo</th>
                                     <th>Aluno (id)</th>
                                     <th>Ação</th>
@@ -35,7 +35,7 @@
                             <tbody>
                                 @foreach($tccs as $tcc)
                                 <tr>
-                                    <td>{{ $tcc->titulo }}</td>
+                                    <td>{{ $tcc->titulo }} ({{ $tcc->id }})</td>
                                     <td>{{ $tcc->resumo }}</td>
                                     <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
                                     <td>

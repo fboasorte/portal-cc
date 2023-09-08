@@ -1,25 +1,26 @@
-@extends('lauouts.tccLayout')
+@extends('layouts.tccLayout')
 
 @section('title', 'Editar TCC')
 
 @section('content')
-    <form method="post" action="{{ route('update_tcc') }}">
+    <h1>Editar TCC</h1>
+    <form method="post" action="{{ route('update_tcc', [$tcc->id]) }}">
         @csrf
         <div class="form-group">
             <label for="titulo">Título</label>
-            <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título do TCC" required>
+            <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título do TCC" value="{{ $tcc->titulo }}" required>
         </div>
         <div class="form-group">
             <label for="resumo">Resumo</label>
-            <textarea name="resumo" id="resumo" cols="30" rows="8" class="form-control" placeholder="Resumo" required></textarea>
+            <textarea name="resumo" id="resumo" cols="30" rows="8" class="form-control" placeholder="Resumo" value="{{ $tcc->resumo }}" required>{{ $tcc->resumo }}</textarea>
         </div>
         <div class="form-group">
             <label for="link">Link</label>
-            <input type="url" name="link" id="link" class="form-control" placeholder="Possui link? Coloque aqui">
+            <input type="url" name="link" id="link" class="form-control" placeholder="Possui link? Coloque aqui" value="{{ $tcc->link }}">
         </div>
         <div>
             <label for="data">Data</label>
-            <input type="date" name="data" id="data" class="form-control" required>
+            <input type="date" name="data" id="data" class="form-control" required value="{{ $tcc->ano }}">
         </div>
         <div>
             <label>Aluno</label>
