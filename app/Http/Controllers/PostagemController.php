@@ -16,7 +16,7 @@ class PostagemController extends Controller
 
     public function create()
     {
-        $tipo_postagens = TipoPostagem::pluck('nome', 'id');
+        $tipo_postagens = TipoPostagem::p('nome', 'id');
 
         $id = 1;
 

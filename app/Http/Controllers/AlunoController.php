@@ -13,8 +13,7 @@ class AlunoController extends Controller
         return view('aluno.index', ['alunos' => $alunos]);
     }
 
-    public function create()
-    {
+    public function create() {
         return view('aluno.create');
     }
 
