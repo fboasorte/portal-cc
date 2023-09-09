@@ -4,6 +4,7 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,3 +63,5 @@ Route::prefix('/aluno')->group(function () {
 
     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });
+
+Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')->except(['show']);
