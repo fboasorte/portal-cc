@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,12 @@ Route::post('/postagem/create', [PostagemController::class, 'store'])->name('sto
 Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('edit_postagem');
 
 Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
+
+// Professor
+Route::get('/professor/create', [ProfessorController::class, 'create'])->name('create_professor');
+Route::post('/professor/create', [ProfessorController::class, 'store'])->name('store_professor');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
