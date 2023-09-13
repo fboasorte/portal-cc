@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Projeto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjetoController extends Controller
 {
@@ -41,6 +42,7 @@ class ProjetoController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_termino' => $request->data_termino,
             'resultados' => $request->resultados,
+            'professor_id' => $request->professor_id,
         ]);
 
         $projeto->save();
@@ -70,6 +72,7 @@ class ProjetoController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_termino' => $request->data_termino,
             'resultados' => $request->resultados,
+            'professor_id' => $request->professor_id,
         ]);
 
         return redirect('projeto')->with('success', 'Projeto Alterado com Sucesso');
@@ -83,5 +86,25 @@ class ProjetoController extends Controller
         $projeto = Projeto::findOrFail($id);
         $projeto->delete();
         return back()->with('success', 'Projeto Excluído com Sucesso');
+    }
+
+        /**
+     * Show the application dataAjax.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buscaProfessor(Request $request)
+    {
+    	$data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table("professor")
+            		->select("id","nome")
+            		->where('nome','LIKE',"%$search%")
+            		->get();
+        }
+
+        return response()->json($data);
     }
 }

@@ -18,10 +18,15 @@ class Projeto extends Model
         'resultados',
         'data_inicio',
         'data_termino',
-        'palavras_chave'
+        'palavras_chave',
+        'professor_id'
     ];
 
     public function alunos(){
         return $this->hasMany(Aluno::class);
+    }
+
+    public function professor(){
+        return $this->belongsTo(Professor::class);
     }
 }

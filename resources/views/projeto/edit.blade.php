@@ -33,8 +33,38 @@
                 placeholder="Palavras Chave" required>
         </div>
 
+        <div class="form-group">
+            <label for="professor_id">Professor Responsável</label>
+            <select class="professor_id form-control" style="width:500px;" name="professor_id" id="professor_id">
+                <option value="{{ $projeto->professor_id }}" selected>
+                    {{ $projeto->professor->nome }}
+                </option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Salvar</button>
 
     </form>
 
+    <script type="text/javascript">
+        $('.professor_id').select2({
+            placeholder: 'Selecione o professor responsável',
+            ajax: {
+                url: '/projeto/busca-professor',
+                dataType: 'json',
+                delay: 250,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.nome,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
 @stop
