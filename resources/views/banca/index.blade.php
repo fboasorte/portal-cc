@@ -40,7 +40,10 @@
                                         <td>{{ $banca->id }}</td>
                                         <td>{{ date('d-m-Y', strtotime($banca->data)) }}</td>
                                         <td>{{ $banca->local }}</td>
-                                        <td>{{ $banca->professoresExternos }}</td>
+                                        <td>@foreach ($banca->professoresExternos as $professor)
+                                                <p>{{$professor->nome}}</p>
+                                            @endforeach
+                                        </td>
                                         <td>
                                             <form method="POST"
                                                 action="{{ route('banca.destroy', $banca->id) }}">
