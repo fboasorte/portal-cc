@@ -29,9 +29,9 @@ Route::resource('tipo-postagem', TipoPostagemController::class)->parameter('tipo
 // Postagem
 Route::resource('postagem', PostagemController::class)->parameter('postagem', 'id')->except(['show']);
 
-Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('delete_imagem_postagem');
+Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('postagem.delete_imagem');
 
-Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('delete_arquivo_postagem');
+Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('postagem.delete_arquivo');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

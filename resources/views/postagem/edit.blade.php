@@ -56,7 +56,7 @@
     @if (count($postagem->imagens) > 0)
         @foreach ($postagem->imagens as $img)
             <form id="deletar-imagens{{ $img->id }}"
-                action="{{ route('delete_imagem_postagem', ['id' => $img->id]) }}" method="post">
+                action="{{ route('postagem.delete_imagem', ['id' => $img->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>
@@ -66,7 +66,7 @@
     @if (count($postagem->arquivos) > 0)
         @foreach ($postagem->arquivos as $arquivo)
             <form id="deletar-arquivos{{ $arquivo->id }}"
-                action="{{ route('delete_arquivo_postagem', ['id' => $arquivo->id]) }}" method="post">
+                action="{{ route('postagem.delete_arquivo', ['id' => $arquivo->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>
