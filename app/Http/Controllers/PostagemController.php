@@ -47,6 +47,7 @@ class PostagemController extends Controller
             'titulo' => $request->titulo,
             'texto' => $request->texto,
             'tipo_postagem_id' => $request->tipo_postagem_id,
+            'menu_inicial' => $request->has('menu_inicial')
         ]);
 
         $postagem->save();

@@ -25,7 +25,10 @@
                 @endforeach
             </select>
         </div>
-
+        <div class="form-group">
+            <label for="tipo_postagem">Exibe no menu inicial?</label>
+            <input type="checkbox" name="menu_inicial" id="menu_inicial" {{$postagem->menu_inicial ? 'checked' : ''}}>
+        </div>
         <div class="form-group">
             <label for="imagem">Imagem</label>
             @if (count($postagem->imagens) > 0)

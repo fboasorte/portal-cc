@@ -24,6 +24,10 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="tipo_postagem">Exibe no menu inicial?</label>
+            <input type="checkbox" name="menu_inicial" id="menu_inicial">
+        </div>
+        <div class="form-group">
             <label for="imagens">Imagens</label>
             <input type="file" name="imagens[]" id="imagens" class="form-control" multiple>
         </div>

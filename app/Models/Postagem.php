@@ -12,6 +12,7 @@ class Postagem extends Model {
         'titulo',
         'texto',
         'tipo_postagem_id',
+        'menu_inicial',
     ];
 
     public function imagens(){
