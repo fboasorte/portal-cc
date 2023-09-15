@@ -79,8 +79,17 @@ Route::prefix('/aluno')->group(function(){
     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });
 
-// TCC
 
+// PROFESSOR EXTERNO
+Route::resource('professor-externo', professorExternoController::class)->parameter('professor-externo', 'id')
+->except(['show']);
+
+//BANCA
+Route::resource('banca', BancaController::class)->parameter('banca', 'id')
+->except(['show']);
+
+
+// TCC
 Route::prefix('/tcc')->group(function() {
     Route::get('/', [TccController::class, 'index']);
 
