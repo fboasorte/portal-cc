@@ -23,7 +23,7 @@ class Projeto extends Model
     ];
 
     public function alunos(){
-        return $this->hasMany(Aluno::class);
+        return $this->belongsToMany(Projeto::class, 'alunos_projetos', 'aluno_id', 'projeto_id');
     }
 
     public function professor(){

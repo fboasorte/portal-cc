@@ -12,4 +12,8 @@ class Aluno extends Model {
     protected $fillable = [
         'nome'
     ];
+
+    public function projetos(){
+        return $this->belongsToMany(Projeto::class, 'alunos_projetos', 'projeto_id', 'aluno_id');
+    }
 }
