@@ -68,7 +68,7 @@ Route::prefix('/aluno')->group(function () {
 });
 
 // PROFESSOR EXTERNO
-Route::resource('professor-externo', professorExternoController::class)->parameter('professor-externo', 'id')
+Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
 ->except(['show']);
 
 //BANCA

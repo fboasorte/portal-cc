@@ -11,13 +11,15 @@
         <label for="local">Local</label>
         <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca" required>
 
-        <label for="">Professores</label> <br>
+        <div class="form-group">
+            <label for="professores">Professores</label>
 
-        <div>
-            @for($i = 0; $i < count($professores_externos); $i++)
-            <input type="checkbox" name="professor_{{$i}}" id="">
-            <label for="">{{$professores_externos[$i]->nome}}</label> <br>
-            @endfor
+            @foreach ($professores_externos as $professor_externo)
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="professores_externos[]" id="{{$professor_externo->id}}" value="{{$professor_externo->id}}">
+                <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
+            </div>
+            @endforeach
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>

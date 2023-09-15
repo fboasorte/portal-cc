@@ -38,10 +38,19 @@ class BancaController extends Controller
      */
     public function store(Request $request)
     {
-        Banca::create([
+
+        $banca = Banca::create([
             'data' => $request->data,
             'local' => $request->local
         ]);
+
+        foreach($request->professores_externos as $professor_externo_id) {
+            $professor_externo = ProfessorExterno::findOrFail($professor_externo_id);
+
+            $banca->professoresExternos()->attach($professor_externo);
+        }
+
+
 
         return redirect('banca')->with('success', 'Banca criada com sucesso');
     }

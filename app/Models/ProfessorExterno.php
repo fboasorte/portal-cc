@@ -14,6 +14,7 @@ class ProfessorExterno extends Model
     ];
 
     public function bancas() {
-        return $this->belongsTo('App\Models\Banca');
+        return $this->belongsToMany(Banca::class, 'banca_professor_externo', 'professor_externo_id', 'banca_id');
+
     }
 }

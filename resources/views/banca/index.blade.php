@@ -30,6 +30,7 @@
                                     <th>ID</th>
                                     <th>Data</th>
                                     <th>Local</th>
+                                    <th>Membros</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -39,6 +40,7 @@
                                         <td>{{ $banca->id }}</td>
                                         <td>{{ date('d-m-Y', strtotime($banca->data)) }}</td>
                                         <td>{{ $banca->local }}</td>
+                                        <td>{{ $banca->professoresExternos }}</td>
                                         <td>
                                             <form method="POST"
                                                 action="{{ route('banca.destroy', $banca->id) }}">

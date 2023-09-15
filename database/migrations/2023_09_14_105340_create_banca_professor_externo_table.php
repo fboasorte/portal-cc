@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('professor_externo_banca', function (Blueprint $table) {
+        Schema::create('banca_professor_externo', function (Blueprint $table) {
             $table->foreignId('professor_externo_id')
             ->references('id')->on('professor_externo')
             ->onDelete('CASCADE')
@@ -23,8 +23,6 @@ return new class extends Migration
             ->onDelete('CASCADE')
             ->onUpdate('CASCADE')
             ->constrained();
-
-            $table->timestamps();
         });
     }
 
