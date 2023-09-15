@@ -8,7 +8,7 @@
         <form method="post">
             <div class="mb-3">
                 <label class="mt-5" for="nome">Nome</label>
-                <input class="form-control" id="nome" name="nome" type="text">
+                <input class="form-control" id="nome" name="nome" type="text" required>
             </div>
             <div class="mb-3">
                 <label for="email">Email</label>
@@ -16,7 +16,7 @@
             </div>
             <div class="mb-3">
                 <label class="mt-5" for="login">Login</label>
-                <input class="form-control" id="login" name="login" type="text">
+                <input class="form-control" id="login" name="login" type="text" required>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Cadastrar</button>
         </form>

@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('professor', function (Blueprint $table) {
             $table->id();
-            $table->string("titulacao");
-            $table->string("curriculo");
-            $table->string("biografia");
+            $table->string("titulacao")->nullable();
+            $table->string("curriculo")->nullable();
+            $table->string("biografia")->nullable();
             $table->foreignId('servidor_id')->constrained(
                 table: 'servidor'
             );
-            $table->string("area");
-            $table->string("foto");
+            $table->string("foto")->nullable();
             $table->timestamps();
         });
     }
