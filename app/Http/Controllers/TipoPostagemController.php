@@ -7,33 +7,55 @@ use Illuminate\Http\Request;
 
 class TipoPostagemController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
     {
-        $tipo_postagens = TipoPostagem::all();
-        return view('tipo-postagem.index')->with('tipo_postagens', $tipo_postagens);
+        $buscar = $request->buscar;
+
+        if ($buscar) {
+            $tipo_postagens = TipoPostagem::where('nome', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $tipo_postagens = TipoPostagem::all();
+        }
+
+        return view('tipo-postagem.index', ['tipo_postagens' => $tipo_postagens, 'buscar' => $buscar]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('tipo-postagem.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         TipoPostagem::create([
             'nome' => $request->nome
         ]);
 
-        return "Tipo Postagem Criado com Sucesso";
+        return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Criado com Sucesso');
     }
 
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
         return view('tipo-postagem.edit', ['tipo_postagem' => $tipo_postagem]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
 
@@ -41,7 +63,16 @@ class TipoPostagemController extends Controller
             'nome' => $request->nome
         ]);
 
+        return redirect('tipo-postagem')->with('success', 'Tipo de Postagem Alterado com Sucesso');
+    }
 
-        return "Tipo Postagem Atualizado com Sucesso";
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $tipo_postagem =  TipoPostagem::findOrFail($id);
+        $tipo_postagem->delete();
+        return back()->with('success', 'Tipo de Postagem Excluido com Sucesso');
     }
 }

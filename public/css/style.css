@@ -1,0 +1,153 @@
+.header-1 {
+    background-color: #1c2c4c;
+    color: #fff;
+}
+
+.container-1 {
+   padding-left: 30px;
+   padding-right: 30px;
+}
+
+.search-icon {
+    cursor: pointer;
+}
+
+.search-input {
+    display: none;
+}
+
+.search-input input {
+    height: 24px; 
+    width: 200px;
+}
+
+.search-input.active {
+    display: inline-block;
+}
+
+.separator {
+    padding-right: 10px;
+    color: #fff; 
+}
+
+.navbar-divider {
+    width: 98%; 
+    margin: 0 auto; 
+    height: 1px;
+    background-color: #d3d3d3;
+}
+
+.custom-navbar {
+    font-size: 20px;
+    padding: 20px;    
+}
+
+.logo {
+    width: 200px; 
+    height: auto; 
+    margin-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dropdown-item-custom {
+    margin-left: 60px;
+}
+
+.custom-navbar-collapse{
+    padding-right: 80px;
+}
+
+@media screen and (max-width: 750px) {
+    .header-1 .fs-6 {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 990px) {
+    .custom-navbar-collapse{
+        padding-right: 0px;
+    }
+    .dropdown-item-custom {
+        margin-left: 0px;
+    }
+}
+
+.custom-container {
+    background-color: #1c2c4c;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.smaller-font {
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 5px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+/* ------------------------------- */
+#demo.carousel {
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.carousel-inner{
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+
+.carousel-image {
+    min-width: 100%; 
+    height: auto; 
+    object-fit: cover;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn.custom-button {
+    background-color: #1c2c4c;
+    color: #ffffff;
+}
+
+
+.btn.custom-button:hover {
+    background-color: #2e3e6d; 
+    color: #ffffff;
+}
+.div_filtro{
+    margin-top: 40px;
+}
+
+.h4_filtro{
+    font-size: 20px;
+}
+
+.custom-button-castastrar-tcc{
+    margin-bottom: 20px;
+}
+
+.container-excluir{
+    margin-top: 50px;
+}
+
+.card-header.text-white.div-tcc{
+    background-color: #1c2c4c;
+}

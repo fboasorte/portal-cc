@@ -3,7 +3,7 @@
 @section('title', 'Criar Postagem')
 
 @section('content')
-    <form method="post" action="{{ route('store_postagem') }}">
+    <form method="post" action="{{ route('postagem.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="titulo">Título</label>
@@ -24,12 +24,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="imagem">Imagem</label>
-            <input type="file" name="imagem" id="imagem" class="form-control">
+            <label for="imagens">Imagens</label>
+            <input type="file" name="imagens[]" id="imagens" class="form-control" multiple>
         </div>
         <div class="form-group">
-            <label for="arquivo">Arquivo</label>
-            <input type="file" name="arquivo" id="arquivo" class="form-control">
+            <label for="arquivos">Arquivos</label>
+            <input type="file" name="arquivos[]" id="arquivos" class="form-control" multiple>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 

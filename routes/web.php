@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\BancaController;
 use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TccController;
@@ -24,29 +26,15 @@ Route::get('/', function () {
 });
 
 // TipoPostagem
-Route::get('/tipo-postagem', [TipoPostagemController::class, 'index']);
-Route::get('/tipo-postagem/index', [TipoPostagemController::class, 'index']);
-
-Route::get('/tipo-postagem/create', [TipoPostagemController::class, 'create'])->name('create_tipo_postagem');
-
-Route::post('/tipo-postagem/create', [TipoPostagemController::class, 'store'])->name('store_tipo_postagem');
-
-Route::get('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'edit'])->name('edit_tipo_postagem');
-
-Route::post('/tipo-postagem/edit/{id}', [TipoPostagemController::class, 'update'])->name('update_tipo_postagem');
-
+Route::resource('tipo-postagem', TipoPostagemController::class)->parameter('tipo-postagem', 'id')->except(['show']);
 
 // Postagem
-Route::get('/postagem', [PostagemController::class, 'index']);
-Route::get('/postagem/index', [PostagemController::class, 'index']);
+Route::resource('postagem', PostagemController::class)->parameter('postagem', 'id')->except(['show']);
 
-Route::get('/postagem/create', [PostagemController::class, 'create'])->name('create_postagem');
+Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('postagem.delete_imagem');
 
-Route::post('/postagem/create', [PostagemController::class, 'store'])->name('store_postagem');
+Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('postagem.delete_arquivo');
 
-Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('edit_postagem');
-
-Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -57,11 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // ALUNO
 
-Route::prefix('/aluno')->group(function(){
+Route::prefix('/aluno')->group(function () {
     Route::get('/', [AlunoController::class, 'index']);
 
     Route::get('/create', [AlunoController::class, 'create'])->name('create_aluno');
@@ -79,6 +67,14 @@ Route::prefix('/aluno')->group(function(){
     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });
 
+//BANCA
+Route::resource('banca', BancaController::class)->parameter('banca', 'id')->except(['show']);
+
+//PROFESSOR EXTERNO
+Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')->except(['show']);
+
+
+// TCC
 
 // PROFESSOR EXTERNO
 Route::resource('professor-externo', professorExternoController::class)->parameter('professor-externo', 'id')

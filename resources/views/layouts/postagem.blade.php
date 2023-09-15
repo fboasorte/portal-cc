@@ -25,6 +25,8 @@
 
 
     <div class="container">
+        @include('layouts.flash-message')
+        
         @yield('content')
     </div>
 </body>
