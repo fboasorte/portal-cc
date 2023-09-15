@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\BancaController;
 use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TccController;
@@ -64,6 +66,13 @@ Route::prefix('/aluno')->group(function () {
 
     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
 });
+
+//BANCA
+Route::resource('banca', BancaController::class)->parameter('banca', 'id')->except(['show']);
+
+//PROFESSOR EXTERNO
+Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')->except(['show']);
+
 
 // TCC
 
