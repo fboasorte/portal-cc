@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TccController;
-use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +32,10 @@ Route::resource('postagem', PostagemController::class)->parameter('postagem', 'i
 Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('postagem.delete_imagem');
 
 Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('postagem.delete_arquivo');
+
+// Professor
+Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
