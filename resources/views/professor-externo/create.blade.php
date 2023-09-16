@@ -12,5 +12,6 @@
         <input type="text" name="filiacao" id="filiacao" class="form-control" placeholder="Nome da instituição de filiação" required>
     </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{{ route('professor-externo.index') }}">Cancelar</a>
 </form>
 @stop

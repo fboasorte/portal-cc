@@ -16,12 +16,16 @@
 
             @foreach ($professores_externos as $professor_externo)
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="professores_externos[]" id="{{$professor_externo->id}}" value="{{$professor_externo->id}}">
+                <input type="checkbox" class="form-check-input" name="professores_externos[]" id="{{$professor_externo->id}}" value="{{$professor_externo->id}}"
+
+                >
                 <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
             </div>
             @endforeach
+            <a href="{{ route('professor-externo.create') }}">Cadastrar professor externo</a>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{{ route('banca.index') }}">Cancelar</a>
 </form>
 @stop

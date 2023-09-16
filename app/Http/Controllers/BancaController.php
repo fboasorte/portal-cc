@@ -68,8 +68,10 @@ class BancaController extends Controller
      */
     public function edit(string $id)
     {
+        $professores_externos = ProfessorExterno::all();
         $banca = Banca::findOrFail($id);
-        return view('banca.edit', ['banca' => $banca]);
+
+        return view('banca.edit', ['banca' => $banca, 'professores_externos' => $professores_externos]);
     }
 
     /**
@@ -82,6 +84,8 @@ class BancaController extends Controller
             'data' => $request->data,
             'local' => $request->local
         ]);
+
+        $banca->professoresExternos()->sync($request->professores_externos);
 
         return redirect('banca')->with('success', 'Banca alterada com Sucesso');
     }

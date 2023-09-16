@@ -48,26 +48,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 // ALUNO
-
-Route::resource('aluno', AlunoController::class)->parameter('aluno', 'id')->except(['show']);
-
-// Route::prefix('/aluno')->group(function () {
-//     Route::get('/', [AlunoController::class, 'index']);
-
-//     Route::get('/create', [AlunoController::class, 'create'])->name('create_aluno');
-
-//     Route::post('/create', [AlunoController::class, 'store'])->name('store_aluno');
-
-//     Route::get('/edit/{id}', [AlunoController::class, 'edit'])->name('edit_aluno');
-
-//     Route::post('/edit/{id}', [AlunoController::class, 'update'])->name('update_aluno');
-
-//     Route::get('/delete/{id}', [AlunoController::class, 'deleteConfirm'])->name('delete_aluno_confirm');
-
-//     Route::post('/delete/{id}', [AlunoController::class, 'deleteAluno'])->name('delete_aluno');
-
-//     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
-// });
+Route::resource('aluno', AlunoController::class)->parameter('aluno', 'id')
+->except(['show']);
 
 // PROFESSOR EXTERNO
 Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
@@ -78,23 +60,5 @@ Route::resource('banca', BancaController::class)->parameter('banca', 'id')
 ->except(['show']);
 
 // TCC
-
-Route::resource('tcc', TccController::class)->parameter('tcc', 'id')->except(['show']);
-
-Route::prefix('/tcc')->group(function() {
-    Route::get('/', [TccController::class, 'index'])->name('tcc');
-
-    Route::get('/create', [TccController::class, 'create'])->name('create_tcc');
-
-    Route::post('/store', [TccController::class, 'store'])->name('store_tcc');
-
-    Route::get('/edit/{id}', [TccController::class, 'edit'])->name('edit_tcc');
-
-    Route::post('/edit/{id}', [TccController::class, 'update'])->name('update_tcc');
-
-    Route::get('/delete/{id}', [TccController::class, 'deleteView'])->name('delete_view');
-
-    Route::post('/delete/{id}', [TccController::class, 'deleteTcc'])->name('delete_tcc');
-
-    Route::get('/serach{tituloBusca?}', [TccController::class, 'search'])->name('search_tcc');
-});
+Route::resource('tcc', TccController::class)->parameter('tcc', 'id')
+->except(['show']);
