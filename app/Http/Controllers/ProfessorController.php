@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AreaProfessor;
+use App\Models\CurriculoProfessor;
 use App\Models\Professor;
 use App\Models\Servidor;
 use App\Models\Usuario;
@@ -30,7 +32,11 @@ class ProfessorController extends Controller
     public function show($servidor_id){
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
-        return view('professor.view', ['professor' => $professor, 'servidor' => $servidor]);
+        $areas = AreaProfessor::where('professor_id', $professor->id)->get();
+        $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+        
+        return view('professor.view',
+            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]);
     }
 
     public function store(Request $request){

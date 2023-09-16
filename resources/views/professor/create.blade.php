@@ -18,5 +18,7 @@
             <input class="form-control" id="login" name="login" type="text" required>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Cadastrar</button>
+        <!-- <a href="{{ URL::previous() }}" class="btn btn-primary">Voltar</a> -->
+        <a href="{{ route('professor.index') }}" class="btn btn-primary">Voltar</a>
     </form>
 @stop
