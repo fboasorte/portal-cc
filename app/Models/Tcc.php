@@ -12,10 +12,14 @@ class Tcc extends Model
 
 
     protected $fillable = [
-        'titulo', 'resumo', 'link', 'ano', 'aluno_id'
+        'titulo', 'resumo', 'link', 'ano', 'aluno_id', 'banca_id'
     ];
 
     public function aluno() {
         return $this->hasOne(Aluno::class, 'id', 'aluno_id');
+    }
+
+    public function banca() {
+        return $this->hasOne(Banca::class, 'id', 'banca_id');
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Models\Banca;
 use App\Models\Tcc;
 use Illuminate\Http\Request;
 
 class TccController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
         $tccs = Aluno::join('tcc', 'aluno.id', '=', 'tcc.aluno_id')->get();
 
         return view('tcc.index', ['tccs' => $tccs]);
@@ -16,30 +18,44 @@ class TccController extends Controller
 
     public function create() {
 
+        $bancas = Banca::all();
         $alunos = Aluno::pluck('nome', 'id');
         $id = 1;
-        return view('tcc.create', ['alunos' => $alunos, 'id' => $id]);
+        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'id' => $id]);
     }
 
     public function store(Request $request) {
 
-        Tcc::create([
+
+        $tcc = Tcc::create([
             'titulo' => $request->titulo,
             'resumo' => $request->resumo,
             'link' => $request->link,
             'ano' => $request->data,
-            'aluno_id' => $request->aluno_id
+            'aluno_id' => $request->aluno_id,
+            'banca_id' => $request->banca_id
         ]);
 
-        return 'TCC cadastrado com sucesso';
+        $banca = Banca::findOrFail($request->banca_id);
+        $tcc->banca = $banca;
+
+        if($request->convite) {
+            //Criar uma postagem com os dados deste TCC
+        }
+
+        return redirect('tcc')->with('success', 'TCC cadastrado com sucesso');
     }
 
     public function edit($id) {
+
         $tcc = Tcc::find($id);
         $alunos = Aluno::pluck('nome', 'id');
         $alunoId = $tcc->aluno_id;
 
-        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos,'id' => $alunoId]);
+        // edit postagem
+
+        $bancas = Banca::all();
+        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'id' => $alunoId]);
     }
 
     public function update(Request $request, $id) {
@@ -53,25 +69,15 @@ class TccController extends Controller
             'aluno_id' => $request->aluno_id
         ]);
 
-        return 'TCC alterado com sucesso';
+        return redirect('tcc')->with('success', 'TCC atualizado com sucesso');
     }
 
-    public function deleteView($id) {
-        $tcc = Tcc::find($id);
-
-        return view('tcc.delete', ['tcc' => $tcc]);
-    }
-
-    public function deleteTcc(Request $request, $id) {
+    public function destroy($id) {
         $tcc = Tcc::findOrFail($id);
 
-        if($request->input('submit') == 1) {
-            $tcc->delete();
-        } else {
-            return redirect('/tcc');
-        }
+        $tcc->delete();
 
-        return 'TCC removido com sucesso';
+        return back()->with('success', 'TCC excluido com sucesso');
     }
 
     public function search(Request $request) {
@@ -87,6 +93,4 @@ class TccController extends Controller
 
         return view('tcc.index', ['tccs' => $tccs]);
     }
-
-
 }

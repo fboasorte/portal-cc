@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
-        $alunos = Aluno::all();
-        return view('aluno.index', ['alunos' => $alunos]);
+        $buscar = $request->buscar;
+
+        if ($buscar) {
+            $alunos = Aluno::where('nome', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $alunos = Aluno::all();
+        }
+
+        return view('aluno.index', ['alunos' => $alunos, 'buscar' => $buscar]);
     }
 
     public function create() {
@@ -24,7 +31,7 @@ class AlunoController extends Controller
         $aluno->nome = $request->nome;
         $aluno->save();
 
-        return redirect('/aluno');
+        return redirect('/aluno')->with('success', 'Aluno cadastrado com sucesso');
     }
 
     public function edit($id) {
@@ -41,13 +48,14 @@ class AlunoController extends Controller
             'nome' => $request->nome
         ]);
 
-        return redirect('/aluno');
+        return redirect('/aluno')->with('success', 'Aluno alterado com sucesso');
     }
 
-    public function deleteConfirm($id) {
+    public function destroy($id) {
         $aluno = Aluno::findOrFail($id);
+        $aluno->delete();
 
-        return view('aluno.delete', ['aluno' => $aluno]);
+        return back()->with('success', 'Aluno excluido com sucesso');
     }
 
     public function deleteAluno(Request $request, $id) {
@@ -58,19 +66,6 @@ class AlunoController extends Controller
             $aluno->delete();
         }
         return redirect('/aluno');
-    }
-
-    public function search(Request $request) {
-        $nomeBusca = $request->campoNomeAluno;
-
-        if(!$nomeBusca) {
-            return redirect('/aluno');
-        }
-
-        $alunos = Aluno::where('nome','like', '%'.$nomeBusca.'%')->get();
-
-        return view('aluno.index', ['alunos' => $alunos]);
-
     }
 }
 

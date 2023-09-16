@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-header text-white div-tcc">
                     TCC
-                    <a href="{{ route('create_tcc') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
+                    <a href="{{ route('tcc.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                 </div>
                 <div class="card-body">
 
@@ -44,13 +44,16 @@
                                 <td>{{ $tcc->titulo }} ({{ $tcc->id }})</td>
                                 <td>{{ $tcc->resumo }}</td>
                                 <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
-                                <td class="text-center"> 
-                                    <a href="{{ route('edit_tcc', [$tcc->id]) }}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="{{ route('delete_view', [$tcc->id]) }}" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                <td class="text-center">
+                                    <form method="POST"
+                                        action="{{ route('tcc.destroy', $tcc->id) }}">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <a href="{{ route('tcc.edit', $tcc->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                            onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
