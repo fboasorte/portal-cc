@@ -30,7 +30,7 @@ class ProfessorController extends Controller
         return view('professor.create');
     }
 
-    public function view($servidor_id){
+    public function show($servidor_id){
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         return view('professor.view', ['professor' => $professor, 'servidor' => $servidor]);
@@ -115,7 +115,7 @@ class ProfessorController extends Controller
 
     }
     
-    public function delete($servidor_id){
+    public function destroy($servidor_id){
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         Usuario::destroy($servidor->usuario_id);
@@ -123,6 +123,5 @@ class ProfessorController extends Controller
         Servidor::destroy($servidor->id);
 
         return redirect('/professor');
-
     }
 }

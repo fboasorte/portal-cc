@@ -3,7 +3,7 @@
 @section('title', 'Editar Professor')
 
 @section('content')
-    <form method="post" action="{{ route('update_professor',['id' => $servidor->id]) }}">
+    <form method="post" action="{{ route('professor.update',['id' => $servidor->id]) }}">
         @csrf
         <form method="post">
             <div class="mb-3">

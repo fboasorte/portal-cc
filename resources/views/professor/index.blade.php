@@ -7,11 +7,9 @@
     <div class="row">
             <form action="" method="get">
                 <div class="input-group mb-3">
-                    <form action="" method="get">
-                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                    </form>
+                    <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
                 </div>
             </form>
         </div>
@@ -20,7 +18,7 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         Professores
-                        <a href="{{ route('create_professor') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
+                        <a href="{{ route('professor.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
                     <div class="card-body">
 
@@ -42,11 +40,15 @@
                                         <td>{{ $servidor->email }}</td>
                                         <td>{{ date_format($servidor->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td>
-                                            <a class="btn btn-success btn-sm" href="{{ route('view_professor', $servidor->id) }}">Visualizar</a>
-                                            <a class="btn btn-primary btn-sm" href="{{ route('edit_professor', $servidor->id) }}">Editar</a>
-                                            
-                                            <a href="{{ route('delete_professor', $servidor->id) }}"><button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button></a>
+                                            <form method="POST"
+                                                action="{{ route('professor.destroy', $servidor->id) }}">
+                                                @csrf
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                <a class="btn btn-dark btn-sm" href="{{ route('professor.show', $servidor->id) }}">Visualizar</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('professor.edit', $servidor->id) }}">Editar</a>
+                                                <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                            </form>
                                         </td> 
                                     </tr>
                                 @endforeach

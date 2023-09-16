@@ -47,18 +47,8 @@ Route::get('/postagem/edit/{id}', [PostagemController::class, 'edit'])->name('ed
 Route::post('/postagem/edit/{id}', [PostagemController::class, 'update'])->name('update_postagem');
 
 // Professor
-Route::get('professor',[ProfessorController::class, 'index']);
 
-Route::get('/professor/create', [ProfessorController::class, 'create'])->name('create_professor');
-Route::post('/professor/create', [ProfessorController::class, 'store'])->name('store_professor');
-
-Route::get('/professor/edit/{id}', [ProfessorController::class, 'edit'])->name('edit_professor');
-Route::post('/professor/edit/{id}', [ProfessorController::class, 'update'])->name('update_professor');
-
-Route::get('/professor/view/{id}', [ProfessorController::class, 'view'])->name('view_professor');
-
-Route::get('professor/delete/{id}', [ProfessorController::class, 'delete'])->name('delete_professor');
-
+Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
 
 
 Route::get('/dashboard', function () {
