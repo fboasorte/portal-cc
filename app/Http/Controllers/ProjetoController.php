@@ -47,6 +47,8 @@ class ProjetoController extends Controller
 
         $projeto->save();
 
+        $projeto->alunos()->sync($request->alunos);
+
         return redirect('projeto')->with('success', 'Projeto Criado com Sucesso');
     }
 
@@ -56,7 +58,9 @@ class ProjetoController extends Controller
     public function edit(string $id)
     {
         $projeto = Projeto::findOrFail($id);
-        return view('projeto.edit', ['projeto' => $projeto]);
+
+        $alunos = $projeto->alunos()->get();
+        return view('projeto.edit', compact('projeto', 'alunos'));
     }
 
     /**
@@ -75,6 +79,8 @@ class ProjetoController extends Controller
             'professor_id' => $request->professor_id,
         ]);
 
+        $projeto->alunos()->sync($request->alunos);
+
         return redirect('projeto')->with('success', 'Projeto Alterado com Sucesso');
     }
 
@@ -88,21 +94,41 @@ class ProjetoController extends Controller
         return back()->with('success', 'Projeto Excluído com Sucesso');
     }
 
-        /**
+    /**
      * Show the application dataAjax.
      *
      * @return \Illuminate\Http\Response
      */
     public function buscaProfessor(Request $request)
     {
-    	$data = [];
+        $data = [];
 
-        if($request->has('q')){
+        if ($request->has('q')) {
             $search = $request->q;
             $data = DB::table("professor")
-            		->select("id","nome")
-            		->where('nome','LIKE',"%$search%")
-            		->get();
+                ->select("id", "nome")
+                ->where('nome', 'LIKE', "%$search%")
+                ->get();
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Show the application dataAjax.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buscaAluno(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = DB::table("aluno")
+                ->select("id", "nome")
+                ->where('nome', 'LIKE', "%$search%")
+                ->get();
         }
 
         return response()->json($data);

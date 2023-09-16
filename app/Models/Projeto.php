@@ -12,7 +12,7 @@ class Projeto extends Model
     protected $table = 'projeto';
 
     public $timestamps = false;
-    
+
     protected $fillable = [
         'descricao',
         'resultados',
@@ -22,11 +22,13 @@ class Projeto extends Model
         'professor_id'
     ];
 
-    public function alunos(){
-        return $this->belongsToMany(Projeto::class, 'alunos_projetos', 'aluno_id', 'projeto_id');
+    public function alunos()
+    {
+        return $this->belongsToMany(Aluno::class, 'alunos_projetos', 'projeto_id', 'aluno_id');
     }
 
-    public function professor(){
+    public function professor()
+    {
         return $this->belongsTo(Professor::class);
     }
 }

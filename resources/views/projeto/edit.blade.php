@@ -13,12 +13,14 @@
 
         <div class="form-group">
             <label for="titulo">Data de Início</label>
-            <input value="{{ $projeto->data_inicio }}" type="date" name="data_inicio" id="data_inicio" class="form-control" required>
+            <input value="{{ $projeto->data_inicio }}" type="date" name="data_inicio" id="data_inicio"
+                class="form-control" required>
         </div>
 
         <div class="form-group">
             <label for="titulo">Data de Termino</label>
-            <input value="{{ $projeto->data_termino }}" type="date" name="data_termino" id="data_termino" class="form-control">
+            <input value="{{ $projeto->data_termino }}" type="date" name="data_termino" id="data_termino"
+                class="form-control">
         </div>
 
         <div class="form-group">
@@ -29,8 +31,8 @@
 
         <div class="form-group">
             <label for="titulo">Palavras Chave</label>
-            <input value="{{ $projeto->palavras_chave }}" type="text" name="palavras_chave" id="palavras_chave" class="form-control"
-                placeholder="Palavras Chave" required>
+            <input value="{{ $projeto->palavras_chave }}" type="text" name="palavras_chave" id="palavras_chave"
+                class="form-control" placeholder="Palavras Chave" required>
         </div>
 
         <div class="form-group">
@@ -39,6 +41,15 @@
                 <option value="{{ $projeto->professor_id }}" selected>
                     {{ $projeto->professor->nome }}
                 </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="aluno_id">Alunos Participantes</label>
+            <select class="aluno_id form-control" style="width:500px;" name="alunos[]" id="alunos[]" multiple>
+                @foreach ($alunos as $aluno)
+                    <option value="{{ $aluno->id }}" selected> {{ $aluno->nome }}</option>
+                @endforeach
             </select>
         </div>
 
@@ -51,6 +62,26 @@
             placeholder: 'Selecione o professor responsável',
             ajax: {
                 url: '/projeto/busca-professor',
+                dataType: 'json',
+                delay: 250,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.nome,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('.aluno_id').select2({
+            placeholder: 'Selecione um aluno para o projeto',
+            ajax: {
+                url: '/projeto/busca-aluno',
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {

@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Aluno extends Model {
+class Aluno extends Model
+{
     protected $table = 'aluno';
 
     public $timestamps = false;
@@ -13,7 +14,8 @@ class Aluno extends Model {
         'nome'
     ];
 
-    public function projetos(){
-        return $this->belongsToMany(Projeto::class, 'alunos_projetos', 'projeto_id', 'aluno_id');
+    public function projetos()
+    {
+        return $this->belongsToMany(Projeto::class, 'alunos_projetos', 'aluno_id', 'projeto_id');
     }
 }

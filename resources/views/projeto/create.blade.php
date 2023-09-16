@@ -36,6 +36,12 @@
             <label for="professor_id">Professor Responsável</label>
             <select class="professor_id form-control" style="width:500px;" name="professor_id" id="professor_id"></select>
         </div>
+
+        <div class="form-group">
+            <label for="aluno_id">Alunos Participantes</label>
+            <select class="aluno_id form-control" style="width:500px;" name="alunos[]" id="alunos[]" multiple></select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 
     </form>
@@ -45,6 +51,26 @@
             placeholder: 'Selecione o professor responsável',
             ajax: {
                 url: '/projeto/busca-professor',
+                dataType: 'json',
+                delay: 250,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.nome,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('.aluno_id').select2({
+            placeholder: 'Selecione um aluno para o projeto',
+            ajax: {
+                url: '/projeto/busca-aluno',
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
