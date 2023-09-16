@@ -6,9 +6,6 @@ use App\Models\Professor;
 use App\Models\Servidor;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ContactUser;
-use PharIo\Manifest\Email;
 
 class ProfessorController extends Controller
 {
@@ -42,13 +39,12 @@ class ProfessorController extends Controller
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente
-            return redirect('/professor/create');
+            return redirect('/professor/create')->with('error', "Usuário já cadastrado no sistema!");
         }
          
         $usuario = Usuario::create([
             'login'=> $request->login,
             'senha'=> md5($request->login)
-
         ]);
 
         $servidor = Servidor::create([
@@ -67,10 +63,10 @@ class ProfessorController extends Controller
         try{
             $email->sendMail();
         } catch (\Exception $error){
-            return back()->with('erros', "Ocorreu um erro inesperado! {$error->getMessage()}");
+            return back()->with('error', "Ocorreu um erro inesperado! {$error->getMessage()}");
         }
 
-        return redirect('/professor');
+        return redirect('/professor')->with('success', "Usuário cadastrado com sucesso!");
     }
     public function edit($servidor_id){
         $servidor = Servidor::where('id', $servidor_id)->first();
@@ -79,8 +75,6 @@ class ProfessorController extends Controller
     }
 
     public function update(Request $request, $servidor_id){
-        
-        // Falta validação se o nome e email que vou alterar já existe em outo usuario;
         
         $servidor = Servidor::where('id', $servidor_id)->first();
         $usuario = Usuario::where('id', $servidor->usuario_id)->first();
@@ -95,7 +89,7 @@ class ProfessorController extends Controller
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente (mas não o mesmo usuário/servidor)
-            return back();
+            return back()->with('error', "Já existe um usário no sistema com esse email ou login!");
         }
         
 
@@ -111,7 +105,7 @@ class ProfessorController extends Controller
             'email'=> strtolower($request->email),
         ]);
 
-        return redirect('/professor');
+        return redirect('/professor')->with('success', "Usuário atualizado com sucesso!");
 
     }
     
@@ -122,6 +116,6 @@ class ProfessorController extends Controller
         Professor::destroy($professor->id);
         Servidor::destroy($servidor->id);
 
-        return redirect('/professor');
+        return redirect('/professor')->with('success',"Usuário removido com sucesso!");
     }
 }

@@ -5,6 +5,7 @@
 @section('content')
     <form method="post" action="{{ route('professor.update',['id' => $servidor->id]) }}">
         @csrf
+        @method('PUT')
         <form method="post">
             <div class="mb-3">
                 <label class="mt-5" for="nome">Nome</label>

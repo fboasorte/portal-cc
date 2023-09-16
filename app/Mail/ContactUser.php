@@ -19,7 +19,6 @@ class ContactUser extends Mailable
     public function __construct(public readonly array $data)
     {
         //
-        echo $data['login'];
     }
 
     /**

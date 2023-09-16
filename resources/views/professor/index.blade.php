@@ -44,7 +44,7 @@
                                                 action="{{ route('professor.destroy', $servidor->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <a class="btn btn-dark btn-sm" href="{{ route('professor.show', $servidor->id) }}">Visualizar</a>
+                                                <a class="btn btn-success btn-sm" href="{{ route('professor.show', $servidor->id) }}">Visualizar</a>
                                                 <a class="btn btn-primary btn-sm" href="{{ route('professor.edit', $servidor->id) }}">Editar</a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                                     onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
