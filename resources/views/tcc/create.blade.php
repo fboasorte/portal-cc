@@ -48,6 +48,7 @@
 
         <div class="d-flex justify-content-center mt-4">
             <button type="submit" class="btn custom-button custom-button-castastrar-tcc">Cadastrar TCC</button>
+            <button class="btn custom-button custom-button-castastrar-tcc"><a href="{{route('tcc')}}" >Cancelar</a></button>
         </div>
     </form>
 </div>

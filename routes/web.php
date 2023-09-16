@@ -49,23 +49,25 @@ require __DIR__ . '/auth.php';
 
 // ALUNO
 
-Route::prefix('/aluno')->group(function () {
-    Route::get('/', [AlunoController::class, 'index']);
+Route::resource('aluno', AlunoController::class)->parameter('aluno', 'id')->except(['show']);
 
-    Route::get('/create', [AlunoController::class, 'create'])->name('create_aluno');
+// Route::prefix('/aluno')->group(function () {
+//     Route::get('/', [AlunoController::class, 'index']);
 
-    Route::post('/create', [AlunoController::class, 'store'])->name('store_aluno');
+//     Route::get('/create', [AlunoController::class, 'create'])->name('create_aluno');
 
-    Route::get('/edit/{id}', [AlunoController::class, 'edit'])->name('edit_aluno');
+//     Route::post('/create', [AlunoController::class, 'store'])->name('store_aluno');
 
-    Route::post('/edit/{id}', [AlunoController::class, 'update'])->name('update_aluno');
+//     Route::get('/edit/{id}', [AlunoController::class, 'edit'])->name('edit_aluno');
 
-    Route::get('/delete/{id}', [AlunoController::class, 'deleteConfirm'])->name('delete_aluno_confirm');
+//     Route::post('/edit/{id}', [AlunoController::class, 'update'])->name('update_aluno');
 
-    Route::post('/delete/{id}', [AlunoController::class, 'deleteAluno'])->name('delete_aluno');
+//     Route::get('/delete/{id}', [AlunoController::class, 'deleteConfirm'])->name('delete_aluno_confirm');
 
-    Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
-});
+//     Route::post('/delete/{id}', [AlunoController::class, 'deleteAluno'])->name('delete_aluno');
+
+//     Route::get('/serach{nomeAluno?}', [AlunoController::class, 'search'])->name('search_aluno');
+// });
 
 // PROFESSOR EXTERNO
 Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
@@ -76,8 +78,11 @@ Route::resource('banca', BancaController::class)->parameter('banca', 'id')
 ->except(['show']);
 
 // TCC
+
+Route::resource('tcc', TccController::class)->parameter('tcc', 'id')->except(['show']);
+
 Route::prefix('/tcc')->group(function() {
-    Route::get('/', [TccController::class, 'index']);
+    Route::get('/', [TccController::class, 'index'])->name('tcc');
 
     Route::get('/create', [TccController::class, 'create'])->name('create_tcc');
 

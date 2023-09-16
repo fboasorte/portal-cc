@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class TccController extends Controller
 {
     public function index(){
+
         $tccs = Aluno::join('tcc', 'aluno.id', '=', 'tcc.aluno_id')->get();
 
         return view('tcc.index', ['tccs' => $tccs]);

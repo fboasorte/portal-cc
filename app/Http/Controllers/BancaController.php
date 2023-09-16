@@ -33,7 +33,7 @@ class BancaController extends Controller
         return view('banca.create', ['professores_externos' => $professores_externos]);
     }
 
-    /**
+    /**p a
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
