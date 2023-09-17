@@ -59,11 +59,16 @@
             <select name="banca_id" id="banca_id" class="form-select">
                 <option value="" disabled selected>Selecione uma banca</option>
                 @foreach ($bancas as $banca => $key)
-                <option value="{{ $banca }}" {{ $banca == $id ? 'selected' : '' }}>{{ date('d/m/Y', strtotime($key->data)) }} - {{$key->local}} - [
+                <option value="{{ $banca }}" {{ $banca == $id ? 'selected' : '' }}>
+                    {{ date('d/m/Y', strtotime($key->data)) }} - {{$key->local}} -
+                    MEMBROS:
                     @foreach ($key->professoresExternos as $professorExterno )
-                    {{$professorExterno->nome}}
+                    [{{ $professorExterno->nome }} - {{ $professorExterno->filiacao}}]
                     @endforeach
-                    ]
+
+                    @foreach ($professores as $professor)
+                    {{ $key->professores->contains($professor->id) ? '['. $professores->where('id', $professor->id)->first()->nome .' - IFNMG]': '' }}
+                    @endforeach
                 </option>
                 @endforeach
             </select>

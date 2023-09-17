@@ -54,6 +54,7 @@ class TccController extends Controller
     public function edit($id) {
 
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        
         $tcc = Tcc::find($id);
         $alunos = Aluno::pluck('nome', 'id');
         $alunoId = $tcc->aluno_id;
