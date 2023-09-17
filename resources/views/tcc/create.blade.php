@@ -42,6 +42,18 @@
             </div>
         </div>
         <div class="mb-3">
+            <label for="banca_id" class="form-label"> <br>Orientador:</label>
+            <select name="professor_id" id="professor_id" class="form-select">
+                <option value="" disabled selected>Selecione um orientador</option>
+                @foreach ($professores as $professor)
+                <option value="{{ $professor->id }}">({{$professor->id}}) - {{$professor->nome}} </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3 mb-3 d-flex align-items-end">
+            <a href="{{ route('create_professor') }}" class="btn custom-button">Cadastrar novo professor</a>
+        </div>
+        <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Banca:</label>
             <select name="banca_id" id="banca_id" class="form-select">
                 <option value="" disabled selected>Selecione uma banca</option>

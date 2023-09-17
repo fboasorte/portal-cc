@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Professor extends Model
 {
     protected $table = 'professor';
-    
+
     protected $fillable = [
         'titulacao',
         'curriculo',
@@ -16,4 +16,8 @@ class Professor extends Model
         'servidor_id',
         'foto',
     ];
+
+    public function tccs() {
+        return $this->hasMany(Tcc::class, 'professor_id', 'id');
+    }
 }
