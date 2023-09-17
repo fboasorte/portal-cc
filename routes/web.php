@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\BancaController;
 use App\Http\Controllers\PostagemController;
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
