@@ -113,6 +113,8 @@
     <div class="navbar-divider"></div>
 
     <div class="container2">
+        @include('layouts.flash-message')
+        
         @yield('content')
     </div>
 
