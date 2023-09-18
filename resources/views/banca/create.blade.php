@@ -20,7 +20,7 @@
                 <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
             </div>
             @endforeach
-            <a href="{{ route('create_professor') }}">Cadastrar professor interno</a>
+            <a href="{{ route('professor.create') }}">Cadastrar professor interno</a>
         </div>
         <div class="form-group">
             <label for="professores">Professores externos</label>

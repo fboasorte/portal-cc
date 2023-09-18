@@ -51,7 +51,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="{{ route('create_professor') }}" class="btn custom-button">Cadastrar novo professor</a>
+            <a href="{{ route('professor.create') }}" class="btn custom-button">Cadastrar novo professor</a>
         </div>
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Banca:</label>
