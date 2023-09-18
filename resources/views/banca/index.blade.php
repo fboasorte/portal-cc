@@ -40,8 +40,13 @@
                                         <td>{{ $banca->id }}</td>
                                         <td>{{ date('d-m-Y', strtotime($banca->data)) }}</td>
                                         <td>{{ $banca->local }}</td>
-                                        <td>@foreach ($banca->professoresExternos as $professor)
-                                                <p>{{$professor->nome}}</p>
+                                        <td>
+                                            @foreach ($banca->professoresExternos as $professor_externo)
+                                                <p>{{ $professor_externo->nome }} - {{ $professor_externo->filiacao }}</p>
+                                            @endforeach
+
+                                            @foreach ($banca->professores as $professor)
+                                                <p>{{ $professores_internos->contains($professor->id) ? $professores_internos->where('id', $professor->id)->first()->nome : ''}} - IFNMG </p>
                                             @endforeach
                                         </td>
                                         <td>

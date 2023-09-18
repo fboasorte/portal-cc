@@ -35,6 +35,7 @@
                                 <th class="text-center">Título (id)</th>
                                 <th class="text-center">Resumo</th>
                                 <th class="text-center">Aluno (id)</th>
+                                <th class="text-center">Orientador </th>
                                 <th class="text-center">Ação</th>
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                 <td>{{ $tcc->titulo }} ({{ $tcc->id }})</td>
                                 <td>{{ $tcc->resumo }}</td>
                                 <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
+                                <td> {{ $professores->contains($tcc->professor_id) ? $professores->where('id', $tcc->professor_id)->first()->nome : ''}} </td>
                                 <td class="text-center">
                                     <form method="POST"
                                         action="{{ route('tcc.destroy', $tcc->id) }}">

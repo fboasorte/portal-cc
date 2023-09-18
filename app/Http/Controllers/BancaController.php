@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banca;
+use App\Models\Professor;
 use App\Models\ProfessorExterno;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,15 @@ class BancaController extends Controller
             $bancas = Banca::all();
         }
 
-        return view('banca.index', ['buscar' => $buscar, 'bancas' => $bancas]);
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+
+        // foreach($bancas as $banca) {
+        //     foreach($banca->professores as $professorInterno) {
+        //         return $professorInterno;
+        //     }
+        // }
+
+        return view('banca.index', ['buscar' => $buscar, 'professores_internos' => $professores , 'bancas' => $bancas]);
     }
 
     /**
@@ -30,7 +39,8 @@ class BancaController extends Controller
     public function create()
     {
         $professores_externos = ProfessorExterno::all();
-        return view('banca.create', ['professores_externos' => $professores_externos]);
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        return view('banca.create', ['professores_externos' => $professores_externos, 'professores_internos' => $professores]);
     }
 
     /**p a
@@ -44,13 +54,21 @@ class BancaController extends Controller
             'local' => $request->local
         ]);
 
-        foreach($request->professores_externos as $professor_externo_id) {
-            $professor_externo = ProfessorExterno::findOrFail($professor_externo_id);
+        if($request->professor_internos != null) {
+            foreach($request->professores_internos as $professor_interno) {
+                $professor_interno = Professor::findOrFail($professor_interno);
 
-            $banca->professoresExternos()->attach($professor_externo);
+                $banca->professores()->attach($professor_interno);
+            }
         }
 
+        if($request->professor_externos != null) {
+            foreach($request->professores_externos as $professor_externo_id) {
+                $professor_externo = ProfessorExterno::findOrFail($professor_externo_id);
 
+                $banca->professoresExternos()->attach($professor_externo);
+            }
+        }
 
         return redirect('banca')->with('success', 'Banca criada com sucesso');
     }
@@ -70,8 +88,9 @@ class BancaController extends Controller
     {
         $professores_externos = ProfessorExterno::all();
         $banca = Banca::findOrFail($id);
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
 
-        return view('banca.edit', ['banca' => $banca, 'professores_externos' => $professores_externos]);
+        return view('banca.edit', ['banca' => $banca, 'professores_externos' => $professores_externos, 'professores_internos' => $professores]);
     }
 
     /**
@@ -86,6 +105,7 @@ class BancaController extends Controller
         ]);
 
         $banca->professoresExternos()->sync($request->professores_externos);
+        $banca->professores()->sync($request->professores_internos);
 
         return redirect('banca')->with('success', 'Banca alterada com Sucesso');
     }

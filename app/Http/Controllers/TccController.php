@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use App\Models\Banca;
+use App\Models\Professor;
+use App\Models\Servidor;
 use App\Models\Tcc;
 use Illuminate\Http\Request;
 
@@ -12,22 +14,26 @@ class TccController extends Controller
     public function index(Request $request){
 
         $tccs = Aluno::join('tcc', 'aluno.id', '=', 'tcc.aluno_id')->get();
+        $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
 
-        return view('tcc.index', ['tccs' => $tccs]);
+        return view('tcc.index', ['tccs' => $tccs, 'professores' =>$professores]);
     }
 
     public function create() {
 
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+
         $bancas = Banca::all();
         $alunos = Aluno::pluck('nome', 'id');
         $id = 1;
-        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'id' => $id]);
+        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'id' => $id]);
     }
 
     public function store(Request $request) {
 
+        $orientador = Professor::find($request->professor_id);
 
-        $tcc = Tcc::create([
+        $tcc = new Tcc([
             'titulo' => $request->titulo,
             'resumo' => $request->resumo,
             'link' => $request->link,
@@ -36,8 +42,7 @@ class TccController extends Controller
             'banca_id' => $request->banca_id
         ]);
 
-        $banca = Banca::findOrFail($request->banca_id);
-        $tcc->banca = $banca;
+        $orientador->tccs()->save($tcc);
 
         if($request->convite) {
             //Criar uma postagem com os dados deste TCC
@@ -48,6 +53,8 @@ class TccController extends Controller
 
     public function edit($id) {
 
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        
         $tcc = Tcc::find($id);
         $alunos = Aluno::pluck('nome', 'id');
         $alunoId = $tcc->aluno_id;
@@ -55,7 +62,7 @@ class TccController extends Controller
         // edit postagem
 
         $bancas = Banca::all();
-        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'id' => $alunoId]);
+        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'id' => $alunoId]);
     }
 
     public function update(Request $request, $id) {
@@ -68,6 +75,14 @@ class TccController extends Controller
             'ano' => $request->data,
             'aluno_id' => $request->aluno_id
         ]);
+        $professor = Professor::findOrFail($request->professor_id);
+
+        $tcc->professor_id = $professor->id;
+        $tcc->save();
+
+        if($request->convite) {
+            // alterar dados no convite
+        }
 
         return redirect('tcc')->with('success', 'TCC atualizado com sucesso');
     }
