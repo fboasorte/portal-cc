@@ -163,4 +163,17 @@ class PostagemController extends Controller
         $arquivo->delete();
         return back();
     }
+
+    public function display(Request $request) {
+
+        $buscar = $request->buscar;
+        if ($buscar) {
+            $postagens = Postagem::where('titulo', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $postagens = Postagem::all();
+        }
+
+        return view('postagem.display', ['postagens' => $postagens, 'buscar' => $buscar]);
+
+    }
 }
