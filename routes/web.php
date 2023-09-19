@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\TccController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,3 +67,10 @@ Route::resource('banca', BancaController::class)->parameter('banca', 'id')
 // TCC
 Route::resource('tcc', TccController::class)->parameter('tcc', 'id')
 ->except(['show']);
+
+// Projeto
+Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')->except(['show']);
+
+Route::get('/projeto/busca-professor', [ProjetoController::class, 'buscaProfessor']);
+
+Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);

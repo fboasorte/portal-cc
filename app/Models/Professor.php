@@ -17,11 +17,19 @@ class Professor extends Model
         'foto',
     ];
 
+    public function servidor(){
+        return $this->hasOne(Servidor::class, 'id', 'servidor_id');
+    }
+
     public function tccs() {
         return $this->hasMany(Tcc::class, 'professor_id', 'id');
     }
 
     public function bancas() {
         return $this->BelongsToMany(Banca::class, 'banca_professor', 'professor_id', 'banca_id');
+    }
+
+    public function projetos(){
+        return $this->hasMany(Projeto::class);
     }
 }
