@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.main')
 @section('title', 'TCC')
 @section('content')
 
