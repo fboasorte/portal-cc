@@ -50,7 +50,7 @@
                                                     <a href="{{ route('tipo-postagem.edit', $tipo_postagem->id) }}"
                                                         class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                                     <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                        onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                                        onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
