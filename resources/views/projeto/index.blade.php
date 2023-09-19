@@ -1,25 +1,27 @@
-@extends('layouts.projeto')
+@extends('layouts.main')
 
 @section('title', 'Projetos')
 
 @section('content')
-    <h1>Gerenciar Projetos</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                    <form action="" method="get">
-                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                    </form>
-                </div>
-            </form>
+    <div class="custom-container">
+        <div>
+            <div>
+                <i class="fas fa-envelopes-bulk fa-2x"></i>
+                <h3 class="smaller-font">Gerenciar Postagem</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row campo-busca">
+            <div class="col-md-12">
+                <input type="text" id="searchInput" class="form-control field-search" placeholder="Buscar em todos os campos"
+                    aria-label="Buscar">
+            </div>
         </div>
         <div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">
+                    <div class="card-header text-white div-form">
                         Tipos de Postagens
                         <a href="{{ route('projeto.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
@@ -41,14 +43,14 @@
                                         <td>{{ $projeto->descricao }}</td>
                                         <td>{{ date('d/m/Y', strtotime($projeto->data_inicio)) }}</td>
                                         <td>
-                                            <form method="POST"
-                                                action="{{ route('projeto.destroy', $projeto->id) }}">
+                                            <form method="POST" action="{{ route('projeto.destroy', $projeto->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <a href="{{ route('projeto.edit', $projeto->id) }}"
-                                                    class="btn btn-primary btn-sm">Editar</a>
+                                                    class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i
+                                                        class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

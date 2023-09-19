@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.main')
 @section('title', 'TCC')
 @section('content')
 
@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header text-white div-tcc">
+                <div class="card-header text-white div-form">
                     TCC
                     <a href="{{ route('tcc.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                 </div>
@@ -31,7 +31,7 @@
 
                     <table id="tccTable" class="table table-hover">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th class="text-center">Título (id)</th>
                                 <th class="text-center">Resumo</th>
                                 <th class="text-center">Aluno (id)</th>
@@ -66,6 +66,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -1,56 +1,62 @@
-@extends('layouts.aluno')
+@extends('layouts.main')
 
 @section('title', 'Alunos')
 
 @section('content')
-    <h1>Gerenciar Alunos</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                <form action="" method="get">
-                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                    </form>
-                </div>
-            </form>
-        </div>
+
+    <div class="custom-container">
         <div>
+            <div>
+                <i class="fas fa-graduation-cap fa-2x"></i>
+                <h3 class="smaller-font">Gerenciar Aluno</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <br>
+        <div class="row campo-busca">
+            <div class="col-md-12">
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar em todos os campos"
+                    aria-label="Buscar">
+            </div>
+        </div>
+        <br>
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">
-                        Alunos
+                    <div class="card-header text-white div-form">
+                        Aluno
                         <a href="{{ route('aluno.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-hover">
+                        <table id="alunoTable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Ação</th>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Nome</th>
+                                    <th class="text-center">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($alunos as $aluno)
-
-                                <tr>
-                                    <td>{{ $aluno->id }}</td>
-                                    <td>{{ $aluno->nome }}</td>
-                                    <td>
-                                        <form method="POST"
-                                                action="{{ route('aluno.destroy', $aluno->id) }}">
+                                @foreach ($alunos as $aluno)
+                                    <tr class="text-center">
+                                        <td>{{ $aluno->id }}</td>
+                                        <td>{{ $aluno->nome }}</td>
+                                        <td class="text-center">
+                                            <form method="POST" action="{{ route('aluno.destroy', $aluno->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <a href="{{ route('aluno.edit', $aluno->id) }}"
-                                                    class="btn btn-primary btn-sm">Editar</a>
+                                                    class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

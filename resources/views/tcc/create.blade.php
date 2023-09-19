@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.main')
 @section('title', 'Cadastrar TCC')
 @section('content')
 
@@ -85,8 +85,8 @@
             <label for="convite">Gerar um convite do TCC e publicá-lo </label>
         </div>
         <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn custom-button custom-button-castastrar-tcc">Cadastrar TCC</button>
-            <button class="btn custom-button custom-button-castastrar-tcc"><a href="{{route('tcc.index')}}" >Cancelar</a></button>
+            <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar TCC</button>
+            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{route('tcc.index')}} "class= "btn-back" >Cancelar</a></button>
         </div>
     </form>
 </div>

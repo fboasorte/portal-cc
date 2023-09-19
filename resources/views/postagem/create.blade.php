@@ -1,8 +1,18 @@
-@extends('layouts.postagem')
+@extends('layouts.main')
 
 @section('title', 'Criar Postagem')
 
 @section('content')
+
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h3 class="smaller-font">Gerenciar Projeto</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
     <form method="post" action="{{ route('postagem.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -35,7 +45,8 @@
             <label for="arquivos">Arquivos</label>
             <input type="file" name="arquivos[]" id="arquivos" class="form-control" multiple>
         </div>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-
+        <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
+        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{route('postagem.index')}} "class= "btn-back" >Cancelar</a></button>
     </form>
+</div>
 @stop

@@ -1,8 +1,17 @@
-@extends('layouts.postagem')
+@extends('layouts.main')
 
 @section('title', 'Editar Postagem')
 
 @section('content')
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-paste fa-2x"></i>
+            <h3 class="smaller-font">Gerenciar Postagem</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
     <form method="post" action="{{ route('postagem.update', ['id' => $postagem->id]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -52,8 +61,8 @@
             <input type="file" name="arquivos[]" id="arquivos" class="form-control" multiple>
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
-
+        <button type="submit" class="btn custom-button btn-default">Salvar</button>
+        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{route('postagem.index')}} "class= "btn-back" >Cancelar</a></button>
     </form>
 
     @if (count($postagem->imagens) > 0)
@@ -75,4 +84,5 @@
             </form>
         @endforeach
     @endif
+</div>
 @stop

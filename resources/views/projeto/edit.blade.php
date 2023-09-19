@@ -3,6 +3,15 @@
 @section('title', 'Editar Projeto')
 
 @section('content')
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-envelopes-bulk fa-2x"></i>
+            <h3 class="smaller-font">Gerenciar Projeto</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
     <form method="post" action="{{ route('projeto.update', ['id' => $projeto->id]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -53,7 +62,8 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn custom-button btn-default">Salvar</button>
+        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{route('projeto.index')}} "class= "btn-back" >Cancelar</a></button>
 
     </form>
 
@@ -98,4 +108,5 @@
             }
         });
     </script>
+</div>
 @stop

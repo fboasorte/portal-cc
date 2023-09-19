@@ -4,8 +4,8 @@
 }
 
 .container-1 {
-   padding-left: 30px;
-   padding-right: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .search-icon {
@@ -17,7 +17,7 @@
 }
 
 .search-input input {
-    height: 24px; 
+    height: 24px;
     width: 200px;
 }
 
@@ -27,24 +27,24 @@
 
 .separator {
     padding-right: 10px;
-    color: #fff; 
+    color: #fff;
 }
 
 .navbar-divider {
-    width: 98%; 
-    margin: 0 auto; 
+    width: 98%;
+    margin: 0 auto;
     height: 1px;
     background-color: #d3d3d3;
 }
 
 .custom-navbar {
     font-size: 20px;
-    padding: 20px;    
+    padding: 20px;
 }
 
 .logo {
-    width: 200px; 
-    height: auto; 
+    width: 200px;
+    height: auto;
     margin-left: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -54,23 +54,23 @@
     margin-left: 60px;
 }
 
-.custom-navbar-collapse{
+.custom-navbar-collapse {
     padding-right: 80px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and(max-width: 750px) {
     .header-1 .fs-6 {
         display: none;
     }
 }
 
 
-@media screen and (max-width: 990px) {
-    .custom-navbar-collapse{
-        padding-right: 0px;
+@media screen and(max-width: 990px) {
+    .custom-navbar-collapse {
+        padding-right: 0;
     }
     .dropdown-item-custom {
-        margin-left: 0px;
+        margin-left: 0;
     }
 }
 
@@ -97,19 +97,18 @@
 
 /* ------------------------------- */
 #demo.carousel {
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 50px auto 0;
 }
 
-.carousel-inner{
+.carousel-inner {
     border-radius: 5px;
     overflow: hidden;
 }
 
 
 .carousel-image {
-    min-width: 100%; 
-    height: auto; 
+    min-width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
@@ -129,25 +128,37 @@
 
 
 .btn.custom-button:hover {
-    background-color: #2e3e6d; 
+    background-color: #2e3e6d;
     color: #ffffff;
 }
-.div_filtro{
+.div_filtro {
     margin-top: 40px;
 }
 
-.h4_filtro{
+.h4_filtro {
     font-size: 20px;
 }
 
-.custom-button-castastrar-tcc{
+.custom-button-castastrar-tcc {
     margin-bottom: 20px;
 }
 
-.container-excluir{
+.container-excluir {
     margin-top: 50px;
 }
 
-.card-header.text-white.div-tcc{
+.card-header.text-white.div-form {
     background-color: #1c2c4c;
+}
+.btn-default {
+    margin: 10px 10px 10px 0;
+}
+
+.btn-back {
+    text-decoration: solid;
+    color: white;
+}
+.field-search {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

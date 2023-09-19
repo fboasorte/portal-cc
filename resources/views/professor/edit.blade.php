@@ -3,6 +3,15 @@
 @section('title', 'Editar Professor')
 
 @section('content')
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-person-chalkboard fa-2x"></i>
+            <h3 class="smaller-font">Gerenciar Professor</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
     <form method="post" action="{{ route('professor.update',['id' => $servidor->id]) }}">
         @csrf
         @method('PUT')
@@ -25,4 +34,5 @@
 
         </form>
     </form>
+</div>
 @stop

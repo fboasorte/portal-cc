@@ -1,8 +1,17 @@
-@extends('layouts.banca')
+@extends('layouts.main')
 
 @section('title', 'Editar Banca')
 
 @section('content')
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-chalkboard fa-2x"></i>
+            <h3 class="smaller-font">Gerenciar Banca</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
 <form method="post" action="{{ route('banca.update', ['id' => $banca->id]) }}">
     @csrf
     @method('PUT')
@@ -20,7 +29,7 @@
                 <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
             </div>
             @endforeach
-            <a href="{{ route('professor.create') }}">Cadastrar professor interno</a>
+            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('professor.create') }}"class="btn-back">Cadastrar professor interno</a></button>
         </div>
 
         <div class="form-group">
@@ -32,10 +41,12 @@
                 <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
             </div>
             @endforeach
-            <a href="{{ route('professor-externo.create') }}">Cadastrar professor externo</a>
+            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('professor-externo.create') }}"class="btn-back">Cadastrar professor externo</a></button>
         </div>
 
-    <button class="btn btn-primary">Salvar</button>
-    <a href="{{ route('banca.index') }}">Cancelar</a>
+        <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Salvar</button>
+        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
+            href="{{ route('banca.index') }}" class="btn-back">Cancelar</a></button>
 </form>
+</div>
 @stop

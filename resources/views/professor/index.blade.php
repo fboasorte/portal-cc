@@ -1,22 +1,27 @@
-@extends('layouts.professor')
+@extends('layouts.main')
 
 @section('title', 'Professores')
 
 @section('content')
-    <h1>Gerenciar Professores</h1>
-    <div class="row">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                    <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                        placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                </div>
-            </form>
+    <div class="custom-container">
+        <div>
+            <div>
+                <i class="fas fa-person-chalkboard fa-2x"></i>
+                <h3 class="smaller-font">Gerenciar Professor</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row campo-busca">
+            <div class="col-md-12">
+                <input type="text" id="searchInput" class="form-control field-search" placeholder="Buscar em todos os campos"
+                    aria-label="Buscar">
+            </div>
         </div>
         <div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">
+                    <div class="card-header text-white div-form">
                         Professores
                         <a href="{{ route('professor.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
@@ -40,16 +45,17 @@
                                         <td>{{ $servidor->email }}</td>
                                         <td>{{ date_format($servidor->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td>
-                                            <form method="POST"
-                                                action="{{ route('professor.destroy', $servidor->id) }}">
+                                            <form method="POST" action="{{ route('professor.destroy', $servidor->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <a class="btn btn-success btn-sm" href="{{ route('professor.show', $servidor->id) }}">Visualizar</a>
-                                                <a class="btn btn-primary btn-sm" href="{{ route('professor.edit', $servidor->id) }}">Editar</a>
+                                                <a class="btn btn-success btn-sm"
+                                                    href="{{ route('professor.show', $servidor->id) }}">Visualizar</a>
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('professor.edit', $servidor->id) }}">Editar</a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
                                             </form>
-                                        </td> 
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -59,5 +65,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @stop
