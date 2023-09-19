@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header text-white div-aluno">
+                    <div class="card-header text-white div-form">
                         Aluno
                         <a href="{{ route('aluno.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>

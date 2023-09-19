@@ -1,59 +1,64 @@
-@extends('layouts.tipo-postagem')
+@extends('layouts.main')
 
 @section('title', 'Tipos de Postagem')
 
 @section('content')
-    <h1>Gerenciar Tipo Postagem</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                    <form action="" method="get">
-                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                    </form>
-                </div>
-            </form>
-        </div>
+    <div class="custom-container">
         <div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-dark text-white">
-                        Tipos de Postagens
-                        <a href="{{ route('tipo-postagem.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
-                    </div>
-                    <div class="card-body">
+            <div>
+                <i class="fas fa-paste fa-2x"></i>
+                <h3 class="smaller-font">Gerenciar Tipo de Postagem</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container">
+            <div class="row campo-busca">
+                <div class="col-md-12">
+                    <input type="text" id="searchInput" class="form-control field-search"
+                        placeholder="Buscar em todos os campos" aria-label="Buscar">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header text-white div-form">
+                            Tipos de Postagens
+                            <a href="{{ route('tipo-postagem.create') }}"
+                                class="btn btn-success btn-sm float-end">Cadastrar</a>
+                        </div>
+                        <div class="card-body">
 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($tipo_postagens as $tipo_postagem)
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ $tipo_postagem->id }}</td>
-                                        <td>{{ $tipo_postagem->nome }}</td>
-                                        <td>
-                                            <form method="POST"
-                                                action="{{ route('tipo-postagem.destroy', $tipo_postagem->id) }}">
-                                                @csrf
-                                                <input name="_method" type="hidden" value="DELETE">
-                                                <a href="{{ route('tipo-postagem.edit', $tipo_postagem->id) }}"
-                                                    class="btn btn-primary btn-sm">Editar</a>
-                                                <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                    onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
-                                            </form>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Ação</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($tipo_postagens as $tipo_postagem)
+                                        <tr>
+                                            <td>{{ $tipo_postagem->id }}</td>
+                                            <td>{{ $tipo_postagem->nome }}</td>
+                                            <td>
+                                                <form method="POST"
+                                                    action="{{ route('tipo-postagem.destroy', $tipo_postagem->id) }}">
+                                                    @csrf
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                    <a href="{{ route('tipo-postagem.edit', $tipo_postagem->id) }}"
+                                                        class="btn btn-primary btn-sm">Editar</a>
+                                                    <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                        onclick="return confirm('Deseja realmente excluir esse registro?')">Excluir</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
                 </div>
             </div>

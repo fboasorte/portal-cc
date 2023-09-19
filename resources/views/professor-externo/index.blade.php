@@ -1,27 +1,30 @@
-@extends('layouts.professor-externo')
+@extends('layouts.main')
 
 @section('title', 'Professor Externo')
 
 @section('content')
-    <h1>Gerenciar Professor Externo</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                    <form action="" method="get">
-                        <input value="{{ $buscar ? $buscar : '' }}" name="buscar" type="text" class="search-control"
-                            placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
-                    </form>
-                </div>
-            </form>
+    <div class="custom-container">
+        <div>
+            <div>
+                <i class="fas fa-person-chalkboard fa-2x"></i>
+                <h3 class="smaller-font">Gerenciar Professor</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row campo-busca">
+            <div class="col-md-12">
+                <input type="text" id="searchInput" class="form-control field-search" placeholder="Buscar em todos os campos"
+                    aria-label="Buscar">
+            </div>
         </div>
         <div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">
+                    <div class="card-header text-white div-form">
                         Professor Externo
-                        <a href="{{ route('professor-externo.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
+                        <a href="{{ route('professor-externo.create') }}"
+                            class="btn btn-success btn-sm float-end">Cadastrar</a>
                     </div>
                     <div class="card-body">
 

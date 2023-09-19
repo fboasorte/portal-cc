@@ -87,8 +87,9 @@
         </div>
 
         <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn custom-button custom-button-castastrar-tcc">Atualizar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc"><a href="{{route('tcc.index')}}" >Cancelar</a></button>
+            <button type="submit" class="btn custom-button btn-default">Salvar</button>
+            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
+                    href="{{ route('tcc.index') }} "class="btn-back">Cancelar</a></button>
         </div>
     </form>
 </div>

@@ -17,12 +17,14 @@
             @csrf
             <div class="mb-3">
                 <label for="nome" class="form-label"> <br>Nome:</label>
-                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do aluno" required>
+                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do aluno"
+                    required>
             </div>
-    
+
             <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn custom-button custom-button-castastrar-tcc">Cadastrar</button>
-                <button class="btn custom-button custom-button-castastrar-tcc"><a href="{{route('tcc.index')}}" >Cancelar</a></button>
+                <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
+                <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
+                        href="{{ route('aluno.index') }}" class="btn-back">Cancelar</a></button>
             </div>
         </form>
     </div>
