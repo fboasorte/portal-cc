@@ -65,9 +65,9 @@
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     <a href="{{ route('banca.edit', $banca->id) }}"
-                                                        class="btn btn-primary btn-sm">Editar</a>
+                                                        class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                                     <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                                        onclick="return confirm('Deseja realmente excluir essa banca?')">Excluir</button>
+                                                        onclick="return confirm('Deseja realmente excluir essa banca?')"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

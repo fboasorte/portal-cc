@@ -42,7 +42,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($alunos as $aluno)
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>{{ $aluno->id }}</td>
                                         <td>{{ $aluno->nome }}</td>
                                         <td class="text-center">
