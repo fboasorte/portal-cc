@@ -1,4 +1,4 @@
-@extends('layouts.projeto')
+@extends('layouts.main')
 
 @section('title', 'Editar Projeto')
 
@@ -46,7 +46,7 @@
 
         <div class="form-group">
             <label for="professor_id">Professor Responsável</label>
-            <select class="professor_id form-control" style="width:500px;" name="professor_id" id="professor_id">
+            <select class="form-control" name="professor_id" id="professor_id">
                 <option value="{{ $projeto->professor_id }}" selected>
                     {{ $projeto->professor->servidor->nome }}
                 </option>
@@ -54,8 +54,8 @@
         </div>
 
         <div class="form-group">
-            <label for="aluno_id">Alunos Participantes</label>
-            <select class="aluno_id form-control" style="width:500px;" name="alunos[]" id="alunos[]" multiple>
+            <label for="alunos">Alunos Participantes</label>
+            <select class="form-control" name="alunos[]" id="alunos" multiple>
                 @foreach ($alunos as $aluno)
                     <option value="{{ $aluno->id }}" selected> {{ $aluno->nome }}</option>
                 @endforeach
@@ -68,7 +68,7 @@
     </form>
 
     <script type="text/javascript">
-        $('.professor_id').select2({
+        $('#professor_id').select2({
             placeholder: 'Selecione o professor responsável',
             ajax: {
                 url: '/projeto/busca-professor',
@@ -88,7 +88,7 @@
             }
         });
 
-        $('.aluno_id').select2({
+        $('#alunos').select2({
             placeholder: 'Selecione um aluno para o projeto',
             ajax: {
                 url: '/projeto/busca-aluno',
