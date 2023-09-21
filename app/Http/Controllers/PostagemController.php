@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\ArquivoPostagem;
+use App\Models\Banca;
 use App\Models\ImagemPostagem;
 use App\Models\Postagem;
+use App\Models\Professor;
 use App\Models\TipoPostagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\URL;
 
 class PostagemController extends Controller
 {
@@ -34,6 +38,25 @@ class PostagemController extends Controller
         $tipo_postagens = TipoPostagem::pluck('nome', 'id');
 
         $id = 1;
+
+        if (old() && URL::previous() == route('tcc.create')) {
+
+            $banca = Banca::findOrFail(old('banca_id'));
+            $professor = Professor::findOrFail(old('professor_id'));
+            $aluno = Aluno::findOrFail(old('aluno_id'));
+
+            $postagem = [
+                'titulo' => 'Convite TCC',
+                'texto' =>
+                    'Aluno: ' . $aluno->nome . "\n" .
+                    'Título: ' . old('titulo') . "\n" .
+                    'Orientador: ' . $professor->nome . "\n" .
+                    'Data: ' . date('d/m/Y', strtotime($banca->data)) . "\n" .
+                    'Local: ' . $banca->local
+            ];
+
+            return view('postagem.create', compact('tipo_postagens', 'id', 'postagem'));
+        }
 
         return view('postagem.create', compact('tipo_postagens', 'id'));
     }
@@ -164,7 +187,8 @@ class PostagemController extends Controller
         return back();
     }
 
-    public function display(Request $request) {
+    public function display(Request $request)
+    {
 
         $buscar = $request->buscar;
         if ($buscar) {
@@ -174,6 +198,5 @@ class PostagemController extends Controller
         }
 
         return view('postagem.display', ['postagens' => $postagens, 'buscar' => $buscar]);
-
     }
 }
