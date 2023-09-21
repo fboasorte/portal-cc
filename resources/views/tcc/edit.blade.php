@@ -32,15 +32,16 @@
                 <label for="aluno_id" class="form-label"> <br>Aluno*:</label>
                 <select name="aluno_id" id="aluno_id" class="form-select" required>
                     @foreach ($alunos as $aluno => $key)
-                        <option value="{{ $aluno }}" {{ $aluno == $id ? 'selected' : '' }}>
-                            {{ $key }}
-                        </option>
+                    <option value="{{ $aluno }}" {{ $aluno == $id ? 'selected' : '' }}>
+                        {{ $key }}
+                    </option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3 d-flex align-items-end">
-                <a href="{{ route('aluno.create') }}" class="btn custom-button">Cadastrar Aluno</a>
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno" >Cadastrar novo aluno</a>
             </div>
+            @include('modal.createAluno')
         </div>
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Orientador:</label>
@@ -52,6 +53,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo profesor</a>
             <a href="{{ route('create_professor') }}" class="btn custom-button">Cadastrar novo professor</a>
         </div>
         <div class="mb-3">
@@ -74,6 +76,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca" >Cadastrar uma banca</a>
             <a href="{{ route('banca.create') }}" class="btn custom-button">Criar uma banca</a>
         </div>
         <div class="mb-3">
@@ -92,5 +95,4 @@
         </div>
     </form>
 </div>
-
 @endsection
