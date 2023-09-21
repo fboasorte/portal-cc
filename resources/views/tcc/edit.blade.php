@@ -55,6 +55,8 @@
         <div class="col-md-3 mb-3 d-flex align-items-end">
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo profesor</a>
         </div>
+        @include('modal.createProfessor')
+        @include('modal.createProfessorExterno')
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Banca:</label>
             <select name="banca_id" id="banca_id" class="form-select">
@@ -77,6 +79,7 @@
         <div class="col-md-3 mb-3 d-flex align-items-end">
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca" >Cadastrar uma banca</a>
         </div>
+        @include('modal.createBanca')
         <div class="mb-3">
             <label for="data" class="form-label"><br>Data*:</label>
             <input type="date" name="data" id="data" class="form-control" required value="{{ $tcc->ano }}">
