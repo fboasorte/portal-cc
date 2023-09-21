@@ -2,14 +2,9 @@
 @section('title', 'Cadastrar TCC')
 @section('content')
 
-<div class="custom-container">
-    <div>
-        <div>
-            <i class="fas fa-graduation-cap fa-2x"></i>
-            <h3 class="smaller-font">Cadastro do TCC</h3>
-        </div>
-    </div>
-</div>
+@include('layouts.sidebar',  ['title' => 'Cadastro do TCC','iconClass' => 'fas fa-graduation-cap'])
+
+
 
 
 <div class="container mt-4">

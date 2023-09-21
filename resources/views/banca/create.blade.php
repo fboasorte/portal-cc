@@ -3,14 +3,9 @@
 @section('title', 'Criar Banca')
 
 @section('content')
-<div class="custom-container">
-    <div>
-        <div>
-            <i class="fas fa-chalkboard fa-2x"></i>
-            <h3 class="smaller-font">Gerenciar Banca</h3>
-        </div>
-    </div>
-</div>
+
+@include('layouts.sidebar',  ['title' => 'Gerenciar Banca','iconClass' => 'fas fa-chalkboard'])
+
 <div class="container">
 <form method="post" action="{{ route('banca.store') }}">
     @csrf

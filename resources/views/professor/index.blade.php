@@ -3,14 +3,8 @@
 @section('title', 'Professores')
 
 @section('content')
-    <div class="custom-container">
-        <div>
-            <div>
-                <i class="fas fa-person-chalkboard fa-2x"></i>
-                <h3 class="smaller-font">Gerenciar Professor</h3>
-            </div>
-        </div>
-    </div>
+@include('layouts.sidebar',  ['title' => 'Gerenciar Professor','iconClass' => 'fas fa-person-chalkboard'])
+
     <div class="container">
         <div class="row campo-busca">
             <div class="col-md-12">

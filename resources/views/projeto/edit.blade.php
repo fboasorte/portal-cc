@@ -3,14 +3,8 @@
 @section('title', 'Editar Projeto')
 
 @section('content')
-<div class="custom-container">
-    <div>
-        <div>
-            <i class="fas fa-envelopes-bulk fa-2x"></i>
-            <h3 class="smaller-font">Gerenciar Projeto</h3>
-        </div>
-    </div>
-</div>
+@include('layouts.sidebar',  ['title' => 'Cadastro de Projeto','iconClass' => 'fas fa-envelopes-bulk'])
+
 <div class="container">
     <form method="post" action="{{ route('projeto.update', ['id' => $projeto->id]) }}" enctype="multipart/form-data">
         @csrf

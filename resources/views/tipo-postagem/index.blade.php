@@ -3,14 +3,9 @@
 @section('title', 'Tipos de Postagem')
 
 @section('content')
-    <div class="custom-container">
-        <div>
-            <div>
-                <i class="fas fa-paste fa-2x"></i>
-                <h3 class="smaller-font">Gerenciar Tipo de Postagem</h3>
-            </div>
-        </div>
-    </div>
+
+@include('layouts.sidebar',  ['title' => 'Gerenciar Tipo Postagem','iconClass' => 'fas fa-paste'])
+
     <div class="container">
         <div class="container">
             <div class="row campo-busca">

@@ -8,7 +8,7 @@
     <div>
         <div>
             <i class="fas fa-graduation-cap fa-2x"></i>
-            <h3 class="smaller-font">Gerenciar Projeto</h3>
+            <h3 class="smaller-font">Gerenciar Postagem</h3>
         </div>
     </div>
 </div>

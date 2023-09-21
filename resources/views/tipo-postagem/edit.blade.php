@@ -3,14 +3,9 @@
 @section('title', 'Editar Tipo de Postagem')
 
 @section('content')
-    <div class="custom-container">
-        <div>
-            <div>
-                <i class="fas fa-paste fa-2x"></i>
-                <h3 class="smaller-font">Gerenciar Postagem</h3>
-            </div>
-        </div>
-    </div>
+
+@include('layouts.sidebar',  ['title' => 'Editar Tipo Postagem','iconClass' => 'fas fa-paste'])
+
     <div class="container">
         <form method="post" action="{{ route('tipo-postagem.update', ['id' => $tipo_postagem->id]) }}">
             @csrf

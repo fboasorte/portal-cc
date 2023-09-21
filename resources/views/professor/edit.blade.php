@@ -3,14 +3,8 @@
 @section('title', 'Editar Professor')
 
 @section('content')
-<div class="custom-container">
-    <div>
-        <div>
-            <i class="fas fa-person-chalkboard fa-2x"></i>
-            <h3 class="smaller-font">Gerenciar Professor</h3>
-        </div>
-    </div>
-</div>
+@include('layouts.sidebar',  ['title' => 'Gerenciar Professor','iconClass' => 'fas fa-person-chalkboard'])
+
 <div class="container">
     <form method="post" action="{{ route('professor.update',['id' => $servidor->id]) }}">
         @csrf

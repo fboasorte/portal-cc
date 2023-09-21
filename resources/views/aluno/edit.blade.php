@@ -3,14 +3,7 @@
 @section('title', 'Editar aluno')
 
 @section('content')
-    <div class="custom-container">
-        <div>
-            <div>
-                <i class="fas fa-graduation-cap fa-2x"></i>
-                <h3 class="smaller-font">Editar Aluno</h3>
-            </div>
-        </div>
-    </div>
+@include('layouts.sidebar',  ['title' => 'Editar Aluno','iconClass' => 'fas fa-graduation-cap'])
 
     <div class="container mt-4">
         <form method="post" action="{{ route('aluno.update', [$aluno->id]) }}">

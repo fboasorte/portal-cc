@@ -3,14 +3,8 @@
 @section('title', 'Editar Postagem')
 
 @section('content')
-<div class="custom-container">
-    <div>
-        <div>
-            <i class="fas fa-paste fa-2x"></i>
-            <h3 class="smaller-font">Gerenciar Postagem</h3>
-        </div>
-    </div>
-</div>
+@include('layouts.sidebar',  ['title' => 'Gerenciar Postagens','iconClass' => 'fas fa-paste'])
+
 <div class="container">
     <form method="post" action="{{ route('postagem.update', ['id' => $postagem->id]) }}" enctype="multipart/form-data">
         @csrf
