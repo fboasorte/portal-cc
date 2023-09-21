@@ -81,11 +81,6 @@
             <input type="date" name="data" id="data" class="form-control" required value="{{ $tcc->ano }}">
         </div>
 
-        <div>
-            <input type="checkbox" name="convite" id="convite" checked>
-            <label for="convite"> Alterar dados no convite </label>
-        </div>
-
         <div class="d-flex justify-content-center mt-4">
             <button type="submit" class="btn custom-button btn-default">Salvar</button>
             <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
