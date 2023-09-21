@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Banca;
 use App\Models\Professor;
+use App\Models\ProfessorExterno;
 use App\Models\Servidor;
 use App\Models\Tcc;
 use Illuminate\Http\Request;
@@ -21,12 +22,12 @@ class TccController extends Controller
 
     public function create() {
 
-        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
-
+        $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        $professoresExternos = ProfessorExterno::all();
         $bancas = Banca::all();
         $alunos = Aluno::pluck('nome', 'id');
         $id = 1;
-        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'id' => $id]);
+        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $id]);
     }
 
     public function store(Request $request) {
@@ -54,7 +55,7 @@ class TccController extends Controller
     public function edit($id) {
 
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
-        
+
         $tcc = Tcc::find($id);
         $alunos = Aluno::pluck('nome', 'id');
         $alunoId = $tcc->aluno_id;

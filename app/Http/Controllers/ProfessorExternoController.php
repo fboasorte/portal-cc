@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProfessorExterno;
 use Illuminate\Http\Request;
 
+use function Pest\Laravel\json;
+
 class professorExternoController extends Controller
 {
     /**
@@ -18,6 +20,11 @@ class professorExternoController extends Controller
             $professores_externos = ProfessorExterno::where('nome', 'like', '%'.$buscar.'%')->get();
         } else {
             $professores_externos = ProfessorExterno::all();
+        }
+
+        if($request->contexto) {
+            $professores_externos = ProfessorExterno::all();
+            return response()->json(['professoresExternos' => $professores_externos]);
         }
 
         return view('professor-externo.index', ['professores_externos' => $professores_externos, 'buscar' => $buscar]);
@@ -40,8 +47,12 @@ class professorExternoController extends Controller
             'nome' => $request->nome,
             'filiacao' => $request->filiacao
         ]);
-
-        return redirect('professor-externo')->with('success', 'Professor externo ' .$request->nome. ' Criado com Sucesso');
+        if($request->contexto == 'modal') {
+            $professores = ProfessorExterno::all();
+            return response()->json(['professores-externos' => $professores]);
+        } else {
+            return redirect('professor-externo')->with('success', 'Professor externo ' .$request->nome. ' Criado com Sucesso');
+        }
     }
 
     /**

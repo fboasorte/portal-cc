@@ -40,14 +40,21 @@ class ProfessorController extends Controller
     }
 
     public function store(Request $request){
+
+
         $usuarioExists = Usuario::where('login', $request->login)->exists();
         $servidorExists = Servidor::where('email', $request->email)->exists();
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente
-            return redirect('/professor/create')->with('error', "Usuário já cadastrado no sistema!");
+            if($request->contexto == 'modal') {
+                $professores = Professor::all();
+                return response()->json(['error' => 'Professor já cadastrado', 'professores' => $professores]);
+            } else {
+                return redirect('/professor/create');
+            }
         }
-         
+
         $usuario = Usuario::create([
             'login'=> $request->login,
             'senha'=> md5($request->login)
@@ -66,6 +73,11 @@ class ProfessorController extends Controller
         // Enviar email com credencias de Login
         $email = new CredentialMail($request);
 
+        if($request->contexto == 'modal') {
+            $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
+            return response()->json(['professores' => $professores]);
+        }
+
         try{
             $email->sendMail();
         } catch (\Exception $error){
@@ -81,14 +93,16 @@ class ProfessorController extends Controller
     }
 
     public function update(Request $request, $servidor_id){
-        
+
+        // Falta validação se o nome e email que vou alterar já existe em outo usuario;
+
         $servidor = Servidor::where('id', $servidor_id)->first();
         $usuario = Usuario::where('id', $servidor->usuario_id)->first();
-        
+
         $usuarioExists = Usuario::where('login', $request->login)
         ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
         ->exists();
-        
+
         $servidorExists = Servidor::where('email', $request->email)
         ->where('id', '!=', $servidor->id) // Não deve ser o mesmo servidor
         ->exists();
@@ -97,7 +111,7 @@ class ProfessorController extends Controller
             // Usuário ou servidor com login ou e-mail já existente (mas não o mesmo usuário/servidor)
             return back()->with('error', "Já existe um usário no sistema com esse email ou login!");
         }
-        
+
 
 
         $usuario->update([
