@@ -83,11 +83,9 @@
                 url: "{{ route('banca.store') }}", // Substitua pela sua rota
                 data: data,
                 success: function(response) {
-                    console.log(response);
                     alert('Banca cadastrada com sucesso!');
                 },
                 error: function(error) {
-                    console.error(error);
                     alert('Ocorreu um erro ao cadastrar a banca.');
                 }
             });

@@ -71,7 +71,6 @@
                         $selectProfessor.empty(); // Limpe todas as opções
 
                         // Adicione as opções atualizadas com base na resposta do servidor
-                        console.log(response);
                         $.each(response.professores, function(index, professor) {
                             $selectProfessor.append($('<option>', {
                                 value: professor.id,
@@ -80,9 +79,6 @@
                         });
                     }
                 },
-                error: function(error) {
-                    console.error(error);
-                }
             });
         });
     });

@@ -53,9 +53,6 @@
                     $('#createProfessorExterno').modal('hide');
                     atualizarProfessoresExternos();
                 },
-                error: function(error) {
-                    console.error(error);
-                }
             });
         });
 
@@ -63,12 +60,6 @@
             $.ajax({
                 type: 'GET',
                 url: "{{ route('professor-externo.index', ['contexto' => 'modal']) }}",
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
-                    console.error(error);
-                }
             });
         }
     });
