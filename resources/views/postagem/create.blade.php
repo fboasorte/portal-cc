@@ -17,12 +17,12 @@
             @csrf
             <div class="form-group">
                 <label for="titulo">Título</label>
-                <input value="{{ $postagem['titulo'] }}" type="text" name="titulo" id="titulo" class="form-control"
-                    placeholder="Título da postagem" required>
+                <input value="{{ isset($postagem) ? $postagem['titulo'] : '' }}" type="text" name="titulo" id="titulo"
+                    class="form-control" placeholder="Título da postagem" required>
             </div>
             <div class="form-group">
                 <label for="texto">Texto</label>
-                <textarea name="texto" id="texto" class="form-control" placeholder="Texto da postagem" required>{{ $postagem['texto'] }}</textarea>
+                <textarea name="texto" id="texto" class="form-control" placeholder="Texto da postagem" required>{{ isset($postagem) ? $postagem['texto'] : '' }}</textarea>
             </div>
             <div class="form-group">
                 <label for="tipo_postagem">Tipo</label>
