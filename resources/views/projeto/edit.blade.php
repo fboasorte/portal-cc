@@ -53,6 +53,12 @@
             </select>
         </div>
 
+        <div class="col-md-3 mb-3 d-flex align-items-end">
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
+                data-bs-target="#createProfessor">Cadastrar professor</a>
+        </div>
+        @include('modal.createProfessor')
+
         <div class="form-group">
             <label for="alunos">Alunos Participantes</label>
             <select class="form-control" name="alunos[]" id="alunos" multiple>
@@ -61,6 +67,12 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="col-md-3 mb-3 d-flex align-items-end">
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
+                data-bs-target="#createAluno">Cadastrar aluno</a>
+        </div>
+        @include('modal.createAluno')
 
         <button type="submit" class="btn custom-button btn-default">Salvar</button>
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{route('projeto.index')}} "class= "btn-back" >Cancelar</a></button>

@@ -43,14 +43,25 @@
 
             <div class="form-group">
                 <label for="professor_id">Professor Responsável</label>
-                <select class="form-select" name="professor_id"
-                    id="professor_id"></select>
+                <select class="form-select" name="professor_id" id="professor_id"></select>
             </div>
+            
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
+                    data-bs-target="#createProfessor">Cadastrar professor</a>
+            </div>
+            @include('modal.createProfessor')
 
             <div class="form-group">
                 <label for="aluno_id">Alunos Participantes</label>
                 <select class="form-select" name="alunos[]" id="alunos" multiple></select>
             </div>
+
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
+                    data-bs-target="#createAluno">Cadastrar aluno</a>
+            </div>
+            @include('modal.createAluno')
 
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
             <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a

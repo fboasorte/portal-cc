@@ -1,5 +1,4 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="modal fade" id="createAluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -46,6 +45,7 @@
                 data: data,
                 success: function(response) {
 
+                    $('#createAluno').modal('hide');
                     // Atualiza o <select> na página de edição
                     var $selectAluno = $('#aluno_id');
                     $selectAluno.empty(); // Limpa todas as opções
