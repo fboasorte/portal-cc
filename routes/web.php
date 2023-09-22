@@ -54,21 +54,20 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-// ALUNO
-Route::resource('aluno', AlunoController::class)->parameter('aluno', 'id')
-->except(['show']);
+// Aluno
+Route::resource('aluno', AlunoController::class)->parameter('aluno', 'id')->only(['store']);
 
-// PROFESSOR EXTERNO
+// Professor Externo
 Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
-->except(['show']);
+    ->only(['index', 'store']);
 
 //BANCA
 Route::resource('banca', BancaController::class)->parameter('banca', 'id')
-->except(['show']);
+    ->except(['show']);
 
 // TCC
 Route::resource('tcc', TccController::class)->parameter('tcc', 'id')
-->except(['show']);
+    ->except(['show']);
 
 // Projeto
 Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')->except(['show']);
