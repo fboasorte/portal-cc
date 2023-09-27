@@ -12,7 +12,7 @@ class Curso extends Model{
         'nome',
         'carga_horaria',
         'sigla',
-
+        'analytics',
     ];
 
 

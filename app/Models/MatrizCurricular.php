@@ -11,6 +11,7 @@ class MatrizCurricular extends Model
 
     protected $fillable = [
         'path',
+        'ppc_id',
     ];
-    
+
 }

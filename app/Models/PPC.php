@@ -11,6 +11,7 @@ class PPC extends Model{
     protected $fillable = [
         'periodo',
         'status',
+        'curso_id',
     ];
 
 } 
