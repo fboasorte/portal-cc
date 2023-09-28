@@ -7,7 +7,7 @@
     foreach ($postagens as $postagem) {
         if (count($postagem->imagens) > 0) {
             foreach ($postagem->imagens as $img) {
-                if (Storage::disk('public')->exists($img->imagem)) {
+                if (Storage::disk('public')->exists($img->imagem) && $postagem->menu_inicial) {
                     $imagensPostagens[] = $img;
                 }
             }
