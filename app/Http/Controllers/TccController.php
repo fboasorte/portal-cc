@@ -22,25 +22,27 @@ class TccController extends Controller
 
     public function create() {
 
+        $anoAtual = date("Y");
+
         $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
         $professoresExternos = ProfessorExterno::all();
         $bancas = Banca::all();
         $alunos = Aluno::pluck('nome', 'id');
         $id = 1;
-        return view('tcc.create', ['alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $id]);
+        return view('tcc.create', ['anoAtual' => $anoAtual, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $id]);
     }
 
     public function store(Request $request) {
-
         $orientador = Professor::find($request->professor_id);
 
         $tcc = new Tcc([
             'titulo' => $request->titulo,
             'resumo' => $request->resumo,
             'link' => $request->link,
-            'ano' => $request->data,
+            'ano' => $request->ano,
             'aluno_id' => $request->aluno_id,
-            'banca_id' => $request->banca_id
+            'banca_id' => $request->banca_id,
+            'status' => $request->status
         ]);
 
         $orientador->tccs()->save($tcc);
@@ -55,15 +57,13 @@ class TccController extends Controller
     public function edit($id) {
 
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
-
+        $professoresExternos = ProfessorExterno::all();
         $tcc = Tcc::find($id);
         $alunos = Aluno::pluck('nome', 'id');
         $alunoId = $tcc->aluno_id;
 
-        // edit postagem
-
         $bancas = Banca::all();
-        return view('tcc.edit', ['tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'id' => $alunoId]);
+        return view('tcc.edit', ['anoTcc' => $tcc->ano, 'tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $alunoId]);
     }
 
     public function update(Request $request, $id) {
@@ -73,8 +73,9 @@ class TccController extends Controller
             'titulo' => $request->titulo,
             'resumo' => $request->resumo,
             'link' => $request->link,
-            'ano' => $request->data,
-            'aluno_id' => $request->aluno_id
+            'ano' => $request->ano,
+            'aluno_id' => $request->aluno_id,
+            'status' => $request->status
         ]);
         $professor = Professor::findOrFail($request->professor_id);
 

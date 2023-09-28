@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('resumo');
             $table->string('link')->nullable();
-            $table->timestamp('ano');
+            $table->integer('ano');
 
             $table->foreignId('aluno_id')->references('id')->on('aluno')
             ->onDelete('CASCADE')

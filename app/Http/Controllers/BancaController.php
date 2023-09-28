@@ -54,7 +54,7 @@ class BancaController extends Controller
             'local' => $request->local
         ]);
 
-        if($request->professor_internos != null) {
+        if($request->professores_internos != null) {
             foreach($request->professores_internos as $professor_interno) {
                 $professor_interno = Professor::findOrFail($professor_interno);
 
@@ -62,7 +62,7 @@ class BancaController extends Controller
             }
         }
 
-        if($request->professor_externos != null) {
+        if($request->professores_externos != null) {
             foreach($request->professores_externos as $professor_externo_id) {
                 $professor_externo = ProfessorExterno::findOrFail($professor_externo_id);
 

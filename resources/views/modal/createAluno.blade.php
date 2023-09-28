@@ -12,12 +12,12 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do aluno" required>
+                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do aluno">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrarAlunoButton">Cadastrar</button>
+                <button type="button" class="btn custom-button" data-bs-dismiss="modal" id="cadastrarAlunoButton">Cadastrar</button>
             </div>
         </div>
     </div>

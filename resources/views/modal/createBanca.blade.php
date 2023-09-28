@@ -13,9 +13,9 @@
 
                 <div class="form-group">
                     <label for="data">Data da banca</label>
-                    <input type="date" name="data" id="data" class="form-control" required>
+                    <input type="date" name="data" id="data" class="form-control">
                     <label for="local">Local</label>
-                    <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca" required>
+                    <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca">
 
                     <div class="form-group">
                         <label for="professores">Professores internos</label>
@@ -26,7 +26,7 @@
                             <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
                         </div>
                         @endforeach
-                        <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar profesor interno</a>
+                        <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar professor interno</a>
                     </div>
                     <div class="form-group">
                         <label for="professores">Professores externos</label>
@@ -37,7 +37,7 @@
                             <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
                         </div>
                         @endforeach
-                        <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno" >Cadastrar profesor externo</a>
+                        <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno" >Cadastrar professor externo</a>
                     </div>
 
                 </div>

@@ -12,7 +12,13 @@ class Tcc extends Model
 
 
     protected $fillable = [
-        'titulo', 'resumo', 'link', 'ano', 'aluno_id', 'banca_id'
+        'titulo',
+        'resumo',
+        'link',
+        'ano',
+        'aluno_id',
+        'banca_id',
+        'status'
     ];
 
     public function aluno() {

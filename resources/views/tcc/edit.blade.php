@@ -48,14 +48,14 @@
             <select name="professor_id" id="professor_id" class="form-select">
                 <option value="" disabled selected>Selecione um orientador</option>
                 @foreach ($professores as $professor)
-                <option value="{{ $professor->id }}" {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}>({{$professor->id}}) - {{$professor->nome}} </option>
+                <option value="{{ $professor->id }}" {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}> {{$professor->nome}} </option>
                 @endforeach
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo profesor</a>
-            <a href="{{ route('create_professor') }}" class="btn custom-button">Cadastrar novo professor</a>
         </div>
+        @include('modal.createProfessor')
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Banca:</label>
             <select name="banca_id" id="banca_id" class="form-select">
@@ -77,16 +77,19 @@
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca" >Cadastrar uma banca</a>
-            <a href="{{ route('banca.create') }}" class="btn custom-button">Criar uma banca</a>
         </div>
+        @include('modal.createBanca')
         <div class="mb-3">
-            <label for="data" class="form-label"><br>Data*:</label>
-            <input type="date" name="data" id="data" class="form-control" required value="{{ $tcc->ano }}">
+            <label for="ano" class="form-label"><br>Ano*:</label>
+            <input type="number" name="ano" id="ano" class="form-control" min="1500" value="{{$anoTcc}}">
         </div>
 
-        <div>
-            <input type="checkbox" name="convite" id="convite" checked>
-            <label for="convite"> Alterar dados no convite </label>
+        <div class="mb-3">
+            <label for="status" class="form-label"><br>Status*:</label>
+            <select name="status" id="status" class="form-select">
+                <option value="0" {{ $tcc->status == 0 ? 'selected' : '' }}>Aguardando defesa</option>
+                <option value="1" {{ $tcc->status == 1 ? 'selected' : '' }}>Concluido</option>
+            </select>
         </div>
 
         <div class="d-flex justify-content-center mt-4">

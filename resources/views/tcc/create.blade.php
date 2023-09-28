@@ -33,7 +33,7 @@
                 <select name="aluno_id" id="aluno_id" class="form-select" required>
                     <option value="" disabled selected>Selecione um aluno</option>
                     @foreach ($alunos as $aluno => $key)
-                    <option value="{{ $aluno }}">{{ $key }}</option>
+                    <option value="{{ $aluno }}"> {{ $key }}</option>
                     @endforeach
                 </select>
             </div>
@@ -47,7 +47,7 @@
             <select name="professor_id" id="professor_id" class="form-select">
                 <option value="" disabled selected>Selecione um orientador</option>
                 @foreach ($professores as $professor)
-                <option value="{{ $professor->id }}">({{$professor->id}}) - {{$professor->nome}} </option>
+                <option value="{{ $professor->id }}"> {{$professor->nome}} </option>
                 @endforeach
             </select>
         </div>
@@ -80,8 +80,16 @@
         </div>
         @include('modal.createBanca')
         <div class="mb-3">
-            <label for="data" class="form-label"><br>Data*:</label>
-            <input type="date" name="data" id="data" class="form-control" value="" required>
+            <label for="ano" class="form-label"><br>Ano*:</label>
+            <input type="number" name="ano" id="ano" class="form-control" min="1500" value="{{$anoAtual}}">
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label"><br>Status*:</label>
+            <select name="status" id="status" class="form-select">
+                <option value="0" selected>Aguardando defesa</option>
+                <option value="1">Concluido</option>
+            </select>
         </div>
 
         <div>
@@ -103,6 +111,17 @@
             document.getElementById("data").value = selectedDate;
         });
 
+        var statusSelect = document.getElementById("status");
+        var conviteCheckbox = document.getElementById("convite");
+
+        statusSelect.addEventListener("change", function () {
+            if (statusSelect.value === "1") {
+                conviteCheckbox.checked = false;
+                conviteCheckbox.disabled = true;
+            } else {
+                conviteCheckbox.disabled = false;
+            }
+        });
 </script>
 
 @endsection
