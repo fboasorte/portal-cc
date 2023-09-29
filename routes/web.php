@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\BancaController;
+use App\Http\Controllers\ColegiadoController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\ProfessorController;
@@ -75,3 +76,7 @@ Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')
 Route::get('/projeto/busca-professor', [ProjetoController::class, 'buscaProfessor']);
 
 Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
+
+// COLEGIADO
+Route::resource('colegiado', ColegiadoController::class)->parameter('colegiado', 'id')
+    ->except(['show']);
