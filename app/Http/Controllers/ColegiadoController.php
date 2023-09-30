@@ -17,8 +17,16 @@ class ColegiadoController extends Controller
     public function index()
     {
         $colegiados = Colegiado::all();
-        $colegiado_atual = Colegiado::where('vigencia', '>=', now());
-        return view('colegiado.index', ['colegiados' => $colegiados, 'colegiado_atual' => $colegiado_atual]);
+        $colegiado_atual = Colegiado::where('fim', '>', now())->first();
+        $totalMembros = 0;
+        if($colegiado_atual) {
+            $totalMembros++;
+            $totalMembros += $colegiado_atual->professores()->count();
+            $totalMembros += $colegiado_atual->alunos()->count();
+            $totalMembros += $colegiado_atual->tecnicosAdm()->count();
+        }
+
+        return view('colegiado.index', ['colegiados' => $colegiados, 'colegiado_atual' => $colegiado_atual, 'totalMembros' => $totalMembros]);
     }
 
     /**
@@ -42,8 +50,7 @@ class ColegiadoController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        $coordenador = Professor::find(1);
+        $coordenador = Professor::find(20);
         $colegiado = new Colegiado([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
@@ -59,6 +66,16 @@ class ColegiadoController extends Controller
 
         $colegiado->arquivo_portaria_id = $pdf->id;
         $colegiado->save();
+
+        foreach($request->professores as $professor) {
+            $colegiado->professores()->attach($professor);
+        }
+        foreach($request->alunos as $aluno) {
+            $colegiado->alunos()->attach($aluno);
+        }
+        foreach($request->servidores as $tecnico_adm) {
+            $colegiado->tecnicosAdm()->attach($tecnico_adm);
+        }
 
         return redirect('colegiado')->with('success', 'Colegiado cadastrado com sucesso!');
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
+use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,9 @@ Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'dele
 
 // Professor
 Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
+
+// SERVIDOR
+Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);
 
 
 Route::get('/dashboard', function () {

@@ -76,7 +76,8 @@
                             '</div>';
                         });
 
-                        $('#professores').html(professoresCheckboxHTML);
+                        $('#professores .form-check').remove();
+                        $('#professores').append(professoresCheckboxHTML);
 
                         // Atualize o <select> na página de edição
                         var $selectProfessor = $('#professor_id');

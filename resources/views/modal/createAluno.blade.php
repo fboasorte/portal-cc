@@ -63,7 +63,8 @@
                         '</div>';
                     });
 
-                    $('#alunos').html(alunosCheckboxHTML);
+                    $('#alunos .form-check').remove();
+                    $('#alunos').append(alunosCheckboxHTML);
 
                     // Adicione as opções atualizadas com base na resposta do servidor
                     $.each(response.alunos, function(index, aluno) {

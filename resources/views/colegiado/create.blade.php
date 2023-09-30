@@ -56,7 +56,7 @@
             </div>
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno" >Cadastrar aluno</a>
 
-            <div class="form-group">
+            <div class="form-group" id="servidores">
                 <h5>Servidor</h5>
                 <label for="">Selecione pelo menos 1 e no máximo 4 servidores para técnicos administrativos: </label>
                 @foreach ($servidores as $servidor )
@@ -75,6 +75,7 @@
 </div>
 @include('modal.createProfessor')
 @include('modal.createAluno')
+@include('modal.createServidor')
 @stop
 <script>
     document.addEventListener("DOMContentLoaded", function() {
