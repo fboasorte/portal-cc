@@ -22,14 +22,26 @@
 </head>
 
 <body>
-    @include('layouts.header')
+
 
     @include('layouts.flash-message')
 
-    <div class="navbar-divider"></div>
 
     <div class="container2">
-        @yield('content')
+
+
+        <div id="main">
+
+            <x-app-layout>
+            @yield('content')
+            </x-app-layout>
+        </div>
+
+
+
+
+
+
     </div>
 
 </body>
