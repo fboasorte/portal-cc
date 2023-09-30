@@ -65,6 +65,19 @@
                         // Feche o modal
                         $('#createProfessor').modal('hide');
 
+                        // Atualiza os checkboxs na página colegiado em cadastrar professor
+                        var professoresCheckboxHTML = '';
+                        $.each(response.professores, function(index, professor) {
+                            var checkboxId = 'professor_' + professor.id;
+                            professoresCheckboxHTML +=
+                            '<div class="form-check">' +
+                            '<input type="checkbox" class="form-check-input" name="professores[]" id="' + checkboxId + '" value="' + professor.id + '">' +
+                            '<label for="' + checkboxId + '" class="form-check-label">' + professor.nome + '</label>' +
+                            '</div>';
+                        });
+
+                        $('#professores').html(professoresCheckboxHTML);
+
                         // Atualize o <select> na página de edição
                         var $selectProfessor = $('#professor_id');
                         $selectProfessor.empty(); // Limpe todas as opções

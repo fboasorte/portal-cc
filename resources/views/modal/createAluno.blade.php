@@ -50,6 +50,21 @@
                     var $selectAluno = $('#aluno_id');
                     $selectAluno.empty(); // Limpa todas as opções
 
+                    // Atualize a lista de alunos no modal "Cadastrar novo aluno"
+                    var alunosCheckboxHTML = '';
+
+                    // Adicione as checkboxes atualizadas com base na resposta do servidor
+                    $.each(response.alunos, function(index, aluno) {
+                        var checkboxId = 'aluno_' + aluno.id;
+                        alunosCheckboxHTML +=
+                        '<div class="form-check">' +
+                        '<input type="checkbox" class="form-check-input" name="alunos[]" id="' + checkboxId + '" value="' + aluno.id + '">' +
+                        '<label for="' + checkboxId + '" class="form-check-label">' + aluno.nome + '</label>' +
+                        '</div>';
+                    });
+
+                    $('#alunos').html(alunosCheckboxHTML);
+
                     // Adicione as opções atualizadas com base na resposta do servidor
                     $.each(response.alunos, function(index, aluno) {
                         $selectAluno.append($('<option>', {

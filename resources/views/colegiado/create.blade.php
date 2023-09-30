@@ -32,19 +32,19 @@
         <div class="form-group">
             <h5>Professores </h5>
 
-            <div class="form-group">
+            <div class="form-group" id="professores">
                 <label for="professores">Selecione 4 professores: </label>
 
                 @foreach ($professores as $professor)
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="professores[]" id="professor_{{$professor->id}}" value="{{$professor->id}}">
-                    <label for="professor_{{$professor->id}}" class="form-check-label">{{$professor->servidor->nome}} - {{ $professor->titulacao }} </label>
+                    <label for="professor_{{$professor->id}}" class="form-check-label">{{$professor->servidor->nome}}</label>
                 </div>
                 @endforeach
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo professor</a>
             </div>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo professor</a>
 
-            <div class="form-group">
+            <div class="form-group" id="alunos">
                 <h5>Alunos</h5>
                 <label for="">Selecione pelo menos 1 e no máximo 4 alunos: </label>
                 @foreach ($alunos as $aluno )
@@ -53,8 +53,8 @@
                     <label for="aluno_{{$aluno->id}}" class="form-check-label">{{$aluno->nome}}</label>
                 </div>
                 @endforeach
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno" >Cadastrar aluno</a>
             </div>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno" >Cadastrar aluno</a>
 
             <div class="form-group">
                 <h5>Servidor</h5>
@@ -66,8 +66,8 @@
                     <label for="servidor_{{$servidor->id}}" class="form-check-label">{{$servidor->nome}}</label>
                 </div>
                 @endforeach
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createServidor" >Cadastrar servidor</a>
             </div>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createServidor" >Cadastrar servidor</a>
         </div>
         <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar</button>
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('colegiado.index') }}" class="btn-back">Cancelar</a></button>

@@ -28,7 +28,10 @@ class ColegiadoController extends Controller
     {
         $alunos = Aluno::all();
         $professores = Professor::all();
-        $servidores = Servidor::all();
+        $servidores = Servidor::whereNotIn('id', function ($query) {
+            $query->select('servidor_id')->from('professor');
+        })->get();
+
         $hoje = date('d-m-Y');
 
         return view('colegiado.create', ['alunos' => $alunos, 'professores' => $professores, 'servidores' => $servidores, 'hoje' => $hoje]);
