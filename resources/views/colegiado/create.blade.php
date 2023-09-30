@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="container">
-    <form method="post" action="{{ route('colegiado.store') }}">
+    <form method="post" action="{{ route('colegiado.store') }}" enctype="multipart/form-data" id="form-colegiado">
         @csrf
         <div class="form-group">
             <div class="form-group">
@@ -58,7 +58,7 @@
 
             <div class="form-group">
                 <h5>Servidor</h5>
-                <label for="">Selecione pelo menos 1 e no máximo 4 servidores: </label>
+                <label for="">Selecione pelo menos 1 e no máximo 4 servidores para técnicos administrativos: </label>
                 @foreach ($servidores as $servidor )
 
                 <div class="form-check">
@@ -71,9 +71,34 @@
         </div>
         <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar</button>
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('colegiado.index') }}" class="btn-back">Cancelar</a></button>
-
     </form>
 </div>
 @include('modal.createProfessor')
 @include('modal.createAluno')
 @stop
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("form-colegiado");
+
+        form.addEventListener("submit", function(event) {
+            const professores = document.querySelectorAll('input[name="professores[]"]:checked').length;
+            const alunos = document.querySelectorAll('input[name="alunos[]"]:checked').length;
+            const servidores = document.querySelectorAll('input[name="servidores[]"]:checked').length;
+
+            if (professores !== 4) {
+                alert("Por favor, selecione exatamente 4 professores.");
+                event.preventDefault();
+            }
+
+            if (alunos < 1 || alunos > 4) {
+                alert("Por favor, selecione de 1 a 4 alunos.");
+                event.preventDefault();
+            }
+
+            if (servidores < 1 || servidores > 4) {
+                alert("Por favor, selecione de 1 a 4 servidores.");
+                event.preventDefault();
+            }
+        });
+    });
+</script>

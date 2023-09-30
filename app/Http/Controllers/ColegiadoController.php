@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Models\ArquivoPortaria;
 use App\Models\Colegiado;
 use App\Models\Professor;
 use App\Models\Servidor;
@@ -38,17 +39,25 @@ class ColegiadoController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-
-        $professor = Professor::find(1);
+        return $request;
+        $coordenador = Professor::find(1);
         $colegiado = new Colegiado([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
             'fim' => $request->vigencia_fim,
-            'coordenador_id' => $professor->id
+            'coordenador_id' => $coordenador->id
         ]);
 
+        $arquivo = $request->file('arquivo');
+        $pdf = new ArquivoPortaria();
+        $pdf->nome = $arquivo->getClientOriginalName();
+        $pdf->path = $arquivo->store('ArquivoPortaria/' .$colegiado->id);
+        $pdf->save();
+
+        $colegiado->arquivo_portaria_id = $pdf->id;
         $colegiado->save();
+
+        return redirect('colegiado')->with('success', 'Colegiado cadastrado com sucesso!');
     }
 
     /**

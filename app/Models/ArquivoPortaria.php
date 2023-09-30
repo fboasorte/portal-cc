@@ -10,6 +10,7 @@ class ArquivoPortaria extends Model
     protected $table = 'arquivo_portaria';
 
     protected $fillable = [
-        'nome', 'path'
+        'nome',
+        'path'
     ];
 }
