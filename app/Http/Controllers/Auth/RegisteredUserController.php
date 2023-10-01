@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\FotoUser;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\URL;
 
 class RegisteredUserController extends Controller
 {
@@ -34,13 +37,34 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'curriculo_lattes' => ['nullable', 'string', 'max:255'],
+            'titulacao' => ['nullable', 'string', 'max:500'],
+            'biografia' => ['nullable', 'string', 'max:1000'],
+            'area' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'curriculo_lattes' => $request->curriculo_lattes,
+            'titulacao' => $request->titulacao,
+            'biografia' => $request->biografia,
+            'area'=> $request->area,
         ]);
+
+        if ($request->hasFile("fotos")) {
+            $fotos = $request->file("fotos");
+
+            foreach ($fotos as $foto) {
+                $fotoUser = new FotoUser();
+                $fotoUser->user_id = $user->id;
+                $fotoUser->foto = $foto->store('FotoUser/' . $user->id);
+                $fotoUser->save();
+                unset($fotoUser);
+
+            }
+        }
 
         event(new Registered($user));
 
