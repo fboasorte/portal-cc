@@ -51,7 +51,7 @@ foreach ($postagens as $postagem) {
 </div>
 
 <div class="container mt-5">
-    <h3 class="text-left">Notícias Computação:</h3>
+    <h3 class="text-left">Postagens Computação:</h3>
 </div>
 
 <div class="album py-3 library">
@@ -68,6 +68,10 @@ foreach ($postagens as $postagem) {
                     </a>
                     @endif
                     @endforeach
+                    @else
+                    <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}">
+                        <img src="{{ asset('images/postagem.png') }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
+                    </a>
                     @endif
 
                     <div class="card-body">
@@ -85,4 +89,5 @@ foreach ($postagens as $postagem) {
         </div>
     </div>
 </div>
+
 @endsection
