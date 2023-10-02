@@ -8,16 +8,15 @@
     <div>
         <div>
             <i class="fas fa-pen-to-square fa-2x"></i>
-            <h3 class="smaller-font">Cadastro de Postagem</h3>
+            <h3 class="smaller-font" class="form-label">Criar Postagem</h3>
         </div>
     </div>
 </div>
 <div class="container">
     <form method="post" action="{{ route('postagem.store') }}" enctype="multipart/form-data">
         @csrf
-
         <div class="form-group">
-            <label for="titulo" class="form-label"><br>Título: </label>
+            <label for="titulo" class="form-label"><br>Título</label>
             <input value="{{ isset($postagem) ? $postagem['titulo'] : '' }}" type="text" name="titulo" id="titulo" class="form-control" placeholder="Título da postagem" required>
         </div>
         <div class="form-group">
@@ -39,7 +38,7 @@
             <input type="checkbox" name="menu_inicial" id="menu_inicial">
         </div>
         <div class="form-group">
-            <label for="imagens" class="form-label">Imagens (2000 x 378) </label>
+            <label for="imagens" class="form-label">Imagens</label>
             <input type="file" name="imagens[]" id="imagens" class="form-control" multiple>
         </div>
         <div class="form-group">
