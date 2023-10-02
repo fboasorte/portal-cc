@@ -9,6 +9,8 @@ use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\TccController;
+use App\Http\Controllers\MatrizController;
+use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,3 +78,9 @@ Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')
 Route::get('/projeto/busca-professor', [ProjetoController::class, 'buscaProfessor']);
 
 Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
+
+// Matriz curricular
+Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
+
+// Curso
+Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
