@@ -5,15 +5,12 @@
 @php
 $imagensPostagens = [];
 foreach ($postagens as $postagem) {
-    if (count($postagem->imagens) > 0) {
-        foreach ($postagem->imagens as $img) {
-            if (Storage::disk('public')->exists($img->imagem) && $postagem->menu_inicial) {
-                $imagensPostagens[] = [
-                'postagem' => $postagem,
-                'imagem' => $img,
-                ];
-            }
-        }
+    $firstImage = $postagem->imagens->first();
+    if ($firstImage && Storage::disk('public')->exists($firstImage->imagem) && $postagem->menu_inicial) {
+        $imagensPostagens[] = [
+            'postagem' => $postagem,
+            'imagem' => $firstImage,
+        ];
     }
 }
 @endphp
@@ -61,13 +58,12 @@ foreach ($postagens as $postagem) {
             <div class="col">
                 <div class="card shadow-sm">
                     @if (count($postagem->imagens) > 0)
-                    @foreach ($postagem->imagens as $img)
-                    @if (Storage::disk('public')->exists($img->imagem))
+                    @php $firstImage = $postagem->imagens[0]; @endphp
+                    @if (Storage::disk('public')->exists($firstImage->imagem))
                     <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}">
-                        <img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
+                        <img src="{{ URL::asset('storage') }}/{{ $firstImage->imagem }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
                     </a>
                     @endif
-                    @endforeach
                     @else
                     <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}">
                         <img src="{{ asset('images/postagem.png') }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
