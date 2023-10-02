@@ -10,11 +10,13 @@
                 <img src="{{ URL::asset('storage') }}/{{  $firstImage->imagem }}" alt="{{ $postagem->titulo }}" class="card-img-top">
             @endif
         @endif
-        
+
         <div class="card-body">
             <h2 class="card-title">{{ $postagem->titulo }}</h2>
             <div class="mb-4"></div>
-            <p class="card-text">{{ $postagem->texto }}</p>
+            
+            <div class="card-text">{!! nl2br(str_replace(' ', '&nbsp;', e($postagem->texto))) !!}</div>
+
         </div>
     </div>
 </div>
