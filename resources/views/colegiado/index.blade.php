@@ -39,6 +39,16 @@
                             </div>
                         </div>
                         <div class="card-body">
+                        <form method="POST"
+                                action="{{ route('colegiado.destroy', $colegiado_atual->id) }}">
+                                @csrf
+                                <input name="_method" type="hidden" value="DELETE">
+                                <a href="{{ route('colegiado.destroy', $colegiado_atual->id) }}"
+                                    class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                            </form>
+
                             <table class="table table-hover">
                                 <h5>Membros</h5>
                                 <p>{{$totalMembros}}</p>
@@ -77,15 +87,42 @@
                                         </tr>
                                 </tbody>
                             </table>
-                            <form method="POST"
-                                action="{{ route('colegiado.destroy', $colegiado_atual->id) }}">
-                                @csrf
-                                <input name="_method" type="hidden" value="DELETE">
-                                <a href="{{ route('colegiado.destroy', $colegiado_atual->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
-                            </form>
+                            <div id="atas">
+                                <table class="table table-hover">
+                                <h5>Atas</h5>
+                                <a href=" {{ route('ata.create') }} " class="btn btn-success btn-sm float-end">Nova ata</a>
+                                <p>{{ $totalAtas }}</p>
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($colegiado_atual->atas)
+                                        @foreach ($colegiado_atual->atas as $ata)
+                                        <tr>
+                                            <td>
+                                            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#showAta_{{$ata->id}}" >{{ date('d/m/Y', strtotime($ata->data)) }}</a>
+                                            </td>
+                                            @include('ata.show')
+                                                <td>
+                                                    <form method="POST"
+                                                    action="{{ route('ata.destroy', $ata->id) }}">
+                                                    @csrf
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                    <a href="{{ route('ata.edit', $ata->id) }}"
+                                                    class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                                    <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                    onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                            </div>
                         </div>
                     </div>
 

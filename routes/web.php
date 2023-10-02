@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\AtaController;
 use App\Http\Controllers\BancaController;
 use App\Http\Controllers\ColegiadoController;
 use App\Http\Controllers\PostagemController;
@@ -84,3 +85,6 @@ Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
 // COLEGIADO
 Route::resource('colegiado', ColegiadoController::class)->parameter('colegiado', 'id')
     ->except(['show']);
+
+// ATA
+Route::resource('ata', AtaController::class)->parameter('ata', 'id')->except(['index']);

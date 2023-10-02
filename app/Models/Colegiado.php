@@ -35,4 +35,8 @@ class Colegiado extends Model
     public function alunos() {
         return $this->belongsToMany(Aluno::class, 'colegiado_aluno', 'colegiado_id', 'aluno_id');
     }
+
+    public function atas() {
+        return $this->hasMany(Ata::class, 'colegiado_id', 'id');
+    }
 }
