@@ -66,7 +66,7 @@
                             <div class="btn-group">
                                 <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}" class="btn btn-sm btn-outline-secondary">Visualizar</a>
                             </div>
-                            <small class="text-body-secondary">9 mins</small>
+                            <small class="text-body-secondary">{{ $postagem->created_at->format('d/m/Y H:i') }}</small>
                         </div>
                     </div>
                 </div>
