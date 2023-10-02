@@ -10,7 +10,10 @@ class Colegiado extends Model
     protected $table = 'colegiado';
 
     protected $fillable = [
-        'numero_portaria', 'inicio', 'fim', 'coordenador_id'
+        'numero_portaria',
+        'inicio',
+        'fim',
+        'coordenador_id'
     ];
 
     public function presidente() {

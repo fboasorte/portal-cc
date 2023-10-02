@@ -78,10 +78,10 @@
                                 </tbody>
                             </table>
                             <form method="POST"
-                                action="">
+                                action="{{ route('colegiado.destroy', $colegiado_atual->id) }}">
                                 @csrf
                                 <input name="_method" type="hidden" value="DELETE">
-                                <a href=""
+                                <a href="{{ route('colegiado.destroy', $colegiado_atual->id) }}"
                                     class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                     onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
@@ -113,10 +113,10 @@
                                 @endif
                             </div>
                             <form method="POST"
-                            action="">
+                            action="{{ route('colegiado.destroy', $colegiado->id) }}">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <a href=""
+                            <a href="{{ route('colegiado.edit', $colegiado->id) }}"
                             class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                 onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>

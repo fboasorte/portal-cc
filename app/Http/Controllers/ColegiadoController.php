@@ -93,7 +93,16 @@ class ColegiadoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $alunos = Aluno::all();
+        $professores = Professor::all();
+        $servidores = Servidor::whereNotIn('id', function ($query) {
+            $query->select('servidor_id')->from('professor');
+        })->get();
+        $colegiado = Colegiado::findOrFail($id);
+
+        $hoje = date('d-m-Y');
+
+        return view('colegiado.edit', ['colegiado' => $colegiado, 'alunos' => $alunos, 'professores' => $professores, 'servidores' => $servidores, 'hoje' => $hoje]);
     }
 
     /**
@@ -101,7 +110,30 @@ class ColegiadoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // return $request;
+        $colegiado = Colegiado::findOrFail($id);
+        $coordenador = Professor::findOrFail(20);
+
+        $colegiado->update([
+            'numero_portaria' => $request->numero_portaria,
+            'inicio' => $request->vigencia_inicio,
+            'fim' => $request->vigencia_fim,
+            'coordenador_id' => $coordenador->id
+        ]);
+
+        if($request->hasFile("arquivo")) {
+            $arquivo = $request->file('arquivo');
+            $pdf = new ArquivoPortaria();
+            $pdf->nome = $arquivo->getClientOriginalName();
+            $pdf->path = $arquivo->store('ArquivoPortaria/' .$colegiado->id);
+            $pdf->save();
+        }
+
+        $colegiado->professores()->sync($request->professores);
+        $colegiado->tecnicosAdm()->sync($request->servidores);
+        $colegiado->alunos()->sync($request->alunos);
+
+        return redirect('colegiado')->with('success', 'Colegiado alterado com sucesso');
     }
 
     /**
@@ -109,6 +141,8 @@ class ColegiadoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $colegiado = Colegiado::findOrFail($id);
+        $colegiado->delete();
+        return back()->with('success', 'Colegiado excluído com sucesso');
     }
 }
