@@ -48,7 +48,7 @@ class PostagemController extends Controller
             $postagem = [
                 'titulo' => 'Convite TCC',
                 'texto' =>
-                    'Aluno: ' . $aluno->nome . "\n" .
+                'Aluno: ' . $aluno->nome . "\n" .
                     'Título: ' . old('titulo') . "\n" .
                     'Orientador: ' . $professor->nome . "\n" .
                     'Data: ' . date('d/m/Y', strtotime($banca->data)) . "\n" .
@@ -198,5 +198,12 @@ class PostagemController extends Controller
         }
 
         return view('postagem.display', ['postagens' => $postagens, 'buscar' => $buscar]);
+    }
+
+    public function show(string $id)
+    {
+        $postagem =  Postagem::findOrFail($id);
+
+        return view('postagem.show', ['postagem' => $postagem]);
     }
 }
