@@ -187,23 +187,15 @@ class PostagemController extends Controller
         return back();
     }
 
-    public function display(Request $request)
+    public function display()
     {
-
-        $buscar = $request->buscar;
-        if ($buscar) {
-            $postagens = Postagem::where('titulo', 'like', '%' . $buscar . '%')->get();
-        } else {
-            $postagens = Postagem::all();
-        }
-
-        return view('postagem.display', ['postagens' => $postagens, 'buscar' => $buscar]);
+        $postagens = Postagem::orderBy('created_at', 'desc')->get();
+        return view('postagem.display', ['postagens' => $postagens]);
     }
 
     public function show(string $id)
     {
         $postagem =  Postagem::findOrFail($id);
-
         return view('postagem.show', ['postagem' => $postagem]);
     }
 }
