@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('arquivo_calendario', function (Blueprint $table) {
             $table->id();
+            $table->string("path");
+            $table->foreignId('calendario_id')->constrained(
+                table: 'calendario'
+            )->onDelete("cascade");
             $table->timestamps();
         });
     }

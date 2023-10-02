@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('arquivo_ppc', function (Blueprint $table) {
             $table->id();
+            $table->string("nome");
+            $table->string("path");
+            $table->foreignId('ppc_id')->constrained(
+                table: 'ppc'
+            )->onDelete("cascade");
             $table->timestamps();
         });
     }

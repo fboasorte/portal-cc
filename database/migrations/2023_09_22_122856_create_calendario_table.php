@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('calendario', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('curso_id')->constrained(
+                table: 'curso'
+            )->onDelete("cascade");
             $table->timestamps();
         });
     }
