@@ -16,7 +16,8 @@
 
     <style>
         footer {
-            position: fixed;
+            position: fixed bottom;
+            margin-top: 20px;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -24,8 +25,25 @@
             color: white;
             padding: 10px;
             text-align: center;
+            
+        }
+
+            .map-responsive{
+                overflow:hidden;
+                padding-bottom:56.25%;
+                position:relative;
+                height:0;
+        }
+
+            .map-responsive iframe{
+                left:0;
+                top:0;
+                height:100%;
+                width:100%;
+                position:absolute;
         }
     </style>
+
 </head>
 
 <body>
@@ -154,6 +172,10 @@
         <p>Telefone: (38) 2103-4141</p>
         <p>E-mail: <a href="mailto:comunicacao.montesclaros@ifnmg.edu.br">comunicacao.montesclaros@ifnmg.edu.br</a></p>
         <p>Página eletrônica: <a href="https://www.ifnmg.edu.br/montesclaros">www.ifnmg.edu.br/montesclaros</a></p>
+
+        <iframe src="https://www.google.com/maps/search/ifnmg/@-16.6885031,-43.8330999,15.81z?entry=ttu" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+    
     </footer>
 
 </body>
