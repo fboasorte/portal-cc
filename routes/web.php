@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\AtaController;
 use App\Http\Controllers\BancaController;
+use App\Http\Controllers\ColegiadoController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\ProfessorExternoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TipoPostagemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
+use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +46,9 @@ Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'dele
 // Professor
 Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
 
+// SERVIDOR
+Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -77,3 +83,10 @@ Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')
 Route::get('/projeto/busca-professor', [ProjetoController::class, 'buscaProfessor']);
 
 Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
+
+// COLEGIADO
+Route::resource('colegiado', ColegiadoController::class)->parameter('colegiado', 'id')
+    ->except(['show']);
+
+// ATA
+Route::resource('ata', AtaController::class)->parameter('ata', 'id')->except(['index']);
