@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('curso_id')->constrained(
                 table: 'curso'
             )->onDelete("cascade");
+            $table->string('arquivo')->nullable();
+            $table->string('horario')->nullable();
             $table->timestamps();
         });
     }
