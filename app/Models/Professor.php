@@ -25,4 +25,8 @@ class Professor extends Model
     public function bancas() {
         return $this->BelongsToMany(Banca::class, 'banca_professor', 'professor_id', 'banca_id');
     }
+
+    public function servidor() {
+        return $this->belongsTo(Servidor::class, 'servidor_id', 'id');
+    }
 }

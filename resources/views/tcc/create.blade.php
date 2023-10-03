@@ -65,11 +65,11 @@
                     {{ date('d-m-Y', strtotime($banca->data)) }} - {{$banca->local}} -
                     MEMBROS:
                     @foreach ($banca->professoresExternos as $professorExterno )
-                    [{{$professorExterno->nome}} - {{$professorExterno->filiacao}}]
+                    {{$professorExterno->nome}} - {{$professorExterno->filiacao}},
                     @endforeach
 
                     @foreach ($professores as $professor)
-                    {{ $banca->professores->contains($professor->id) ? '['. $professores->where('id', $professor->id)->first()->nome .' - IFNMG]': '' }}
+                    {{ $banca->professores->contains($professor->id) ? ''. $professores->where('id', $professor->id)->first()->nome .' - IFNMG,': '' }}
                     @endforeach
                 </option>
                 @endforeach

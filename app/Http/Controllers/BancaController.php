@@ -70,6 +70,11 @@ class BancaController extends Controller
             }
         }
 
+        if($request->contexto == 'modal') {
+            $bancas = Banca::with('professoresExternos', 'professores.servidor')->get();
+            return response()->json(['bancas' => $bancas]);
+        }
+
         return redirect('banca')->with('success', 'Banca criada com sucesso');
     }
 
