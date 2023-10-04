@@ -5,7 +5,7 @@
 
 .container-1 {
     padding-left: 30px;
-    padding-right: 30px;
+    padding-right: 20px;
 }
 
 .search-icon {
@@ -250,4 +250,27 @@ table#tccTable.dataTable {
 
 .container-prof{
     margin-top: 50px;
+}
+
+.dropdown .dropdown-toggle.user {
+    background-color: #1c2c4c;
+    color: #ffff; 
+    border: none;
+}
+
+.dropdown .dropdown-toggle.user:hover {
+    background-color: #16233d;
+    color: #ffff; 
+    border: none;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+    background-color: #ffff; 
+    color: #1c2c4c; 
+}
+
+/* Estilizando os itens do dropdown quando hover */
+.dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #6f7580; /* Cor de fundo ao passar o mouse sobre os itens do dropdown */
+    color: #ffff; /* Cor do texto ao passar o mouse sobre os itens do dropdown */
 }

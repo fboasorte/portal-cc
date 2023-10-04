@@ -34,14 +34,14 @@ Route::get('/', function () {
 });
 
 // Displays de postagens e professores (Não editável)
-Route::get('/noticias', [PostagemController::class, 'display']);
-Route::get('/professores', [ProfileController::class, 'display']);
+Route::get('/noticias', [PostagemController::class, 'display'])->name('postagem.display');
+Route::get('/professores', [ProfessorController::class, 'display'])->name('professor.display');
 
 //Postagem
 Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
 
 //TCC
-Route::get('/tccs', [TccController::class, 'show']);
+Route::get('/tccs', [TccController::class, 'show'])->name('tcc.display');;
 Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
 
 //Professor

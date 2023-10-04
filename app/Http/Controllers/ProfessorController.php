@@ -25,21 +25,26 @@ class ProfessorController extends Controller
         return view('professor.index', ['servidores' => $servidores, 'buscar' => $buscar]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('professor.create');
     }
 
-    public function show($servidor_id){
+    public function show($servidor_id)
+    {
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         $areas = AreaProfessor::where('professor_id', $professor->id)->get();
         $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
-        
-        return view('professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]);
+
+        return view(
+            'professor.view',
+            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]
+        );
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
 
         $usuarioExists = Usuario::where('login', $request->login)->exists();
@@ -47,7 +52,7 @@ class ProfessorController extends Controller
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente
-            if($request->contexto == 'modal') {
+            if ($request->contexto == 'modal') {
                 $professores = Professor::all();
                 return response()->json(['error' => 'Professor já cadastrado', 'professores' => $professores]);
             } else {
@@ -56,14 +61,14 @@ class ProfessorController extends Controller
         }
 
         $usuario = Usuario::create([
-            'login'=> $request->login,
-            'senha'=> md5($request->login)
+            'login' => $request->login,
+            'senha' => md5($request->login)
         ]);
 
         $servidor = Servidor::create([
-            'nome'=> $request->nome,
-            'email'=> strtolower($request->email),
-            'usuario_id'=> $usuario->id,
+            'nome' => $request->nome,
+            'email' => strtolower($request->email),
+            'usuario_id' => $usuario->id,
         ]);
 
         Professor::create([
@@ -73,26 +78,28 @@ class ProfessorController extends Controller
         // Enviar email com credencias de Login
         $email = new CredentialMail($request);
 
-        if($request->contexto == 'modal') {
+        if ($request->contexto == 'modal') {
             $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
             return response()->json(['professores' => $professores]);
         }
 
-        try{
+        try {
             $email->sendMail();
-        } catch (\Exception $error){
+        } catch (\Exception $error) {
             return back()->with('error', "Ocorreu um erro inesperado! {$error->getMessage()}");
         }
 
         return redirect('/professor')->with('success', "Usuário cadastrado com sucesso!");
     }
-    public function edit($servidor_id){
+    public function edit($servidor_id)
+    {
         $servidor = Servidor::where('id', $servidor_id)->first();
         $usuario = Usuario::where('id', $servidor->usuario_id)->first();
-        return view('professor.edit',['usuario' => $usuario, 'servidor' => $servidor]);
+        return view('professor.edit', ['usuario' => $usuario, 'servidor' => $servidor]);
     }
 
-    public function update(Request $request, $servidor_id){
+    public function update(Request $request, $servidor_id)
+    {
 
         // Falta validação se o nome e email que vou alterar já existe em outo usuario;
 
@@ -100,12 +107,12 @@ class ProfessorController extends Controller
         $usuario = Usuario::where('id', $servidor->usuario_id)->first();
 
         $usuarioExists = Usuario::where('login', $request->login)
-        ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
-        ->exists();
+            ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
+            ->exists();
 
         $servidorExists = Servidor::where('email', $request->email)
-        ->where('id', '!=', $servidor->id) // Não deve ser o mesmo servidor
-        ->exists();
+            ->where('id', '!=', $servidor->id) // Não deve ser o mesmo servidor
+            ->exists();
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente (mas não o mesmo usuário/servidor)
@@ -115,28 +122,28 @@ class ProfessorController extends Controller
 
 
         $usuario->update([
-            'login'=> $request->login,
-            'senha'=> md5($request->login)
+            'login' => $request->login,
+            'senha' => md5($request->login)
 
         ]);
 
         $servidor->update([
-            'nome'=> $request->nome,
-            'email'=> strtolower($request->email),
+            'nome' => $request->nome,
+            'email' => strtolower($request->email),
         ]);
 
         return redirect('/professor')->with('success', "Usuário atualizado com sucesso!");
-
     }
-    
-    public function destroy($servidor_id){
+
+    public function destroy($servidor_id)
+    {
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         Usuario::destroy($servidor->usuario_id);
         Professor::destroy($professor->id);
         Servidor::destroy($servidor->id);
 
-        return redirect('/professor')->with('success',"Usuário removido com sucesso!");
+        return redirect('/professor')->with('success', "Usuário removido com sucesso!");
     }
 
     public function view($servidor_id)
@@ -145,8 +152,18 @@ class ProfessorController extends Controller
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         $areas = AreaProfessor::where('professor_id', $professor->id)->get();
         $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
-        
-        return view('professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]);
+
+        return view(
+            'professor.view',
+            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]
+        );
+    }
+
+    public function display()
+    {
+
+        $servidores = Servidor::all();
+
+        return view('professor.display', ['servidores' => $servidores]);
     }
 }
