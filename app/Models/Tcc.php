@@ -9,15 +9,13 @@ class Tcc extends Model
 {
     protected $table = 'tcc';
 
-
-
     protected $fillable = [
         'titulo',
         'resumo',
-        'link',
         'ano',
         'aluno_id',
         'banca_id',
+        'arquivo_id',
         'status'
     ];
 
@@ -31,5 +29,9 @@ class Tcc extends Model
 
     public function orientador() {
         return $this->belongsTo(Professor::class, 'professor_id');
+    }
+
+    public function arquivo() {
+        return $this->hasOne(ArquivoTcc::class, 'id', 'arquivo_id');
     }
 }

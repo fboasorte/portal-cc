@@ -10,10 +10,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="mb-3" id="arquivo_id">
+                    <h5 class="">Selecione o arquivo do TCC "{{$tcc->titulo}}"</h5>
+                    <input type="file" name="arquivo" id="arquivo" class="form-control">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn custom-button" data-bs-dismiss="modal" id="ConcluirTccButton">Cadastrar</button>
+                <button type="button" class="btn custom-button" data-dismiss="modal" id="ConcluirTccButton">Concluir</button>
             </div>
         </div>
     </div>

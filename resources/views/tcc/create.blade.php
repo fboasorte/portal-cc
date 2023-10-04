@@ -13,7 +13,7 @@
 
 
 <div class="container mt-4">
-    <form method="post" action="{{ route('tcc.store') }}">
+    <form method="post" action="{{ route('tcc.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="titulo" class="form-label"> <br>Título*:</label>
@@ -23,10 +23,7 @@
             <label for="resumo" class="form-label"><br>Resumo*:</label>
             <textarea name="resumo" id="resumo" class="form-control" rows="4" placeholder="Resumo do TCC" required></textarea>
         </div>
-        <div class="mb-3">
-            <label for="link" class="form-label"><br>Link para Download:</label>
-            <input type="url" name="link" id="link" class="form-control" placeholder="Insira o link para download">
-        </div>
+
         <div class="row">
             <div class="mb-3">
                 <label for="aluno_id" class="form-label"> <br>Aluno*:</label>
@@ -90,8 +87,11 @@
                 <option value="0" selected>Aguardando defesa</option>
                 <option value="1">Concluido</option>
             </select>
+            <div class="mb-3" id="arquivo_id">
+                <label for="arquivo" class="form-label"><br>Arquivo:</label>
+                <input type="file" name="arquivo" id="arquivo" class="form-control">
+            </div>
         </div>
-
         <div>
             <input type="checkbox" name="convite" id="convite" checked>
             <label for="convite">Gerar um convite do TCC e publicá-lo </label>
@@ -113,13 +113,18 @@
 
         var statusSelect = document.getElementById("status");
         var conviteCheckbox = document.getElementById("convite");
+        var arquivo = document.getElementById("arquivo_id");
+        arquivo.style.display = "none";
 
         statusSelect.addEventListener("change", function () {
             if (statusSelect.value === "1") {
                 conviteCheckbox.checked = false;
                 conviteCheckbox.disabled = true;
+                arquivo.style.display = "block";
             } else {
                 conviteCheckbox.disabled = false;
+                conviteCheckbox.checked = true;
+                arquivo.style.display = "none";
             }
         });
 </script>

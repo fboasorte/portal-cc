@@ -34,6 +34,7 @@
                             <tr>
                                 <th class="text-center">Título (id)</th>
                                 <th class="text-center">Resumo</th>
+                                <th class="text-center">Arquivo</th>
                                 <th class="text-center">Aluno (id)</th>
                                 <th class="text-center">Orientador</th>
                                 <th class="text-center">Status</th>
@@ -45,7 +46,15 @@
                             <tr>
                                 <td>{{ $tcc->titulo }} ({{ $tcc->id }})</td>
                                 <td>{{ $tcc->resumo }}</td>
-                                <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
+                                <td>@if($tcc->arquivo)
+                                    <a href="{{ asset($tcc->arquivo->path) }}" download>{{
+                                        strlen($tcc->arquivo->nome) > 30 ? substr($tcc->arquivo->nome, 0, 30) . '...' : $tcc->arquivo->nome;
+                                        }}</a>
+                                    @else
+                                    Não há arquivo cadastrado!
+                                    @endif
+                                </td>
+                                <td>{{ $tcc->aluno->nome }} ({{ $tcc->aluno_id }})</td>
                                 <td> {{ $professores->contains($tcc->professor_id) ? $professores->where('id', $tcc->professor_id)->first()->nome : ''}} </td>
                                 <td> {{ $tcc->status == 0 ? "Aguardando defesa" : "Concluido"}} </td>
                                 <td class="text-center">

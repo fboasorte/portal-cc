@@ -12,7 +12,7 @@
 </div>
 
 <div class="container mt-4">
-    <form method="post" action="{{ route('tcc.update', [$tcc->id]) }}">
+    <form method="post" action="{{ route('tcc.update', [$tcc->id]) }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-3">
@@ -22,10 +22,6 @@
         <div class="mb-3">
             <label for="resumo" class="form-label"><br>Resumo*:</label>
             <textarea name="resumo" id="resumo" class="form-control" rows="4" placeholder="Resumo do TCC" required>{{ $tcc->resumo }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="link" class="form-label"><br>Link para Download:</label>
-            <input type="url" name="link" id="link" class="form-control" placeholder="Insira o link para download" value="{{ $tcc->link }}">
         </div>
         <div class="row">
             <div class="mb-3">
@@ -90,6 +86,13 @@
                 <option value="0" {{ $tcc->status == 0 ? 'selected' : '' }}>Aguardando defesa</option>
                 <option value="1" {{ $tcc->status == 1 ? 'selected' : '' }}>Concluido</option>
             </select>
+            <div class="mb-3" id="arquivo_id">
+                <label for="arquivo" class="form-label"><br>Arquivo:</label>
+                @if($tcc->status == 1 && $tcc->arquivo)
+                <a href="{{ asset($tcc->arquivo->path) }}" download>{{ $tcc->arquivo->nome }}</a>
+                @endif
+                <input type="file" name="arquivo" id="arquivo" class="form-control">
+            </div>
         </div>
 
         <div class="d-flex justify-content-center mt-4">
@@ -99,3 +102,25 @@
     </form>
 </div>
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusSelect = document.getElementById("status");
+        var arquivo = document.getElementById("arquivo_id");
+        if(statusSelect.value == 1) {
+            arquivo.style.display = "block";
+        }else {
+            arquivo.style.display = "none";
+        }
+
+        statusSelect.addEventListener("change", function () {
+            if (statusSelect.value === "1") {
+                arquivo.style.display = "block";
+            } else {
+                arquivo.style.display = "none";
+            }
+        });
+    });
+
+
+</script>

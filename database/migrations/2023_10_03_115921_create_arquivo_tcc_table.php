@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Aluno;
+use App\Models\Tcc;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,16 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tcc', function (Blueprint $table) {
+        Schema::create('arquivo_tcc', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('titulo');
-            $table->text('resumo');
-            $table->integer('ano');
 
-            $table->foreignId('aluno_id')->references('id')->on('aluno')
-            ->onDelete('CASCADE')
-            ->onUpdate('CASCADE');
+            $table->string('nome');
+            $table->string('path');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tcc');
+        Schema::dropIfExists('arquivo_tcc');
     }
 };
