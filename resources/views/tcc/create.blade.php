@@ -58,7 +58,7 @@
                     @endforeach
                 </select>
             </div>
-            
+
             <div class="col-md-3 mb-3 d-flex align-items-end">
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createProfessor">Cadastrar professor</a>
@@ -102,8 +102,8 @@
             <div class="d-flex justify-content-center mt-4">
                 <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar
                     TCC</button>
-                <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                        href="{{ route('tcc.index') }} "class="btn-back">Cancelar</a></button>
+                <a href="{{ route('tcc.index') }} "
+                    class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
             </div>
 
         </form>

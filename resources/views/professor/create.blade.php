@@ -27,8 +27,8 @@
                 <input class="form-control" id="login" name="login" type="text" required>
             </div>
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('postagem.index') }} "class="btn-back">Cancelar</a></button>
+            <a href="{{ route('professor.index') }} "
+                class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
         </form>
     </div>
 @stop

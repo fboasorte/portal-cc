@@ -103,8 +103,8 @@
 
 
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('projeto.index') }} "class="btn-back">Cancelar</a></button>
+            <a href="{{ route('projeto.index') }} "
+                class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
 
         </form>
 

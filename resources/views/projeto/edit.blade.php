@@ -40,8 +40,8 @@
 
             <div class="form-group">
                 <label for="titulo">Data de Termino</label>
-                <input value="{{ old('data_termino') ?? $projeto->data_termino }}" type="date" name="data_termino" id="data_termino"
-                    class="form-control @error('data_termino') is-invalid @enderror">
+                <input value="{{ old('data_termino') ?? $projeto->data_termino }}" type="date" name="data_termino"
+                    id="data_termino" class="form-control @error('data_termino') is-invalid @enderror">
 
                 @error('data_termino')
                     <div class="invalid-feedback">
@@ -52,8 +52,9 @@
 
             <div class="form-group">
                 <label for="titulo">Resultados</label>
-                <input value="{{ old('resultados') ?? $projeto->resultados }}" type="text" name="resultados" id="resultados"
-                    class="form-control @error('resultados') is-invalid @enderror" placeholder="Resultados do projeto">
+                <input value="{{ old('resultados') ?? $projeto->resultados }}" type="text" name="resultados"
+                    id="resultados" class="form-control @error('resultados') is-invalid @enderror"
+                    placeholder="Resultados do projeto">
 
                 @error('resultados')
                     <div class="invalid-feedback">
@@ -94,7 +95,7 @@
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createProfessor">Cadastrar professor</a>
             </div>
-            
+
 
             <div class="form-group">
                 <label for="alunos">Alunos Participantes</label>
@@ -109,11 +110,11 @@
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createAluno">Cadastrar aluno</a>
             </div>
-            
+
 
             <button type="submit" class="btn custom-button btn-default">Salvar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('projeto.index') }} "class="btn-back">Cancelar</a></button>
+            <a href="{{ route('projeto.index') }} "
+                class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
 
         </form>
 

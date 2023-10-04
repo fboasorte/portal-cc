@@ -23,8 +23,8 @@
                 <textarea name="descricao" id="descricao" cols="30" rows="10" class="form-control" required></textarea>
             </div>
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('colegiado.index') }} "class="btn-back">Cancelar</a></button>
+            <a href="{{ route('colegiado.index') }} "
+                class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
         </form>
     </div>
 @stop

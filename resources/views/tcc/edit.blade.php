@@ -93,8 +93,8 @@
 
             <div class="d-flex justify-content-center mt-4">
                 <button type="submit" class="btn custom-button btn-default">Salvar</button>
-                <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                        href="{{ route('tcc.index') }} "class="btn-back">Cancelar</a></button>
+                <a href="{{ route('tcc.index') }} "
+                    class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
             </div>
         </form>
 

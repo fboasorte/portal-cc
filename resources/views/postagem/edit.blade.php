@@ -18,8 +18,8 @@
 
             <div class="form-group">
                 <label for="titulo" class="form-label"><br>Título:</label>
-                <input type="text" value="{{ old('titulo') ?? $postagem->titulo }}" name="titulo" id="titulo" required
-                    class="form-control @error('titulo') is-invalid @enderror" placeholder="Título da postagem">
+                <input type="text" value="{{ old('titulo') ?? $postagem->titulo }}" name="titulo" id="titulo"
+                    required class="form-control @error('titulo') is-invalid @enderror" placeholder="Título da postagem">
 
                 @error('titulo')
                     <div class="invalid-feedback">
@@ -87,8 +87,8 @@
             </div>
 
             <button type="submit" class="btn custom-button btn-default">Salvar</button>
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('postagem.index') }} " class="btn-back">Cancelar</a></button>
+            <a href="{{ route('postagem.index') }} "
+                class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
         </form>
 
         @if (count($postagem->imagens) > 0)
