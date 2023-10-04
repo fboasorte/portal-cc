@@ -76,8 +76,7 @@
 
             <div class="form-group">
                 <label for="professor_id">Professor Responsável</label>
-                <select name="professor_id" id="professor_id"
-                    class="form-select"></select>
+                <select name="professor_id" id="professor_id" class="form-select"></select>
 
                 @error('professor_id')
                     <div class="invalid-feedback">
@@ -90,7 +89,7 @@
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createProfessor">Cadastrar professor</a>
             </div>
-            {{-- @include('modal.createProfessor') --}}
+
 
             <div class="form-group">
                 <label for="aluno_id">Alunos Participantes</label>
@@ -101,13 +100,16 @@
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createAluno">Cadastrar aluno</a>
             </div>
-            {{-- @include('modal.createAluno') --}}
+
 
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
             <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
                     href="{{ route('projeto.index') }} "class="btn-back">Cancelar</a></button>
 
         </form>
+
+        @include('modal.createProfessor')
+        @include('modal.createAluno')
 
         <script type="text/javascript">
             $('#professor_id').select2({
