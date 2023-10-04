@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostagemRequest;
 use App\Models\Aluno;
 use App\Models\ArquivoPostagem;
 use App\Models\Banca;
@@ -64,7 +65,7 @@ class PostagemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostagemRequest $request)
     {
         $postagem = new Postagem([
             'titulo' => $request->titulo,
@@ -117,7 +118,7 @@ class PostagemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StorePostagemRequest $request, string $id)
     {
         $postagem =  Postagem::findOrFail($id);
 

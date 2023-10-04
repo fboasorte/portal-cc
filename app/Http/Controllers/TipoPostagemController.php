@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTipoPostagemRequest;
 use App\Models\TipoPostagem;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class TipoPostagemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTipoPostagemRequest $request)
     {
         TipoPostagem::create([
             'nome' => $request->nome
@@ -55,7 +56,7 @@ class TipoPostagemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreTipoPostagemRequest $request, string $id)
     {
         $tipo_postagem =  TipoPostagem::findOrFail($id);
 

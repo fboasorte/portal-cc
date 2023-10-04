@@ -16,12 +16,19 @@
             @csrf
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" class="form-control"
-                    placeholder="Nome do tipo de postagem" required>
+                <input value="{{ old('nome') }}" type="text" name="nome" id="nome"
+                    placeholder="Nome do tipo de postagem" required
+                    class="form-control @error('nome') is-invalid @enderror">
+
+                @error('nome')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
             <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
-                    href="{{ route('tipo-postagem.index') }} "class="btn-back">Cancelar</a></button>
+                href="{{ route('tipo-postagem.index') }} "class="btn-back">Cancelar</a></button>
 
         </form>
     </div>
