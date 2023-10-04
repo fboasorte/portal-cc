@@ -7,27 +7,27 @@
         <div>
             <div>
                 <i class="fas fa-person-chalkboard fa-2x"></i>
-                <h3 class="smaller-font">Gerenciar Professor</h3>
+                <h3 class="smaller-font">Editar Professor</h3>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-4">
         <form method="post" action="{{ route('professor.update', ['id' => $servidor->id]) }}">
             @csrf
             @method('PUT')
             <form method="post">
                 <div class="mb-3">
-                    <label class="mt-5" for="nome">Nome</label>
+                    <label class="form-label" for="nome">Nome</label>
                     <input value="{{ $servidor->nome }}" class="form-control" id="nome" name="nome" type="text"
                         required>
                 </div>
                 <div class="mb-3">
-                    <label for="email">Email</label>
+                    <label class="form-label" for="email">Email</label>
                     <input value="{{ $servidor->email }}" class="form-control" id="email" name="email" type="email"
                         required>
                 </div>
                 <div class="mb-3">
-                    <label class="mt-5" for="login">Login</label>
+                    <label class="form-label" for="login">Login</label>
                     <input value="{{ $usuario->login }}" class="form-control" id="login" name="login" type="text"
                         required>
                 </div>
