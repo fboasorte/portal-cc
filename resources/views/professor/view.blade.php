@@ -1,44 +1,95 @@
-@extends('layouts.professor')
-
-@section('title', 'Professores')
-
+@extends('layouts.main')
+@section('title', 'Professor')
 @section('content')
-    <h1>Visualizar Professor</h1>
-    <div class="row">
+
+<div class="custom-container">
+    <div>
         <div>
-            <div class="col-md-12">
+            <i class="fas fa-chalkboard-teacher fa-2x"></i>
+            <h3 class="smaller-font">Professor</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container container-prof">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                    @if($professor->foto)
-                        <img src="{{ asset('images/professor/' . $professor->foto) }}">
-                    @else
-                        <img src="{{ asset('images/professor/professor_placeholder.png') }}">
-                    @endif
-                        <h3>Nome do professor:</h3>
-                        <p>{{ $servidor->nome }}</p>
-                        <h3>Email:</h3>
-                        <p>{{ $servidor->email }}</p>
-                        <h3>Titulacao:</h3>
-                        <p>{{ $professor->titualcao }}</p>
+                        <div class="d-flex flex-column align-items-center text-center">
 
-                        <h3>Curriculos:</h3>
-                    @foreach ($curriculos as $curriculo)
-                        <p>{{$curriculo->curriculo}}: <a href="https://{{ $curriculo->link }}" target="_blank">{{ $curriculo->link }}</a></p>
-                    @endforeach
-
-                        <h3>Areas de atuação:</h3>
-                    @foreach ($areas as $area)
-                        <p>{{$area->area}}: <a href="https://{{ $area->link }}" target="_blank">{{ $area->link }}</a></p>
-                    @endforeach
-
-                            <h3>biografia:</h3>
-                            <p>{{ $professor->biografia }}</p>
-                            <!-- <a href="{{ URL::previous() }}" class="btn btn-primary">Voltar</a> -->
-                            <a href="{{ route('professor.index') }}" class="btn btn-primary">Voltar</a>
-
+                            @if($professor->foto)
+                            <img src="{{ asset('images/professor/' . $professor->foto) }}" class="rounded-circle" width="200">
+                            @else
+                            <img src="{{ asset('images/professor/professor_placeholder.png') }}" class="rounded-circle" width="200">
+                            @endif
+                            <div class="mt-3">
+                                <h4>{{ $servidor->nome }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">E-mail:</h6>
+                            <span class="text-secondary email">{{ $servidor->email }}</span>
+                        </li>
+                        @foreach ($curriculos as $curriculo)
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">{{$curriculo->curriculo}}:</h6>
+                            <span class="text-secondary curriculo"><a href="https://{{ $curriculo->link }}" target="_blank">{{ $curriculo->link }}</a></span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Nome:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ $servidor->nome }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Titulação:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ $professor->titulacao }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Áreas de Atuação: </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @foreach ($areas as $area)
+                                {{$area->area}}: <a href="https://{{ $area->link }}" target="_blank">{{ $area->link }}</a> <br>
+                                @endforeach
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Biografia: </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ $professor->biografia }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 @stop
