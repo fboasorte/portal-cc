@@ -269,8 +269,11 @@ table#tccTable.dataTable {
     color: #1c2c4c; 
 }
 
-/* Estilizando os itens do dropdown quando hover */
 .dropdown .dropdown-menu .dropdown-item:hover {
-    background-color: #6f7580; /* Cor de fundo ao passar o mouse sobre os itens do dropdown */
-    color: #ffff; /* Cor do texto ao passar o mouse sobre os itens do dropdown */
+    background-color: #6f7580;
+    color: #ffff;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+    padding-right: 70px !important;
 }
