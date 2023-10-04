@@ -39,7 +39,7 @@ $meses = [
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show" id="home" role="tabpanel">
                         <div class="table-responsive">
-                            <table id="tccTable" class="table custom-table">
+                            <table id="tccTable" class="table custom-table table-hover">
                                 <thead class="custom-table-head">
                                     <tr>
                                         <th class="text-center" scope="col">Data</th>

@@ -277,3 +277,9 @@ table#tccTable.dataTable {
 .navbar-expand-lg .navbar-nav .nav-link{
     padding-right: 70px !important;
 }
+
+.div-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
