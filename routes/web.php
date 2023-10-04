@@ -44,6 +44,8 @@ Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('po
 Route::get('/tccs', [TccController::class, 'show']);
 Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
 
+//Professor
+Route::get('/professores/{id}', [ProfessorController::class, 'view'])->name('professor.view');
 
 // SERVIDOR
 Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);

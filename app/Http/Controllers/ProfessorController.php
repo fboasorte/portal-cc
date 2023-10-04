@@ -138,4 +138,15 @@ class ProfessorController extends Controller
 
         return redirect('/professor')->with('success',"Usuário removido com sucesso!");
     }
+
+    public function view($servidor_id)
+    {
+        $servidor = Servidor::where('id', $servidor_id)->first();
+        $professor = Professor::where('servidor_id', $servidor_id)->first();
+        $areas = AreaProfessor::where('professor_id', $professor->id)->get();
+        $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+        
+        return view('professor.view',
+            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]);
+    }
 }
