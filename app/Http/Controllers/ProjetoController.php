@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjetoRequest;
 use App\Models\Projeto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class ProjetoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjetoRequest $request)
     {
         $projeto = new Projeto([
             'descricao' => $request->descricao,
@@ -66,7 +67,7 @@ class ProjetoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreProjetoRequest $request, string $id)
     {
         $projeto = Projeto::findOrFail($id);
 
