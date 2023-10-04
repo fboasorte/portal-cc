@@ -11,11 +11,11 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-4">
         <form method="post" action="{{ route('projeto.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="descricao">Descrição</label>
+                <label for="descricao" class="form-label">Descrição: </label>
                 <textarea name="descricao" id="descricao" placeholder="Descrição do projeto" required
                     class="form-control @error('descricao') is-invalid @enderror">{{ old('descricao') }}</textarea>
 
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <label for="data_inicio">Data de Início</label>
+                <label for="data_inicio" class="form-label">Data de Início: </label>
                 <input type="date" name="data_inicio" id="data_inicio" value="{{ old('data_inicio') }}"
                     class="form-control @error('data_inicio') is-invalid @enderror" required>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group">
-                <label for="data_termino">Data de Termino</label>
+                <label for="data_termino" class="form-label">Data de Termino: </label>
                 <input type="date" name="data_termino" id="data_termino" value="{{ old('data_termino') }}"
                     class="form-control @error('data_termino') is-invalid @enderror">
 
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group">
-                <label for="resultados">Resultados</label>
+                <label for="resultados" class="form-label">Resultados: </label>
                 <input type="text" name="resultados" id="resultados" value="{{ old('resultados') }}"
                     class="form-control @error('resultados') is-invalid @enderror" placeholder="Resultados do projeto">
 
@@ -63,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                <label for="palavras_chave">Palavras Chave</label>
+                <label for="palavras_chave" class="form-label">Palavras-Chave:</label>
                 <input type="text" name="palavras_chave" id="palavras_chave" value="{{ old('palavras_chave') }}"
                     class="form-control @error('palavras_chave') is-invalid @enderror" placeholder="Palavras Chave">
 
@@ -75,7 +75,7 @@
             </div>
 
             <div class="form-group">
-                <label for="professor_id">Professor Responsável</label>
+                <label for="professor_id" class="form-label">Professor Responsável: </label>
                 <select name="professor_id" id="professor_id" class="form-select"></select>
 
                 @error('professor_id')
@@ -92,7 +92,7 @@
 
 
             <div class="form-group">
-                <label for="aluno_id">Alunos Participantes</label>
+                <label for="aluno_id" class="form-label">Alunos Participantes:</label>
                 <select class="form-select" name="alunos[]" id="alunos" multiple></select>
             </div>
 
