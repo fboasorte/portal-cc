@@ -15,5 +15,10 @@ class Curso extends Model{
         'analytics',
     ];
 
+    public function calendario()
+    {
+        return $this->hasOne(Calendario::class);
+    }
+
 
 }

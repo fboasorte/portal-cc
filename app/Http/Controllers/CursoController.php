@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Curso;
+use App\Models\ArquivoCalendario;
+use App\Models\ArquivoHorario;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -44,13 +46,13 @@ class CursoController extends Controller
             'nome.unique' => 'Este nome de curso já está em uso. Escolha outro nome.',
             'sigla.unique' => 'Esta sigla de curso já está em uso. Escolha outra sigla.',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect('/curso/create')
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         $curso = new Curso([
             'nome' => $request->nome,
             'turno' => $request->turno,
@@ -58,9 +60,31 @@ class CursoController extends Controller
             'sigla' => $request->sigla,
             'analytics' => $request->analytics,
         ]);
-    
+
         $curso->save();
-    
+
+        if ($request->hasFile("calendario")) {
+            $calendario = $request->file("calendario");
+
+                $arquivoCalendario = new ArquivoCalendario();
+                $arquivoCalendario->curso_id = $curso->id;
+                $arquivoCalendario->calendario = $calendario->store('ArquivoCalendario/' . $curso->id);
+                $arquivoCalendario->save();
+                unset($arquivoCalendario);
+            }
+
+            if ($request->hasFile("horario")) {
+                $horario = $request->file("horario");
+
+                    $arquivoHorario = new ArquivoHorario();
+                    $arquivoHorario->curso_id = $curso->id;
+                    $arquivoHorario->horario = $horario->store('ArquivoHorario/' . $curso->id);
+                    $arquivoHorario->save();
+                    unset($arquivoHorario);
+                }
+
+
+
         return redirect('curso')->with('success', 'Curso adicionado com sucesso');
     }
 
@@ -75,6 +99,29 @@ class CursoController extends Controller
         $curso->delete();
         return back()->with('success', 'Curso excluído com sucesso');
     }
+
+    public function deleteCalendario($id)
+    {
+        $calendario = ArquivoCalendario::findOrFail($id);
+
+        if (File::exists("storage/"  . $calendario->path)) {
+            File::delete("storage/"  . $calendario->path);
+        }
+        $calendario->delete();
+        return back();
+    }
+
+    public function deleteHorario($id)
+    {
+        $horario = ArquivoHorario::findOrFail($id);
+
+        if (File::exists("storage/"  . $horario->path)) {
+            File::delete("storage/"  . $horario->path);
+        }
+        $horario->delete();
+        return back();
+    }
+
 
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
@@ -92,28 +139,48 @@ class CursoController extends Controller
             'nome.unique' => 'Este nome de curso já está em uso. Escolha outro nome.',
             'sigla.unique' => 'Esta sigla de curso já está em uso. Escolha outra sigla.',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->route('curso.edit', $id)
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         $curso = Curso::find($id);
-    
+
         if (!$curso) {
             return redirect('curso')->with('error', 'Curso não encontrado');
         }
-    
+
         $curso->nome = $request->nome;
         $curso->turno = $request->turno;
         $curso->carga_horaria = $request->carga_horaria;
         $curso->sigla = $request->sigla;
         $curso->analytics = $request->analytics;
         $curso->save();
-    
+
+        if ($request->hasFile("calendario")) {
+            $calendario = $request->file("calendario");
+
+                $arquivoCalendario = new ArquivoCalendario();
+                $arquivoCalendario->curso_id = $curso->id;
+                $arquivoCalendario->calendario = $calendario->store('ArquivoCalendario/' . $curso->id);
+                $arquivoCalendario->save();
+                unset($arquivoCalendario);
+            }
+
+            if ($request->hasFile("horario")) {
+                $horario = $request->file("horario");
+
+                    $arquivoHorario = new ArquivoHorario();
+                    $arquivoHorario->curso_id = $curso->id;
+                    $arquivoHorario->horario = $horario->store('ArquivoHorario/' . $curso->id);
+                    $arquivoHorario->save();
+                    unset($arquivoHorario);
+                }
+
         return redirect('curso')->with('success', 'Curso atualizado com sucesso');
     }
-    
-    
+
+
 }

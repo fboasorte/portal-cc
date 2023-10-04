@@ -49,6 +49,14 @@
                 <label for="analytics">Analytics:</label>
                 <input class="form-control" type="text" id="analytics" name="analytics" placeholder="Informe o analytics">
             </div>
+            <div class="form-group">
+                <label for="calendario">Calendario</label>
+                <input type="file" name="calendario" id="calendario" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="horario">Horario</label>
+                <input type="file" name="horario" id="horario" class="form-control">
+            </div>
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
             <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a
                     href="{{ route('curso.index') }} "class="btn-back">Cancelar</a></button>

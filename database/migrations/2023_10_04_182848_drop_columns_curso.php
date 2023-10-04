@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('calendario', function (Blueprint $table) {
-            $table->dropColumn('arquivo');
+        Schema::table('curso', function (Blueprint $table) {
+            $table->dropColumn('calendario');
             $table->dropColumn('horario');
         });
     }
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('calendario', function (Blueprint $table) {
-            $table->string('arquivo');
+        Schema::table('curso', function (Blueprint $table) {
+            $table->string('calendario');
             $table->string('horario');
         });
     }

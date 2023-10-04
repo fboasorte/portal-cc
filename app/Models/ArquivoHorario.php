@@ -15,12 +15,12 @@ class ArquivoHorario extends Model
     protected $fillable = [
 
         'path',
-        'calendario_id',
+        'curso_id',
 
     ];
 
     public function horario(){
-        return $this belongsTo(Calendario::class);
+        return $this belongsTo(Curso::class);
     }
 
 }

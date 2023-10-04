@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer("carga_horaria");
             $table->string("sigla");
             $table->string("analytics")->nullable();
+            $table->string("calendario")->nullable();
+            $table->string("horario")->nullable();
             $table->timestamps();
 
         });

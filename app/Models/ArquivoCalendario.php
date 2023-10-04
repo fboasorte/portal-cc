@@ -15,11 +15,11 @@ class ArquivoCalendario extends Model
     protected $fillable =[
 
         'path',
-        'calendario_id',
+        'curso_id',
     ];
 
     public function calendario(){
-        return $this->belongsTo(Calendario::class);
+        return $this->belongsTo(Curso::class);
     }
 
 }
