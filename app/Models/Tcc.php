@@ -23,6 +23,7 @@ class Tcc extends Model
         return $this->hasOne(Banca::class, 'id', 'banca_id');
     }
 
+
     public function orientador() {
         return $this->belongsTo(Professor::class, 'professor_id');
     }

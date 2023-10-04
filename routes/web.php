@@ -37,6 +37,13 @@ Route::get('/', function () {
 Route::get('/noticias', [PostagemController::class, 'display']);
 Route::get('/professores', [ProfileController::class, 'display']);
 
+//Postagem
+Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
+
+//TCC
+Route::get('/tccs', [TccController::class, 'show']);
+Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
+
 
 // SERVIDOR
 Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);
@@ -68,7 +75,6 @@ Route::middleware('auth')->group(function () {
     // Postagem
     Route::resource('postagem', PostagemController::class)->parameter('postagem', 'id')->except(['show']);
     
-    Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
     Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('postagem.delete_imagem');
     Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('postagem.delete_arquivo');
 

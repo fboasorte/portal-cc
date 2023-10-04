@@ -94,8 +94,6 @@
     font-family: 'Quicksand', sans-serif;
 }
 
-
-/* ------------------------------- */
 #demo.carousel {
     margin: 50px auto 0;
 }
@@ -128,7 +126,7 @@
 
 
 .btn.custom-button:hover {
-    background-color: #2e3e6d;
+    background-color: #324c81;
     color: #ffffff;
 }
 .div_filtro {
@@ -162,3 +160,66 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.custom-container {
+    text-align: center;
+   
+}
+
+.custom-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.custom-table th,
+.custom-table td {
+    vertical-align: middle;
+}
+
+.custom-table th.text-center,
+.custom-table td.text-center {
+    text-align: center;
+}
+
+
+.pad100 {
+    padding: 10px 0;
+}
+
+.primary-btn {
+    text-align: center;
+}
+
+
+.btn.btn_detalhes {
+    background-color: #1c2c4c;
+    border-color: #1c2c4c;
+    color: #ffffff;
+}
+
+.btn.btn_detalhes:hover {
+    background-color: #324c81;
+    border-color: #324c81;
+    color: #ffffff;
+}
+
+.event-date {
+    color: #1c2c4c;
+    text-align: center;
+    
+}
+.date-day {
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: normal;
+}
+
+.custom-table-head th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.clickable-row:hover {
+    cursor: pointer;
+}
+
