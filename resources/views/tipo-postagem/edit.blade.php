@@ -7,17 +7,17 @@
         <div>
             <div>
                 <i class="fas fa-paste fa-2x"></i>
-                <h3 class="smaller-font">Gerenciar Postagem</h3>
+                <h3 class="smaller-font">Editar Tipo Postagem</h3>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-4">
         <form method="post" action="{{ route('tipo-postagem.update', ['id' => $tipo_postagem->id]) }}">
             @csrf
             @method('PUT')
 
             <div class="form-group">
-                <label for="nome">Nome</label>
+                <label for="nome" class="form-label">Nome</label>
                 <input value="{{ old('nome') ?? $tipo_postagem->nome }}" type="text" name="nome" id="nome"
                     placeholder="Nome do tipo de postagem" required
                     class="form-control @error('nome') is-invalid @enderror">
