@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use App\Models\ArquivoCalendario;
 use App\Models\ArquivoHorario;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -31,34 +30,15 @@ class CursoController extends Controller
 
     public function store(Request $request){
 
-        $validator = Validator::make($request->all(), [
-            'nome' => [
-                'required',
-                Rule::unique('curso', 'nome')->ignore($request->id),
-            ],
-            'sigla' => [
-                'required',
-                Rule::unique('curso', 'sigla')->ignore($request->id),
-            ],
-        ], [
-            'nome.required' => 'O campo Nome é obrigatório.',
-            'sigla.required' => 'O campo Sigla é obrigatório.',
-            'nome.unique' => 'Este nome de curso já está em uso. Escolha outro nome.',
-            'sigla.unique' => 'Esta sigla de curso já está em uso. Escolha outra sigla.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/curso/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
+        //dd($request->calendario);
         $curso = new Curso([
             'nome' => $request->nome,
             'turno' => $request->turno,
             'carga_horaria' => $request->carga_horaria,
             'sigla' => $request->sigla,
             'analytics' => $request->analytics,
+            'calendario'=> $request->calendario,
+            'horario'=> $request->horario,
         ]);
 
         $curso->save();
@@ -121,6 +101,20 @@ class CursoController extends Controller
         $horario->delete();
         return back();
     }
+
+    public function downloadCalendario($id)
+{
+    $arquivoCalendario = ArquivoCalendario::findOrFail($id);
+
+    return response()->download(storage_path("app/{$arquivoCalendario->calendario}"));
+}
+
+public function downloadHorario($id)
+{
+    $arquivoHorario = ArquivoHorario::findOrFail($id);
+
+    return response()->download(storage_path("app/{$arquivoHorario->horario}"));
+}
 
 
     public function update(Request $request, $id) {

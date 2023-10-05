@@ -84,3 +84,11 @@ Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
 
 // Curso
 Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
+
+Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteCalendario'])->name('curso.delete_calendario');
+
+Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
+
+Route::get('download/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
+
+Route::get('download/horario/{id}', [CursoController::class,'downloadHorario'])->name('curso.download_horario');

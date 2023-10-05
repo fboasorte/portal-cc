@@ -51,38 +51,38 @@
             </div>
             <div class="form-group">
                 <label for="calendario">Calendario</label>
-                @if (count($curso->calendario) > 0)
+
                         <button class="btn text-danger" type="submit" form="deletar-calendario{{ $calendario->id }}">X</button>
                         <a href="{{ URL::asset('storage') }}/{{ $calendario->path }}"></a>
-                @endif
+
                 <input type="file" name="calendario" id="calendario" class="form-control">
             </div>
             <div class="form-group">
                 <label for="horario">Horario</label>
-                @if (count($curso->horario) > 0)
+
                         <button class="btn text-danger" type="submit" form="deletar-horario{{ $horario->id }}">X</button>
                         <a href="{{ URL::asset('storage') }}/{{ $horario->path }}"></a>
-                @endif
+
                 <input type="file" name="horario" id="horario" class="form-control">
             </div>
             <button type="submit" class="btn custom-button btn-default">Atualizar</button>
             <a href="{{ route('curso.index') }}" class="btn custom-button custom-button-castastrar-tcc btn-default btn-back">Cancelar</a>
         </form>
 
-        @if (count($curso->calendario) > 0)
+
             <form id="deletar-calendario{{ $calendario->id }}"
                 action="{{ route('curso.delete_calendario', ['id' => $calendario->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>
-         @endif
-         @if (count($curso->horario) > 0)
+
+
             <form id="deletar-horario{{ $horario->id }}"
                 action="{{ route('curso.delete_horario', ['id' => $horario->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>
-         @endif
+
 
     </div>
 @stop
