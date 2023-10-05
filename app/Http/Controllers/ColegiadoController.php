@@ -16,18 +16,29 @@ class ColegiadoController extends Controller
      */
     public function index()
     {
-        $colegiados = Colegiado::all();
+        $colegiado_atual = new Colegiado();
         $colegiado_atual = Colegiado::where('fim', '>', now())->first();
+
+        if ($colegiado_atual != null) {
+            $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])->get();
+        } else {
+            $colegiados = Colegiado::all();
+        }
+        
         $totalMembros = 0;
         $totalAtas = 0;
-        $totalAtas = $colegiado_atual->atas()->count();
+        if($colegiado_atual != null) {
+            $totalAtas = $colegiado_atual->atas()->count();
+        }
 
-        if($colegiado_atual) {
+
+        if($colegiado_atual != null) {
             $totalMembros++;
             $totalMembros += $colegiado_atual->professores()->count();
             $totalMembros += $colegiado_atual->alunos()->count();
             $totalMembros += $colegiado_atual->tecnicosAdm()->count();
         }
+
 
         return view('colegiado.index', ['colegiados' => $colegiados, 'colegiado_atual' => $colegiado_atual, 'totalMembros' => $totalMembros, 'totalAtas' => $totalAtas]);
     }
