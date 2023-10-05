@@ -135,4 +135,31 @@ class ProjetoController extends Controller
 
         return response()->json($data);
     }
+
+
+    public function show()
+    {
+
+        $projetos = Projeto::join('professor', 'projeto.professor_id', '=', 'professor.id')
+            ->join('servidor','professor.servidor_id', '=', 'servidor.id')
+            ->select('projeto.*', 'servidor.nome as nome_professor')
+            //->orderBy('data.ano', 'DESC')
+            ->get();
+
+        return view('projeto.show', ['projetos' => $projetos]);
+    }
+
+    public function view($id)
+    {
+        $projetos = Projeto::join('professor', 'projeto.professor_id', '=', 'professor.id')
+        ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
+        ->select('projeto.*', 'servidor.nome as nome_professor')
+        ->findOrFail($id);
+
+        if (!$projetos) {
+            abort(404);
+        }
+
+        return view('projeto.view', ['projetos' => $projetos]);
+    }
 }
