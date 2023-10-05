@@ -58,18 +58,19 @@
                                 <td> {{ $professores->contains($tcc->professor_id) ? $professores->where('id', $tcc->professor_id)->first()->nome : ''}} </td>
                                 <td> {{ $tcc->status == 0 ? "Aguardando defesa" : "Concluido"}} </td>
                                 <td class="text-center">
+
+
                                     <form method="POST"
-                                        action="{{ route('tcc.destroy', $tcc->id) }}">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        @if($tcc->status == 0)
+                                    action="{{ route('tcc.destroy', $tcc->id) }}">
+                                    @csrf
+                                    @if($tcc->status == 0)
                                             <a href="" class="btn btn-success btn-sm modal-trigger" data-bs-toggle="modal" data-bs-target="#concluiTcc" >Concluir</a>
-                                            @include('modal.concluirTcc')
-                                        @endif
+                                            @endif
+                                            <input name="_method" type="hidden" value="DELETE">
                                         <a href="{{ route('tcc.edit', $tcc->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                         <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                            onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                                        onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -82,6 +83,7 @@
         </div>
     </div>
 </div>
+@include('modal.concluirTcc')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

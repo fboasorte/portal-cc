@@ -78,25 +78,25 @@ class TccController extends Controller
     }
 
     public function update(Request $request, $id) {
+
+        // return $request;
+
         $tcc = Tcc::find($request->id);
 
-        if ($request->contexto === 'concluirTcc') {
-            // Salve o arquivo do TCC (se necessário)
-            if ($request->hasFile('arquivo')) {
-                $arquivo = $request->file('arquivo');
-                $nomeArquivo = time() . '_' . $arquivo->getClientOriginalName();
-                $arquivo->storeAs('tcc', $nomeArquivo); // Armazene o arquivo na pasta 'tcc', por exemplo
-                $tcc->arquivo = $nomeArquivo;
+        if ($request->contexto === 'concluiTcc') {
+            if($request->hasFile("arquivo")) {
+                $pdf = new ArquivoTcc();
+                $pdf->nome = $request->arquivo->getClientOriginalName();
+                $pdf->path =$request->arquivo->store('ArquivoTcc/' .$tcc->id);
+                $pdf->save();
+
+                $tcc->arquivo_id = $pdf->id;
+                $tcc->status = 1;
             }
 
-            // Atualize outros campos do TCC, se necessário
-            // $tcc->campo = $request->campo;
-
-            // Salve as alterações no TCC
             $tcc->save();
 
-            // Retorne uma resposta de sucesso, se necessário
-            return response()->json(['message' => 'TCC concluído com sucesso']);
+            return redirect('tcc')->with('success', 'TCC atualizado com sucesso');
         }
 
         $tcc->update([
