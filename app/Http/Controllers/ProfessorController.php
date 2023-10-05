@@ -162,7 +162,9 @@ class ProfessorController extends Controller
     public function display()
     {
 
-        $servidores = Servidor::all();
+        $servidores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')
+        ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+        ->get();
 
         return view('professor.display', ['servidores' => $servidores]);
     }
