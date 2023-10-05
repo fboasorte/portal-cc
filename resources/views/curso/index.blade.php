@@ -51,12 +51,12 @@
                                         <td>{{ $curso->carga_horaria }} Hrs</td>
                                         <td>
                                             @if ($curso->calendario)
-                                            <a href="{{ url('download/calendario/' . $curso->calendario->id) }}" class="btn btn-primary">Baixar Calendário</a>
+                                            <a href="{{ route('curso.download_calendario', ['id' => $curso->id]) }}" class="btn btn-primary">Baixar Calendário</a>
                                              @endif
                                         </td>
                                         <td>
                                             @if ($curso->horario)
-                                            <a href="{{ url('download/horario/' . $curso->horario->id) }}" class="btn btn-primary">Baixar Horário</a>
+                                            <a href="{{route('curso.download_horario',['id'=>$curso->id]) }}" class="btn btn-primary">Baixar Horário</a>
                                             @endif
                                         </td>
                                         <td>{{ date_format($curso->created_at, 'd/m/Y H:i:s') }}</td>

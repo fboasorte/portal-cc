@@ -7,6 +7,8 @@ use App\Models\ArquivoHorario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 
 class CursoController extends Controller
@@ -31,39 +33,31 @@ class CursoController extends Controller
     public function store(Request $request){
 
         //dd($request->calendario);
-        $curso = new Curso([
-            'nome' => $request->nome,
-            'turno' => $request->turno,
-            'carga_horaria' => $request->carga_horaria,
-            'sigla' => $request->sigla,
-            'analytics' => $request->analytics,
-            'calendario'=> $request->calendario,
-            'horario'=> $request->horario,
-        ]);
 
-        $curso->save();
-
+            $nomeCalendario=$request->calendario;
         if ($request->hasFile("calendario")) {
             $calendario = $request->file("calendario");
+            $nomeCalendario = $calendario->store('ArquivoCalendario');
 
-                $arquivoCalendario = new ArquivoCalendario();
-                $arquivoCalendario->curso_id = $curso->id;
-                $arquivoCalendario->calendario = $calendario->store('ArquivoCalendario/' . $curso->id);
-                $arquivoCalendario->save();
-                unset($arquivoCalendario);
             }
 
+                $nomeHorario=$request->horario;
             if ($request->hasFile("horario")) {
                 $horario = $request->file("horario");
-
-                    $arquivoHorario = new ArquivoHorario();
-                    $arquivoHorario->curso_id = $curso->id;
-                    $arquivoHorario->horario = $horario->store('ArquivoHorario/' . $curso->id);
-                    $arquivoHorario->save();
-                    unset($arquivoHorario);
+                $nomeHorario = $horario->store('ArquivoHorario');
                 }
 
+                $curso = new Curso([
+                    'nome' => $request->nome,
+                    'turno' => $request->turno,
+                    'carga_horaria' => $request->carga_horaria,
+                    'sigla' => $request->sigla,
+                    'analytics' => $request->analytics,
+                    'calendario'=> $nomeCalendario,
+                    'horario'=> $nomeHorario,
+                ]);
 
+                $curso->save();
 
         return redirect('curso')->with('success', 'Curso adicionado com sucesso');
     }
@@ -103,17 +97,27 @@ class CursoController extends Controller
     }
 
     public function downloadCalendario($id)
-{
-    $arquivoCalendario = ArquivoCalendario::findOrFail($id);
+    {
+        $curso =  Curso::findOrFail($id);
+        $file = public_path() .'/storage/'. $curso->calendario;
 
-    return response()->download(storage_path("app/{$arquivoCalendario->calendario}"));
-}
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return Response::download($file, 'filename.pdf', $headers);
+    }
 
 public function downloadHorario($id)
 {
-    $arquivoHorario = ArquivoHorario::findOrFail($id);
+   $curso = Curso::findOrFail($id);
+   $file = public_path() .'/storage/'. $curso->horario;
 
-    return response()->download(storage_path("app/{$arquivoHorario->horario}"));
+   $headers = array(
+            'Content-Type: application/pdf',
+   );
+
+   return Response::download($file, 'filename.pdf', $headers);
 }
 
 
@@ -146,32 +150,29 @@ public function downloadHorario($id)
             return redirect('curso')->with('error', 'Curso não encontrado');
         }
 
+            $nomeCalendario=$curso->calendario;
+        if ($request->hasFile("calendario")) {
+            $calendario = $request->file("calendario");
+            $nomeCalendario = $calendario->store('ArquivoCalendario');
+
+            }
+
+                $nomeHorario=$curso->horario;
+            if ($request->hasFile("horario")) {
+                $horario = $request->file("horario");
+                $nomeHorario = $horario->store('ArquivoHorario');
+                }
+
         $curso->nome = $request->nome;
         $curso->turno = $request->turno;
         $curso->carga_horaria = $request->carga_horaria;
         $curso->sigla = $request->sigla;
         $curso->analytics = $request->analytics;
+        $curso->calendario = $nomeCalendario;
+        $curso->horario = $nomeHorario;
         $curso->save();
 
-        if ($request->hasFile("calendario")) {
-            $calendario = $request->file("calendario");
 
-                $arquivoCalendario = new ArquivoCalendario();
-                $arquivoCalendario->curso_id = $curso->id;
-                $arquivoCalendario->calendario = $calendario->store('ArquivoCalendario/' . $curso->id);
-                $arquivoCalendario->save();
-                unset($arquivoCalendario);
-            }
-
-            if ($request->hasFile("horario")) {
-                $horario = $request->file("horario");
-
-                    $arquivoHorario = new ArquivoHorario();
-                    $arquivoHorario->curso_id = $curso->id;
-                    $arquivoHorario->horario = $horario->store('ArquivoHorario/' . $curso->id);
-                    $arquivoHorario->save();
-                    unset($arquivoHorario);
-                }
 
         return redirect('curso')->with('success', 'Curso atualizado com sucesso');
     }

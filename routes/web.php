@@ -89,6 +89,6 @@ Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteC
 
 Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
 
-Route::get('download/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
+Route::get('/curso/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
 
 Route::get('download/horario/{id}', [CursoController::class,'downloadHorario'])->name('curso.download_horario');

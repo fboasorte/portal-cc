@@ -20,7 +20,7 @@
             @endforeach
         @endif
 
-        <form method="post" action="{{ route('curso.update', $curso->id) }}">
+        <form method="post" enctype = "multipart/form-data" action="{{ route('curso.update', $curso->id) }}">
             @csrf
             @method('PUT') {{-- Usamos @method('PUT') para indicar que esta é uma atualização --}}
 
@@ -52,16 +52,16 @@
             <div class="form-group">
                 <label for="calendario">Calendario</label>
 
-                        <button class="btn text-danger" type="submit" form="deletar-calendario{{ $calendario->id }}">X</button>
-                        <a href="{{ URL::asset('storage') }}/{{ $calendario->path }}"></a>
+                        <button class="btn text-danger" type="submit" form="deletar-calendario{{ $curso->calendario}}">X</button>
+                        <a href="{{ URL::asset('storage') }}/{{ $curso->calendario}}"></a>
 
                 <input type="file" name="calendario" id="calendario" class="form-control">
             </div>
             <div class="form-group">
                 <label for="horario">Horario</label>
 
-                        <button class="btn text-danger" type="submit" form="deletar-horario{{ $horario->id }}">X</button>
-                        <a href="{{ URL::asset('storage') }}/{{ $horario->path }}"></a>
+                        <button class="btn text-danger" type="submit" form="deletar-horario{{ $curso->horario }}">X</button>
+                        <a href="{{ URL::asset('storage') }}/{{ $curso->horario }}"></a>
 
                 <input type="file" name="horario" id="horario" class="form-control">
             </div>
@@ -70,15 +70,15 @@
         </form>
 
 
-            <form id="deletar-calendario{{ $calendario->id }}"
-                action="{{ route('curso.delete_calendario', ['id' => $calendario->id]) }}" method="post">
+            <form id="deletar-calendario{{ $curso->id }}"
+                action="{{ route('curso.delete_calendario', ['id' => $curso->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>
 
 
-            <form id="deletar-horario{{ $horario->id }}"
-                action="{{ route('curso.delete_horario', ['id' => $horario->id]) }}" method="post">
+            <form id="deletar-horario{{ $curso->id }}"
+                action="{{ route('curso.delete_horario', ['id' => $curso->id]) }}" method="post">
                 @csrf
                 @method('delete')
             </form>

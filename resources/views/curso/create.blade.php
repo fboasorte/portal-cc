@@ -21,7 +21,7 @@
             @endforeach
         @endif
 
-        <form method="post" action="{{ route('curso.store') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ route('curso.store') }}">
             @csrf
             <div class="form-group mb-3">
                 <label for="turno">Nome:</label>

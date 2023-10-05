@@ -13,12 +13,8 @@ class Curso extends Model{
         'carga_horaria',
         'sigla',
         'analytics',
+        'calendario',
+        'horario',
     ];
-
-    public function calendario()
-    {
-        return $this->hasOne(Calendario::class);
-    }
-
 
 }
