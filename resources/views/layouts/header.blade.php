@@ -34,6 +34,10 @@
                             <a class="nav-link" href="{{ route('tcc.display') }}">TCC</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('projetos.show') }}">Projeto</a>
+                        </li>
+
                         
                     </ul>
                 </div>

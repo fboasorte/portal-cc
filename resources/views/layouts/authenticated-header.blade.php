@@ -86,6 +86,7 @@
                                     Projeto
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('projetos.show') }}">Visualizar</a></li>
                                     <li><a class="dropdown-item" href="{{ route('projeto.index') }}">Gerenciar</a></li>
                                 </ul>
                             </li>
