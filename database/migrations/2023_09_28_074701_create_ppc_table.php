@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('ppc', function (Blueprint $table) {
             $table->id();
+            $table ->string("periodo");
+            $table ->string("status");
+            $table->foreignId('curso_id')->constrained(
+                table: 'curso'
+            );
             $table->timestamps();
         });
     }

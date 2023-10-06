@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('curso', function (Blueprint $table) {
             $table->id();
+            $table->string("turno");
+            $table->string("nome")->unique();
+            $table->integer("carga_horaria");
+            $table->string("sigla")->unique();
+            $table->string("analytics")->nullable();
+            $table->string("calendario")->nullable();
+            $table->string("horario")->nullable();
             $table->timestamps();
+
         });
     }
 

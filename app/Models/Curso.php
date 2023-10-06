@@ -8,12 +8,13 @@ class Curso extends Model{
     protected $table = 'curso';
 
     protected $fillable = [
-        'turno',
         'nome',
+        'turno',
         'carga_horaria',
         'sigla',
         'analytics',
+        'calendario',
+        'horario',
     ];
-
 
 }

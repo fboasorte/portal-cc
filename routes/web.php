@@ -12,6 +12,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
+use App\Http\Controllers\MatrizController;
+use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,3 +119,16 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
+// Matriz curricular
+Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
+
+// Curso
+Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
+
+Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteCalendario'])->name('curso.delete_calendario');
+
+Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
+
+Route::get('/curso/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
+
+Route::get('download/horario/{id}', [CursoController::class,'downloadHorario'])->name('curso.download_horario');
