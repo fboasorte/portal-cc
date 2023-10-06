@@ -144,3 +144,6 @@ Route::resource('professor', ProfessorController::class)->parameter('professor',
 
 // Matriz curricular
 Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
+
+//sobre o curso
+Route::get('/curso/sobre', function(){  return view('curso.display'); });

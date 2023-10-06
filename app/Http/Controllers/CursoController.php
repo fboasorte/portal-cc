@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
-use App\Models\ArquivoCalendario;
-use App\Models\ArquivoHorario;
 use App\Models\Coordenador;
 use App\Models\Professor;
 use Illuminate\Http\Request;
@@ -14,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 class CursoController extends Controller
@@ -80,25 +79,29 @@ class CursoController extends Controller
     }
 
     public function deleteCalendario($id)
-    {
-        $calendario = ArquivoCalendario::findOrFail($id);
+{
+    $curso = Curso::findOrFail($id);
 
-        if (File::exists("storage/"  . $calendario->path)) {
-            File::delete("storage/"  . $calendario->path);
-        }
-        $calendario->delete();
-        return back();
+    if (File::exists(public_path("storage/" . $curso->calendario))) {
+        File::delete(public_path("storage/" . $curso->calendario));
+        $curso->calendario = null;
+        $curso->save();
     }
+
+    return redirect()->back();
+}
 
     public function deleteHorario($id)
     {
-        $horario = ArquivoHorario::findOrFail($id);
+        $curso = Curso::findOrFail($id);
 
-        if (File::exists("storage/"  . $horario->path)) {
-            File::delete("storage/"  . $horario->path);
+        if (File::exists(public_path("storage/" . $curso->horario))) {
+            File::delete(public_path("storage/" . $curso->horario));
+            $curso->horario = null;
+            $curso->save();
         }
-        $horario->delete();
-        return back();
+
+        return redirect()->back();
     }
 
     public function downloadCalendario($id)

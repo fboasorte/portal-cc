@@ -49,39 +49,49 @@
                 <label for="analytics">Analytics:</label>
                 <input class="form-control" type="text" id="analytics" name="analytics" value="{{ $curso->analytics }}" placeholder="Informe o analytics">
             </div>
+
+
             <div class="form-group">
                 <label for="calendario">Calendario</label>
-
-                        <button class="btn text-danger" type="submit" form="deletar-calendario{{ $curso->calendario}}">X</button>
-                        <a href="{{ URL::asset('storage') }}/{{ $curso->calendario}}"></a>
-
-                <input type="file" name="calendario" id="calendario" class="form-control">
+                    @if($curso->calendario)
+                    <button class="btn text-danger" type="submit" form="deletar-calendario{{ $curso->id }}">X</button>
+                    <a href="{{ URL::asset('storage/' . $curso->calendario) }}" target="_blank">Ver Calendário</a>
+                    @else
+                    <input type="file" name="calendario" id="calendario" class="form-control">
+                    @endif
             </div>
+
             <div class="form-group">
                 <label for="horario">Horario</label>
 
-                        <button class="btn text-danger" type="submit" form="deletar-horario{{ $curso->horario }}">X</button>
-                        <a href="{{ URL::asset('storage') }}/{{ $curso->horario }}"></a>
-
-                <input type="file" name="horario" id="horario" class="form-control">
+                    @if($curso->horario)
+                    <button class="btn text-danger" type="submit" form="deletar-horario{{ $curso->id }}">X</button>
+                    <a href="{{ URL::asset('storage/' . $curso->horario) }}" target="_blank">Ver Horário</a>
+                    @else
+                    <input type="file" name="horario" id="horario" class="form-control">
+                    @endif
             </div>
+
             <button type="submit" class="btn custom-button btn-default">Atualizar</button>
             <a href="{{ route('curso.index') }}" class="btn custom-button custom-button-castastrar-tcc btn-default btn-back">Cancelar</a>
         </form>
 
+        @if ($curso->calendario)
+        <form id="deletar-calendario{{ $curso->id}}"
+            action="{{ route('curso.delete_calendario', ['id' => $curso->id]) }}" method="post">
+             @csrf
+             @method('delete')
+           </form>
+        @endif
 
-            <form id="deletar-calendario{{ $curso->id }}"
-                action="{{ route('curso.delete_calendario', ['id' => $curso->id]) }}" method="post">
-                @csrf
-                @method('delete')
-            </form>
+        @if ($curso->horario)
+        <form id ="deletar-horario{{$curso->id}}"
+         action="{{ route('curso.delete_horario', ['id' => $curso->id]) }}" method="post">
+            @csrf
+            @method('delete')
+        </form>
+        @endif
 
-
-            <form id="deletar-horario{{ $curso->id }}"
-                action="{{ route('curso.delete_horario', ['id' => $curso->id]) }}" method="post">
-                @csrf
-                @method('delete')
-            </form>
 
 
     </div>
