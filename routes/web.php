@@ -35,7 +35,7 @@ Route::get('/noticias', [PostagemController::class, 'display']);
 Route::get('/professores', [ProfileController::class, 'display']);
 
 //Informações dos Professores (Não Editável)
-Route::resource('/professores/info', ProfileController::class)->parameter('user','id')->except(['show']);
+//Route::resource('/professores/info', ProfileController::class)->parameter('user','id')->except(['show']);
 
 
 /*--------------INFORMAÇÕES PRIVADAS (NECESSÁRIO REGISTRO E LOGIN)-------------*/

@@ -12,6 +12,6 @@ class Servidor extends Model
     protected $fillable = [
         'nome',
         'email',
-        'usuario_id',
+        'user_id',
     ];
 }

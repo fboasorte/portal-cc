@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Models\FotoUser;
+use App\Models\Servidor;
+use App\Models\Professor;
+use App\Models\AreaProfessor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +37,9 @@ class ProfileController extends Controller
         
         $request->user()->fill($request->validated());
         $user = $request->user(); // Obtenha a instância do usuário
+        $servidor = Servidor::where('user_id', $user->id)->first();
+        $professor = Professor::where('servidor_id', $servidor->id)->first();
+        $area_prof = AreaProfessor::where('professor_id', $professor->id)->first();
         
         $user->update([
             'curriculo_lattes' => $request->curriculo_lattes,
@@ -43,12 +49,38 @@ class ProfileController extends Controller
         ]);
 
 
+        //Nova forma de realizar update nos dados
+            //Professor com foto 
+        if ($request->hasFile("fotos")) {
+            $fotos = $request->file("fotos");
+            
+            $professor->update([
+                'titulacao'=> $request->titulacao,
+                'biografia'=> $request->biografia,
+                'foto' => $fotos[0]->store('FotoUser/' . $user->id),
+            ]);
+            //$professor->save();
+        }else { //Professor sem foto
+            $professor->update([
+                'titulacao'=> $request->titulacao,
+                'biografia'=> $request->biografia,
+            ]);
+        }
+
+        $area_prof->update([
+            'area' => $request->area,
+            'link' => $request->curriculo_lattes,
+        ]);
+
+        
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
         $request->user()->save();
 
+
+        //forma antiga de fazer update nas fotos (mantive)
         if ($request->hasFile("fotos")) {
            $fotos = $request->file("fotos");              
 
@@ -60,6 +92,7 @@ class ProfileController extends Controller
                 unset($fotoUser);
             }
         }
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
