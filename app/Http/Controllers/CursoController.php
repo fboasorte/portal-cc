@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\File;
 use App\Models\Curso;
-use App\Models\ArquivoCalendario;
-use App\Models\ArquivoHorario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -75,25 +74,29 @@ class CursoController extends Controller
     }
 
     public function deleteCalendario($id)
-    {
-        $calendario = ArquivoCalendario::findOrFail($id);
+{
+    $curso = Curso::findOrFail($id);
 
-        if (File::exists("storage/"  . $calendario->path)) {
-            File::delete("storage/"  . $calendario->path);
-        }
-        $calendario->delete();
-        return back();
+    if (File::exists(public_path("storage/" . $curso->calendario))) {
+        File::delete(public_path("storage/" . $curso->calendario));
+        $curso->calendario = null;
+        $curso->save();
     }
+
+    return redirect()->back();
+}
 
     public function deleteHorario($id)
     {
-        $horario = ArquivoHorario::findOrFail($id);
+        $curso = Curso::findOrFail($id);
 
-        if (File::exists("storage/"  . $horario->path)) {
-            File::delete("storage/"  . $horario->path);
+        if (File::exists(public_path("storage/" . $curso->horario))) {
+            File::delete(public_path("storage/" . $curso->horario));
+            $curso->horario = null;
+            $curso->save();
         }
-        $horario->delete();
-        return back();
+
+        return redirect()->back();
     }
 
     public function downloadCalendario($id)
