@@ -46,7 +46,7 @@ class ServidorController extends Controller
         $servidor = Servidor::create([
             'nome'=> $request->nome,
             'email'=> strtolower($request->email),
-            'usuario_id'=> $usuario->id,
+            'user_id'=> $usuario->id,
         ]);
 
         $servidores = Servidor::whereNotIn('id', function ($query) {
