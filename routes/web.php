@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 
 /*--------------------------INFORMAÇÕES PÚBLICAS-------------------------------*/
 
+require __DIR__ . '/auth.php';
+
 //Página Inicial 
 Route::get('/', function () {
     return view('welcome');
@@ -58,7 +60,7 @@ Route::resource('servidor', ServidorController::class)->parameter('servidor', 'i
 
 
 //Informações dos Professores (Não Editável)
-Route::resource('/professores/info', ProfileController::class)->parameter('user','id')->except(['show']);
+Route::resource('/professores/info', ProfileController::class)->parameter('user', 'id')->except(['show']);
 
 /*--------------INFORMAÇÕES PRIVADAS (NECESSÁRIO REGISTRO E LOGIN)-------------*/
 
@@ -69,7 +71,7 @@ Route::get('/dashboard', function () {
 
 
 //CRUDs
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role:coordenador')->group(function () {
 
     //Usuário
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -82,7 +84,7 @@ Route::middleware('auth')->group(function () {
 
     // Postagem
     Route::resource('postagem', PostagemController::class)->parameter('postagem', 'id')->except(['show']);
-    
+
     Route::delete('/postagem/delete_imagem/{id}', [PostagemController::class, 'deleteImagem'])->name('postagem.delete_imagem');
     Route::delete('/postagem/delete_arquivo/{id}', [PostagemController::class, 'deleteArquivo'])->name('postagem.delete_arquivo');
 
@@ -102,7 +104,7 @@ Route::middleware('auth')->group(function () {
 
     // Colegiado
     Route::resource('colegiado', ColegiadoController::class)->parameter('colegiado', 'id')
-    ->except(['show']);
+        ->except(['show']);
 
     // Ata
     Route::resource('ata', AtaController::class)->parameter('ata', 'id')->except(['index']);
@@ -112,23 +114,29 @@ Route::middleware('auth')->group(function () {
 
     //Professor Externo
     Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
-    ->only(['index', 'store']); 
+        ->only(['index', 'store']);
 
+    // Curso
+    Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
+
+    Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteCalendario'])->name('curso.delete_calendario');
+
+    Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
+
+    Route::get('/curso/calendario/{id}', [CursoController::class, 'downloadCalendario'])->name('curso.download_calendario');
+
+    Route::get('/curso/horario/{id}', [CursoController::class, 'downloadHorario'])->name('curso.download_horario');
+
+    Route::get('/curso/coordenador/{id}', [CursoController::class, 'coordenador'])->name('curso.coordenador');
+
+    Route::post('/curso/coordenador-store/{id}', [CursoController::class, 'coordenadorStore'])->name('curso.coordenador-store');
+
+    Route::get('/curso/busca-professor', [CursoController::class, 'buscaProfessor']);
 });
 
-require __DIR__ . '/auth.php';
+// Professor
+Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
 
 
 // Matriz curricular
 Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
-
-// Curso
-Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
-
-Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteCalendario'])->name('curso.delete_calendario');
-
-Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
-
-Route::get('/curso/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
-
-Route::get('download/horario/{id}', [CursoController::class,'downloadHorario'])->name('curso.download_horario');

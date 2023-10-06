@@ -15,6 +15,26 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('projeto.index')" :active="request()->routeIs('projeto')">
+                        {{ __('Projeto') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('tcc.index')" :active="request()->routeIs('tcc')">
+                        {{ __('TCC') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('postagem.index')" :active="request()->routeIs('postagem')">
+                        {{ __('Postagem') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('professor.index')" :active="request()->routeIs('professor')">
+                        {{ __('Professor') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('tipo-postagem.index')" :active="request()->routeIs('tipo-postagem')">
+                        {{ __('Tipo de Postagem') }}
+                    </x-nav-link>
                 </div>
             </div>
 

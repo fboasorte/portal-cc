@@ -1,14 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Curso;
 use App\Models\ArquivoCalendario;
 use App\Models\ArquivoHorario;
+use App\Models\Coordenador;
+use App\Models\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class CursoController extends Controller
@@ -26,45 +31,45 @@ class CursoController extends Controller
         return view('curso.index', ['cursos' => $cursos, 'buscar' => $buscar]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('curso.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        //dd($request->calendario);
-
-            $nomeCalendario=$request->calendario;
+        $nomeCalendario = $request->calendario;
         if ($request->hasFile("calendario")) {
             $calendario = $request->file("calendario");
             $nomeCalendario = $calendario->store('ArquivoCalendario');
+        }
 
-            }
+        $nomeHorario = $request->horario;
+        if ($request->hasFile("horario")) {
+            $horario = $request->file("horario");
+            $nomeHorario = $horario->store('ArquivoHorario');
+        }
 
-                $nomeHorario=$request->horario;
-            if ($request->hasFile("horario")) {
-                $horario = $request->file("horario");
-                $nomeHorario = $horario->store('ArquivoHorario');
-                }
+        $curso = new Curso([
+            'nome' => $request->nome,
+            'turno' => $request->turno,
+            'carga_horaria' => $request->carga_horaria,
+            'sigla' => $request->sigla,
+            'analytics' => $request->analytics,
+            'calendario' => $nomeCalendario,
+            'horario' => $nomeHorario,
+        ]);
 
-                $curso = new Curso([
-                    'nome' => $request->nome,
-                    'turno' => $request->turno,
-                    'carga_horaria' => $request->carga_horaria,
-                    'sigla' => $request->sigla,
-                    'analytics' => $request->analytics,
-                    'calendario'=> $nomeCalendario,
-                    'horario'=> $nomeHorario,
-                ]);
-
-                $curso->save();
+        $curso->save();
 
         return redirect('curso')->with('success', 'Curso adicionado com sucesso');
     }
 
-    public function edit($curso_id){
+    public function edit($curso_id)
+    {
         $curso = Curso::where('id', $curso_id)->first();
-        return view('curso.edit',['curso' => $curso]);
+        return view('curso.edit', ['curso' => $curso]);
     }
 
     public function destroy(string $id)
@@ -99,7 +104,7 @@ class CursoController extends Controller
     public function downloadCalendario($id)
     {
         $curso =  Curso::findOrFail($id);
-        $file = public_path() .'/storage/'. $curso->calendario;
+        $file = public_path() . '/storage/' . $curso->calendario;
 
         $headers = array(
             'Content-Type: application/pdf',
@@ -108,20 +113,21 @@ class CursoController extends Controller
         return Response::download($file, 'filename.pdf', $headers);
     }
 
-public function downloadHorario($id)
-{
-   $curso = Curso::findOrFail($id);
-   $file = public_path() .'/storage/'. $curso->horario;
+    public function downloadHorario($id)
+    {
+        $curso = Curso::findOrFail($id);
+        $file = public_path() . '/storage/' . $curso->horario;
 
-   $headers = array(
+        $headers = array(
             'Content-Type: application/pdf',
-   );
+        );
 
-   return Response::download($file, 'filename.pdf', $headers);
-}
+        return Response::download($file, 'filename.pdf', $headers);
+    }
 
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'nome' => [
                 'required',
@@ -150,18 +156,17 @@ public function downloadHorario($id)
             return redirect('curso')->with('error', 'Curso não encontrado');
         }
 
-            $nomeCalendario=$curso->calendario;
+        $nomeCalendario = $curso->calendario;
         if ($request->hasFile("calendario")) {
             $calendario = $request->file("calendario");
             $nomeCalendario = $calendario->store('ArquivoCalendario');
+        }
 
-            }
-
-                $nomeHorario=$curso->horario;
-            if ($request->hasFile("horario")) {
-                $horario = $request->file("horario");
-                $nomeHorario = $horario->store('ArquivoHorario');
-                }
+        $nomeHorario = $curso->horario;
+        if ($request->hasFile("horario")) {
+            $horario = $request->file("horario");
+            $nomeHorario = $horario->store('ArquivoHorario');
+        }
 
         $curso->nome = $request->nome;
         $curso->turno = $request->turno;
@@ -172,10 +177,70 @@ public function downloadHorario($id)
         $curso->horario = $nomeHorario;
         $curso->save();
 
-
-
         return redirect('curso')->with('success', 'Curso atualizado com sucesso');
     }
 
+    public function coordenador($id)
+    {
+        $coordenador = Coordenador::where('curso_id', '=', $id)->first();
 
+        return view('curso.coordenador', compact('coordenador', 'id'));
+    }
+
+    public function coordenadorStore(Request $request, $id)
+    {
+        $coordenador = Coordenador::where('curso_id', '=', $id)->first();
+
+        if ($coordenador) {
+            if ($request->professor_id != $coordenador->professor_id) {
+                $professor = Professor::find($request->professor_id);
+
+                $coordenador->professor->servidor->user->removeRole('coordenador');
+
+                $professor->servidor->user->syncRoles(['coordenador', 'professor']);
+            }
+
+            $coordenador->update([
+                'email_contato' => $request->email_contato,
+                'horario_atendimento' => $request->horario_atendimento,
+                'sala_atendimento' => $request->sala_atendimento,
+                'professor_id' => $request->professor_id,
+            ]);
+
+
+        } else {
+            $coordenador = Coordenador::create([
+                'email_contato' => $request->email_contato,
+                'horario_atendimento' => $request->horario_atendimento,
+                'sala_atendimento' => $request->sala_atendimento,
+                'professor_id' => $request->professor_id,
+                'curso_id' => $id,
+            ]);
+
+            $coordenador->professor->servidor->user->assignRole('coordenador');
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Show the application dataAjax.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buscaProfessor(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = DB::table("professor")
+                ->select("professor.id", "servidor.nome")
+                ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
+                ->where('nome', 'LIKE', "%$search%")
+                ->get();
+        }
+
+        return response()->json($data);
+    }
 }

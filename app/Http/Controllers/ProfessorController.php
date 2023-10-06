@@ -6,14 +6,15 @@ use App\Models\AreaProfessor;
 use App\Models\CurriculoProfessor;
 use App\Models\Professor;
 use App\Models\Servidor;
+use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfessorController extends Controller
 {
     public function index(Request $request)
     {
-
         $buscar = $request->buscar;
 
         if ($buscar) {
@@ -39,15 +40,18 @@ class ProfessorController extends Controller
 
         return view(
             'professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]
+            [
+                'professor' => $professor,
+                'servidor' => $servidor,
+                'areas' => $areas,
+                'curriculos' => $curriculos
+            ]
         );
     }
 
     public function store(Request $request)
     {
-
-
-        $usuarioExists = Usuario::where('login', $request->login)->exists();
+        $usuarioExists = User::where('login', $request->login)->exists();
         $servidorExists = Servidor::where('email', $request->email)->exists();
 
         if ($usuarioExists || $servidorExists) {
@@ -60,20 +64,24 @@ class ProfessorController extends Controller
             }
         }
 
-        $usuario = Usuario::create([
+        $user = User::create([
             'login' => $request->login,
-            'senha' => md5($request->login)
+            'password' => Hash::make($request->login),
+            'name' => $request->nome,
+            'email' => strtolower($request->email),
         ]);
 
         $servidor = Servidor::create([
             'nome' => $request->nome,
             'email' => strtolower($request->email),
-            'usuario_id' => $usuario->id,
+            'user_id' => $user->id,
         ]);
 
         Professor::create([
             'servidor_id' => $servidor->id,
         ]);
+
+        $user->assignRole('professor');
 
         // Enviar email com credencias de Login
         $email = new CredentialMail($request);
@@ -124,7 +132,6 @@ class ProfessorController extends Controller
         $usuario->update([
             'login' => $request->login,
             'senha' => md5($request->login)
-
         ]);
 
         $servidor->update([
@@ -163,8 +170,8 @@ class ProfessorController extends Controller
     {
 
         $servidores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')
-        ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
-        ->get();
+            ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+            ->get();
 
         return view('professor.display', ['servidores' => $servidores]);
     }

@@ -68,6 +68,8 @@
                                                     href="{{ route('curso.edit', $curso->id) }}">Editar</a>
                                                 <button type="submit" class="btn btn-danger btn-sm" title='Delete'
                                                     onclick="return confirm('Deseja realmente excluir esse curso?')"><i class="fas fa-trash"></i></button>
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('curso.coordenador', $curso->id) }}">Coordenador</a>
                                             </form>
                                         </td>
                                     </tr>
