@@ -14,6 +14,7 @@
     }
     /*bloco principal*/
     .bloco2{
+        margin-top:20px;
         padding:0px 10% 60px 10%;
     }
 
@@ -30,17 +31,23 @@
       font-size:20px;
     }
     .title2{
-      font-weight:bold;
-      font-size:30px;
+
+      font-size:25px;
     }
 
 
 </style>
 
-    <div class = "bloco2">
-        <div class = "bloco3">
-            <h1 class = "title2">Sobre o curso:</h1>
+    <div class="custom-container">
+        <div>
+            <div>
+                <h3 class="title2">Sobre o curso</h3>
+            </div>
         </div>
+    </div>
+
+    <div class = "bloco2">
+
         <div class = "bloco1">
             <span class = "title">Objetivos do curso</span>
             <p>No curso de Ciências da Computação o aluno desenvolverá as habilidades necessárias para...</p>
