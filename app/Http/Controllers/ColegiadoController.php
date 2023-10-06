@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\ArquivoPortaria;
 use App\Models\Colegiado;
+use App\Models\Coordenador;
 use App\Models\Professor;
 use App\Models\Servidor;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class ColegiadoController extends Controller
      */
     public function store(Request $request)
     {
-        $coordenador = Professor::find(20);
+        $coordenador = Professor::find(Coordenador::first()->professor_id);
         $colegiado = new Colegiado([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
