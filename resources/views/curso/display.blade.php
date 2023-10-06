@@ -13,9 +13,8 @@
       padding-bottom:20px;
     }
     /*bloco principal*/
-    .bloco2{
-        margin-top:20px;
-        padding:0px 10% 60px 10%;
+    .bloco2{        
+        padding:20px 10% 0px 10%;
     }
 
     .bloco3{
@@ -31,7 +30,6 @@
       font-size:20px;
     }
     .title2{
-
       font-size:25px;
     }
 
