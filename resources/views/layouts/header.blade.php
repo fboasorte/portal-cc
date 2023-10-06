@@ -13,7 +13,7 @@
     <div class="container-2">
         <nav class="navbar navbar-expand-lg bg-white custom-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ route('postagem.display') }}">
                     <img src="{{ asset('images/logo-criada.png') }}" alt="Ciência da Computação" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

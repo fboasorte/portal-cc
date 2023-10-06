@@ -14,6 +14,7 @@ use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
 use App\Http\Controllers\MatrizController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\CoordenadorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +35,7 @@ require __DIR__ . '/auth.php';
 
 //Página Inicial 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('postagem.display');
 });
 
 // Displays de postagens e professores (Não editável)
@@ -43,6 +44,9 @@ Route::get('/professores', [ProfessorController::class, 'display'])->name('profe
 
 //Postagem
 Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
+
+//Coordenador
+Route::get('/coordenador/{id}', [CoordenadorController::class, 'view'])->name('coordenador.display');
 
 //TCC
 Route::get('/tccs', [TccController::class, 'show'])->name('tcc.display');;
