@@ -18,6 +18,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <style>
+        footer {
+            position: fixed bottom;
+            margin-top: 20px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1c2c4c;
+            color: white;
+            padding: 10px;
+            text-align: center;   
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -35,6 +51,19 @@
     <div class="container2">
         @yield('content')
     </div>
+
+
+    <footer>
+        <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG - Todos os direitos reservados</p>
+        <p>Endereço: Rua Dois, 300 - Village do Lago I - Montes Claros - MG – CEP 39.404-058</p>
+        <p>Telefone: (38) 2103-4141</p>
+        <p>E-mail: <a href="mailto:comunicacao.montesclaros@ifnmg.edu.br">comunicacao.montesclaros@ifnmg.edu.br</a></p>
+        <p>Página eletrônica: <a href="https://www.ifnmg.edu.br/montesclaros">www.ifnmg.edu.br/montesclaros</a></p>
+
+        
+    
+    </footer>
+
 
 </body>
 
