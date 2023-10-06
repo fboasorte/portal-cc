@@ -92,3 +92,6 @@ Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHora
 Route::get('/curso/calendario/{id}', [CursoController::class,'downloadCalendario'])->name('curso.download_calendario');
 
 Route::get('download/horario/{id}', [CursoController::class,'downloadHorario'])->name('curso.download_horario');
+
+//sobre o curso
+Route::get('/curso/sobre', function(){  return view('curso.display'); });
