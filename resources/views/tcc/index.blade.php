@@ -34,8 +34,10 @@
                             <tr class="text-center">
                                 <th class="text-center">Título (id)</th>
                                 <th class="text-center">Resumo</th>
+                                <th class="text-center">Arquivo</th>
                                 <th class="text-center">Aluno (id)</th>
-                                <th class="text-center">Orientador </th>
+                                <th class="text-center">Orientador</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Ação</th>
                             </tr>
                         </thead>
@@ -44,17 +46,31 @@
                             <tr>
                                 <td>{{ $tcc->titulo }} ({{ $tcc->id }})</td>
                                 <td>{{ $tcc->resumo }}</td>
-                                <td>{{ $tcc->nome }} ({{ $tcc->aluno_id }})</td>
+                                <td>@if($tcc->arquivo)
+                                    <a href="{{ asset($tcc->arquivo->path) }}" download>{{
+                                        strlen($tcc->arquivo->nome) > 30 ? substr($tcc->arquivo->nome, 0, 30) . '...' : $tcc->arquivo->nome;
+                                        }}</a>
+                                    @else
+                                    Não há arquivo cadastrado!
+                                    @endif
+                                </td>
+                                <td>{{ $tcc->aluno->nome }} ({{ $tcc->aluno_id }})</td>
                                 <td> {{ $professores->contains($tcc->professor_id) ? $professores->where('id', $tcc->professor_id)->first()->nome : ''}} </td>
+                                <td> {{ $tcc->status == 0 ? "Aguardando defesa" : "Concluido"}} </td>
                                 <td class="text-center">
+
+
                                     <form method="POST"
-                                        action="{{ route('tcc.destroy', $tcc->id) }}">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
+                                    action="{{ route('tcc.destroy', $tcc->id) }}">
+                                    @csrf
+                                    @if($tcc->status == 0)
+                                            <a href="" class="btn btn-success btn-sm modal-trigger" data-bs-toggle="modal" data-bs-target="#concluiTcc" >Concluir</a>
+                                            @endif
+                                            <input name="_method" type="hidden" value="DELETE">
                                         <a href="{{ route('tcc.edit', $tcc->id) }}"
-                                            class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                         <button type="submit" class="btn btn-danger btn-sm" title='Delete'
-                                            onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                                        onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -67,7 +83,7 @@
         </div>
     </div>
 </div>
-</div>
+@include('modal.concluirTcc')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

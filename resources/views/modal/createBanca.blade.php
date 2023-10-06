@@ -13,9 +13,9 @@
 
                 <div class="form-group">
                     <label for="data">Data da banca</label>
-                    <input type="date" name="data" id="data" class="form-control" required>
+                    <input type="date" name="data" id="data" class="form-control">
                     <label for="local">Local</label>
-                    <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca" required>
+                    <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca">
 
                     <div class="form-group">
                         <label for="professores">Professores internos</label>
@@ -80,13 +80,50 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('banca.store') }}", // Substitua pela sua rota
+                url: "{{ route('banca.store') }}",
                 data: data,
                 success: function(response) {
-                    alert('Banca cadastrada com sucesso!');
+                    console.log(response);
+
+                    //Atualizar select de bancas
+                    $selectBanca = $('#banca_id');
+                    $selectBanca.empty();
+
+                    $.each(response.bancas, function(index, banca) {
+                        var dataFormatada = new Date(banca.data);
+                        var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                        var dataFormatadaTexto = dataFormatada.toLocaleDateString('pt-BR', options);
+
+                        var professoresExternosTexto = "";
+                        if (banca.professores_externos && banca.professores_externos.length > 0) {
+                            var professoresArray = banca.professores_externos.map(function(professor) {
+                                return professor.nome + " - " + professor.filiacao;
+                            });
+
+                            professoresExternosTexto = professoresArray.join(", ");
+                        }
+
+                        var professoresInternosTexto = "";
+                        if (banca.professores && banca.professores.length > 0) {
+                            var professoresInternosArray = banca.professores.map(function(professor) {
+                                return professor.servidor.nome + " - IFNMG";
+                            });
+
+                            professoresInternosTexto = professoresInternosArray.join(", ");
+                        }
+
+                        var texto = dataFormatadaTexto + " - " + banca.local + " - MEMBROS: " + professoresExternosTexto + ", " + professoresInternosTexto;
+                        $selectBanca.append($('<option>', {
+                            value: banca.id,
+                            text: texto
+                        }));
+                    });
+                alert('Banca cadastrada com sucesso!');
+                $('#createBanca').modal('hide');
                 },
                 error: function(error) {
                     alert('Ocorreu um erro ao cadastrar a banca.');
+                    $('#createBanca').modal('hide');
                 }
             });
         });

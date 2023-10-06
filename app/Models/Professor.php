@@ -32,4 +32,5 @@ class Professor extends Model
     public function projetos(){
         return $this->hasMany(Projeto::class);
     }
+
 }

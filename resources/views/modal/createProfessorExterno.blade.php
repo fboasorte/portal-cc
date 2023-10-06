@@ -12,9 +12,9 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome-professor-externo" id="nome-professor-externo" class="form-control" placeholder="Nome do professor externo" required>
+                    <input type="text" name="nome-professor-externo" id="nome-professor-externo" class="form-control" placeholder="Nome do professor externo">
                     <label for="filiacao">Filiação</label>
-                    <input type="text" name="filiacao" id="filiacao" class="form-control" placeholder="Nome da instituição de filiação" required>
+                    <input type="text" name="filiacao" id="filiacao" class="form-control" placeholder="Nome da instituição de filiação">
                 </div>
             </div>
             <div class="modal-footer">

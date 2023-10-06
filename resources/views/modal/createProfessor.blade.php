@@ -11,15 +11,15 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label class="mt-5" for="nome">Nome</label>
-                    <input type="text" name="nome-professor" id="nome-professor" class="form-control" placeholder="Nome do professor" required>
+                    <input type="text" name="nome-professor" id="nome-professor" class="form-control" placeholder="Nome do professor">
                 </div>
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input class="form-control" id="email-professor" name="email-professor" type="email" placeholder="Email" required>
+                    <input class="form-control" id="email-professor" name="email-professor" type="email" placeholder="Email">
                 </div>
                 <div class="mb-3">
                     <label class="mt-3" for="login">Login</label>
-                    <input class="form-control" id="login-professor" name="login-professor" type="text" placeholder="Login" required>
+                    <input class="form-control" id="login-professor" name="login-professor" type="text" placeholder="Login">
                 </div>
 
             </div>
