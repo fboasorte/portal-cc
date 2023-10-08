@@ -1,6 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<div class="modal fade" id="concluiTcc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="{{ $modalId }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,12 +18,13 @@
                         <h5 class="">Selecione o arquivo do TCC "{{$tcc->titulo}}"</h5>
                         <input type="file" name="arquivo" id="arquivo" class="form-control">
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn custom-button" data-bs-dismiss="modal" id="ConcluirTccButton">Concluir</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn custom-button" data-bs-dismiss="modal" id="ConcluirTccButton">Concluir</button>
-            </div>
-            </form>
         </div>
     </div>
 </div>

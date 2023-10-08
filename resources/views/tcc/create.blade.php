@@ -2,14 +2,14 @@
 @section('title', 'Cadastrar TCC')
 @section('content')
 
-    <div class="custom-container">
+<div class="custom-container">
+    <div>
         <div>
-            <div>
-                <i class="fas fa-graduation-cap fa-2x"></i>
-                <h3 class="smaller-font">Cadastro do TCC</h3>
-            </div>
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h3 class="smaller-font">Cadastro do TCC</h3>
         </div>
     </div>
+</div>
 
 
 <div class="container mt-4">
@@ -36,8 +36,7 @@
             </div>
 
             <div class="col-md-3 mb-3 d-flex align-items-end">
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
-                    data-bs-target="#createProfessor">Cadastrar professor</a>
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar aluno</a>
             </div>
             @include('modal.createAluno')
         </div>
@@ -51,7 +50,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar profesor</a>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor</a>
         </div>
         @include('modal.createProfessor')
         @include('modal.createProfessorExterno')
@@ -75,7 +74,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca" >Cadastrar banca</a>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca">Cadastrar banca</a>
         </div>
         @include('modal.createBanca')
         <div class="mb-3">
@@ -98,62 +97,41 @@
             <input type="checkbox" name="convite" id="convite" checked>
             <label for="convite">Gerar um convite do TCC e publicá-lo </label>
         </div>
+
+
         <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn custom-button custom-button-castastrar-tcc">Cadastrar TCC</button>
-            <button class="btn custom-button custom-button-castastrar-tcc"><a href="{{route('tcc.index')}}" >Cancelar</a></button>
+            <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar
+                TCC</button>
+            <a href="{{ route('tcc.index') }} " class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
         </div>
     </form>
 </div>
 </form>
 
-            <div class="mb-3">
-                <label for="data" class="form-label"><br>Data*:</label>
-                <input type="date" name="data" id="data" class="form-control" value="" required>
-            </div>
 
-            <div>
-                <input type="checkbox" name="convite" id="convite" checked>
-                <label for="convite">Gerar um convite do TCC e publicá-lo </label>
-            </div>
+<script>
+    document.getElementById("banca_id").addEventListener("change", function() {
+        var selectedOption = this.options[this.selectedIndex];
+        var selectedDate = selectedOption.getAttribute("data-data");
+        document.getElementById("data").value = selectedDate;
+    });
 
-            <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar
-                    TCC</button>
-                <a href="{{ route('tcc.index') }} "
-                    class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
-            </div>
+    var statusSelect = document.getElementById("status");
+    var conviteCheckbox = document.getElementById("convite");
+    var arquivo = document.getElementById("arquivo_id");
+    arquivo.style.display = "none";
 
-        </form>
-    </div>
-
-    @include('modal.createAluno')
-    @include('modal.createProfessor')
-    @include('modal.createProfessorExterno')
-    @include('modal.createBanca')
-
-    <script>
-        document.getElementById("banca_id").addEventListener("change", function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var selectedDate = selectedOption.getAttribute("data-data");
-            document.getElementById("data").value = selectedDate;
-        });
-
-        var statusSelect = document.getElementById("status");
-        var conviteCheckbox = document.getElementById("convite");
-        var arquivo = document.getElementById("arquivo_id");
-        arquivo.style.display = "none";
-
-        statusSelect.addEventListener("change", function () {
-            if (statusSelect.value === "1") {
-                conviteCheckbox.checked = false;
-                conviteCheckbox.disabled = true;
-                arquivo.style.display = "block";
-            } else {
-                conviteCheckbox.disabled = false;
-                conviteCheckbox.checked = true;
-                arquivo.style.display = "none";
-            }
-        });
+    statusSelect.addEventListener("change", function() {
+        if (statusSelect.value === "1") {
+            conviteCheckbox.checked = false;
+            conviteCheckbox.disabled = true;
+            arquivo.style.display = "block";
+        } else {
+            conviteCheckbox.disabled = false;
+            conviteCheckbox.checked = true;
+            arquivo.style.display = "none";
+        }
+    });
 </script>
 
 @endsection

@@ -404,3 +404,7 @@ margin-top:60px;
 .rounded-image {
     border-radius: 7px;
 }
+
+.nowrap-td {
+    white-space: nowrap;
+}
