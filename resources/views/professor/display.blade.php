@@ -8,7 +8,7 @@
     <div class="container mt-5">
         <div class="row text-center">
             @foreach ($servidores as $servidor)
-            <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
+            <div class="col-md-2 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
                 <a href="{{ route('professor.view', ['id' => $servidor->id]) }}" class="a-professor">
                     <div class="nossos-professores" href="#">
                         <div class="team_img">

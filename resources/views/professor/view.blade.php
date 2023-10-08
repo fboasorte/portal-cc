@@ -20,9 +20,9 @@
                         <div class="d-flex flex-column align-items-center text-center">
 
                             @if($professor->foto)
-                            <img src="{{ URL::asset('storage') }}/{{ $professor->foto }}" class="rounded-circle" width="200">
+                            <img src="{{ URL::asset('storage') }}/{{ $professor->foto }}" width="90%" class="rounded-image">
                             @else
-                            <img src="{{ asset('images/professor/professor_placeholder.png') }}" class="rounded-circle" width="200">
+                            <img src="{{ asset('images/professor/professor_placeholder.png') }}" width="90%" class="rounded-image">
                             @endif
                             <div class="mt-3">
                                 <h4>{{ $servidor->nome }}</h4>

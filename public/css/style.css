@@ -400,3 +400,7 @@ margin-top:60px;
     color: #1c2c4c; 
     cursor: pointer;
 }
+
+.rounded-image {
+    border-radius: 7px;
+}
