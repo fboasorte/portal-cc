@@ -2,16 +2,17 @@
 @section('title', 'Editar TCC')
 @section('content')
 
-    <div class="custom-container">
+<div class="custom-container">
+    <div>
         <div>
-            <div>
-                <i class="fas fa-graduation-cap fa-2x"></i>
-                <h3 class="smaller-font">Editar TCC</h3>
-            </div>
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h3 class="smaller-font">Editar TCC</h3>
         </div>
     </div>
+</div>
 
 <div class="container mt-4">
+
     <form method="post" action="{{ route('tcc.update', [$tcc->id]) }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
@@ -23,73 +24,70 @@
             <label for="resumo" class="form-label"><br>Resumo*:</label>
             <textarea name="resumo" id="resumo" class="form-control" rows="4" placeholder="Resumo do TCC" required>{{ $tcc->resumo }}</textarea>
         </div>
+
         <div class="row">
             <div class="mb-3">
-                <label for="banca_id" class="form-label"> <br>Orientador:</label>
-                <select name="professor_id" id="professor_id" class="form-select">
-                    <option value="" disabled selected>Selecione um orientador</option>
-                    @foreach ($professores as $professor)
-                        <option value="{{ $professor->id }}" {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}>
-                            ({{ $professor->id }}) - {{ $professor->nome }} </option>
+                <label for="aluno_id" class="form-label"> <br>Aluno:</label>
+                <select name="aluno_id" id="aluno_id" class="form-select">
+                    <option value="" disabled selected>Selecione um aluno</option>
+                    @foreach ($alunos as $aluno)
+                    <option value="{{ $aluno->id }}" {{ $aluno->id == $tcc->aluno_id ? 'selected' : '' }}>
+                        ({{ $aluno->id }}) - {{ $aluno->nome }} </option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3 d-flex align-items-end">
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
-                    data-bs-target="#createProfessor">Cadastrar novo professor</a>
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar novo aluno</a>
             </div>
             @include('modal.createAluno')
         </div>
-        <div class="mb-3">
-            <label for="banca_id" class="form-label"> <br>Orientador:</label>
-            <select name="professor_id" id="professor_id" class="form-select">
-                <option value="" disabled selected>Selecione um orientador</option>
-                @foreach ($professores as $professor)
-                <option value="{{ $professor->id }}" {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}> {{$professor->nome}} </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo profesor</a>
-        </div>
-        @include('modal.createProfessor')
-        <div class="mb-3">
-            <label for="banca_id" class="form-label"> <br>Banca:</label>
-            <select name="banca_id" id="banca_id" class="form-select">
-                <option value="" disabled selected>Selecione uma banca</option>
-                @foreach ($bancas as $banca => $key)
-                <option value="{{ $banca }}" {{ $banca == $id ? 'selected' : '' }}>
-                    {{ date('d/m/Y', strtotime($key->data)) }} - {{$key->local}} -
-                    MEMBROS:
-                    @foreach ($key->professoresExternos as $professorExterno )
-                    [{{ $professorExterno->nome }} - {{ $professorExterno->filiacao}}]
-                    @endforeach
 
+        <div class="row">
+            <div class="mb-3">
+                <label for="orientador_id" class="form-label"> <br>Orientador:</label>
+                <select name="professor_id" id="professor_id" class="form-select">
+                    <option value="" disabled selected>Selecione um orientador</option>
+                    @foreach ($professores as $professor)
+                    <option value="{{ $professor->id }}" {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}>
+                        ({{ $professor->id }}) - {{ $professor->nome }} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar novo professor</a>
+            </div>
+            @include('modal.createProfessor')
+        </div>
+
+
+        <div class="row">
             <div class="mb-3">
                 <label for="banca_id" class="form-label"> <br>Banca:</label>
                 <select name="banca_id" id="banca_id" class="form-select">
-                    <option value="" disabled selected>Selecione uma banca</option>
-                    @foreach ($bancas as $banca => $key)
-                        <option value="{{ $banca }}" {{ $banca == $id ? 'selected' : '' }}>
-                            {{ date('d/m/Y', strtotime($key->data)) }} - {{ $key->local }} -
-                            MEMBROS:
-                            @foreach ($key->professoresExternos as $professorExterno)
-                                [{{ $professorExterno->nome }} - {{ $professorExterno->filiacao }}]
-                            @endforeach
 
-                            @foreach ($professores as $professor)
-                                {{ $key->professores->contains($professor->id) ? '[' . $professores->where('id', $professor->id)->first()->nome . ' - IFNMG]' : '' }}
-                            @endforeach
-                        </option>
+                    <option value="" disabled selected>Selecione uma banca</option>
+                    @foreach ($bancas as $banca)
+
+                    <option value="{{ $banca->id }}" {{ $banca->id == $tcc->banca_id ? 'selected' : '' }}>
+                        {{ date('d-m-Y', strtotime($banca->data)) }} - {{$banca->local}} -
+                        MEMBROS:
+                        @foreach ($banca->professoresExternos as $professorExterno )
+                        {{$professorExterno->nome}} - {{$professorExterno->filiacao}},
+                        @endforeach
+
+                        @foreach ($professores as $professor)
+                        {{ $banca->professores->contains($professor->id) ? ''. $professores->where('id', $professor->id)->first()->nome .' - IFNMG,': '' }}
+                        @endforeach
+                    </option>
                     @endforeach
-                </option>
-                @endforeach
-            </select>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca">Cadastrar banca</a>
+            </div>
+            @include('modal.createBanca')
         </div>
-        <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca" >Cadastrar uma banca</a>
-        </div>
-        @include('modal.createBanca')
+
         <div class="mb-3">
             <label for="ano" class="form-label"><br>Ano*:</label>
             <input type="number" name="ano" id="ano" class="form-control" min="1500" value="{{$anoTcc}}">
@@ -110,31 +108,27 @@
             </div>
         </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn custom-button btn-default">Salvar</button>
-                <a href="{{ route('tcc.index') }} "
-                    class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
-            </div>
-        </form>
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn custom-button btn-default">Salvar</button>
+            <a href="{{ route('tcc.index') }} " class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>
+        </div>
+    </form>
 
-        @include('modal.createAluno')
-        @include('modal.createProfessor')
-        @include('modal.createProfessorExterno')
-        @include('modal.createBanca')
-    </div>
+
+</div>
 @endsection
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var statusSelect = document.getElementById("status");
         var arquivo = document.getElementById("arquivo_id");
-        if(statusSelect.value == 1) {
+        if (statusSelect.value == 1) {
             arquivo.style.display = "block";
-        }else {
+        } else {
             arquivo.style.display = "none";
         }
 
-        statusSelect.addEventListener("change", function () {
+        statusSelect.addEventListener("change", function() {
             if (statusSelect.value === "1") {
                 arquivo.style.display = "block";
             } else {
@@ -142,6 +136,4 @@
             }
         });
     });
-
-
 </script>

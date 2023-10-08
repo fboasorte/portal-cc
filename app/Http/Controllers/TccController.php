@@ -30,7 +30,7 @@ class TccController extends Controller
 
         $anoAtual = date("Y");
 
-        $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        $professores = Servidor::join('professor', 'servidor.id', '=', 'professor.servidor_id')->get();
         $professoresExternos = ProfessorExterno::all();
         $bancas = Banca::all();
         $alunos = Aluno::pluck('nome', 'id');
@@ -69,11 +69,13 @@ class TccController extends Controller
 
     public function edit($id)
     {
-
-        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')
+        ->select('professor.id', 'professor.servidor_id', 'servidor.nome')
+        ->get();
         $professoresExternos = ProfessorExterno::all();
         $tcc = Tcc::find($id);
-        $alunos = Aluno::pluck('nome', 'id');
+        $alunos = Aluno::all();
         $alunoId = $tcc->aluno_id;
 
         $bancas = Banca::all();
@@ -93,10 +95,10 @@ class TccController extends Controller
                 $pdf->path =$request->arquivo->store('ArquivoTcc/' .$tcc->id);
                 $pdf->save();
 
-                $tcc->arquivo_id = $pdf->id;
-                $tcc->status = 1;
+                $tcc->arquivo_id = $pdf->id;  
             }
 
+            $tcc->status = 1;
             $tcc->save();
 
             return redirect('tcc')->with('success', 'TCC atualizado com sucesso');
@@ -108,7 +110,8 @@ class TccController extends Controller
             'link' => $request->link,
             'ano' => $request->ano,
             'aluno_id' => $request->aluno_id,
-            'status' => $request->status
+            'status' => $request->status,
+            'banca_id' => $request->banca_id
         ]);
         $professor = Professor::findOrFail($request->professor_id);
 

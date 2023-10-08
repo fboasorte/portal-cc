@@ -40,6 +40,7 @@
             </div>
             @include('modal.createAluno')
         </div>
+        
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Orientador:</label>
             <select name="professor_id" id="professor_id" class="form-select">
