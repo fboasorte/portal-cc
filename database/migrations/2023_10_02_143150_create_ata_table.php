@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('ata', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->timestamp('data');
+            $table->timestamp('data')->nullable();
             $table->string('descricao');
 
             $table->foreignIdFor(Colegiado::class);

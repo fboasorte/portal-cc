@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('numero_portaria');
-            $table->timestamp('inicio');
-            $table->timestamp('fim');
+            $table->timestamp('inicio')->nullable();
+            $table->timestamp('fim')->nullable();
 
             $table->foreignId('coordenador_id')
             ->references('id')->on('professor')
