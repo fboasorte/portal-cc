@@ -18,9 +18,14 @@ class ProfessorController extends Controller
         $buscar = $request->buscar;
 
         if ($buscar) {
-            $servidores = Servidor::where('nome', 'like', '%' . $buscar . '%')->get();
+            $servidores = Servidor::where('nome', 'like', '%' . $buscar . '%')
+            ->join('professor', 'professor.servidor_id', '=', 'servidor.id')
+            ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+            ->get();
         } else {
-            $servidores = Servidor::all();
+            $servidores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')
+            ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+            ->get();
         }
 
         return view('professor.index', ['servidores' => $servidores, 'buscar' => $buscar]);
