@@ -155,14 +155,15 @@ class ProfessorController extends Controller
 
     public function view($servidor_id)
     {
+
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
-        $areas = AreaProfessor::where('professor_id', $professor->id)->get();
-        $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+        $user = User::where('id', $servidor->user_id)->first();
+        
 
         return view(
             'professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'areas' => $areas, 'curriculos' => $curriculos]
+            ['professor' => $professor, 'servidor' => $servidor, 'user' => $user]
         );
     }
 

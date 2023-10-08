@@ -20,7 +20,7 @@
                         <div class="d-flex flex-column align-items-center text-center">
 
                             @if($professor->foto)
-                            <img src="{{ asset('images/professor/' . $professor->foto) }}" class="rounded-circle" width="200">
+                            <img src="{{ URL::asset('storage') }}/{{ $professor->foto }}" class="rounded-circle" width="200">
                             @else
                             <img src="{{ asset('images/professor/professor_placeholder.png') }}" class="rounded-circle" width="200">
                             @endif
@@ -29,20 +29,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card mt-3">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">E-mail:</h6>
-                            <span class="text-secondary email">{{ $servidor->email }}</span>
-                        </li>
-                        @foreach ($curriculos as $curriculo)
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">{{$curriculo->curriculo}}:</h6>
-                            <span class="text-secondary curriculo"><a href="https://{{ $curriculo->link }}" target="_blank">{{ $curriculo->link }}</a></span>
-                        </li>
-                        @endforeach
-                    </ul>
                 </div>
             </div>
             <div class="col-md-8">
@@ -68,12 +54,30 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
+                                <h6 class="mb-0">E-mail:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                            {{ $servidor->email }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Currículo Lattes:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                            {{ $user->curriculo_lattes}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Áreas de Atuação: </h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @foreach ($areas as $area)
-                                {{$area->area}}: <a href="https://{{ $area->link }}" target="_blank">{{ $area->link }}</a> <br>
-                                @endforeach
+                                
+                                {{ $user->area }} <br>
+                                
                             </div>
                         </div>
                         <hr>

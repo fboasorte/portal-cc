@@ -25,7 +25,7 @@ foreach ($postagens as $postagem) {
 
     <div class="carousel-inner" id="carousel-inner">
         <div class="carousel-item active">
-            <a href="#">
+            <a href="{{ route('tcc.display')}}">
                 <img src="{{ asset('images/convite_tcc.png') }}" alt="Image 1" class="carousel-image w-100 max-height-carousel">
             </a>
         </div>

@@ -9,14 +9,14 @@
         <div class="row text-center">
             @foreach ($servidores as $servidor)
             <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
-                <a href="{{ route('professor.view', ['id' => $servidor->professor_id]) }}" class="a-professor">
+                <a href="{{ route('professor.view', ['id' => $servidor->id]) }}" class="a-professor">
                     <div class="nossos-professores" href="#">
                         <div class="team_img">
 
-                            @if($servidor->foto)
-                            <img src="{{ asset('images/professor/' . $servidor->foto) }}">
+                            @if ($servidor->foto)
+                                <img src="{{ URL::asset('storage') }}/{{ $servidor->foto }}">        
                             @else
-                            <img src="{{ asset('images/professor/professor_placeholder.png') }}">
+                                <img src="{{ asset('images/professor/professor_placeholder.png') }}">
                             @endif
 
                         </div>
