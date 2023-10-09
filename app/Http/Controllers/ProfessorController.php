@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class ProfessorController extends Controller
 {
@@ -38,55 +41,111 @@ class ProfessorController extends Controller
 
     public function show($servidor_id)
     {
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $professor = Professor::where('servidor_id', $servidor_id)->first();
-        $areas = AreaProfessor::where('professor_id', $professor->id)->get();
-        $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+        try {
+            $servidor = Servidor::findOrFail($servidor_id);
+            $professor = Professor::where('servidor_id', $servidor_id)->first();
 
-        return view(
-            'professor.view',
-            [
-                'professor' => $professor,
-                'servidor' => $servidor,
-                'areas' => $areas,
-                'curriculos' => $curriculos
-            ]
-        );
+            if (!$servidor || !$professor) {
+                return back()->with('error', "Professor não encontrado. Por favor, verifique os dados e tente novamente.");
+            }
+
+            $areas = AreaProfessor::where('professor_id', $professor->id)->get();
+            $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+
+            return view(
+                'professor.view',
+                [
+                    'professor' => $professor,
+                    'servidor' => $servidor,
+                    'areas' => $areas,
+                    'curriculos' => $curriculos
+                ]
+            );
+        } catch (\Exception $error) {
+            return back()->with('error', "Ocorreu um erro ao buscar informações do professor. Por favor, tente novamente.");
+        }
     }
+
 
     public function store(Request $request)
     {
-        $usuarioExists = User::where('login', $request->login)->exists();
-        $servidorExists = Servidor::where('email', $request->email)->exists();
+        /* VALIDAÇÂO ANTIGA */
+        // $usuarioExists = User::where('login', $request->login)->exists();
+        // $servidorExists = Servidor::where('email', $request->email)->exists();
 
-        if ($usuarioExists || $servidorExists) {
+        // if ($usuarioExists || $servidorExists) {
+        //     // Usuário ou servidor com login ou e-mail já existente
+        //     if ($request->contexto == 'modal') {
+        //         $professores = Professor::all();
+        //         return response()->json(['error' => 'Professor já cadastrado', 'professores' => $professores]);
+        //     } else {
+        //         return redirect('/professor/create');
+        //     }
+        // }
+
+        $validator = Validator::make($request->all(), [
+            'login' => [
+                'required',
+                Rule::unique('users', 'login'),
+            ],
+            'email' => [
+                'required',
+                Rule::unique('servidor', 'email'),
+            ],
+        ], [
+            'login.required' => 'O campo Nome é obrigatório.',
+            'email.required' => 'O campo Email é obrigatório.',
+            'login.unique' => 'Este login já está em uso.',
+            'email.unique' => 'Este email já está em uso',
+        ]);
+
+        if ($validator->fails()) {
+
             // Usuário ou servidor com login ou e-mail já existente
             if ($request->contexto == 'modal') {
                 $professores = Professor::all();
                 return response()->json(['error' => 'Professor já cadastrado', 'professores' => $professores]);
             } else {
                 return redirect('/professor/create');
+                // ->with('error', $validator->errors()->first());
             }
+
         }
 
-        $user = User::create([
-            'login' => $request->login,
-            'password' => Hash::make($request->login),
-            'name' => $request->nome,
-            'email' => strtolower($request->email),
-        ]);
+        try {
+            $user = User::create([
+                'login' => $request->login,
+                'password' => Hash::make($request->login),
+                'name' => $request->nome,
+                'email' => strtolower($request->email),
+            ]);
+        
+            $servidor = Servidor::create([
+                'nome' => $request->nome,
+                'email' => strtolower($request->email),
+                'user_id' => $user->id,
+            ]);
+        
+            Professor::create([
+                'servidor_id' => $servidor->id,
+            ]);
+        
+            $user->assignRole('professor');
 
-        $servidor = Servidor::create([
-            'nome' => $request->nome,
-            'email' => strtolower($request->email),
-            'user_id' => $user->id,
-        ]);
-
-        Professor::create([
-            'servidor_id' => $servidor->id,
-        ]);
-
-        $user->assignRole('professor');
+        } catch (\Exception $error) {
+            // Em caso de erro exclui o user e o servidor
+        
+            if (isset($user)) {
+                $user->delete();
+            }
+        
+            if (isset($servidor)) {
+                $servidor->delete();
+            }
+        
+            return redirect('/professor/create');
+            // ->with('error', "Não foi possível cadastrar o professor! Por favor, tente novamente.");
+        }
 
         // Enviar email com credencias de Login
         $email = new CredentialMail($request);
@@ -99,78 +158,132 @@ class ProfessorController extends Controller
         try {
             $email->sendMail();
         } catch (\Exception $error) {
-            return back()->with('error', "Ocorreu um erro inesperado! {$error->getMessage()}");
+            return redirect('/professor')->with('error', "Não foi possivel enviar o email automaticamente!Por favor, envie o e-mail manualmente para $servidor->email");
         }
 
         return redirect('/professor')->with('success', "Usuário cadastrado com sucesso!");
     }
+
     public function edit($servidor_id)
     {
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $usuario = Usuario::where('id', $servidor->usuario_id)->first();
-        return view('professor.edit', ['usuario' => $usuario, 'servidor' => $servidor]);
+        try {
+            $servidor = Servidor::findOrFail($servidor_id);
+            $usuario = User::findOrFail($servidor->user_id);
+            
+            return view('professor.edit', ['usuario' => $usuario, 'servidor' => $servidor]);
+        } catch (\Exception $error) {
+            return back()->with('error', "Ocorreu um erro ao buscar o professor. Por favor, tente novamente.");
+        }
     }
 
     public function update(Request $request, $servidor_id)
     {
+        /* VALIDAÇÂO ANTIGA */
+        // $servidor = Servidor::where('id', $servidor_id)->first();
+        // $usuario = User::where('id', $servidor->user_id)->first();
 
-        // Falta validação se o nome e email que vou alterar já existe em outo usuario;
+        // $usuarioExists = User::where('login', $request->login)
+        //     ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
+        //     ->exists();
 
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $usuario = Usuario::where('id', $servidor->usuario_id)->first();
+        // $servidorExists = Servidor::where('email', $request->email)
+        //     ->where('id', '!=', $servidor->id) // Não deve ser o mesmo servidor
+        //     ->exists();
 
-        $usuarioExists = Usuario::where('login', $request->login)
-            ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
-            ->exists();
+        // if ($usuarioExists || $servidorExists) {
+        //     // Usuário ou servidor com login ou e-mail já existente (mas não o mesmo usuário/servidor)
+        //     return back()->with('error', "Já existe um usário no sistema com esse email ou login!");
+        // }
 
-        $servidorExists = Servidor::where('email', $request->email)
-            ->where('id', '!=', $servidor->id) // Não deve ser o mesmo servidor
-            ->exists();
-
-        if ($usuarioExists || $servidorExists) {
-            // Usuário ou servidor com login ou e-mail já existente (mas não o mesmo usuário/servidor)
-            return back()->with('error', "Já existe um usário no sistema com esse email ou login!");
+        try {
+            $servidor = Servidor::findOrFail($servidor_id);
+            $usuario = User::findOrFail($servidor->user_id);
+    
+            $validator = Validator::make($request->all(), [
+                'login' => [
+                    'required',
+                    Rule::unique('users', 'login')->ignore($usuario->id),
+                ],
+                'email' => [
+                    'required',
+                    Rule::unique('servidor', 'email')->ignore($servidor->id),
+                ],
+            ], [
+                'login.required' => 'O campo Nome é obrigatório.',
+                'email.required' => 'O campo Email é obrigatório.',
+                'login.unique' => 'Este login já está em uso.',
+                'email.unique' => 'Este email já está em uso',
+            ]);
+    
+            if ($validator->fails()) {
+                return back()->with('error', $validator->errors()->first());
+            }
+    
+            $usuario->update([
+                'login' => $request->login,
+                'senha' => Hash::make($request->login)
+            ]);
+    
+            $servidor->update([
+                'nome' => $request->nome,
+                'email' => strtolower($request->email),
+            ]);
+    
+            return redirect('/professor')->with('success', "Usuário atualizado com sucesso!");
+        } catch (\Exception $error) {
+            return back()->with('error', "Ocorreu um erro ao atualizar o usuário. Por favor, tente novamente.");
         }
-
-
-
-        $usuario->update([
-            'login' => $request->login,
-            'senha' => md5($request->login)
-        ]);
-
-        $servidor->update([
-            'nome' => $request->nome,
-            'email' => strtolower($request->email),
-        ]);
-
-        return redirect('/professor')->with('success', "Usuário atualizado com sucesso!");
     }
 
     public function destroy($servidor_id)
     {
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $professor = Professor::where('servidor_id', $servidor_id)->first();
-        Usuario::destroy($servidor->usuario_id);
-        Professor::destroy($professor->id);
-        Servidor::destroy($servidor->id);
+        try {
+            $servidor = Servidor::findOrFail($servidor_id);
+            $professor = Professor::where('servidor_id', $servidor_id)->first();
 
-        return redirect('/professor')->with('success', "Usuário removido com sucesso!");
+            if (!$servidor || !$professor) {
+                return back()->with('error', "Servidor ou professor não encontrado. A exclusão não foi realizada.");
+            }
+
+            User::destroy($servidor->user_id);
+            Professor::destroy($professor->id);
+            Servidor::destroy($servidor->id);
+
+            return redirect('/professor')->with('success', "Usuário removido com sucesso!");
+        } catch (\Exception $error) {
+            return back()->with('error', "Ocorreu um erro ao excluir o usuário. Por favor, tente novamente.");
+        }
     }
 
     public function view($servidor_id)
     {
+        try {
+            $servidor = Servidor::findOrFail($servidor_id);
+            $professor = Professor::where('servidor_id', $servidor_id)->first();
+            $user = User::findOrFail($servidor->user_id);
 
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $professor = Professor::where('servidor_id', $servidor_id)->first();
-        $user = User::where('id', $servidor->user_id)->first();
-        
+            if (!$servidor || !$professor || !$user) {
+                return back()->with('error', "Professor não encontrado.");
+            }
 
-        return view(
-            'professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'user' => $user]
-        );
+            $areas = AreaProfessor::where('professor_id', $professor->id)->get();
+            $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
+
+            return view(
+                'professor.view',
+                [
+                    'professor' => $professor,
+                    'servidor' => $servidor,
+                    'user' => $user,
+                    'areas' => $areas,
+                    'curriculos' => $curriculos
+                ]
+            );
+        } catch (\Exception $error) {
+            return back()->with('error', "Ocorreu um erro ao buscar informações do professor. Por favor, tente novamente.");
+        }
     }
+
 
     public function display()
     {
