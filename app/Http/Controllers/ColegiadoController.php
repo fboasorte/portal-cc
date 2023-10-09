@@ -25,7 +25,7 @@ class ColegiadoController extends Controller
         } else {
             $colegiados = Colegiado::all();
         }
-        
+
         $totalMembros = 0;
         $totalAtas = 0;
         if($colegiado_atual != null) {
@@ -65,7 +65,7 @@ class ColegiadoController extends Controller
      */
     public function store(Request $request)
     {
-        $coordenador = Professor::find(Coordenador::first()->professor_id);
+        $coordenador = Coordenador::first();
         $colegiado = new Colegiado([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
@@ -123,10 +123,10 @@ class ColegiadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $colegiado = Colegiado::findOrFail($id);
-        $coordenador = Professor::findOrFail(20);
+        $colegiado = Colegiado::find($request->id);
+        $coordenador = Coordenador::first();
 
         $colegiado->update([
             'numero_portaria' => $request->numero_portaria,

@@ -44,6 +44,12 @@
                 return;
             }
 
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, insira um email válido.');
+                return;
+            }
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
