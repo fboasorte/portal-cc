@@ -49,7 +49,7 @@
         </div>
     </div>
 </div>
-@include('modal.createProfessorExterno')
+
 
 <script>
       $(document).ready(function() {
