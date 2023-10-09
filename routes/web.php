@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-//Página Inicial 
+//Página Inicial
 Route::get('/', function () {
     return redirect()->route('postagem.display');
 });
@@ -118,7 +118,7 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
 
     //Professor Externo
     Route::resource('professor-externo', ProfessorExternoController::class)->parameter('professor-externo', 'id')
-        ->only(['index', 'store']);
+        ->only(['index', 'store', 'create']);
 
     // Curso
     Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);

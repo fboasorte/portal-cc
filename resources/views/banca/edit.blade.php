@@ -20,7 +20,7 @@
         <label for="local" class="form-label">Local</label>
         <input type="text" name="local" id="local" class="form-control" value="{{$banca->local}}" placeholder="Local da banca" required>
 
-        <div class="form-group">
+        <div class="form-group" id="professores">
             <label for="professores" class="form-label">Professores internos</label>
             @foreach ($professores_internos as $professor_interno)
             <div class="form-check">
@@ -28,8 +28,8 @@
                 <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
             </div>
             @endforeach
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('professor.create') }}" class="btn-back">Cadastrar professor interno</a></button>
         </div>
+        <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor interno</a>
 
         <div class="form-group">
             <label for="professores" class="form-label">Professores externos</label>
@@ -39,11 +39,14 @@
                 <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
             </div>
             @endforeach
-            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('professor-externo.create') }}" class="btn-back">Cadastrar professor externo</a></button>
         </div>
-
-        <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Salvar</button>
-        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('banca.index') }}" class="btn-back">Cancelar</a></button>
+        <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno">Cadastrar professor externo</a>
+        <div>
+            <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Salvar</button>
+            <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('banca.index') }}" class="btn-back">Cancelar</a></button>
+        </div>
     </form>
 </div>
+@include('modal.createProfessor')
+@include('modal.createProfessorExterno')
 @stop

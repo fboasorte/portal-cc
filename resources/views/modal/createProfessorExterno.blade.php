@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Cadastrar aluno</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Cadastrar professor externo</h5>
                 <button type="button" class="close btn btn-lg" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -52,6 +52,39 @@
                 success: function(response) {
                     $('#createProfessorExterno').modal('hide');
                     atualizarProfessoresExternos();
+
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        // Feche o modal
+                        $('#createProfessorExterno').modal('hide');
+
+                        // Atualiza os checkboxs no modal
+                        var professoresCheckboxHTML = '';
+                        $.each(response.professores_externos, function(index, professor) {
+                            var checkboxId = 'professor_externo_' + professor.id;
+                            professoresCheckboxHTML +=
+                            '<div class="form-check">' +
+                            '<input type="checkbox" class="form-check-input" name="professores[]" id="professor_externo_' + checkboxId + '" value="' + professor.id + '">' +
+                            '<label for="' + checkboxId + '" class="form-check-label">' + professor.nome + '</label>' +
+                            '</div>';
+                        });
+
+                        $('#professores_externos .form-check').remove();
+                        $('#professores_externos').append(professoresCheckboxHTML);
+
+                        // Atualize o <select> na página de edição
+                        // var $selectProfessor = $('#professor_id');
+                        // $selectProfessor.empty(); // Limpe todas as opções
+
+                        // // Adicione as opções atualizadas com base na resposta do servidor
+                        // $.each(response.professores, function(index, professor) {
+                        //     $selectProfessor.append($('<option>', {
+                        //         value: professor.id,
+                        //         text: professor.nome
+                        //     }));
+                        // });
+                    }
                 },
             });
         });

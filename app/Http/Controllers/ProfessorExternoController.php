@@ -41,7 +41,7 @@ class professorExternoController extends Controller
         ]);
         if ($request->contexto == 'modal') {
             $professores = ProfessorExterno::all();
-            return response()->json(['professores-externos' => $professores]);
+            return response()->json(['professores_externos' => $professores]);
         } else {
             return redirect('professor-externo')->with('success', 'Professor externo ' . $request->nome . ' Criado com Sucesso');
         }
