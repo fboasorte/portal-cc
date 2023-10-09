@@ -114,6 +114,15 @@
         <script type="text/javascript">
             $('#professor_id').select2({
                 placeholder: 'Selecione o professor responsável',
+                language: {
+                    noResults: function() {
+                        return "Resultados não encontrados";
+                    },
+                    inputTooShort: function() {
+                        return "Digite 1 ou mais caracteres";
+                    }
+                },
+                minimumInputLength: 1,
                 ajax: {
                     url: '/projeto/busca-professor',
                     dataType: 'json',
@@ -134,6 +143,15 @@
 
             $('#alunos').select2({
                 placeholder: 'Selecione um aluno para o projeto',
+                language: {
+                    noResults: function() {
+                        return "Resultados não encontrados";
+                    },
+                    inputTooShort: function() {
+                        return "Digite 1 ou mais caracteres";
+                    }
+                },
+                minimumInputLength: 1,
                 ajax: {
                     url: '/projeto/busca-aluno',
                     dataType: 'json',

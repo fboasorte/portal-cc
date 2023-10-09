@@ -62,7 +62,16 @@
 
     <script type="text/javascript">
         $('#professor_id').select2({
-            placeholder: 'Selecione o professor responsável',
+            placeholder: 'Busque o professor pelo nome',
+            language: {
+                noResults: function() {
+                    return "Resultados não encontrados";
+                },
+                inputTooShort: function() {
+                    return "Digite 1 ou mais caracteres";
+                }
+            },
+            minimumInputLength: 1,
             ajax: {
                 url: '/curso/busca-professor',
                 dataType: 'json',
