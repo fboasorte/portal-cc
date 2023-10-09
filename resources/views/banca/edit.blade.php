@@ -24,19 +24,19 @@
             <label for="professores" class="form-label">Professores internos</label>
             @foreach ($professores_internos as $professor_interno)
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="professores_internos[]" id="{{$professor_interno->id}}" value="{{$professor_interno->id}}" {{$banca->professores->contains($professor_interno->id) ? 'checked' : ''}}>
-                <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
+                <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}" value="{{$professor_interno->id}}" {{$banca->professores->contains($professor_interno->id) ? 'checked' : ''}}>
+                <label for="professor_{{$professor_interno->id}}" class="form-check-label">{{$professor_interno->nome}} </label>
             </div>
             @endforeach
         </div>
         <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor interno</a>
 
-        <div class="form-group">
+        <div class="form-group" id="professores_externos">
             <label for="professores" class="form-label">Professores externos</label>
             @foreach ($professores_externos as $professor_externo)
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="professores_externos[]" id="{{$professor_externo->id}}" value="{{$professor_externo->id}}" {{$banca->professoresExternos->contains($professor_externo->id) ? 'checked' : ''}}>
-                <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
+                <input type="checkbox" class="form-check-input" name="professores_externos[]" id="professor_externo_{{$professor_externo->id}}" value="{{$professor_externo->id}}" {{$banca->professoresExternos->contains($professor_externo->id) ? 'checked' : ''}}>
+                <label for="professor_externo_{{$professor_externo->id}}" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
             </div>
             @endforeach
         </div>
