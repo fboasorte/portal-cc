@@ -223,7 +223,7 @@ class CursoController extends Controller
             $coordenador->professor->servidor->user->assignRole('coordenador');
         }
 
-        return redirect()->back();
+        return redirect('curso')->with('success', 'Coordenado definido com sucesso');
     }
 
     /**
