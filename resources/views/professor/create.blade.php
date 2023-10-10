@@ -22,10 +22,6 @@
                 <label class="form-label" for="email">Email</label>
                 <input class="form-control" id="email" name="email" type="email" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="login">Login</label>
-                <input class="form-control" id="login" name="login" type="text" required>
-            </div>
             <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
             <a href="{{ route('professor.index') }} "
                 class="btn custom-button custom-button-castastrar-tcc btn-default">Cancelar</a>

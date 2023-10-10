@@ -17,10 +17,6 @@
                     <label for="email-servidor">Email</label>
                     <input class="form-control" id="email-servidor" name="email-servidor" type="email" placeholder="Email" required>
                 </div>
-                <div class="mb-3">
-                    <label class="mt-3" for="login-servidor">Login</label>
-                    <input class="form-control" id="login-servidor" name="login-servidor" type="text" placeholder="Login" required>
-                </div>
 
             </div>
             <div class="modal-footer">
@@ -36,10 +32,9 @@
         $('#cadastrarServidorButton').click(function() {
             var nome = $('#nome-servidor').val();
             var email = $('#email-servidor').val();
-            var login = $('#login-servidor').val();
 
             // Verifique se os campos obrigatórios estão preenchidos
-            if (nome.trim() === '' || email.trim() === '' || login.trim() === '') {
+            if (nome.trim() === '' || email.trim() === '') {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
@@ -50,7 +45,6 @@
                 _token: csrfToken,
                 nome: nome,
                 email: email,
-                login: login,
                 contexto: 'modal'
             };
 

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Servidor;
-use App\Models\Usuario;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class ServidorController extends Controller
@@ -29,29 +30,31 @@ class ServidorController extends Controller
      */
     public function store(Request $request)
     {
-        $usuarioExists = Usuario::where('login', $request->login)->exists();
+        $usuarioExists = User::where('email', $request->email)->exists();
         $servidorExists = Servidor::where('email', $request->email)->exists();
 
         if ($usuarioExists || $servidorExists) {
             // Usuário ou servidor com login ou e-mail já existente
-            $usuarios = Usuario::all();
+            $usuarios = User::all();
             return response()->json(['error' => 'Usuario já cadastrado', 'usuarios' => $usuarios]);
         }
 
-        $usuario = Usuario::create([
-            'login'=> $request->login,
-            'senha'=> md5($request->login)
+        $user = User::create([
+            'name' => $request->nome,
+            'password' => Hash::make($request->email),
+            'email' => strtolower($request->email),
         ]);
 
         $servidor = Servidor::create([
-            'nome'=> $request->nome,
-            'email'=> strtolower($request->email),
-            'user_id'=> $usuario->id,
+            'nome' => $request->nome,
+            'email' => strtolower($request->email),
+            'user_id' => $user->id,
         ]);
 
         $servidores = Servidor::whereNotIn('id', function ($query) {
             $query->select('servidor_id')->from('professor');
         })->get();
+
         return response()->json(['servidores' => $servidores]);
     }
 

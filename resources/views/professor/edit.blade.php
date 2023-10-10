@@ -26,11 +26,6 @@
                     <input value="{{ $servidor->email }}" class="form-control" id="email" name="email" type="email"
                         required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="login">Login</label>
-                    <input value="{{ $usuario->login }}" class="form-control" id="login" name="login" type="text"
-                        required>
-                </div>
 
                 <button type="submit" class="btn custom-button btn-default">Salvar</button>
                 <a href="{{ route('professor.index') }} "

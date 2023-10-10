@@ -7,7 +7,6 @@ use App\Models\CurriculoProfessor;
 use App\Models\Professor;
 use App\Models\Servidor;
 use App\Models\User;
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,13 +18,13 @@ class ProfessorController extends Controller
 
         if ($buscar) {
             $servidores = Servidor::where('nome', 'like', '%' . $buscar . '%')
-            ->join('professor', 'professor.servidor_id', '=', 'servidor.id')
-            ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
-            ->get();
+                ->join('professor', 'professor.servidor_id', '=', 'servidor.id')
+                ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+                ->get();
         } else {
             $servidores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')
-            ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
-            ->get();
+                ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
+                ->get();
         }
 
         return view('professor.index', ['servidores' => $servidores, 'buscar' => $buscar]);
@@ -56,7 +55,7 @@ class ProfessorController extends Controller
 
     public function store(Request $request)
     {
-        $usuarioExists = User::where('login', $request->login)->exists();
+        $usuarioExists = User::where('email', $request->email)->exists();
         $servidorExists = Servidor::where('email', $request->email)->exists();
 
         if ($usuarioExists || $servidorExists) {
@@ -70,8 +69,7 @@ class ProfessorController extends Controller
         }
 
         $user = User::create([
-            'login' => $request->login,
-            'password' => Hash::make($request->login),
+            'password' => Hash::make($request->email),
             'name' => $request->nome,
             'email' => strtolower($request->email),
         ]);
@@ -104,10 +102,11 @@ class ProfessorController extends Controller
 
         return redirect('/professor')->with('success', "Usuário cadastrado com sucesso!");
     }
+
     public function edit($servidor_id)
     {
         $servidor = Servidor::where('id', $servidor_id)->first();
-        $usuario = Usuario::where('id', $servidor->usuario_id)->first();
+        $usuario = User::where('id', $servidor->user_id)->first();
         return view('professor.edit', ['usuario' => $usuario, 'servidor' => $servidor]);
     }
 
@@ -117,9 +116,9 @@ class ProfessorController extends Controller
         // Falta validação se o nome e email que vou alterar já existe em outo usuario;
 
         $servidor = Servidor::where('id', $servidor_id)->first();
-        $usuario = Usuario::where('id', $servidor->usuario_id)->first();
+        $usuario = User::where('id', $servidor->user_id)->first();
 
-        $usuarioExists = Usuario::where('login', $request->login)
+        $usuarioExists = User::where('email', $request->email)
             ->where('id', '!=', $usuario->id) // Não deve ser o mesmo usuário
             ->exists();
 
@@ -132,11 +131,9 @@ class ProfessorController extends Controller
             return back()->with('error', "Já existe um usário no sistema com esse email ou login!");
         }
 
-
-
         $usuario->update([
-            'login' => $request->login,
-            'senha' => md5($request->login)
+            'name' => $request->nome,
+            'email' => $request->email
         ]);
 
         $servidor->update([
@@ -151,20 +148,18 @@ class ProfessorController extends Controller
     {
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
-        Usuario::destroy($servidor->usuario_id);
         Professor::destroy($professor->id);
         Servidor::destroy($servidor->id);
+        User::destroy($servidor->user_id);
 
         return redirect('/professor')->with('success', "Usuário removido com sucesso!");
     }
 
     public function view($servidor_id)
     {
-
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         $user = User::where('id', $servidor->user_id)->first();
-        
 
         return view(
             'professor.view',
@@ -174,7 +169,6 @@ class ProfessorController extends Controller
 
     public function display()
     {
-
         $servidores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')
             ->select('servidor.*', 'professor.id as professor_id', 'professor.titulacao', 'professor.foto')
             ->get();

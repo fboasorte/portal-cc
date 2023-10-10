@@ -24,7 +24,6 @@ class CoordenadorSeeder extends Seeder
         ]);
 
         $user = User::create([
-            'login' => 'admin',
             'name' => 'Danilo',
             'email' => 'danilo@mail.com',
             'email_verified_at' => now(),

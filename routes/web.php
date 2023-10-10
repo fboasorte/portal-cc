@@ -54,6 +54,7 @@ Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
 
 //Professor
 Route::get('/professores/{id}', [ProfessorController::class, 'view'])->name('professor.view');
+
 //Projeto
 Route::get('/projetos', [ProjetoController::class, 'show'])->name('projetos.show');
 Route::get('/projetos/{id}', [ProjetoController::class, 'view'])->name('projeto.view');
@@ -75,13 +76,16 @@ Route::get('/dashboard', function () {
 
 
 //CRUDs
-Route::middleware('auth', 'role:coordenador')->group(function () {
+Route::middleware('auth', 'role:professor')->group(function () {
 
     //Usuário
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile/delete_foto/{id}', [ProfileController::class, 'deleteFoto'])->name('profile.delete_foto');
+});
+
+Route::middleware('auth', 'role:coordenador')->group(function () {
 
     // TipoPostagem
     Route::resource('tipo-postagem', TipoPostagemController::class)->parameter('tipo-postagem', 'id')->except(['show']);
@@ -137,9 +141,6 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
 
     Route::get('/curso/busca-professor', [CursoController::class, 'buscaProfessor']);
 });
-
-// Professor
-Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
 
 
 // Matriz curricular

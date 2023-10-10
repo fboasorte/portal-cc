@@ -17,10 +17,6 @@
                     <label for="email">Email</label>
                     <input class="form-control" id="email-professor" name="email-professor" type="email" placeholder="Email">
                 </div>
-                <div class="mb-3">
-                    <label class="mt-3" for="login">Login</label>
-                    <input class="form-control" id="login-professor" name="login-professor" type="text" placeholder="Login">
-                </div>
 
             </div>
             <div class="modal-footer">
@@ -36,10 +32,9 @@
         $('#cadastrarProfessorButton').click(function() {
             var nome = $('#nome-professor').val();
             var email = $('#email-professor').val();
-            var login = $('#login-professor').val();
 
             // Verifique se os campos obrigatórios estão preenchidos
-            if (nome.trim() === '' || email.trim() === '' || login.trim() === '') {
+            if (nome.trim() === '' || email.trim() === '') {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
@@ -56,7 +51,6 @@
                 _token: csrfToken,
                 nome: nome,
                 email: email,
-                login: login,
                 contexto: 'modal'
             };
 
