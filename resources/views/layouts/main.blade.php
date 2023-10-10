@@ -22,7 +22,7 @@
     <style>
         footer {
             position: fixed bottom;
-            margin-top: 20px;
+            margin-top: 240px;
             bottom: 0;
             left: 0;
             width: 100%;
