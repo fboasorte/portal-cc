@@ -1,22 +1,7 @@
 @extends('layouts.main')
 @section('title', 'TCC')
 @section('content')
-@php
-$meses = [
-1 => 'Janeiro',
-2 => 'Fevereiro',
-3 => 'Março',
-4 => 'Abril',
-5 => 'Maio',
-6 => 'Junho',
-7 => 'Julho',
-8 => 'Agosto',
-9 => 'Setembro',
-10 => 'Outubro',
-11 => 'Novembro',
-12 => 'Dezembro',
-];
-@endphp
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -42,7 +27,7 @@ $meses = [
                             <table id="tccTable" class="table custom-table table-hover">
                                 <thead class="custom-table-head">
                                     <tr>
-                                        <th class="text-center" scope="col">Data</th>
+                                        <th class="text-center" scope="col">Ano</th>
                                         <th class="text-center" scope="col">Título</th>
                                         <th class="text-center" scope="col">Aluno</th>
                                         <th class="text-center" scope="col">Orientador</th>
@@ -51,13 +36,11 @@ $meses = [
                                 <tbody>
                                     @foreach ($tccs as $tcc)
                                     <tr class="inner-box clickable-row linha" data-href="{{ route('tcc.view', ['id' => $tcc->id]) }}">
-                                        <th scope="row">
-                                            <div class="event-date">
-                                                <span class="date-day">{{ \Carbon\Carbon::parse($tcc->ano)->format('d') }}</span><br>
-                                                <span class="date-month">{{ $meses[\Carbon\Carbon::parse($tcc->ano)->month] }}</span><br>
-                                                <span class="date-year">{{ \Carbon\Carbon::parse($tcc->ano)->format('Y') }}</span>
+                                        <td>
+                                            <div class="event-title text-center">
+                                                <span>{{ $tcc->ano }}</span>
                                             </div>
-                                        </th>
+                                        </td>
                                         <td>
                                             <div class="event-title text-center">
                                                 <span>{{ $tcc->titulo }}</span>
@@ -109,15 +92,15 @@ $meses = [
                 "sLengthMenu": "Mostrar _MENU_ linhas",
                 "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ linhas",
                 "oPaginate": {
-                    "sFirst": '<i class="fas fa-angle-double-left"></i>', 
-                    "sPrevious": '<i class="fas fa-angle-left"></i>', 
-                    "sNext": '<i class="fas fa-angle-right"></i>', 
-                    "sLast": '<i class="fas fa-angle-double-right"></i>', 
+                    "sFirst": '<i class="fas fa-angle-double-left"></i>',
+                    "sPrevious": '<i class="fas fa-angle-left"></i>',
+                    "sNext": '<i class="fas fa-angle-right"></i>',
+                    "sLast": '<i class="fas fa-angle-double-right"></i>',
                 },
             }
 
         });
-        
+
     });
 </script>
 @endsection
