@@ -80,7 +80,7 @@
                     @foreach ($postagem->arquivos as $arquivo)
                         <button class="btn text-danger" type="submit"
                             form="deletar-arquivos{{ $arquivo->id }}">X</button>
-                        <a href="{{ URL::asset('storage') }}/{{ $arquivo->path }}">{{ $arquivo->nome }}</a>
+                        <a download href="{{ asset('storage') }}/{{ $arquivo->path }}">{{ $arquivo->nome }}</a>
                     @endforeach
                 @endif
                 <input type="file" name="arquivos[]" id="arquivos" class="form-control" multiple>
