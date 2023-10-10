@@ -11,9 +11,8 @@
     </div>
 </div>
 
-
 <div class="container mt-4">
-    <form method="post" action="{{ route('tcc.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('tcc.store') }}" enctype="multipart/form-data" id="meuFormulario">
         @csrf
         <div class="mb-3">
             <label for="titulo" class="form-label"> <br>Título*:</label>
@@ -36,11 +35,11 @@
             </div>
 
             <div class="col-md-3 mb-3 d-flex align-items-end">
-                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar aluno</a>
+                <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar aluno</a>
             </div>
             @include('modal.createAluno')
         </div>
-        
+
         <div class="mb-3">
             <label for="banca_id" class="form-label"> <br>Orientador:</label>
             <select name="professor_id" id="professor_id" class="form-select">
@@ -51,7 +50,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor</a>
+            <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor</a>
         </div>
         @include('modal.createProfessor')
         @include('modal.createProfessorExterno')
@@ -75,7 +74,7 @@
             </select>
         </div>
         <div class="col-md-3 mb-3 d-flex align-items-end">
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca">Cadastrar banca</a>
+            <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal" data-bs-target="#createBanca">Cadastrar banca</a>
         </div>
         @include('modal.createBanca')
         <div class="mb-3">
