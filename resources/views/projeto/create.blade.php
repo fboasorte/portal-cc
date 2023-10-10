@@ -76,7 +76,8 @@
 
             <div class="form-group">
                 <label for="professor_id" class="form-label">Professor Responsável: </label>
-                <select name="professor_id" id="professor_id" class="form-select"></select>
+                <select name="professor_id" id="professor_id"
+                    class="form-select @error('professor_id') is-invalid @enderror"></select>
 
                 @error('professor_id')
                     <div class="invalid-feedback">
