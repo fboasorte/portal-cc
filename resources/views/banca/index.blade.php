@@ -48,15 +48,22 @@
                                 <td>{{ date('d/m/Y', strtotime($banca->data)) }}</td>
                                 <td>{{ $banca->local }}</td>
                                 <td>
+                                    @if (count($banca->professoresExternos) > 0)
+                                    <span style="font-weight: bold;"> Professores Externos:</span><br>
                                     @foreach ($banca->professoresExternos as $professor_externo)
-                                    <p>{{ $professor_externo->nome }} - {{ $professor_externo->filiacao }}
-                                    </p>
+                                    <span>{{ $professor_externo->nome }} - {{ $professor_externo->filiacao }}
+                                    </span><br>
                                     @endforeach
+                                    <br>
+                                    @endif
 
+                                    @if (count($banca->professores) > 0)
+                                    <span style="font-weight: bold;"> Professores Internos:</span><br>
                                     @foreach ($banca->professores as $professor)
-                                    <p>{{ $professores_internos->contains($professor->id) ? $professores_internos->where('id', $professor->id)->first()->nome : '' }}
-                                        - IFNMG </p>
+                                    <span>{{ $professores_internos->contains($professor->id) ? $professores_internos->where('id', $professor->id)->first()->nome: '' }} </span>
+                                    <span>{!! $professores_internos->contains($professor->id) ? '<br>' : '' !!}</span>
                                     @endforeach
+                                    @endif
                                 </td>
                                 <td>
                                     <form method="POST" action="{{ route('banca.destroy', $banca->id) }}">
