@@ -27,28 +27,17 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
         .container2 {
             flex: 1;
         }
 
         footer {
-<<<<<<< HEAD
-            position: fixed bottom; 
-            bottom: 0;
-            left: 0;
-            width: 100%;
-=======
->>>>>>> b07e9a4b8815d5224a119ffcacd124b6ba137b7d
             background-color: #1c2c4c;
             color: white;
             padding: 8px;
             text-align: center;
             padding-top: 20px;
             margin-top: 20px;
-        }
-        .spacer {
-            height: 800px; /* só pra gerar barra lateral */
         }
     </style>
 
