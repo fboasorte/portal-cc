@@ -20,15 +20,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container2 {
+            flex: 1;
+        }
+
         footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
             background-color: #1c2c4c;
             color: white;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
         }
     </style>
 
@@ -37,11 +47,11 @@
 
 <body>
     @if(auth()->check())
-        @include('layouts.authenticated-header') 
+    @include('layouts.authenticated-header')
     @else
-        @include('layouts.header')
+    @include('layouts.header')
     @endif
-    
+
 
     @include('layouts.flash-message')
 
@@ -59,8 +69,8 @@
         <p>E-mail: <a href="mailto:comunicacao.montesclaros@ifnmg.edu.br">comunicacao.montesclaros@ifnmg.edu.br</a></p>
         <p>Página eletrônica: <a href="https://www.ifnmg.edu.br/montesclaros">www.ifnmg.edu.br/montesclaros</a></p>
 
-        
-    
+
+
     </footer>
 
 
