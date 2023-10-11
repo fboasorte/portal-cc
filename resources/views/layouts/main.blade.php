@@ -21,15 +21,14 @@
 
     <style>
         footer {
-            position: fixed bottom;
-            margin-top: 240px;
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background-color: #1c2c4c;
             color: white;
             padding: 10px;
-            text-align: center;   
+            text-align: center;
         }
     </style>
 
