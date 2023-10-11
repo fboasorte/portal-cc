@@ -22,7 +22,7 @@ class TccController extends Controller
 
         // return dd($tccs[0]->aluno);
 
-        return view('tcc.index', ['tccs' => $tccs, 'professores' =>$professores]);
+        return view('tcc.index', ['tccs' => $tccs, 'professores' => $professores]);
     }
 
     public function create()
@@ -38,7 +38,8 @@ class TccController extends Controller
         return view('tcc.create', ['anoAtual' => $anoAtual, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $id]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $orientador = Professor::find($request->professor_id);
 
         $tcc = new Tcc([
@@ -50,17 +51,17 @@ class TccController extends Controller
             'status' => $request->status
         ]);
 
-        if($request->hasFile("arquivo")) {
+        if ($request->hasFile("arquivo")) {
             $pdf = new ArquivoTcc();
             $pdf->nome = $request->arquivo->getClientOriginalName();
-            $pdf->path =$request->arquivo->store('ArquivoTcc/' .$tcc->id);
+            $pdf->path = $request->arquivo->store('ArquivoTcc/' . $tcc->id);
             $pdf->save();
             $tcc->arquivo_id = $pdf->id;
         }
         $orientador->tccs()->save($tcc);
 
 
-        if($request->convite) {
+        if ($request->convite) {
             //Criar uma postagem com os dados deste TCC
         }
 
@@ -69,10 +70,10 @@ class TccController extends Controller
 
     public function edit($id)
     {
-        
+
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')
-        ->select('professor.id', 'professor.servidor_id', 'servidor.nome')
-        ->get();
+            ->select('professor.id', 'professor.servidor_id', 'servidor.nome')
+            ->get();
         $professoresExternos = ProfessorExterno::all();
         $tcc = Tcc::find($id);
         $alunos = Aluno::all();
@@ -82,20 +83,21 @@ class TccController extends Controller
         return view('tcc.edit', ['anoTcc' => $tcc->ano, 'tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $alunoId]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
 
         // return $request;
 
         $tcc = Tcc::find($request->id);
 
         if ($request->contexto === 'concluiTcc') {
-            if($request->hasFile("arquivo")) {
+            if ($request->hasFile("arquivo")) {
                 $pdf = new ArquivoTcc();
                 $pdf->nome = $request->arquivo->getClientOriginalName();
-                $pdf->path =$request->arquivo->store('ArquivoTcc/' .$tcc->id);
+                $pdf->path = $request->arquivo->store('ArquivoTcc/' . $tcc->id);
                 $pdf->save();
 
-                $tcc->arquivo_id = $pdf->id;  
+                $tcc->arquivo_id = $pdf->id;
             }
 
             $tcc->status = 1;
@@ -115,7 +117,7 @@ class TccController extends Controller
         ]);
         $professor = Professor::findOrFail($request->professor_id);
 
-        if($request->hasFile("arquivo")) {
+        if ($request->hasFile("arquivo")) {
             if ($tcc->arquivo) {
                 $caminhoArquivo = $tcc->arquivo->path;
 
@@ -184,11 +186,20 @@ class TccController extends Controller
     public function view($id)
     {
         $tcc = Tcc::find($id);
+        $aluno = Aluno::where('id', $tcc->aluno_id)->first();
+        $banca = Banca::where('id', $tcc->banca_id)->first();
+        $coordenador = Professor::where('professor.id', $tcc->professor_id)
+            ->leftJoin('servidor', 'professor.servidor_id', '=', 'servidor.id')
+            ->select('professor.id', 'servidor.nome')
+            ->first();
+
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+
 
         if (!$tcc) {
             abort(404);
         }
 
-        return view('tcc.view', ['tcc' => $tcc]);
+        return view('tcc.view', ['tcc' => $tcc, 'aluno' => $aluno, 'banca' => $banca, 'coordenador' => $coordenador, 'professores_internos' => $professores]);
     }
 }
