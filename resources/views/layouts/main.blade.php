@@ -21,7 +21,7 @@
 
     <style>
         footer {
-            position: fixed;
+            position: fixed bottom; 
             bottom: 0;
             left: 0;
             width: 100%;
@@ -29,6 +29,9 @@
             color: white;
             padding: 10px;
             text-align: center;
+        }
+        .spacer {
+            height: 800px; /* só pra gerar barra lateral */
         }
     </style>
 
@@ -51,7 +54,7 @@
         @yield('content')
     </div>
 
-
+     <div class="spacer"></div> <!-- espaçador antes do footer -->
     <footer>
         <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG - Todos os direitos reservados</p>
         <p>Endereço: Rua Dois, 300 - Village do Lago I - Montes Claros - MG – CEP 39.404-058</p>
