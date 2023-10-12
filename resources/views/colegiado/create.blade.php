@@ -11,30 +11,34 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container mt-4">
     <form method="post" action="{{ route('colegiado.store') }}" enctype="multipart/form-data" id="form-colegiado">
         @csrf
         <div class="form-group">
             <div class="form-group">
                 <h5>Portaria PDF</h5>
-                <label for="arquivo">Arquivo</label>
+                <label for="arquivo" class="form-label">Arquivo</label>
                 <input type="file" name="arquivo" id="arquivo" class="form-control" required>
             </div>
 
             <div>
-                <label for="local">Número portaria*</label>
-                <input type="number" name="numero_portaria" id="numero_portaria" class="form-control" required>
-                <label for="vigencia">Vigência*</label>
-                <input type="date" name="vigencia_inicio" id="vigencia_incio" class="form-control" value="{{ date('Y-m-d', strtotime($hoje)) }}" required> até
-                <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($hoje . ' +1 day')) }}"required>
-
+                <div class="mb-3">
+                    <label for="local" class="form-label">Número portaria*</label>
+                    <input type="number" name="numero_portaria" id="numero_portaria" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="vigencia" class="form-label">Vigência*</label>
+                    <input type="date" name="vigencia_inicio" id="vigencia_incio" class="form-control" value="{{ date('Y-m-d', strtotime($hoje)) }}" required> até
+                    <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($hoje . ' +1 day')) }}" required>
+                </div>
             </div>
         </div>
         <div class="form-group">
+            <br>
             <h5>Professores </h5>
 
             <div class="form-group" id="professores">
-                <label for="professores">Selecione 4 professores: </label>
+                <label for="professores" class="form-label">Selecione 4 professores: </label>
 
                 @foreach ($professores as $professor)
                 <div class="form-check">
@@ -43,11 +47,12 @@
                 </div>
                 @endforeach
             </div>
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar novo professor</a>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar novo professor</a>
 
             <div class="form-group" id="alunos">
+                <br>
                 <h5>Alunos</h5>
-                <label for="">Selecione pelo menos 1 e no máximo 4 alunos: </label>
+                <label for="" class="form-label">Selecione pelo menos 1 e no máximo 4 alunos: </label>
                 @foreach ($alunos as $aluno )
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="alunos[]" id="aluno_{{$aluno->id}}" value="{{$aluno->id}}">
@@ -55,11 +60,12 @@
                 </div>
                 @endforeach
             </div>
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno" >Cadastrar aluno</a>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar aluno</a>
 
             <div class="form-group" id="servidores">
+                <br>
                 <h5>Servidor</h5>
-                <label for="">Selecione pelo menos 1 e no máximo 4 servidores para técnicos administrativos: </label>
+                <label for="" class="form-label">Selecione pelo menos 1 e no máximo 4 servidores para técnicos administrativos: </label>
                 @foreach ($servidores as $servidor )
 
                 <div class="form-check">
@@ -68,7 +74,7 @@
                 </div>
                 @endforeach
             </div>
-            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createServidor" >Cadastrar servidor</a>
+            <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createServidor">Cadastrar servidor</a>
         </div>
         <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Cadastrar</button>
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('colegiado.index') }}" class="btn-back">Cancelar</a></button>
