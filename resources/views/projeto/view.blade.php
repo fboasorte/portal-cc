@@ -69,7 +69,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <!-- Outros campos do projeto -->
                     </tbody>
                 </table>
             </div>

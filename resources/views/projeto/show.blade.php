@@ -1,6 +1,10 @@
 @extends('layouts.main')
 @section('title', 'Projetos')
 @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 @php
     $meses = [
         1 => 'Janeiro',
@@ -33,7 +37,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show" id="home" role="tabpanel">
                         <div class="table-responsive">
-                            <table class="table custom-table">
+                            <table id="projetoTable" class="table custom-table table-hover">
                                 <thead class="custom-table-head">
                                     <tr>
                                         <th class="text-center" scope="col">Data de Inicio</th>
@@ -44,7 +48,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($projetos as $projeto)
-                                    <tr class="inner-box clickable-row" data-href="{{ route('projeto.view', ['id' => $projeto->id]) }}">
+                                    <tr class="inner-box clickable-row linha" data-href="{{ route('projeto.view', ['id' => $projeto->id]) }}">
                                         <th scope="row">
                                             <div class="event-date">
                                                 <span class="date-day">{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('d') }}</span><br>
@@ -82,16 +86,39 @@
 </div>
 
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    var rows = document.querySelectorAll(".clickable-row");
+    document.addEventListener("DOMContentLoaded", function() {
+        var rows = document.querySelectorAll(".clickable-row");
 
-    rows.forEach(function (row) {
-        row.addEventListener("click", function () {
-            window.location.href = row.getAttribute("data-href");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                window.location.href = row.getAttribute("data-href");
+            });
         });
+
+        $('#projetoTable').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "lengthMenu": [10, 50, 100],
+            "pagingType": "full_numbers",
+            "order": [],
+            "searching": true,
+            "info": true,
+            "oLanguage": {
+                "sSearch": "Buscar:",
+                "sLengthMenu": "Mostrar _MENU_ linhas",
+                "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ linhas",
+                "oPaginate": {
+                    "sFirst": '<i class="fas fa-angle-double-left"></i>',
+                    "sPrevious": '<i class="fas fa-angle-left"></i>',
+                    "sNext": '<i class="fas fa-angle-right"></i>',
+                    "sLast": '<i class="fas fa-angle-double-right"></i>',
+                },
+            }
+
+        });
+
     });
-});
 </script>
+
 @endsection
