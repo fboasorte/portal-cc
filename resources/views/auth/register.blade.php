@@ -16,9 +16,9 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Currículo Lattes-->
+        <!-- Link-->
         <div class="mt-4">
-            <x-input-label for="curriculo_lattes" :value="__('Currículo Lattes')" />
+            <x-input-label for="curriculo_lattes" :value="__('Link')" />
             <x-text-input id="curriculo_lattes" class="block mt-1 w-full" type="text" name="curriculo_lattes" :value="old('curriculo_lattes')" required autocomplete="curriculo_lattes" />
             <x-input-error :messages="$errors->get('curriculo_lattes')" class="mt-2" />
         </div>

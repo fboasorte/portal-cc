@@ -90,9 +90,6 @@ class RegisteredUserController extends Controller
             'link'=> $request->curriculo_lattes,
         ]);
 
-
-
-
         //Forma antiga de salvar fotos (tabela FotoUser)
         if ($request->hasFile("fotos")) {
             $fotos = $request->file("fotos");              
@@ -106,6 +103,8 @@ class RegisteredUserController extends Controller
              }
          }
 
+        $user->assignRole('professor');
+        
         event(new Registered($user));
 
         Auth::login($user);

@@ -8,6 +8,8 @@ use App\Models\Coordenador;
 use App\Models\Curso;
 use App\Models\Professor;
 use App\Models\Servidor;
+use App\Models\AreaProfessor;
+use App\Models\CurriculoProfessor;
 
 class CoordenadorSeeder extends Seeder
 {
@@ -48,6 +50,16 @@ class CoordenadorSeeder extends Seeder
             'sala_atendimento' => 'Sala de Coordenacao',
             'professor_id' => $professor->id,
             'curso_id' => $curso->id,
+        ]);
+
+        $area_professor = AreaProfessor::create([
+            'professor_id'=> $professor->id,
+        ]);
+
+        $curriculo_professor = CurriculoProfessor::create([
+            'professor_id'=> $professor->id,
+            'curriculo'=>'',
+            'link'=>'',
         ]);
     }
 }

@@ -17,7 +17,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CoordenadorController;
 use Illuminate\Support\Facades\Route;
 
-/*
+/*  
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -59,13 +59,18 @@ Route::get('/professores/{id}', [ProfessorController::class, 'view'])->name('pro
 Route::get('/projetos', [ProjetoController::class, 'show'])->name('projetos.show');
 Route::get('/projetos/{id}', [ProjetoController::class, 'view'])->name('projeto.view');
 
-
-// SERVIDOR
+//Servidor
 Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);
+
+//Matriz curricular
+Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
+
+//Sobre o curso
+Route::get('/curso/sobre', function(){  return view('curso.display'); });
 
 
 //Informações dos Professores (Não Editável)
-Route::resource('/professores/info', ProfileController::class)->parameter('user', 'id')->except(['show']);
+//Route::resource('/professores/info', ProfileController::class)->parameter('user', 'id')->except(['show']);
 
 /*--------------INFORMAÇÕES PRIVADAS (NECESSÁRIO REGISTRO E LOGIN)-------------*/
 
@@ -73,7 +78,6 @@ Route::resource('/professores/info', ProfileController::class)->parameter('user'
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 //CRUDs
 Route::middleware('auth', 'role:professor')->group(function () {
@@ -141,10 +145,3 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
 
     Route::get('/curso/busca-professor', [CursoController::class, 'buscaProfessor']);
 });
-
-
-// Matriz curricular
-Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
-
-//sobre o curso
-Route::get('/curso/sobre', function(){  return view('curso.display'); });
