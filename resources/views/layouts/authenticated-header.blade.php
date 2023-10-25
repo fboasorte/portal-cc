@@ -95,6 +95,7 @@
                                     Colegiado
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('colegiado.show') }}">Visualizar</a></li>
                                     <li><a class="dropdown-item" href="{{ route('colegiado.index') }}">Gerenciar</a></li>
                                 </ul>
                             </li>

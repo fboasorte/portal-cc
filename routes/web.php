@@ -42,6 +42,9 @@ Route::get('/', function () {
 Route::get('/noticias', [PostagemController::class, 'display'])->name('postagem.display');
 Route::get('/professores', [ProfessorController::class, 'display'])->name('professor.display');
 
+//Colegiado 
+Route::get('/colegiados', [ColegiadoController::class, 'show'])->name('colegiado.show');
+
 //Postagem
 Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
 

@@ -95,13 +95,7 @@ class ColegiadoController extends Controller
         return redirect('colegiado')->with('success', 'Colegiado cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -159,4 +153,48 @@ class ColegiadoController extends Controller
         $colegiado->delete();
         return back()->with('success', 'Colegiado excluído com sucesso');
     }
+    
+    public function show()
+{
+    
+    // Encontre o colegiado com base no ID
+    $colegiado_atual = new Colegiado();
+        $colegiado_atual = Colegiado::where('fim', '>', now())->first();
+
+        if ($colegiado_atual != null) {
+            $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])->get();
+        } else {
+            $colegiados = Colegiado::all();
+        }
+        $colegiado = $colegiado_atual;
+
+    // Recupere os detalhes do presidente do colegiado (relação definida no modelo)
+    $presidente = $colegiado->presidente;
+
+    // Recupere os detalhes do arquivo de portaria associado ao colegiado (relação definida no modelo)
+    $arquivoPortaria = $colegiado->arquivoPortaria;
+
+    // Recupere a lista de professores, alunos e técnicos administrativos associados ao colegiado (relações definidas no modelo)
+    $professores = $colegiado->professores;
+    $alunos = $colegiado->alunos;
+    $tecnicosAdm = $colegiado->tecnicosAdm;
+
+    // Recupere a lista de atas associadas ao colegiado (relação definida no modelo)
+    $atas = $colegiado->atas;
+
+    return view('colegiado.show', [
+        'colegiado' => $colegiado,
+        'presidente' => $presidente,
+        'arquivoPortaria' => $arquivoPortaria,
+        'professores' => $professores,
+        'alunos' => $alunos,
+        'tecnicosAdm' => $tecnicosAdm,
+        'atas' => $atas,
+    ]);
 }
+
+    
+
+
+}
+
