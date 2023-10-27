@@ -14,12 +14,21 @@ class Projeto extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'titulo',
         'descricao',
         'resultados',
         'data_inicio',
         'data_termino',
         'palavras_chave',
         'professor_id'
+
+        /* ADD:
+            resultados: imagens, text
+            dos alunos saber se é bolsista ou voluntário
+            professores como colaboradores/participantes (Pode ser externos tmb)
+            fomento
+            link do projeto pág web (saiba mais)
+        */
     ];
 
     public function alunos()
