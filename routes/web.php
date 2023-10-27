@@ -42,11 +42,20 @@ Route::get('/', function () {
 Route::get('/noticias', [PostagemController::class, 'display'])->name('postagem.display');
 Route::get('/professores', [ProfessorController::class, 'display'])->name('professor.display');
 
+//Banca
+Route::get('/banca/show/{id}', [BancaController::class, 'show'])->name('banca.show');
+
+//Ata troca para o user logado
+Route::get('/ata/show/{id}', [AtaController::class, 'show'])->name('ata.view');
+
 //Colegiado 
 Route::get('/colegiados', [ColegiadoController::class, 'show'])->name('colegiado.show');
 
 //Postagem
 Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('postagem.show');
+
+//Sobre o curso
+Route::get('/curso/sobre', [CursoController::class, 'display'])->name('curso.display');
 
 //Coordenador
 Route::get('/coordenador/{id}', [CoordenadorController::class, 'view'])->name('coordenador.display');
@@ -68,8 +77,7 @@ Route::resource('servidor', ServidorController::class)->parameter('servidor', 'i
 //Matriz curricular
 Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
 
-//Sobre o curso
-Route::get('/curso/sobre', function(){  return view('curso.display'); });
+
 
 
 //Informações dos Professores (Não Editável)

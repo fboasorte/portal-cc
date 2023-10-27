@@ -46,6 +46,7 @@
                                     <td>
                                         <form method="POST" action="{{ route('postagem.destroy', $postagem->id) }}">
                                             @csrf
+                                            <a class="btn btn-success btn-sm" href="{{ route('postagem.show', ['id' => $postagem->id]) }}"><i class="fa-solid fa-eye"></i></a>
                                             <input name="_method" type="hidden" value="DELETE">
                                             <a href="{{ route('postagem.edit', $postagem->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                             <button type="submit" class="btn btn-danger btn-sm" title='Delete' onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>

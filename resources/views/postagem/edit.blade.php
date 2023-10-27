@@ -110,5 +110,8 @@
                 </form>
             @endforeach
         @endif
+        <div class="text-center mt-4">
+            <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+        </div>
     </div>
 @stop

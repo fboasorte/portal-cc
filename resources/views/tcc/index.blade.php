@@ -61,6 +61,7 @@
 
                                     <form method="POST" action="{{ route('tcc.destroy', $tcc->id) }}">
                                         @csrf
+                                        <a class="btn btn-success btn-sm" href="{{ route('tcc.view', ['id' => $tcc->id]) }}"><i class="fa-solid fa-eye"></i></a>
                                         @if($tcc->status == 0)
                                         <a href="" class="btn btn-success btn-sm modal-trigger" data-bs-toggle="modal" data-bs-target="#concluirTcc_{{ $tcc->id }}"><i class="fas fa-check"></i></a>
                                         @endif

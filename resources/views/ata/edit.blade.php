@@ -29,4 +29,7 @@
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('colegiado.index') }}" class="btn-back">Cancelar</a></button>
     </form>
     </div>
+    <div class="text-center mt-4">
+    <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+</div>
 @stop
