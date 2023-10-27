@@ -53,10 +53,12 @@
 </head>
 
 <body>
-    @if(auth()->check())
-    @include('layouts.authenticated-header')
+    @if(auth()->check() && auth()->user()->hasRole('coordenador'))
+        @include('layouts.authenticated-header')
+    @elseif(auth()->check() && auth()->user()->hasRole('professor'))
+        @include('layouts.authenticated-header-professor')
     @else
-    @include('layouts.header')
+        @include('layouts.header')
     @endif
 
 
