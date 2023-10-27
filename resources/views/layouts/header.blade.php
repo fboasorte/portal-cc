@@ -38,6 +38,9 @@
                             <a class="nav-link" href="{{ route('projetos.show') }}">Projeto</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('colegiado.show') }}">Colegiado</a>
+                        </li>
                         
                     </ul>
                 </div>
