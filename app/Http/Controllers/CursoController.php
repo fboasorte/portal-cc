@@ -246,4 +246,9 @@ class CursoController extends Controller
 
         return response()->json($data);
     }
+
+    public function display(){
+        $this->curso = Curso::first();
+        return view('curso.display', ['curso'=>$this->curso]);
+    }
 }

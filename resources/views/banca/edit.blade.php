@@ -47,6 +47,9 @@
         </div>
     </form>
 </div>
+<div class="text-center mt-4">
+    <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+</div>
 @include('modal.createProfessor')
 @include('modal.createProfessorExterno')
 @stop

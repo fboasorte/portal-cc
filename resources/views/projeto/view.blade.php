@@ -20,7 +20,7 @@
 <div class="custom-container">
     <div>
         <div>
-            <i class="fas fa-graduation-cap fa-2x"></i>
+            <i class="fas fa-envelopes-bulk fa-2x"></i>
             <h3 class="smaller-font">Projeto</h3>
         </div>
     </div>
@@ -77,7 +77,7 @@
 </div>
 
 <div class="text-center mt-4">
-    <a href="{{ route('projetos.show') }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+    <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
 </div>
 
 @endsection

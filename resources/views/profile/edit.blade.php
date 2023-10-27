@@ -32,6 +32,9 @@
                 </div>
             </div>
         </div>
+        <div class="text-center mt-4">
+            <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+        </div>
 
         <footer>
             <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG - Todos os direitos reservados</p>

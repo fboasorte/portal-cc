@@ -92,8 +92,12 @@
                     </div>
                 </div>
             </div>
+            
         </div>
+        
     </div>
 </div>
-
+<div class="text-center mt-4">
+    <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+</div>
 @stop

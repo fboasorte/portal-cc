@@ -51,7 +51,9 @@ class AtaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ata = Ata::findOrFail($id);
+
+        return view('ata.view', ['ata' => $ata]);
     }
 
     /**

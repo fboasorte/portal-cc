@@ -83,7 +83,12 @@ class BancaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $banca = Banca::findOrFail($id);
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+        $professores_externos = ProfessorExterno::all();
+        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
+
+        return view('banca.show', ['banca'=>$banca,'professores_externos' => $professores_externos, 'professores_internos' => $professores]);
     }
 
     /**

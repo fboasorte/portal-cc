@@ -68,6 +68,7 @@
                                 <td>
                                     <form method="POST" action="{{ route('banca.destroy', $banca->id) }}">
                                         @csrf
+                                        <a class="btn btn-success btn-sm" href="{{ route('banca.show', ['id' => $banca->id]) }}"><i class="fa-solid fa-eye"></i></a>
                                         <input name="_method" type="hidden" value="DELETE">
                                         <a href="{{ route('banca.edit', $banca->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                         <button type="submit" class="btn btn-danger btn-sm" title='Delete' onclick="return confirm('Deseja realmente excluir essa banca?')"><i class="fas fa-trash"></i></button>

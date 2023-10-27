@@ -24,7 +24,7 @@
 <div class="custom-container">
     <div>
         <div>
-            <i class="fas fa-graduation-cap fa-2x"></i>
+            <i class="fas fa-envelopes-bulk fa-2x"></i>
             <h3 class="smaller-font">Projetos</h3>
         </div>
     </div>
@@ -84,7 +84,9 @@
         </div>
     </div>
 </div>
-
+<div class="text-center mt-4">
+    <a href="{{ route('postagem.display') }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
