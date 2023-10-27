@@ -408,3 +408,53 @@ margin-top:60px;
 .nowrap-td {
     white-space: nowrap;
 }
+
+.tcc-item:hover {
+    background-color: #e4e4e4; 
+}
+
+
+.list-group-item a {
+    text-decoration: none; 
+    color: #333; 
+}
+
+.tcc-item {
+    cursor: pointer;
+}
+
+.nav-item-tcc a {
+    color: #2a4478; 
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.nav-item-tcc.active a {
+    color: #1c2c4c; 
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.divisao-tcc {
+    font-size: 18px; 
+    font-weight: bold;
+}
+
+.custom-badge {
+    background-color: #283f6c;
+    color: #ffffff;
+    border-radius: 50% !important;
+}
+
+.custom-title-tcc{
+    background-color: #f0f0f0 !important; 
+}
+
+.ul-custom{
+    backdrop-filter: blur(5px); /* Ajuste o valor para controlar a intensidade do desfoque */
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.custom-ul {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.119);
+}

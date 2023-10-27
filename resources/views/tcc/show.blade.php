@@ -2,12 +2,6 @@
 @section('title', 'TCC')
 @section('content')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-
-
 <div class="custom-container">
     <div>
         <div>
@@ -17,90 +11,93 @@
     </div>
 </div>
 <br>
-<div class="event-schedule-area-two bg-color pad100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade active show" id="home" role="tabpanel">
-                        <div class="table-responsive">
-                            <table id="tccTable" class="table custom-table table-hover">
-                                <thead class="custom-table-head">
-                                    <tr>
-                                        <th class="text-center" scope="col">Ano</th>
-                                        <th class="text-center" scope="col">Título</th>
-                                        <th class="text-center" scope="col">Aluno</th>
-                                        <th class="text-center" scope="col">Orientador</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tccs as $tcc)
-                                    <tr class="inner-box clickable-row linha" data-href="{{ route('tcc.view', ['id' => $tcc->id]) }}">
-                                        <td>
-                                            <div class="event-title text-center">
-                                                <span>{{ $tcc->ano }}</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="event-title text-center">
-                                                <span>{{ $tcc->titulo }}</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="event-student text-center">
-                                                <span><i class="fas fa-user-graduate"></i>&nbsp;{{ $tcc->nome }}</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="event-orientador text-center">
-                                                <span>{{ $tcc->nome_professor }}</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+<ul class="nav nav-tabs container" id="myTabs">
+    <li class="nav-item nav-item-tcc">
+        <a class="nav-link active" id="professor-tab" data-toggle="tab" href="#professor" role="tab" aria-controls="professor" aria-selected="true">Orientador</a>
+    </li>
+    <li class="nav-item nav-item-tcc">
+        <a class="nav-link" id="ano-tab" data-toggle="tab" href="#ano" role="tab" aria-controls="ano" aria-selected="false">Ano</a>
+    </li>
+</ul>
+
+<div class="tab-content " id="myTabContent">
+    <div class="tab-pane fade show active" id="professor" role="tabpanel" aria-labelledby="professor-tab">
+        <div class="event-schedule-area-two bg-color pad100">
+            <div class="container">
+                @foreach ($professores as $nomeProfessor => $tccsProfessor)
+                <div class="professor-section mt-4">
+
+                    <ul class="list-group custom-ul">
+                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                            <span class="divisao-tcc">
+                                {{ $nomeProfessor }}
+                            </span>
+                            <span class="badge badge-primary custom-badge">{{ count($tccsProfessor) }}</span>
+                        </li>
+                        @foreach ($tccsProfessor as $tcc)
+                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                            <a href="{{ route('tcc.view', ['id' => $tcc->id]) }}">{{ $tcc->titulo }}</a>
+                            @if ($tcc->status == 0)
+                            <span class="badge bg-warning">Aguardando Defesa</span>
+                            @elseif ($tcc->status == 1)
+                            <span class="badge bg-success">Concluído</span>
+                            @endif
+
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="ano" role="tabpanel" aria-labelledby="ano-tab">
+        <div class="event-schedule-area-two bg-color pad100">
+            <div class="container">
+                @foreach ($tccsPorAno as $ano => $tccsAno)
+                <div class="ano-section mt-4">
+                    <ul class="list-group">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                            <span class="divisao-tcc">
+                            {{ $ano }}
+                            </span>
+                            <span class="badge badge-primary custom-badge">{{ count($tccsAno) }}</span>
+                        </li>
+
+                        @foreach ($tccsAno as $tcc)
+                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                            <a href="{{ route('tcc.view', ['id' => $tcc->id]) }}">{{ $tcc->titulo }}</a>
+                            @if ($tcc->status == 0)
+                            <span class="badge bg-warning">Aguardando Defesa</span>
+                            @elseif ($tcc->status == 1)
+                            <span class="badge bg-success">Concluído</span>
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('.tcc-item').click(function() {
+            window.location = $(this).find('a').attr('href');
+        });
+    });
+</script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var rows = document.querySelectorAll(".clickable-row");
-
-        rows.forEach(function(row) {
-            row.addEventListener("click", function() {
-                window.location.href = row.getAttribute("data-href");
-            });
+    $(document).ready(function() {
+        $('#myTabs a').on('click', function(e) {
+            e.preventDefault();
+            $(this).tab('show');
         });
-
-        $('#tccTable').DataTable({
-            "paging": true,
-            "pageLength": 10,
-            "lengthMenu": [10, 50, 100],
-            "pagingType": "full_numbers",
-            "order": [],
-            "searching": true,
-            "info": true,
-            "oLanguage": {
-                "sSearch": "Buscar:",
-                "sLengthMenu": "Mostrar _MENU_ linhas",
-                "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ linhas",
-                "oPaginate": {
-                    "sFirst": '<i class="fas fa-angle-double-left"></i>',
-                    "sPrevious": '<i class="fas fa-angle-left"></i>',
-                    "sNext": '<i class="fas fa-angle-right"></i>',
-                    "sLast": '<i class="fas fa-angle-double-right"></i>',
-                },
-            }
-
-        });
-
     });
 </script>
 @endsection

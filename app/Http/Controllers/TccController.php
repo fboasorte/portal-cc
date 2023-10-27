@@ -180,7 +180,35 @@ class TccController extends Controller
             ->orderBy('tcc.ano', 'DESC')
             ->get();
 
-        return view('tcc.show', ['tccs' => $tccs]);
+        $professores = [];
+
+        foreach ($tccs as $tcc) {
+            $professorNome = $tcc->nome_professor;
+
+            if (!isset($professores[$professorNome])) {
+                $professores[$professorNome] = [];
+            }
+
+            $professores[$professorNome][] = $tcc;
+        }
+
+        $tccsPorAno = [];
+
+        foreach ($tccs as $tcc) {
+            $ano = $tcc->ano;
+
+            if (!isset($tccsPorAno[$ano])) {
+                $tccsPorAno[$ano] = [];
+            }
+
+            $tccsPorAno[$ano][] = $tcc;
+        }
+
+        krsort($tccsPorAno); 
+        ksort($professores); 
+
+
+        return view('tcc.show', ['professores' => $professores, 'tccsPorAno' => $tccsPorAno]);
     }
 
     public function view($id)
@@ -188,7 +216,7 @@ class TccController extends Controller
         $tcc = Tcc::find($id);
         $aluno = Aluno::where('id', $tcc->aluno_id)->first();
         $banca = Banca::where('id', $tcc->banca_id)->first();
-        $coordenador = Professor::where('professor.id', $tcc->professor_id)
+        $orientador = Professor::where('professor.id', $tcc->professor_id)
             ->leftJoin('servidor', 'professor.servidor_id', '=', 'servidor.id')
             ->select('professor.id', 'servidor.nome')
             ->first();
@@ -200,6 +228,6 @@ class TccController extends Controller
             abort(404);
         }
 
-        return view('tcc.view', ['tcc' => $tcc, 'aluno' => $aluno, 'banca' => $banca, 'coordenador' => $coordenador, 'professores_internos' => $professores]);
+        return view('tcc.view', ['tcc' => $tcc, 'aluno' => $aluno, 'banca' => $banca, 'orientador' => $orientador, 'professores_internos' => $professores]);
     }
 }
