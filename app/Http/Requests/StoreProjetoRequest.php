@@ -31,6 +31,7 @@ class StoreProjetoRequest extends FormRequest
             'professor_id' => ['required', 'integer'],
             'fomento' => ['nullable', 'string'],
             'link' => ['nullable', 'url'],
+            'imagens.*' => ['image']
         ];
     }
 
@@ -49,6 +50,7 @@ class StoreProjetoRequest extends FormRequest
             'palavras_chave.required' => 'As palavras chave são obrigatórias',
             'professor_id.required' => 'Um professor responsável é obrigatório',
             'link.url' => 'O link deve conter uma URL válida',
+            'imagens.*.image' => 'Imagens deve conter apenas imagens'
         ];
     }
 }

@@ -61,4 +61,8 @@ class Projeto extends Model
             'professor_externo_id'
         );
     }
+
+    public function imagens(){
+        return $this->hasMany(ImagemProjeto::class);
+    }
 }

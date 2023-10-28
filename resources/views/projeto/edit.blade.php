@@ -75,6 +75,18 @@
             </div>
 
             <div class="form-group">
+                <label for="imagem" class="form-label">Imagens:</label>
+                @if (count($projeto->imagens) > 0)
+                    @foreach ($projeto->imagens as $img)
+                        <button class="btn text-danger" type="submit" form="deletar-imagens{{ $img->id }}">X</button>
+                        <img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" class="img-responsive"
+                            style="max-height:100px; max-width:100px;">
+                    @endforeach
+                @endif
+                <input type="file" name="imagens[]" id="imagens" class="form-control" multiple>
+            </div>
+
+            <div class="form-group">
                 <label for="titulo" class="form-label">Palavras-Chave:</label>
                 <input value="{{ old('palavras_chave') ?? $projeto->palavras_chave }}" type="text"
                     class="form-control @error('palavras_chave') is-invalid @enderror" name="palavras_chave"
@@ -180,6 +192,16 @@
         @include('modal.createProfessor')
         @include('modal.createAluno')
         @include('modal.createProfessorExterno')
+
+        @if (count($projeto->imagens) > 0)
+        @foreach ($projeto->imagens as $img)
+            <form id="deletar-imagens{{ $img->id }}"
+                action="{{ route('projeto.delete_imagem', ['id' => $img->id]) }}" method="post">
+                @csrf
+                @method('delete')
+            </form>
+        @endforeach
+    @endif
 
         <script type="text/javascript">
             $('#professor_id').select2({

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjetoRequest;
+use App\Models\ImagemProjeto;
 use App\Models\Projeto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProjetoController extends Controller
 {
@@ -37,6 +39,7 @@ class ProjetoController extends Controller
      */
     public function store(StoreProjetoRequest $request)
     {
+
         $projeto = new Projeto([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
@@ -50,6 +53,18 @@ class ProjetoController extends Controller
         ]);
 
         $projeto->save();
+
+        if ($request->hasFile("imagens")) {
+            $imagens = $request->file("imagens");
+
+            foreach ($imagens as $imagem) {
+                $imagemProjeto = new ImagemProjeto();
+                $imagemProjeto->projeto_id = $projeto->id;
+                $imagemProjeto->imagem = $imagem->store('ImagemProjeto/' . $projeto->id);
+                $imagemProjeto->save();
+                unset($imagemProjeto);
+            }
+        }
 
         $projeto->alunos()->sync($request->alunos);
 
@@ -94,6 +109,18 @@ class ProjetoController extends Controller
             'fomento' => $request->fomento,
             'link' => $request->link
         ]);
+
+        if ($request->hasFile("imagens")) {
+            $imagens = $request->file("imagens");
+
+            foreach ($imagens as $imagem) {
+                $imagemProjeto = new ImagemProjeto();
+                $imagemProjeto->projeto_id = $projeto->id;
+                $imagemProjeto->imagem = $imagem->store('ImagemProjeto/' . $projeto->id);
+                $imagemProjeto->save();
+                unset($imagemProjeto);
+            }
+        }
 
         $projeto->alunos()->sync($request->alunos);
 
@@ -199,5 +226,16 @@ class ProjetoController extends Controller
         }
 
         return view('projeto.view', ['projetos' => $projetos]);
+    }
+
+    public function deleteImagem($id)
+    {
+        $imagem = ImagemProjeto::findOrFail($id);
+
+        if (File::exists("storage/"  . $imagem->imagem)) {
+            File::delete("storage/"  . $imagem->imagem);
+        }
+        $imagem->delete();
+        return back();
     }
 }

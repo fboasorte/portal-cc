@@ -75,6 +75,18 @@
             </div>
 
             <div class="form-group">
+                <label for="imagens" class="form-label">Imagens:</label>
+                <input type="file" name="imagens[]" id="imagens"
+                    class="form-control @error('imagens.*') is-invalid @enderror" multiple>
+
+                @error('imagens.*')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="palavras_chave" class="form-label">Palavras-Chave:</label>
                 <input type="text" name="palavras_chave" id="palavras_chave" value="{{ old('palavras_chave') }}"
                     class="form-control @error('palavras_chave') is-invalid @enderror" placeholder="Palavras Chave">
