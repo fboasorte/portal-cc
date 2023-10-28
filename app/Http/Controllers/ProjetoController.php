@@ -44,6 +44,8 @@ class ProjetoController extends Controller
             'data_termino' => $request->data_termino,
             'resultados' => $request->resultados,
             'professor_id' => $request->professor_id,
+            'fomento' => $request->fomento,
+            'link' => $request->link
         ]);
 
         $projeto->save();
@@ -78,6 +80,8 @@ class ProjetoController extends Controller
             'data_termino' => $request->data_termino,
             'resultados' => $request->resultados,
             'professor_id' => $request->professor_id,
+            'fomento' => $request->fomento,
+            'link' => $request->link
         ]);
 
         $projeto->alunos()->sync($request->alunos);

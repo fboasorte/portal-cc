@@ -77,6 +77,32 @@
             </div>
 
             <div class="form-group">
+                <label for="fomento" class="form-label">Fomento:</label>
+                <input value="{{ old('fomento') ?? $projeto->fomento }}" type="text" 
+                    name="fomento" id="fomento" value="{{ old('fomento') }}"
+                    class="form-control @error('fomento') is-invalid @enderror" placeholder="Fomento">
+
+                @error('fomento')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="link" class="form-label">Link:</label>
+                <input value="{{ old('link') ?? $projeto->link }}" type="url" 
+                    name="link" id="link" value="{{ old('link') }}"
+                    class="form-control @error('link') is-invalid @enderror" placeholder="Link">
+
+                @error('link')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="professor_id" class="form-label">Professor Responsável: </label>
                 <select class="form-control" name="professor_id" id="professor_id">
                     <option value="{{ $projeto->professor_id }}" selected>
