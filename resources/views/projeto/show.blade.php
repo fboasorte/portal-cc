@@ -1,6 +1,129 @@
 @extends('layouts.main')
-@section('title', 'Projetos')
+@section('title', 'projetos')
 @section('content')
+
+@php
+    $meses = [
+        1 => 'Janeiro',
+        2 => 'Fevereiro',
+        3 => 'Março',
+        4 => 'Abril',
+        5 => 'Maio',
+        6 => 'Junho',
+        7 => 'Julho',
+        8 => 'Agosto',
+        9 => 'Setembro',
+        10 => 'Outubro',
+        11 => 'Novembro',
+        12 => 'Dezembro',
+    ];
+@endphp
+
+<div class="custom-container">
+    <div>
+        <div>
+            <i class="fas fa-envelopes-bulk fa-2x"></i>
+            <h3 class="smaller-font">Projetos</h3>
+        </div>
+    </div>
+</div>
+<br>
+
+<ul class="nav nav-tabs container" id="myTabs">
+    <li class="nav-item nav-item-tcc">
+        <a class="nav-link active" id="professor-tab" data-toggle="tab" href="#professor" role="tab" aria-controls="professor" aria-selected="true">Criador</a>
+    </li>
+    <li class="nav-item nav-item-tcc">
+        <a class="nav-link" id="ano-tab" data-toggle="tab" href="#ano" role="tab" aria-controls="ano" aria-selected="false">Ano de início</a>
+    </li>
+</ul>
+
+<div class="tab-content " id="myTabContent">
+    <div class="tab-pane fade show active" id="professor" role="tabpanel" aria-labelledby="professor-tab">
+        <div class="event-schedule-area-two bg-color pad100">
+            <div class="container">
+                @foreach ($projetos as $projeto)
+                <div class="professor-section mt-4">
+
+                    <ul class="list-group custom-ul">
+                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                            <span class="divisao-tcc">
+                              {{$projeto->nome_professor}}
+                            </span>
+
+                        </li>
+
+                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">título do projeto</a>
+
+
+
+                        </li>
+
+                    </ul>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="ano" role="tabpanel" aria-labelledby="ano-tab">
+        <div class="event-schedule-area-two bg-color pad100">
+            <div class="container">
+                @foreach ($projetos as $projeto)
+                <div class="ano-section mt-4">
+                    <ul class="list-group">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                            <span class="divisao-tcc">
+                                <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('d') }} de </span>
+                                <span>{{ $meses[\Carbon\Carbon::parse($projeto->data_inicio)->month] }} de </span>
+                                <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
+                            </span>
+
+                        </li>
+
+
+                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">título do projeto</a>
+
+
+
+                        </li>
+
+                    </ul>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('.tcc-item').click(function() {
+            window.location = $(this).find('a').attr('href');
+        });
+    });
+</script>
+<div class="text-center mt-4">
+    <a href="{{ route('postagem.display') }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#myTabs a').on('click', function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>
+
+@endsection
+
+<!--
+
+VERSÃO ANTIGA
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -122,5 +245,4 @@
 
     });
 </script>
-
-@endsection
+-->
