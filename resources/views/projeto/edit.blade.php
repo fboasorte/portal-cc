@@ -169,9 +169,18 @@
             </div>
 
             <div class="form-group">
-                <label for="alunos" class="form-label">Alunos Participantes: </label>
-                <select class="form-control" name="alunos[]" id="alunos" multiple>
-                    @foreach ($alunos as $aluno)
+                <label for="alunos" class="form-label">Alunos Bolsistas: </label>
+                <select class="form-control" name="alunos_bolsistas[]" id="alunos_bolsistas" multiple>
+                    @foreach ($alunos_bolsistas as $aluno)
+                        <option value="{{ $aluno->id }}" selected> {{ $aluno->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="alunos" class="form-label">Alunos Voluntários: </label>
+                <select class="form-control" name="alunos_voluntarios[]" id="alunos_voluntarios" multiple>
+                    @foreach ($alunos_voluntarios as $aluno)
                         <option value="{{ $aluno->id }}" selected> {{ $aluno->nome }}</option>
                     @endforeach
                 </select>
@@ -204,7 +213,7 @@
     @endif
 
         <script type="text/javascript">
-            $('#professor_id').select2({
+            $('#professor_id, #professores').select2({
                 placeholder: 'Selecione o professor responsável',
                 language: {
                     noResults: function() {
@@ -233,7 +242,7 @@
                 }
             });
 
-            $('#alunos').select2({
+            $('#alunos_bolsistas, #alunos_voluntarios').select2({
                 placeholder: 'Selecione um aluno para o projeto',
                 language: {
                     noResults: function() {
@@ -246,35 +255,6 @@
                 minimumInputLength: 1,
                 ajax: {
                     url: '/projeto/busca-aluno',
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.nome,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $('#professores').select2({
-                placeholder: 'Selecione os professores colaboradores',
-                language: {
-                    noResults: function() {
-                        return "Resultados não encontrados";
-                    },
-                    inputTooShort: function() {
-                        return "Digite 1 ou mais caracteres";
-                    }
-                },
-                minimumInputLength: 1,
-                ajax: {
-                    url: '/projeto/busca-professor',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {

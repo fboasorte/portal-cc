@@ -39,7 +39,6 @@ class ProjetoController extends Controller
      */
     public function store(StoreProjetoRequest $request)
     {
-
         $projeto = new Projeto([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
@@ -66,7 +65,9 @@ class ProjetoController extends Controller
             }
         }
 
-        $projeto->alunos()->sync($request->alunos);
+        $projeto->alunosBolsistas()->syncWithPivotValues($request->alunos_bolsistas, ['tipo' => 1]);
+
+        $projeto->alunosVoluntarios()->syncWithPivotValues($request->alunos_voluntarios, ['tipo' => 2]);
 
         $projeto->professoresColaboradores()->sync($request->professores);
 
@@ -82,13 +83,15 @@ class ProjetoController extends Controller
     {
         $projeto = Projeto::findOrFail($id);
 
-        $alunos = $projeto->alunos()->get();
+        $alunos_bolsistas = $projeto->alunosBolsistas()->get();
+
+        $alunos_voluntarios = $projeto->alunosVoluntarios()->get();
 
         $professoresColaboradores = $projeto->professoresColaboradores()->get();
 
         $professoresExternos = $projeto->professoresExternos()->get();
 
-        return view('projeto.edit', compact('projeto', 'alunos', 'professoresColaboradores', 'professoresExternos'));
+        return view('projeto.edit', compact('projeto', 'alunos_bolsistas', 'professoresColaboradores', 'professoresExternos', 'alunos_voluntarios'));
     }
 
     /**
@@ -122,7 +125,9 @@ class ProjetoController extends Controller
             }
         }
 
-        $projeto->alunos()->sync($request->alunos);
+        $projeto->alunosBolsistas()->syncWithPivotValues($request->alunos_bolsistas, ['tipo' => 1]);
+
+        $projeto->alunosVoluntarios()->syncWithPivotValues($request->alunos_voluntarios, ['tipo' => 2]);
 
         $projeto->professoresColaboradores()->sync($request->professores);
 

@@ -32,9 +32,16 @@ class Projeto extends Model
         'link',
     ];
 
-    public function alunos()
+    public function alunosBolsistas()
     {
-        return $this->belongsToMany(Aluno::class, 'alunos_projetos', 'projeto_id', 'aluno_id');
+        return $this->belongsToMany(Aluno::class, 'alunos_projetos', 'projeto_id', 'aluno_id')
+            ->wherePivot('tipo', 1);
+    }
+
+    public function alunosVoluntarios()
+    {
+        return $this->belongsToMany(Aluno::class, 'alunos_projetos', 'projeto_id', 'aluno_id')
+            ->wherePivot('tipo', 2);
     }
 
     public function professor()
