@@ -44,6 +44,13 @@
             max-width: 130px;
             max-height: 100px;
         }
+        .footer-logo-if {
+            max-width: 60px;
+            max-height: 40px;
+        }
+        .logo-if {
+            margin-right: 10px;
+        }
         .left-align {
         text-align: left;
     }
@@ -76,7 +83,10 @@
             <div class="row">
                 
                 <div class="col-md-6 left-align">
+                    
+                    <img class="footer-logo-if logo-if" src="images/logo-if-branco2.png" alt="Logo">
                     <img class="footer-logo" src="images/logo-footer.png" alt="Logo">
+
                     <p> </p>
                     <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG</p>
                     <p>Rua Dois, 300 - Village do Lago I - Montes Claros - MG – CEP 39.404-058</p>
