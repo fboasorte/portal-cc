@@ -41,7 +41,11 @@
                                 @foreach ($postagens as $postagem)
                                 <tr>
                                     <td>{{ $postagem->id }}</td>
-                                    <td>{{ $postagem->titulo }}</td>
+                                    <td class="text-left" data-toggle="tooltip" data-placement="top"
+                                            title="{{ $postagem->titulo }}">
+                                            {{ strlen($postagem->titulo) > 20 ? substr($postagem->titulo, 0, 20) . '...' : $postagem->titulo }}
+                                        </td>
+                                    
                                     <td>{{ date_format($postagem->created_at, 'd/m/Y H:i:s') }}</td>
                                     <td>
                                         <form method="POST" action="{{ route('postagem.destroy', $postagem->id) }}">
