@@ -8,6 +8,7 @@ use App\Models\FotoUser;
 use App\Models\Servidor;
 use App\Models\Professor;
 use App\Models\AreaProfessor;
+use App\Models\CurriculoProfessor;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -40,7 +41,6 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'curriculo_lattes' => ['nullable', 'string', 'max:255'],
             'titulacao' => ['nullable', 'string', 'max:500'],
             'biografia' => ['nullable', 'string', 'max:1000'],
             'area' => ['nullable', 'string', 'max:255'],
@@ -50,13 +50,10 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'curriculo_lattes' => $request->curriculo_lattes,
             'titulacao' => $request->titulacao,
             'biografia' => $request->biografia,
             'area'=> $request->area,
         ]);
-
-
 
         //Forma nova de salvar usuário
         $servidor = Servidor::create([
@@ -87,7 +84,7 @@ class RegisteredUserController extends Controller
         $area_prof = AreaProfessor::create([
             'professor_id'=> $professor->id,
             'area'=> $request->area,
-            'link'=> $request->curriculo_lattes,
+            'link'=> ' ', //esse link aqui não está sendo usado, não entendi pra que serve
         ]);
 
         //Forma antiga de salvar fotos (tabela FotoUser)
@@ -102,6 +99,22 @@ class RegisteredUserController extends Controller
                  unset($fotoUser);
              }
          }
+
+         //Currículo_Professor
+         if ($request->input("links")) {
+            $links = $request->input("links");
+            $i=0;
+            foreach ($links as $link) {
+                $curriculoProfessor = new CurriculoProfessor();
+                $curriculoProfessor->curriculo = ' ';
+                $curriculoProfessor->link = $links[$i];
+                $curriculoProfessor->professor_id = $professor->id;
+                $curriculoProfessor->save();
+                unset($curriculoProfessor);
+                $i++;
+            }
+            unset($i);
+        }
 
         $user->assignRole('professor');
         

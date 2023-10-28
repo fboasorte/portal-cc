@@ -27,50 +27,115 @@
 </div>
 <br>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="table-responsive">
-                <table class="table custom-table">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Data de Início</th>
-                            <td>
-                                <div class="event-date">
-                                    <span class="date-day">{{ \Carbon\Carbon::parse($projetos->data_inicio)->format('d') }}</span><br>
-                                    <span class="date-month">{{ $meses[\Carbon\Carbon::parse($projetos->data_inicio)->month] }}</span><br>
-                                    <span class="date-year">{{ \Carbon\Carbon::parse($projetos->data_inicio)->format('Y') }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Data de Término</th>
-                            <td>
-                                <div class="event-date">
-                                    <span class="date-day">{{ \Carbon\Carbon::parse($projetos->data_termino)->format('d') }}</span><br>
-                                    <span class="date-month">{{ $meses[\Carbon\Carbon::parse($projetos->data_termino)->month] }}</span><br>
-                                    <span class="date-year">{{ \Carbon\Carbon::parse($projetos->data_termino)->format('Y') }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Descrição</th>
-                            <td>
-                                <div class="event-student text-center">
-                                    <span>{{ $projetos->descricao }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Professor</th>
-                            <td>
-                                <div class="event-orientador text-center">
-                                    <span>{{ $projetos->nome_professor }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div class="container mt-5">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Título:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{$projetos->titulo}}
+                        </div>
+                    </div>
+
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Descrição:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $projetos->descricao }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Data de Início:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{$projetos->data_inicio}}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Data de Termino:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{$projetos->data_termino}}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Coordenador:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{$projetos->nome_professor}}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Alunos Bolsistas:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+
+                            <p>alunos bolsistas aqui</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Alunos Voluntários:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+
+                            <p>alunos voluntários aqui</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Resultados:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $projetos->resultados }}
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Página:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <!-- {{ $projetos->resultados }} -->
+                            <p> link pagina web aqui </p>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -22,7 +22,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'curriculo_lattes',
         'titulacao',
         'biografia',
         'area',

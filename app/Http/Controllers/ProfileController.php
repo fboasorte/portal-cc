@@ -8,6 +8,7 @@ use App\Models\FotoUser;
 use App\Models\Servidor;
 use App\Models\Professor;
 use App\Models\AreaProfessor;
+use App\Models\CurriculoProfessor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,7 @@ class ProfileController extends Controller
         $servidor = Servidor::where('user_id', $user->id)->first();
         $professor = Professor::where('servidor_id', $servidor->id)->first();
         $area_prof = AreaProfessor::where('professor_id', $professor->id)->first();
+        $professor->links()->delete();
         
         $user->update([
             'curriculo_lattes' => $request->curriculo_lattes,
@@ -69,10 +71,25 @@ class ProfileController extends Controller
 
         $area_prof->update([
             'area' => $request->area,
-            'link' => $request->curriculo_lattes,
         ]);
 
-        
+         //Currículo_Professor
+         if ($request->input("links")) {
+            $links = $request->input("links");
+            $i=0;
+            foreach ($links as $link) {
+                $curriculoProfessor = new CurriculoProfessor();
+                $curriculoProfessor->curriculo = ' ';
+                $curriculoProfessor->link = $links[$i];
+                $curriculoProfessor->professor_id = $professor->id;
+                $curriculoProfessor->save();
+                unset($curriculoProfessor);
+                $i++;
+            }
+            unset($i);
+        }
+
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }

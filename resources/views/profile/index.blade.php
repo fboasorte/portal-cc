@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+<!--NÃO USADO-->
 @section('title', 'Professores')
 
 @section('content')
