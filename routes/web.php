@@ -121,6 +121,7 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
     Route::resource('projeto', ProjetoController::class)->parameter('projeto', 'id')->except(['show']);
     Route::get('/projeto/busca-professor', [ProjetoController::class, 'buscaProfessor']);
     Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
+    Route::get('/projeto/busca-professor-externo', [ProjetoController::class, 'buscaProfessorExterno']);
 
     // Professor
     Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');

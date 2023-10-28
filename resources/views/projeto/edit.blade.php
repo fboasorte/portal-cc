@@ -128,11 +128,33 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="professores" class="form-label">Professores Colaboradores:</label>
+                <select class="form-select" name="professores[]" id="professores" multiple>
+                    @foreach ($professoresColaboradores as $professor)
+                    <option value="{{ $professor->id }}" selected> {{ $professor->servidor->nome }}</option>
+                @endforeach
+                </select>
+            </div>
+
             <div class="col-md-3 mb-3 d-flex align-items-end">
                 <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createProfessor">Cadastrar professor</a>
             </div>
 
+            <div class="form-group">
+                <label for="professores_externos" class="form-label">Professores Externos:</label>
+                <select class="form-select" name="professores_externos[]" id="professores_externos" multiple>
+                    @foreach ($professoresExternos as $professor)
+                    <option value="{{ $professor->id }}" selected> {{ $professor->nome }}</option>
+                @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+                <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal"
+                    data-bs-target="#createProfessorExterno">Cadastrar professor Externo</a>
+            </div>
 
             <div class="form-group">
                 <label for="alunos" class="form-label">Alunos Participantes: </label>
@@ -157,6 +179,7 @@
 
         @include('modal.createProfessor')
         @include('modal.createAluno')
+        @include('modal.createProfessorExterno')
 
         <script type="text/javascript">
             $('#professor_id').select2({
@@ -201,6 +224,64 @@
                 minimumInputLength: 1,
                 ajax: {
                     url: '/projeto/busca-aluno',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.nome,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#professores').select2({
+                placeholder: 'Selecione os professores colaboradores',
+                language: {
+                    noResults: function() {
+                        return "Resultados não encontrados";
+                    },
+                    inputTooShort: function() {
+                        return "Digite 1 ou mais caracteres";
+                    }
+                },
+                minimumInputLength: 1,
+                ajax: {
+                    url: '/projeto/busca-professor',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.nome,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#professores_externos').select2({
+                placeholder: 'Selecione os professores externos participantes',
+                language: {
+                    noResults: function() {
+                        return "Resultados não encontrados";
+                    },
+                    inputTooShort: function() {
+                        return "Digite 1 ou mais caracteres";
+                    }
+                },
+                minimumInputLength: 1,
+                ajax: {
+                    url: '/projeto/busca-professor-externo',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {

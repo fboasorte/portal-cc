@@ -53,6 +53,10 @@ class ProjetoController extends Controller
 
         $projeto->alunos()->sync($request->alunos);
 
+        $projeto->professoresColaboradores()->sync($request->professores);
+
+        $projeto->professoresExternos()->sync($request->professores_externos);
+
         return redirect('projeto')->with('success', 'Projeto Criado com Sucesso');
     }
 
@@ -64,7 +68,12 @@ class ProjetoController extends Controller
         $projeto = Projeto::findOrFail($id);
 
         $alunos = $projeto->alunos()->get();
-        return view('projeto.edit', compact('projeto', 'alunos'));
+
+        $professoresColaboradores = $projeto->professoresColaboradores()->get();
+
+        $professoresExternos = $projeto->professoresExternos()->get();
+
+        return view('projeto.edit', compact('projeto', 'alunos', 'professoresColaboradores', 'professoresExternos'));
     }
 
     /**
@@ -87,6 +96,10 @@ class ProjetoController extends Controller
         ]);
 
         $projeto->alunos()->sync($request->alunos);
+
+        $projeto->professoresColaboradores()->sync($request->professores);
+
+        $projeto->professoresExternos()->sync($request->professores_externos);
 
         return redirect('projeto')->with('success', 'Projeto Alterado com Sucesso');
     }
@@ -143,11 +156,30 @@ class ProjetoController extends Controller
     }
 
 
+    /**
+     * Show the application dataAjax.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buscaProfessorExterno(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = DB::table("professor_externo")
+                ->select("id", "nome")
+                ->where('nome', 'LIKE', "%$search%")
+                ->get();
+        }
+
+        return response()->json($data);
+    }
+
     public function show()
     {
-
         $projetos = Projeto::join('professor', 'projeto.professor_id', '=', 'professor.id')
-            ->join('servidor','professor.servidor_id', '=', 'servidor.id')
+            ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
             ->select('projeto.*', 'servidor.nome as nome_professor')
             //->orderBy('data.ano', 'DESC')
             ->get();
@@ -158,9 +190,9 @@ class ProjetoController extends Controller
     public function view($id)
     {
         $projetos = Projeto::join('professor', 'projeto.professor_id', '=', 'professor.id')
-        ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
-        ->select('projeto.*', 'servidor.nome as nome_professor')
-        ->findOrFail($id);
+            ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
+            ->select('projeto.*', 'servidor.nome as nome_professor')
+            ->findOrFail($id);
 
         if (!$projetos) {
             abort(404);

@@ -41,4 +41,24 @@ class Projeto extends Model
     {
         return $this->belongsTo(Professor::class);
     }
+
+    public function professoresColaboradores()
+    {
+        return $this->belongsToMany(
+            Professor::class,
+            'professores_colaboradores_projeto',
+            'projeto_id',
+            'professor_id'
+        );
+    }
+
+    public function professoresExternos()
+    {
+        return $this->belongsToMany(
+            ProfessorExterno::class,
+            'professores_externos_projeto',
+            'projeto_id',
+            'professor_externo_id'
+        );
+    }
 }
