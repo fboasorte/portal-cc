@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">   <!-- Add o enctype -->
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Name -->
@@ -14,13 +14,6 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Link-->
-        <div class="mt-4">
-            <x-input-label for="curriculo_lattes" :value="__('Link')" />
-            <x-text-input id="curriculo_lattes" class="block mt-1 w-full" type="text" name="curriculo_lattes" :value="old('curriculo_lattes')" required autocomplete="curriculo_lattes" />
-            <x-input-error :messages="$errors->get('curriculo_lattes')" class="mt-2" />
         </div>
 
         <!-- Titulação-->
@@ -44,12 +37,23 @@
             <x-input-error :messages="$errors->get('area')" class="mt-2" />
         </div>
 
+        <!-- Links -->
+        <div class="mt-4">
+        <x-input-label for="links" :value="__('Links')" />
+            <div id="links-container">
+                <div class="link-input-group">
+                    <x-text-input class="block mt-1 w-full" type="text" name="links[]" required autocomplete="links" />
+                </div>
+            </div>
+            <button type="button" class="add-link" style="color:white;">+</button>
+            <x-input-error :messages="$errors->get('links')" class="mt-2" />
+        </div>
+
         <!-- Foto-->
         <div class="mt-4">
             <x-input-label for="fotos" :value="__('Foto')" />
             <input type="file" name="fotos[]" id="fotos" class="form-control" multiple>
         </div>
-
 
         <!-- Password -->
         <div class="mt-4">
@@ -84,10 +88,21 @@
                 {{ __('Registrar') }}
             </x-primary-button>
         </div>  
-
-        <!-- <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
-        <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a 
-            href="{{ route('dashboard') }} "class="btn-back">Cancelar</a></button> -->
-
     </form>
 </x-guest-layout>
+
+
+
+<!-- Pequeno script js pra clonar o campo de link ao clicar no botão "+" -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addButton = document.querySelector(".add-link");
+        const container = document.querySelector("#links-container");
+
+        addButton.addEventListener("click", function () {
+            const linkGroup = document.querySelector(".link-input-group").cloneNode(true);
+            linkGroup.querySelector("input").value = "";
+            container.appendChild(linkGroup);
+        });
+    });
+</script>

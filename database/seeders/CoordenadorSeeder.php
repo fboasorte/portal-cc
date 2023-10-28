@@ -56,7 +56,7 @@ class CoordenadorSeeder extends Seeder
             'professor_id'=> $professor->id,
         ]);
 
-        $curriculo_professor = CurriculoProfessor::create([
+        $curriculo_professor = CurriculoProfessor::create([         //talvez tirar isso depois
             'professor_id'=> $professor->id,
             'curriculo'=>'',
             'link'=>'',
