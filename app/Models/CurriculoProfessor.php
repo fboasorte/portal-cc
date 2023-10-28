@@ -14,4 +14,8 @@ class CurriculoProfessor extends Model
         'link',
         'professor_id',
     ];
+
+    public function professor(){
+        return $this->belongsTo(Professor::class);
+    }
 }

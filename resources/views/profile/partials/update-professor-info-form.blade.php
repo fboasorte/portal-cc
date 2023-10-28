@@ -18,12 +18,6 @@
         @method('patch')
 
         <div>
-            <x-input-label for="curriculo_lattes" :value="__('Link')" style="color:black;"/>
-            <x-text-input id="curriculo_lattes" name="curriculo_lattes" type="text" class="mt-1 block w-full" :value="old('curriculo_lattes', $user->curriculo_lattes)" autofocus autocomplete="curriculo_lattes" />
-            <x-input-error class="mt-2" :messages="$errors->get('curriculo_lattes')" />
-        </div>
-
-        <div>
             <x-input-label for="titulacao" :value="__('Titulação')" style="color:black;"/>
             <x-text-input id="titulacao" name="titulacao" type="text" class="mt-1 block w-full" :value="old('titulacao', $user->titulacao)" autofocus autocomplete="titulacao" />
             <x-input-error class="mt-2" :messages="$errors->get('titulacao')" />
@@ -39,6 +33,18 @@
             <x-input-label for="area" :value="__('Área')" style="color:black;"/>
             <x-text-input id="area" name="area" type="text" class="mt-1 block w-full" :value="old('area', $user->area)" autofocus autocomplete="area" />
             <x-input-error class="mt-2" :messages="$errors->get('area')" />
+        </div>
+
+        <!-- Links -->
+        <div class="mt-4">
+        <x-input-label for="links" :value="__('Links')" style="color:black;"/>
+            <div id="links-container">
+                <div class="link-input-group">
+                    <x-text-input class="block mt-1 w-full" type="text" name="links[]" autocomplete="links" />
+                </div>
+            </div>
+            <button type="button" class="add-link" style="color:black;">+</button>
+            <x-input-error :messages="$errors->get('links')" class="mt-2" />
         </div>
 
         <div class="mt-4">
@@ -78,3 +84,17 @@
         @endforeach
     @endif
 </section>
+
+<!-- Pequeno script js pra clonar o campo de link ao clicar no botão "+" -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addButton = document.querySelector(".add-link");
+        const container = document.querySelector("#links-container");
+
+        addButton.addEventListener("click", function () {
+            const linkGroup = document.querySelector(".link-input-group").cloneNode(true);
+            linkGroup.querySelector("input").value = "";
+            container.appendChild(linkGroup);
+        });
+    });
+</script>

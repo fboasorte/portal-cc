@@ -66,7 +66,7 @@
                                 <h6 class="mb-0">Link:</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                            {{ $user->curriculo_lattes}}
+                            {{ $user->curriculo_lattes}}                <!-- Alterar Aqui, Para mostrar os links do vetor de links-->
                             </div>
                         </div>
                         <hr>
