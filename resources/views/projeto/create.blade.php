@@ -15,6 +15,18 @@
         <form method="post" action="{{ route('projeto.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="titulo" class="form-label">Título: </label>
+                <textarea name="titulo" id="titulo" placeholder="Título do projeto" required
+                    class="form-control @error('titulo') is-invalid @enderror">{{ old('titulo') }}</textarea>
+
+                @error('titulo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="descricao" class="form-label">Descrição: </label>
                 <textarea name="descricao" id="descricao" placeholder="Descrição do projeto" required
                     class="form-control @error('descricao') is-invalid @enderror">{{ old('descricao') }}</textarea>

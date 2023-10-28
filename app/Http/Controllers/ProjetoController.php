@@ -38,6 +38,7 @@ class ProjetoController extends Controller
     public function store(StoreProjetoRequest $request)
     {
         $projeto = new Projeto([
+            'titulo' => $request->titulo,
             'descricao' => $request->descricao,
             'palavras_chave' => $request->palavras_chave,
             'data_inicio' => $request->data_inicio,
@@ -74,6 +75,7 @@ class ProjetoController extends Controller
         $projeto = Projeto::findOrFail($id);
 
         $projeto->update([
+            'titulo' => $request->titulo,
             'descricao' => $request->descricao,
             'palavras_chave' => $request->palavras_chave,
             'data_inicio' => $request->data_inicio,

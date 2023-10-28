@@ -22,9 +22,10 @@ class StoreProjetoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'titulo' => ['required', 'string'],
             'descricao' => ['required', 'string'],
             'resultados' => ['nullable', 'string'],
-            'data_inicio' => ['required', 'date', 'after:-10 years'],
+            'data_inicio' => ['required', 'date', 'after:01/01/2013'],
             'data_termino' => ['nullable', 'date', 'after:data_inicio', 'before:+10 years'],
             'palavras_chave' => ['required', 'string'],
             'professor_id' => ['required', 'integer'],
@@ -36,6 +37,7 @@ class StoreProjetoRequest extends FormRequest
     public function messages()
     {
         return [
+            'titulo.required' => 'O título é obrigatório',
             'descricao.required' => 'A descrição é obrigatória',
             'resultados.string' => 'Os resultados devem conter texto',
             'data_inicio.required' => 'A data de início é obrigatória',
