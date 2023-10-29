@@ -103,7 +103,7 @@
                             <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
                             @foreach ($projetos->professoresColaboradores as $key => $profColab)
                             
-                            <span> {{ $profColab->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
+                            <span> {{ $profColab->servidor->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
                             
                             @endforeach
                             <br>
