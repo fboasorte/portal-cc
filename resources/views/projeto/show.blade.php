@@ -54,7 +54,7 @@
                         </li>
 
                         <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
-                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">título do projeto</a>
+                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
 
 
@@ -84,7 +84,7 @@
 
 
                         <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
-                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">título do projeto</a>
+                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
 
 
