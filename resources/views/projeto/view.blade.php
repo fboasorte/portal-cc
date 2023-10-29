@@ -92,6 +92,44 @@
                     </div>
 
                     <hr>
+                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Professores Colaboradores:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                           
+                        @if (count($projetos->professoresColaboradores) > 0)
+                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
+                            @foreach ($projetos->professoresColaboradores as $profColab)
+                            
+                            <p> prof colab </p>
+                            @endforeach
+                            <br>
+                        @endif
+                        </div>
+                    </div>
+
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Professores Externos:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                    
+                        @if (count($projetos->professoresExternos) > 0)
+                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
+                            @foreach ($projetos->professoresExternos as $profExterno)
+                            
+                            <p> prof externo </p>
+                            @endforeach
+                            <br>
+                        @endif
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div class="row">
                         <div class="col-sm-3">
@@ -123,7 +161,14 @@
                         </div>
                         <div class="col-sm-9 text-secondary">
 
-                            <p>alunos voluntários aqui</p>
+                        @if (count($projetos->alunosVoluntarios) > 0)
+                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
+                            @foreach ($projetos->alunosVoluntarios as $alunoVoluntario)
+                            
+                            <p> aluno voluntário </p>
+                            @endforeach
+                            <br>
+                        @endif
                         </div>
                     </div>
 
