@@ -101,9 +101,10 @@
                            
                         @if (count($projetos->professoresColaboradores) > 0)
                             <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
-                            @foreach ($projetos->professoresColaboradores as $profColab)
+                            @foreach ($projetos->professoresColaboradores as $key => $profColab)
                             
-                            <p> prof colab </p>
+                            <span> {{ $profColab->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
+                            
                             @endforeach
                             <br>
                         @endif
@@ -120,9 +121,9 @@
                     
                         @if (count($projetos->professoresExternos) > 0)
                             <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
-                            @foreach ($projetos->professoresExternos as $profExterno)
+                            @foreach ($projetos->professoresExternos as $key => $profExterno)
+                            <span> {{ $profExterno->nome }}@if ($key < count($projetos->professoresExternos) - 1), @else. @endif </span>
                             
-                            <p> prof externo </p>
                             @endforeach
                             <br>
                         @endif
@@ -136,19 +137,14 @@
                             <h6 class="mb-0">Alunos Bolsistas:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                        <!-- falta acessar a variavel com o nome dos alunos -->
+                        
                         @if (count($projetos->alunosBolsistas) > 0)
-                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
-                            @foreach ($projetos->alunosBolsistas as $alunoBolsista)
-                            
-                            <p> aluno </p>
+                            @foreach ($projetos->alunosBolsistas as $key => $alunoBolsista)
+                            <span> {{ $alunoBolsista->nome }}@if ($key < count($projetos->alunosBolsistas) - 1), @else. @endif </span>
                             @endforeach
                             <br>
                         @endif
 
-
-
-                            <p>alunos bolsistas aqui</p>
                         </div>
                     </div>
 
@@ -163,9 +159,8 @@
 
                         @if (count($projetos->alunosVoluntarios) > 0)
                             <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
-                            @foreach ($projetos->alunosVoluntarios as $alunoVoluntario)
-                            
-                            <p> aluno voluntário </p>
+                            @foreach ($projetos->alunosVoluntarios as $key => $alunoVoluntario)
+                                <span> {{ $alunoVoluntario->nome }}@if ($key < count($projetos->alunosVoluntarios) - 1), @else. @endif </span>
                             @endforeach
                             <br>
                         @endif
