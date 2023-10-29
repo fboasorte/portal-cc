@@ -38,60 +38,159 @@
     </li>
 </ul>
 
+
+@php
+    date("Y-m-d");
+@endphp
+
+@php
+    $professores = array();
+    $datas = array();
+@endphp
+
+@foreach($projetos as $projeto)
+
+
+
+    @if(!in_array( $projeto->nome_professor , $professores ))
+        @php
+            array_push($professores, $projeto->nome_professor);
+        @endphp
+    @endif
+
+@endforeach
+
+@foreach($projetos as $projeto)
+
+    @if(!in_array( \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') , $datas ))
+        @php
+            array_push($datas, \Carbon\Carbon::parse($projeto->data_inicio)->format('Y'));
+        @endphp
+    @endif
+
+@endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="tab-content " id="myTabContent">
     <div class="tab-pane fade show active" id="professor" role="tabpanel" aria-labelledby="professor-tab">
         <div class="event-schedule-area-two bg-color pad100">
             <div class="container">
-                @foreach ($projetos as $projeto)
-                <div class="professor-section mt-4">
 
-                    <ul class="list-group custom-ul">
-                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
-                            <span class="divisao-tcc">
-                              {{$projeto->nome_professor}}
-                            </span>
+                @foreach($professores as $professor)
 
-                        </li>
+                    @php
+                        $quantidade_projetos_professor = 0;
+                    @endphp
+                    @foreach ($projetos as $projeto)
+                        @if($projeto->nome_professor == $professor)
+                            @php
+                                $quantidade_projetos_professor ++;
+                            @endphp
+                        @endif
+                    @endforeach
 
-                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
-                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
+                    <div class="professor-section mt-4">
+                        <ul class="list-group custom-ul">
+                            <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                                <span class="divisao-tcc">
+                                  {{$projeto->nome_professor}}
+                                </span>
+                                <span class="badge badge-primary custom-badge"> {{$quantidade_projetos_professor}}</span>
+                            </li>
 
+                            @foreach ($projetos as $projeto)
+                                @if($projeto->nome_professor == $professor)
+                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
+                                        @if( date("Y-m-d") > $projeto->data_termino)
+                                            <span class="badge bg-warning">Não concluído</span>
+                                        @else
+                                            <span class="badge bg-success">Concluído</span>
+                                        @endif
 
-                        </li>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
 
-                    </ul>
-                </div>
+                    </div>
+
                 @endforeach
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
     <div class="tab-pane fade" id="ano" role="tabpanel" aria-labelledby="ano-tab">
         <div class="event-schedule-area-two bg-color pad100">
             <div class="container">
-                @foreach ($projetos as $projeto)
-                <div class="ano-section mt-4">
-                    <ul class="list-group">
-
-                        <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
-                            <span class="divisao-tcc">
-                                <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('d') }} de </span>
-                                <span>{{ $meses[\Carbon\Carbon::parse($projeto->data_inicio)->month] }} de </span>
-                                <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
-                            </span>
-
-                        </li>
-
-
-                        <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
-                            <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
 
 
-                        </li>
+                @foreach($datas as $data)
 
-                    </ul>
-                </div>
+                    @php
+                        $quantidade_datas = 0;
+                    @endphp
+                    @foreach ($projetos as $projeto)
+                        @if( \Carbon\Carbon::parse($projeto->data_inicio)->format('Y')  == $data)
+                            @php
+                                $quantidade_datas++;
+                            @endphp
+                        @endif
+                    @endforeach
+
+                    <div class="ano-section mt-4">
+                        <ul class="list-group">
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                                <span class="divisao-tcc">
+                                    <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
+                                </span>
+                                <span class="badge badge-primary custom-badge"> {{$quantidade_datas}}</span>
+
+                            </li>
+
+
+                            @foreach($projetos as $projeto)
+                                @if(\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
+                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
+                                        
+                                        @if( date("Y-m-d") > $projeto->data_termino)
+                                            <span class="badge bg-warning">Não concluído</span>
+                                        @else
+                                            <span class="badge bg-success">Concluído</span>
+                                        @endif
+
+                                    </li>
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </div>
                 @endforeach
             </div>
         </div>
