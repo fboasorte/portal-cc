@@ -98,6 +98,17 @@
                             <h6 class="mb-0">Alunos Bolsistas:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
+                        <!-- falta acessar a variavel com o nome dos alunos -->
+                        @if (count($projetos->alunosBolsistas) > 0)
+                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
+                            @foreach ($projetos->alunosBolsistas as $alunoBolsista)
+                            
+                            <p> aluno </p>
+                            @endforeach
+                            <br>
+                        @endif
+
+
 
                             <p>alunos bolsistas aqui</p>
                         </div>
@@ -105,7 +116,7 @@
 
                     <hr>
 
-                    
+                    <!-- quando resolver pra bolsista resolve pra voluntário também -->
                     <div class="row">
                         <div class="col-sm-3">
                             <h6 class="mb-0">Alunos Voluntários:</h6>
@@ -126,16 +137,27 @@
                             {{ $projetos->resultados }}
                         </div>
                     </div>
+
                     <hr>
 
+                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Fomento:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $projetos->fomento }}
+                        </div>
+                    </div>
+                    
+                    <hr>
                     
                     <div class="row">
                         <div class="col-sm-3">
                             <h6 class="mb-0">Página:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <!-- {{ $projetos->resultados }} -->
-                            <p> link pagina web aqui </p>
+                            {{ $projetos->link }}
                         </div>
 
                     </div>

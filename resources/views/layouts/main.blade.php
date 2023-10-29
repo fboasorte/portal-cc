@@ -44,11 +44,10 @@
             max-width: 130px;
             max-height: 100px;
         }
-        .footer-logo-if {
+
+        .logo-if {            
             max-width: 60px;
             max-height: 40px;
-        }
-        .logo-if {
             margin-right: 10px;
         }
         .left-align {
@@ -84,7 +83,7 @@
                 
                 <div class="col-md-6 left-align">
                     
-                    <img class="footer-logo-if logo-if" src="images/logo-if-branco2.png" alt="Logo">
+                    <img class="logo-if" src="images/logo-if-branco2.png" alt="Logo">
                     <img class="footer-logo" src="images/logo-footer.png" alt="Logo">
 
                     <p> </p>
