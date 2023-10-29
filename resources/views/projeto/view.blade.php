@@ -36,6 +36,30 @@
         <div class="row gutters-sm">
             <div class="card mb-3">
                 <div class="card-body">
+
+                
+                    <div class="row">
+                        
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Imagens:</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+
+                        <!-- o loop não passa por várias imagens, então tem algum bug aqui ainda -->
+                        @if (count($projetos->imagens) > 0)
+                            
+                        <!-- aqui tem só que trocar $img->imagens pelo acesso a coluna onde estão as imagens -->
+                            @foreach ($projetos->imagens as $img)
+                                {{ $img->imagens }}
+                            @endforeach
+                            <br>
+
+                        @endif
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <div class="row">
                         
                         <div class="col-sm-3">
@@ -100,13 +124,12 @@
                         <div class="col-sm-9 text-secondary">
                            
                         @if (count($projetos->professoresColaboradores) > 0)
-                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
+                            
                             @foreach ($projetos->professoresColaboradores as $key => $profColab)
-                            
-                            <span> {{ $profColab->servidor->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
-                            
+                                <span> {{ $profColab->servidor->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
                             @endforeach
                             <br>
+
                         @endif
                         </div>
                     </div>
@@ -120,12 +143,12 @@
                         <div class="col-sm-9 text-secondary">
                     
                         @if (count($projetos->professoresExternos) > 0)
-                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
-                            @foreach ($projetos->professoresExternos as $key => $profExterno)
-                            <span> {{ $profExterno->nome }}@if ($key < count($projetos->professoresExternos) - 1), @else. @endif </span>
                             
+                            @foreach ($projetos->professoresExternos as $key => $profExterno)
+                                <span> {{ $profExterno->nome }}@if ($key < count($projetos->professoresExternos) - 1), @else. @endif </span>
                             @endforeach
-                            <br>
+                                <br>
+
                         @endif
                         </div>
                     </div>
@@ -140,7 +163,7 @@
                         
                         @if (count($projetos->alunosBolsistas) > 0)
                             @foreach ($projetos->alunosBolsistas as $key => $alunoBolsista)
-                            <span> {{ $alunoBolsista->nome }}@if ($key < count($projetos->alunosBolsistas) - 1), @else. @endif </span>
+                                <span> {{ $alunoBolsista->nome }}@if ($key < count($projetos->alunosBolsistas) - 1), @else. @endif </span>
                             @endforeach
                             <br>
                         @endif
@@ -150,15 +173,13 @@
 
                     <hr>
 
-                    <!-- quando resolver pra bolsista resolve pra voluntário também -->
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-3">
                             <h6 class="mb-0">Alunos Voluntários:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
 
                         @if (count($projetos->alunosVoluntarios) > 0)
-                            <!-- <span style="font-weight: bold;"> Professores Externos:</span><br> -->
                             @foreach ($projetos->alunosVoluntarios as $key => $alunoVoluntario)
                                 <span> {{ $alunoVoluntario->nome }}@if ($key < count($projetos->alunosVoluntarios) - 1), @else. @endif </span>
                             @endforeach
