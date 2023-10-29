@@ -1,15 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Sobre')
 @section('content')
-<!--
-'nome',
-'turno',
-'carga_horaria',
-'sigla',
-'analytics',
-'calendario',
-'horario',
--->
+
   <style>
 
 
