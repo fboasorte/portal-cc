@@ -19,13 +19,13 @@
                     <div class="tab-pane fade active show" id="home" role="tabpanel">
                         <div class="table-responsive">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
+                                <li class="nav-item nav-item-colegiado" role="presentation">
                                     <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-selected="true">Detalhes</a>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                <li class="nav-item nav-item-colegiado" role="presentation">
                                     <a class="nav-link" id="professores-tab" data-toggle="tab" href="#professores" role="tab" aria-selected="true">Professores</a>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                <li class="nav-item nav-item-colegiado" role="presentation">
                                     <a class="nav-link" id="ata-tab" data-toggle="tab" href="#ata" role="tab" aria-selected="true">Ata</a>
                                 </li>
                                 <!-- Adicione mais abas para outras categorias de detalhes -->
