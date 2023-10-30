@@ -37,7 +37,4 @@
         </div>
     </div>
 </section>
-<div class="text-center mt-4">
-    <a href="{{ route('postagem.display') }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
-</div>
 @endsection
