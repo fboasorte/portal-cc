@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo-criada.png') }}" alt="Ciência da Computação" class="logo img-responsive">
+<img src="{{ asset('images/logo-criada-cinza.png') }}" alt="Ciência da Computação" class="logo img-responsive">
