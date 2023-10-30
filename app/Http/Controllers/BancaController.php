@@ -16,7 +16,7 @@ class BancaController extends Controller
     {
         $buscar = $request->buscar;
 
-        if($buscar) {
+        if ($buscar) {
             $bancas = Banca::where('data', '=', date('Y-n-d', strtotime($buscar)));
         } else {
             $bancas = Banca::all();
@@ -24,13 +24,11 @@ class BancaController extends Controller
 
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
 
-        // foreach($bancas as $banca) {
-        //     foreach($banca->professores as $professorInterno) {
-        //         return $professorInterno;
-        //     }
-        // }
-
-        return view('banca.index', ['buscar' => $buscar, 'professores_internos' => $professores , 'bancas' => $bancas]);
+        return view('banca.index', [
+            'buscar' => $buscar,
+            'professores_internos' => $professores,
+            'bancas' => $bancas
+        ]);
     }
 
     /**
@@ -40,7 +38,10 @@ class BancaController extends Controller
     {
         $professores_externos = ProfessorExterno::all();
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
-        return view('banca.create', ['professores_externos' => $professores_externos, 'professores_internos' => $professores]);
+        return view('banca.create', [
+            'professores_externos' => $professores_externos,
+            'professores_internos' => $professores
+        ]);
     }
 
     /**p a
@@ -48,29 +49,29 @@ class BancaController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request);   
         $banca = Banca::create([
             'data' => $request->data,
             'local' => $request->local
         ]);
 
-        if($request->professores_internos != null) {
-            foreach($request->professores_internos as $professor_interno) {
+        if ($request->professores_internos != null) {
+            foreach ($request->professores_internos as $professor_interno) {
                 $professor_interno = Professor::findOrFail($professor_interno);
 
                 $banca->professores()->attach($professor_interno);
             }
         }
 
-        if($request->professores_externos != null) {
-            foreach($request->professores_externos as $professor_externo_id) {
+        if ($request->professores_externos != null) {
+            foreach ($request->professores_externos as $professor_externo_id) {
                 $professor_externo = ProfessorExterno::findOrFail($professor_externo_id);
 
                 $banca->professoresExternos()->attach($professor_externo);
             }
         }
 
-        if($request->contexto == 'modal') {
+        if ($request->contexto == 'modal') {
             $bancas = Banca::with('professoresExternos', 'professores.servidor')->get();
             return response()->json(['bancas' => $bancas]);
         }
@@ -88,7 +89,11 @@ class BancaController extends Controller
         $professores_externos = ProfessorExterno::all();
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
 
-        return view('banca.show', ['banca'=>$banca,'professores_externos' => $professores_externos, 'professores_internos' => $professores]);
+        return view('banca.show', [
+            'banca' => $banca,
+            'professores_externos' => $professores_externos,
+            'professores_internos' => $professores
+        ]);
     }
 
     /**
@@ -100,7 +105,11 @@ class BancaController extends Controller
         $banca = Banca::findOrFail($id);
         $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
 
-        return view('banca.edit', ['banca' => $banca, 'professores_externos' => $professores_externos, 'professores_internos' => $professores]);
+        return view('banca.edit', [
+            'banca' => $banca,
+            'professores_externos' => $professores_externos,
+            'professores_internos' => $professores
+        ]);
     }
 
     /**
