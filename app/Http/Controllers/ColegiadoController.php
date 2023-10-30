@@ -28,12 +28,12 @@ class ColegiadoController extends Controller
 
         $totalMembros = 0;
         $totalAtas = 0;
-        if($colegiado_atual != null) {
+        if ($colegiado_atual != null) {
             $totalAtas = $colegiado_atual->atas()->count();
         }
 
 
-        if($colegiado_atual != null) {
+        if ($colegiado_atual != null) {
             $totalMembros++;
             $totalMembros += $colegiado_atual->professores()->count();
             $totalMembros += $colegiado_atual->alunos()->count();
@@ -76,26 +76,26 @@ class ColegiadoController extends Controller
         $arquivo = $request->file('arquivo');
         $pdf = new ArquivoPortaria();
         $pdf->nome = $arquivo->getClientOriginalName();
-        $pdf->path = $arquivo->store('ArquivoPortaria/' .$colegiado->id);
+        $pdf->path = $arquivo->store('ArquivoPortaria/' . $colegiado->id);
         $pdf->save();
 
         $colegiado->arquivo_portaria_id = $pdf->id;
         $colegiado->save();
 
-        foreach($request->professores as $professor) {
+        foreach ($request->professores as $professor) {
             $colegiado->professores()->attach($professor);
         }
-        foreach($request->alunos as $aluno) {
+        foreach ($request->alunos as $aluno) {
             $colegiado->alunos()->attach($aluno);
         }
-        foreach($request->servidores as $tecnico_adm) {
+        foreach ($request->servidores as $tecnico_adm) {
             $colegiado->tecnicosAdm()->attach($tecnico_adm);
         }
 
         return redirect('colegiado')->with('success', 'Colegiado cadastrado com sucesso!');
     }
 
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -129,11 +129,11 @@ class ColegiadoController extends Controller
             'coordenador_id' => $coordenador->id
         ]);
 
-        if($request->hasFile("arquivo")) {
+        if ($request->hasFile("arquivo")) {
             $arquivo = $request->file('arquivo');
             $pdf = new ArquivoPortaria();
             $pdf->nome = $arquivo->getClientOriginalName();
-            $pdf->path = $arquivo->store('ArquivoPortaria/' .$colegiado->id);
+            $pdf->path = $arquivo->store('ArquivoPortaria/' . $colegiado->id);
             $pdf->save();
         }
 
@@ -153,12 +153,12 @@ class ColegiadoController extends Controller
         $colegiado->delete();
         return back()->with('success', 'Colegiado excluído com sucesso');
     }
-    
+
     public function show()
-{
-    
-    // Encontre o colegiado com base no ID
-    $colegiado_atual = new Colegiado();
+    {
+
+        // Encontre o colegiado com base no ID
+        $colegiado_atual = new Colegiado();
         $colegiado_atual = Colegiado::where('fim', '>', now())->first();
 
         if ($colegiado_atual != null) {
@@ -166,35 +166,33 @@ class ColegiadoController extends Controller
         } else {
             $colegiados = Colegiado::all();
         }
-        $colegiado = $colegiado_atual;
 
-    // Recupere os detalhes do presidente do colegiado (relação definida no modelo)
-    $presidente = $colegiado->presidente;
+        if ($colegiado_atual != null) {
+            $colegiado = $colegiado_atual;
+            $presidente = $colegiado->presidente;
+            $arquivoPortaria = $colegiado->arquivoPortaria;
+            $professores = $colegiado->professores;
+            $alunos = $colegiado->alunos;
+            $tecnicosAdm = $colegiado->tecnicosAdm;
+            $atas = $colegiado->atas;
+        } else {
+            $colegiado = null;
+            $presidente = null;
+            $arquivoPortaria = null;
+            $professores = [];
+            $alunos = [];
+            $tecnicosAdm = [];
+            $atas = [];
+        }
 
-    // Recupere os detalhes do arquivo de portaria associado ao colegiado (relação definida no modelo)
-    $arquivoPortaria = $colegiado->arquivoPortaria;
-
-    // Recupere a lista de professores, alunos e técnicos administrativos associados ao colegiado (relações definidas no modelo)
-    $professores = $colegiado->professores;
-    $alunos = $colegiado->alunos;
-    $tecnicosAdm = $colegiado->tecnicosAdm;
-
-    // Recupere a lista de atas associadas ao colegiado (relação definida no modelo)
-    $atas = $colegiado->atas;
-
-    return view('colegiado.show', [
-        'colegiado' => $colegiado,
-        'presidente' => $presidente,
-        'arquivoPortaria' => $arquivoPortaria,
-        'professores' => $professores,
-        'alunos' => $alunos,
-        'tecnicosAdm' => $tecnicosAdm,
-        'atas' => $atas,
-    ]);
+        return view('colegiado.show', [
+            'colegiado' => $colegiado,
+            'presidente' => $presidente,
+            'arquivoPortaria' => $arquivoPortaria,
+            'professores' => $professores,
+            'alunos' => $alunos,
+            'tecnicosAdm' => $tecnicosAdm,
+            'atas' => $atas,
+        ]);
+    }
 }
-
-    
-
-
-}
-
