@@ -62,7 +62,7 @@ class TccController extends Controller
 
 
         if ($request->convite) {
-            //Criar uma postagem com os dados deste TCC
+            return redirect()->route('postagem.create')->withInput();
         }
 
         return redirect('tcc')->with('success', 'TCC cadastrado com sucesso');
