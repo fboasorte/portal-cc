@@ -61,8 +61,8 @@ class ProjetoRequest extends FormRequest
                 'before' => 'A data de término não pode passar dos próximos 10 anos',
             ],
             'palavras_chave' => [
-                'palavras_chave.required' => 'As palavras chave são obrigatórias',
-                'palavras_chave.max' => 'As palavras chaves devem conter no máximo 65535 caracteres',
+                'required' => 'As palavras chave são obrigatórias',
+                'max' => 'As palavras chaves devem conter no máximo 65535 caracteres',
             ],
             'professor_id' => [
                 'required' => 'Um professor responsável é obrigatório',
