@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProjetoRequest;
+use App\Http\Requests\ProjetoRequest;
 use App\Models\ImagemProjeto;
 use App\Models\Projeto;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class ProjetoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjetoRequest $request)
+    public function store(ProjetoRequest $request)
     {
         $projeto = new Projeto([
             'titulo' => $request->titulo,
@@ -97,7 +97,7 @@ class ProjetoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProjetoRequest $request, string $id)
+    public function update(ProjetoRequest $request, string $id)
     {
         $projeto = Projeto::findOrFail($id);
 
