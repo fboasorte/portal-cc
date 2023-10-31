@@ -45,12 +45,11 @@
                         </div>
                         <div class="col-sm-9 text-secondary">
 
-                        <!-- o loop não passa por várias imagens, então tem algum bug aqui ainda -->
                         @if (count($projetos->imagens) > 0)
                             
-                        <!-- aqui tem só que trocar $img->imagens pelo acesso a coluna onde estão as imagens -->
                             @foreach ($projetos->imagens as $img)
-                                {{ $img->imagens }}
+                            <a href="{{ URL::asset('storage') }}/{{ $img->imagem }}" target="{{ URL::asset('storage') }}/{{ $img->imagem }}"><img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" class="img-responsive"
+                            style="max-height:100px; max-width:100px;"></a> 
                             @endforeach
                             <br>
 

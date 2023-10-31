@@ -221,14 +221,7 @@ class ProjetoController extends Controller
 
     public function view($id)
     {
-        $projetos = Projeto::join('professor', 'projeto.professor_id', '=', 'professor.id')
-            ->join('servidor', 'professor.servidor_id', '=', 'servidor.id')
-            ->select('projeto.*', 'servidor.nome as nome_professor')
-            ->findOrFail($id);
-
-        if (!$projetos) {
-            abort(404);
-        }
+        $projetos = Projeto::findOrFail($id);
 
         return view('projeto.view', ['projetos' => $projetos]);
     }
