@@ -52,7 +52,12 @@
         }
         .left-align {
         text-align: left;
-    }
+        }
+
+        .no-decoration-link {
+            text-decoration: none; /* Remove o sublinhado */
+            color: black; /* Altera a cor do texto */
+        }
     </style>
 
 
@@ -80,12 +85,16 @@
     <footer>
         <div class="container">
             <div class="row">
-                
+            
                 <div class="col-md-6 left-align">
                     
+                <a href="https://www.ifnmg.edu.br/montesclaros" target="_blank" class="no-decoration-link">
                     <img class="logo-if" src="{{ asset('images/logo-if-branco2.png') }}" alt="Logo">
-                    <img class="footer-logo" src="{{ asset('images/logo-footer.png') }}" alt="Logo">
+                </a>
 
+                <a href="{{ route('postagem.display') }}" class="no-decoration-link">
+                    <img class="footer-logo" src="{{ asset('images/logo-footer.png') }}" alt="Logo">
+                </a>
                     <p> </p>
                     <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG</p>
                     <p>Rua Dois, 300 - Village do Lago I - Montes Claros - MG – CEP 39.404-058</p>
@@ -94,7 +103,7 @@
                 <div class="col-md-6 left-align">
                     <p>Telefone: (38) 2103-4141</p>
                     <p>E-mail: <a href="mailto:comunicacao.montesclaros@ifnmg.edu.br">comunicacao.montesclaros@ifnmg.edu.br</a></p>
-                    <p><a href="https://www.ifnmg.edu.br/montesclaros">Página eletrônica</a></p>
+                    <p><a href="https://www.ifnmg.edu.br/montesclaros" target="_blank" >IFNMG - Montes Claros</a></p>
                 </div>
             </div>
         </div>
