@@ -25,7 +25,7 @@
                             <img src="{{ asset('images/professor/professor_placeholder.png') }}" width="90%" class="rounded-image">
                             @endif
                             <div class="mt-3">
-                                <h4>{{ $servidor->nome }}</h4>
+                                <h4 class="text-wrap">{{ $servidor->nome }}</h4>
                             </div>
                         </div>
                     </div>

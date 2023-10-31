@@ -40,8 +40,8 @@
                             @foreach ($servidores as $servidor)
                             <tr>
                                 <td>{{ $servidor->id }}</td>
-                                <td>{{ $servidor->nome }}</td>
-                                <td>{{ $servidor->email }}</td>
+                                <td class="text-wrap">{{ $servidor->nome }}</td>
+                                <td class="text-wrap">{{ $servidor->email }}</td>
                                 <td>{{ date_format($servidor->created_at, 'd/m/Y H:i:s') }}</td>
                                 <td>
                                     <form method="POST" action="{{ route('professor.destroy', $servidor->id) }}">

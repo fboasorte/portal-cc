@@ -22,7 +22,7 @@
                         @foreach ($professores as $professor_interno)
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}" value="{{$professor_interno->id}}">
-                            <label for="" class="form-check-label">{{$professor_interno->nome}} </label>
+                            <label for="" class="form-check-label text-wrap">{{$professor_interno->nome}} </label>
                         </div>
                         @endforeach
                     </div>
@@ -34,7 +34,7 @@
                         @foreach ($professores_externos as $professor_externo)
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="professores_externos[]" id="professor_externo_{{$professor_externo->id}}" value="{{$professor_externo->id}}">
-                            <label for="" class="form-check-label">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
+                            <label for="" class="form-check-label text-wrap">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
                         </div>
                         @endforeach
                     </div>

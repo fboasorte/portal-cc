@@ -39,7 +39,7 @@
                             @foreach ($projetos as $projeto)
                             <tr>
                                 <td>{{ $projeto->id }}</td>
-                                <td>{{ $projeto->descricao }}</td>
+                                <td class="text-wrap">{{ $projeto->descricao }}</td>
                                 <td>{{ date('d/m/Y', strtotime($projeto->data_inicio)) }}</td>
                                 <td>
                                     <form method="POST" action="{{ route('projeto.destroy', $projeto->id) }}">

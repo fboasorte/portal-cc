@@ -33,7 +33,7 @@
                             <ul class="list-group custom-ul">
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
-                                    <span class="divisao-tcc">
+                                    <span class="divisao-tcc text-wrap">
                                         {{ $nomeProfessor }}
                                     </span>
                                     <span class="badge badge-primary custom-badge">{{ count($tccsProfessor) }}</span>
@@ -41,9 +41,9 @@
                                 @foreach ($tccsProfessor as $tcc)
                                     <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
 
-                                        <a href="{{ route('tcc.view', ['id' => $tcc->id]) }}" class="text-left"
+                                        <a href="{{ route('tcc.view', ['id' => $tcc->id]) }}" class="text-left text-wrap"
                                             data-toggle="tooltip" data-placement="top" title="{{ $tcc->titulo }}">
-                                            {{ strlen($tcc->titulo) > 20 ? substr($tcc->titulo, 0, 20) . '...' : $tcc->titulo }}
+                                            {{ $tcc->titulo }}
                                         </a>
                                         @if ($tcc->status == 0)
                                             <span class="badge bg-warning">Aguardando Defesa</span>
@@ -68,14 +68,14 @@
 
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
-                                    <span class="divisao-tcc">
+                                    <span class="divisao-tcc text-wrap">
                                         {{ $ano }}
                                     </span>
                                     <span class="badge badge-primary custom-badge">{{ count($tccsAno) }}</span>
                                 </li>
 
                                 @foreach ($tccsAno as $tcc)
-                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
                                         <a href="{{ route('tcc.view', ['id' => $tcc->id]) }}">{{ $tcc->titulo }}</a>
                                         @if ($tcc->status == 0)
                                             <span class="badge bg-warning">Aguardando Defesa</span>

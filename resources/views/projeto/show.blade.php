@@ -103,7 +103,7 @@
                     <div class="professor-section mt-4">
                         <ul class="list-group custom-ul">
                             <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
-                                <span class="divisao-tcc">
+                                <span class="divisao-tcc text-wrap">
                                   {{$projeto->nome_professor}}
                                 </span>
                                 <span class="badge badge-primary custom-badge"> {{$quantidade_projetos_professor}}</span>
@@ -111,7 +111,7 @@
 
                             @foreach ($projetos as $projeto)
                                 @if($projeto->nome_professor == $professor)
-                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
                                         @if( date("Y-m-d") > $projeto->data_termino)
@@ -167,7 +167,7 @@
 
                             <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
                                 <span class="divisao-tcc">
-                                    <span>{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
+                                    <span class="text-wrap">{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
                                 </span>
                                 <span class="badge badge-primary custom-badge"> {{$quantidade_datas}}</span>
 
@@ -176,7 +176,7 @@
 
                             @foreach($projetos as $projeto)
                                 @if(\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
-                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center">
+                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
                                         
                                         @if( date("Y-m-d") > $projeto->data_termino)

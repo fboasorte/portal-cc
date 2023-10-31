@@ -45,14 +45,14 @@
                             <tbody>
                                 @foreach ($tccs as $tcc)
                                     <tr>
-                                        <td class="text-left" data-toggle="tooltip" data-placement="top"
+                                        <td class="text-left text-wrap" data-toggle="tooltip" data-placement="top"
                                             title="{{ $tcc->titulo }}">
-                                            {{ strlen($tcc->titulo) > 20 ? substr($tcc->titulo, 0, 20) . '...' : $tcc->titulo }}
+                                            {{$tcc->titulo}}
                                         </td>
 
-                                        <td class="text-center" data-toggle="tooltip" data-placement="top"
+                                        <td class="text-center text-wrap" data-toggle="tooltip" data-placement="top"
                                             title="{{ $tcc->resumo }}">
-                                            {{ strlen($tcc->resumo) > 20 ? substr($tcc->resumo, 0, 20) . '...' : $tcc->resumo }}
+                                            {{ $tcc->resumo }}
                                         </td>
 
                                         <td>
@@ -63,11 +63,11 @@
                                                 Não há arquivo cadastrado!
                                             @endif
                                         </td>
-                                        <td class="text-left" data-toggle="tooltip" data-placement="top"
+                                        <td class="text-left text-wrap" data-toggle="tooltip" data-placement="top"
                                             title="{{ $tcc->aluno->nome }}">
-                                            {{ strlen($tcc->aluno->nome) > 20 ? substr($tcc->titulo, 0, 20) . '...' : $tcc->aluno->nome }}
+                                            {{ $tcc->aluno->nome }}
                                         </td>
-                                        <td class="text-left" data-toggle="tooltip" data-placement="top"
+                                        <td class="text-left text-wrap" data-toggle="tooltip" data-placement="top"
                                         > {{ $professores->contains($tcc->professor_id) ? $professores->where('id', $tcc->professor_id)->first()->nome : '' }}
                                         </td>
                                         <td> {{ $tcc->status == 0 ? 'Aguardando defesa' : 'Concluido' }} </td>
