@@ -25,8 +25,7 @@ class ColegiadoController extends Controller
             ->orderBy('numero_portaria', 'desc')
             ->get();
         } else {
-            $colegiados = Colegiado::all()
-            ->orderBy('numero_portaria', 'desc')
+            $colegiados = Colegiado::orderBy('numero_portaria', 'desc')
             ->get();
         }
 
