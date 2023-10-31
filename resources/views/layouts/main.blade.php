@@ -83,8 +83,8 @@
                 
                 <div class="col-md-6 left-align">
                     
-                    <img class="logo-if" src="images/logo-if-branco2.png" alt="Logo">
-                    <img class="footer-logo" src="images/logo-footer.png" alt="Logo">
+                    <img class="logo-if" src="{{ asset('images/logo-if-branco2.png') }}" alt="Logo">
+                    <img class="footer-logo" src="{{ asset('images/logo-footer.png') }}" alt="Logo">
 
                     <p> </p>
                     <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG</p>
