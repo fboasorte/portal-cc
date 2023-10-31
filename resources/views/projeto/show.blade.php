@@ -167,7 +167,7 @@
 
                             <li class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
                                 <span class="divisao-tcc">
-                                    <span class="text-wrap">{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('Y') }}</span>
+                                    <span class="text-wrap">{{$data}}</span>
                                 </span>
                                 <span class="badge badge-primary custom-badge"> {{$quantidade_datas}}</span>
 
