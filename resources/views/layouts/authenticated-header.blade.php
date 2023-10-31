@@ -114,7 +114,7 @@
                                     Curso
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('curso.display') }}">Visualizar</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('curso.sobre') }}">Visualizar</a></li>
                                     <li><a class="dropdown-item" href="{{ route('curso.index') }}">Gerenciar</a></li>
                                 </ul>
                             </li>

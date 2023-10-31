@@ -219,8 +219,15 @@ class CursoController extends Controller
         return response()->json($data);
     }
 
-    public function display(){
+    public function show($id)
+    {
+        $curso = Curso::findOrFail($id);
+        return view('curso.show', ['curso' => $curso]);
+    }
+
+    public function sobre()
+    {
         $curso = Curso::first();
-        return view('curso.display', ['curso'=>$curso]);
+        return view('curso.show', ['curso' => $curso]);
     }
 }
