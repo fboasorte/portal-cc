@@ -33,7 +33,7 @@
                     <label for="vigencia" class="form-label">Vigência*</label>
                     <input type="date" name="vigencia_inicio" id="vigencia_incio" class="form-control" value="{{ date('Y-m-d', strtotime($colegiado->inicio)) }}" required> até
 
-                    <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($hoje . ' +1 day')) }}" required>
+                    <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($colegiado->inicio)) }}" value="{{ date('Y-m-d', strtotime($colegiado->fim)) }}" required>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
 
 
             <div class="form-group" id="alunos">
-                
+
                     <br>
                     <h5>Alunos</h5>
                     <label for="" class="form-label">Selecione pelo menos 1 e no máximo 4 alunos: </label>
@@ -67,7 +67,7 @@
                         <label for="aluno_{{ $aluno->id }}" class="form-check-label">{{ $aluno->nome }}</label>
                     </div>
                     @endforeach
-               
+
             </div>
             <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#createAluno">Cadastrar aluno</a>
 
