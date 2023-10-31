@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CursoRequest;
 use App\Models\Curso;
 use App\Models\Coordenador;
 use App\Models\Professor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 
@@ -35,7 +32,7 @@ class CursoController extends Controller
         return view('curso.create');
     }
 
-    public function store(Request $request)
+    public function store(CursoRequest $request)
     {
 
         $nomeCalendario = $request->calendario;
@@ -71,6 +68,38 @@ class CursoController extends Controller
         return view('curso.edit', ['curso' => $curso]);
     }
 
+    public function update(CursoRequest $request, $id)
+    {
+        $curso = Curso::find($id);
+
+        if (!$curso) {
+            return redirect('curso')->with('error', 'Curso não encontrado');
+        }
+
+        $nomeCalendario = $curso->calendario;
+        if ($request->hasFile("calendario")) {
+            $calendario = $request->file("calendario");
+            $nomeCalendario = $calendario->store('ArquivoCalendario');
+        }
+
+        $nomeHorario = $curso->horario;
+        if ($request->hasFile("horario")) {
+            $horario = $request->file("horario");
+            $nomeHorario = $horario->store('ArquivoHorario');
+        }
+
+        $curso->nome = $request->nome;
+        $curso->turno = $request->turno;
+        $curso->carga_horaria = $request->carga_horaria;
+        $curso->sigla = $request->sigla;
+        $curso->analytics = $request->analytics;
+        $curso->calendario = $nomeCalendario;
+        $curso->horario = $nomeHorario;
+        $curso->save();
+
+        return redirect('curso')->with('success', 'Curso atualizado com sucesso');
+    }
+
     public function destroy(string $id)
     {
         $curso =  Curso::findOrFail($id);
@@ -79,17 +108,17 @@ class CursoController extends Controller
     }
 
     public function deleteCalendario($id)
-{
-    $curso = Curso::findOrFail($id);
+    {
+        $curso = Curso::findOrFail($id);
 
-    if (File::exists(public_path("storage/" . $curso->calendario))) {
-        File::delete(public_path("storage/" . $curso->calendario));
-        $curso->calendario = null;
-        $curso->save();
+        if (File::exists(public_path("storage/" . $curso->calendario))) {
+            File::delete(public_path("storage/" . $curso->calendario));
+            $curso->calendario = null;
+            $curso->save();
+        }
+
+        return redirect()->back();
     }
-
-    return redirect()->back();
-}
 
     public function deleteHorario($id)
     {
@@ -128,61 +157,6 @@ class CursoController extends Controller
         return Response::download($file, 'filename.pdf', $headers);
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'nome' => [
-                'required',
-                Rule::unique('curso', 'nome')->ignore($id),
-            ],
-            'sigla' => [
-                'required',
-                Rule::unique('curso', 'sigla')->ignore($id),
-            ],
-        ], [
-            'nome.required' => 'O campo Nome é obrigatório.',
-            'sigla.required' => 'O campo Sigla é obrigatório.',
-            'nome.unique' => 'Este nome de curso já está em uso. Escolha outro nome.',
-            'sigla.unique' => 'Esta sigla de curso já está em uso. Escolha outra sigla.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('curso.edit', $id)
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $curso = Curso::find($id);
-
-        if (!$curso) {
-            return redirect('curso')->with('error', 'Curso não encontrado');
-        }
-
-        $nomeCalendario = $curso->calendario;
-        if ($request->hasFile("calendario")) {
-            $calendario = $request->file("calendario");
-            $nomeCalendario = $calendario->store('ArquivoCalendario');
-        }
-
-        $nomeHorario = $curso->horario;
-        if ($request->hasFile("horario")) {
-            $horario = $request->file("horario");
-            $nomeHorario = $horario->store('ArquivoHorario');
-        }
-
-        $curso->nome = $request->nome;
-        $curso->turno = $request->turno;
-        $curso->carga_horaria = $request->carga_horaria;
-        $curso->sigla = $request->sigla;
-        $curso->analytics = $request->analytics;
-        $curso->calendario = $nomeCalendario;
-        $curso->horario = $nomeHorario;
-        $curso->save();
-
-        return redirect('curso')->with('success', 'Curso atualizado com sucesso');
-    }
-
     public function coordenador($id)
     {
         $coordenador = Coordenador::where('curso_id', '=', $id)->first();
@@ -209,8 +183,6 @@ class CursoController extends Controller
                 'sala_atendimento' => $request->sala_atendimento,
                 'professor_id' => $request->professor_id,
             ]);
-
-
         } else {
             $coordenador = Coordenador::create([
                 'email_contato' => $request->email_contato,
@@ -248,7 +220,7 @@ class CursoController extends Controller
     }
 
     public function display(){
-        $this->curso = Curso::first();
-        return view('curso.display', ['curso'=>$this->curso]);
+        $curso = Curso::first();
+        return view('curso.display', ['curso'=>$curso]);
     }
 }
