@@ -85,6 +85,10 @@
 
             <span class = "title">Turno:</span>
             <p>{{$curso->turno}}.</p>
+
+            <span class = "title">Mais informações:</span>
+            <br>
+            <a href = "#">analytics</a>
         </div>
 
     </div>
