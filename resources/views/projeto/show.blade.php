@@ -31,7 +31,7 @@
 
 <ul class="nav nav-tabs container" id="myTabs">
     <li class="nav-item nav-item-tcc">
-        <a class="nav-link active" id="professor-tab" data-toggle="tab" href="#professor" role="tab" aria-controls="professor" aria-selected="true">Criador</a>
+        <a class="nav-link active" id="professor-tab" data-toggle="tab" href="#professor" role="tab" aria-controls="professor" aria-selected="true">Coordenador</a>
     </li>
     <li class="nav-item nav-item-tcc">
         <a class="nav-link" id="ano-tab" data-toggle="tab" href="#ano" role="tab" aria-controls="ano" aria-selected="false">Ano de início</a>
@@ -115,9 +115,9 @@
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
                                         @if( date("Y-m-d") > $projeto->data_termino)
-                                            <span class="badge bg-warning">Não concluído</span>
+                                            <span class="badge bg-warning">Concluído</span>
                                         @else
-                                            <span class="badge bg-success">Concluído</span>
+                                            <span class="badge bg-success">Não concluído</span>
                                         @endif
 
                                     </li>
