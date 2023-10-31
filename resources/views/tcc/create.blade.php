@@ -41,8 +41,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="banca_id" class="form-label"> <br>Orientador:</label>
-            <select name="professor_id" id="professor_id" class="form-select">
+            <label for="banca_id" class="form-label"> <br>Orientador*:</label>
+            <select name="professor_id" id="professor_id" class="form-select" required>
                 <option value="" disabled selected>Selecione um orientador</option>
                 @foreach ($professores as $professor)
                 <option value="{{ $professor->id }}"> {{$professor->nome}} </option>
@@ -55,8 +55,8 @@
         @include('modal.createProfessor')
         @include('modal.createProfessorExterno')
         <div class="mb-3">
-            <label for="banca_id" class="form-label"> <br>Banca:</label>
-            <select name="banca_id" id="banca_id" class="form-select">
+            <label for="banca_id" class="form-label"> <br>Banca*:</label>
+            <select name="banca_id" id="banca_id" class="form-select" required>
                 <option value="" disabled selected>Selecione uma banca</option>
                 @foreach ($bancas as $banca)
                 <option value="{{ $banca->id }}">
@@ -79,12 +79,12 @@
         @include('modal.createBanca')
         <div class="mb-3">
             <label for="ano" class="form-label"><br>Ano*:</label>
-            <input type="number" name="ano" id="ano" class="form-control" min="1500" value="{{$anoAtual}}">
+            <input type="number" name="ano" id="ano" class="form-control" min="1500" value="{{$anoAtual}}" required>
         </div>
 
         <div class="mb-3">
             <label for="status" class="form-label"><br>Status*:</label>
-            <select name="status" id="status" class="form-select">
+            <select name="status" id="status" class="form-select" required>
                 <option value="0" selected>Aguardando defesa</option>
                 <option value="1">Concluido</option>
             </select>
