@@ -38,26 +38,7 @@
                 <div class="card-body">
 
                 
-                    <div class="row">
-                        
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Imagens:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-
-                        @if (count($projetos->imagens) > 0)
-                            
-                            @foreach ($projetos->imagens as $img)
-                            <a href="{{ URL::asset('storage') }}/{{ $img->imagem }}" target="{{ URL::asset('storage') }}/{{ $img->imagem }}"><img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" class="img-responsive"
-                            style="max-height:100px; max-width:100px;"></a> 
-                            @endforeach
-                            <br>
-
-                        @endif
-                        </div>
-                    </div>
-
-                    <hr>
+                    
 
                     <div class="row">
                         
@@ -219,6 +200,28 @@
                         <div class="col-sm-9 text-secondary">
                             {{ $projetos->link }}
                         </div>
+
+                    <hr>
+
+                    <div class="row">
+                        
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+
+                        @if (count($projetos->imagens) > 0)
+                            
+                            @foreach ($projetos->imagens as $img)
+                            <a href="{{ URL::asset('storage') }}/{{ $img->imagem }}" target="{{ URL::asset('storage') }}/{{ $img->imagem }}"><img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" class="img-responsive"
+                            style="max-height:100px; max-width:100px;"></a> 
+                            @endforeach
+                            <br>
+
+                        @endif
+                        </div>
+                    </div>
+
 
                     </div>
                 </div>

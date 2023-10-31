@@ -18,6 +18,8 @@
                 <label for="titulo" class="form-label">Título: </label>
                 <textarea name="titulo" id="titulo" placeholder="Título do projeto" required
                     class="form-control @error('titulo') is-invalid @enderror">{{ old('titulo') }}</textarea>
+                
+                <small class="text-danger">* Campo obrigatório</small>
 
                 @error('titulo')
                     <div class="invalid-feedback">
@@ -30,8 +32,10 @@
                 <label for="descricao" class="form-label">Descrição: </label>
                 <textarea name="descricao" id="descricao" placeholder="Descrição do projeto" required
                     class="form-control @error('descricao') is-invalid @enderror">{{ old('descricao') }}</textarea>
-
-                @error('descricao')
+                
+                <small class="text-danger">* Campo obrigatório</small>
+                
+                    @error('descricao')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -42,7 +46,9 @@
                 <label for="data_inicio" class="form-label">Data de Início: </label>
                 <input type="date" name="data_inicio" id="data_inicio" value="{{ old('data_inicio') }}"
                     class="form-control @error('data_inicio') is-invalid @enderror" required>
-
+                
+                <small class="text-danger">* Campo obrigatório</small>
+                
                 @error('data_inicio')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -50,11 +56,15 @@
                 @enderror
             </div>
 
+            
+
             <div class="form-group">
                 <label for="data_termino" class="form-label">Data de Termino: </label>
                 <input type="date" name="data_termino" id="data_termino" value="{{ old('data_termino') }}"
                     class="form-control @error('data_termino') is-invalid @enderror">
-
+                
+                <small class="text-danger">* Campo obrigatório</small>
+                
                 @error('data_termino')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -66,7 +76,8 @@
                 <label for="resultados" class="form-label">Resultados: </label>
                 <input type="text" name="resultados" id="resultados" value="{{ old('resultados') }}"
                     class="form-control @error('resultados') is-invalid @enderror" placeholder="Resultados do projeto">
-
+                
+                
                 @error('resultados')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -90,7 +101,7 @@
                 <label for="palavras_chave" class="form-label">Palavras-Chave:</label>
                 <input type="text" name="palavras_chave" id="palavras_chave" value="{{ old('palavras_chave') }}"
                     class="form-control @error('palavras_chave') is-invalid @enderror" placeholder="Palavras Chave">
-
+                <small class="text-danger">* Campo obrigatório</small>
                 @error('palavras_chave')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -126,7 +137,7 @@
                 <label for="professor_id" class="form-label">Professor Responsável: </label>
                 <select name="professor_id" id="professor_id"
                     class="form-select @error('professor_id') is-invalid @enderror"></select>
-
+                <small class="text-danger">* Campo obrigatório</small>
                 @error('professor_id')
                     <div class="invalid-feedback">
                         {{ $message }}
