@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group">
-                <label for="imagens" class="form-label">Imagens (2000 x 378):</label>
+                <label for="imagens" class="form-label">Imagens (2700 x 660):</label>
                 <input type="file" name="imagens[]" id="imagens" class="form-control" multiple>
             </div>
 

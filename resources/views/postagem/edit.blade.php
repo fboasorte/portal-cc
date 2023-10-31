@@ -63,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                <label for="imagem" class="form-label">Imagens (2000 x 378):</label>
+                <label for="imagem" class="form-label">Imagens (2700 x 660):</label>
                 @if (count($postagem->imagens) > 0)
                     @foreach ($postagem->imagens as $img)
                         <button class="btn text-danger" type="submit" form="deletar-imagens{{ $img->id }}">X</button>
