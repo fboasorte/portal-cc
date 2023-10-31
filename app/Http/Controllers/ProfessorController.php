@@ -160,10 +160,11 @@ class ProfessorController extends Controller
         $servidor = Servidor::where('id', $servidor_id)->first();
         $professor = Professor::where('servidor_id', $servidor_id)->first();
         $user = User::where('id', $servidor->user_id)->first();
+        $curriculos = CurriculoProfessor::where('professor_id', $professor->id)->get();
 
         return view(
             'professor.view',
-            ['professor' => $professor, 'servidor' => $servidor, 'user' => $user]
+            ['professor' => $professor, 'servidor' => $servidor, 'user' => $user, 'curriculos' => $curriculos]
         );
     }
 

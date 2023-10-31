@@ -1,3 +1,5 @@
+
+
 @extends('layouts.main')
 @section('title', 'Professor')
 @section('content')
@@ -63,10 +65,12 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Link:</h6>
+                                <h6 class="mb-0">Links:</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                            {{ $user->curriculo_lattes}}                <!-- Alterar Aqui, Para mostrar os links do vetor de links-->
+                                @foreach ($curriculos as $curriculo)
+                                    <a href="{{$curriculo->link}}" target="_blank">{{ $curriculo->link }}</a><br>
+                                @endforeach
                             </div>
                         </div>
                         <hr>
