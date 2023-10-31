@@ -21,9 +21,13 @@ class ColegiadoController extends Controller
         $colegiado_atual = Colegiado::where('fim', '>', now())->first();
 
         if ($colegiado_atual != null) {
-            $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])->get();
+            $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])
+            ->orderBy('numero_portaria', 'desc')
+            ->get();
         } else {
-            $colegiados = Colegiado::all();
+            $colegiados = Colegiado::all()
+            ->orderBy('numero_portaria', 'desc')
+            ->get();
         }
 
         $totalMembros = 0;
