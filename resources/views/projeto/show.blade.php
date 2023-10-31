@@ -115,9 +115,9 @@
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
 
                                         @if( date("Y-m-d") > $projeto->data_termino)
-                                            <span class="badge bg-warning">Concluído</span>
+                                            <span class="badge bg-success">Concluído</span>
                                         @else
-                                            <span class="badge bg-success">Não concluído</span>
+                                            <span class="badge bg-warning">Não concluído</span>
                                         @endif
 
                                     </li>
@@ -180,9 +180,9 @@
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
                                         
                                         @if( date("Y-m-d") > $projeto->data_termino)
-                                            <span class="badge bg-warning">Concluído</span>
+                                            <span class="badge bg-success" >Concluído</span>
                                         @else
-                                            <span class="badge bg-success">Não concluído</span>
+                                            <span class="badge bg-warning">Não concluído</span>
                                         @endif
 
                                     </li>
