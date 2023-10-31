@@ -107,7 +107,7 @@
                             </thead>
                             <tbody>
                                 @if ($colegiado_atual != null && $colegiado_atual->atas)
-                                @foreach ($colegiado_atual->atas as $ata)
+                                @foreach ($atas as $ata)
                                 <tr>
                                     <td>
                                         <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#showAta_{{ $ata->id }}">{{ date('d/m/Y', strtotime($ata->data)) }}</a>

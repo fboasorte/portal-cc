@@ -31,6 +31,10 @@
                     <input type="date" name="vigencia_inicio" id="vigencia_incio" class="form-control" value="{{ date('Y-m-d', strtotime($hoje)) }}" required> até
                     <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($hoje . ' +1 day')) }}" required>
                 </div>
+                <div class="mb-3">
+                    <label for="atual" class="form-label">Colegiado atual?</label>
+                    <input type="checkbox" name="atual" id="atual" checked>
+                </div>
             </div>
         </div>
         <div class="form-group">

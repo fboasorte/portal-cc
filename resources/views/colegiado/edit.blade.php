@@ -35,6 +35,10 @@
 
                     <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($colegiado->inicio)) }}" value="{{ date('Y-m-d', strtotime($colegiado->fim)) }}" required>
                 </div>
+                <div class="mb-3">
+                    <label for="atual" class="form-label">Colegiado atual?</label>
+                    <input type="checkbox" name="atual" id="atual" {{ $colegiado->atual == 1 ? 'checked' : '' }}>
+                </div>
             </div>
         </div>
         <div class="form-group">

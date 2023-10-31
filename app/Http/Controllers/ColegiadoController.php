@@ -18,15 +18,20 @@ class ColegiadoController extends Controller
     public function index()
     {
         $colegiado_atual = new Colegiado();
-        $colegiado_atual = Colegiado::where('fim', '>', now())->first();
+        $colegiado_atual = Colegiado::where('atual', '=', 1)->first();
+        $atas = [];
 
         if ($colegiado_atual != null) {
             $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])
-            ->orderBy('numero_portaria', 'desc')
-            ->get();
+                ->orderBy('numero_portaria', 'desc')
+                ->get();
+
+            $atas = $colegiado_atual->atas()
+                ->orderBy('data', 'desc')
+                ->get();
         } else {
             $colegiados = Colegiado::orderBy('numero_portaria', 'desc')
-            ->get();
+                ->get();
         }
 
         $totalMembros = 0;
@@ -44,7 +49,11 @@ class ColegiadoController extends Controller
         }
 
 
-        return view('colegiado.index', ['colegiados' => $colegiados, 'colegiado_atual' => $colegiado_atual, 'totalMembros' => $totalMembros, 'totalAtas' => $totalAtas]);
+        return view('colegiado.index', ['colegiados' => $colegiados,
+        'colegiado_atual' => $colegiado_atual,
+        'totalMembros' => $totalMembros,
+        'totalAtas' => $totalAtas,
+        'atas' => $atas]);
     }
 
     /**
@@ -69,11 +78,25 @@ class ColegiadoController extends Controller
     public function store(Request $request)
     {
         $coordenador = Coordenador::first();
+        $atual = $request->atual === 'on' ? 1 : 0;
+
+        if ($atual == 1) {
+            $colegiado_anterior = Colegiado::where('atual', '=', true)
+                ->first();
+
+            if ($colegiado_anterior) {
+                $colegiado_anterior->update([
+                    'atual' => false
+                ]);
+            }
+        }
+
         $colegiado = new Colegiado([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
             'fim' => $request->vigencia_fim,
-            'coordenador_id' => $coordenador->id
+            'coordenador_id' => $coordenador->id,
+            'atual' => $atual
         ]);
 
         $arquivo = $request->file('arquivo');
@@ -124,12 +147,25 @@ class ColegiadoController extends Controller
     {
         $colegiado = Colegiado::find($request->id);
         $coordenador = Coordenador::first();
+        $atual = ($request->atual === 'on' ? 1 : 0);
+
+        if ($atual == 1) {
+            $colegiado_anterior = Colegiado::where('atual', '=', true)
+                ->first();
+
+            if ($colegiado_anterior) {
+                $colegiado_anterior->update([
+                    'atual' => false
+                ]);
+            }
+        }
 
         $colegiado->update([
             'numero_portaria' => $request->numero_portaria,
             'inicio' => $request->vigencia_inicio,
             'fim' => $request->vigencia_fim,
-            'coordenador_id' => $coordenador->id
+            'coordenador_id' => $coordenador->id,
+            'atual' => $atual
         ]);
 
         if ($request->hasFile("arquivo")) {

@@ -13,7 +13,8 @@ class Colegiado extends Model
         'numero_portaria',
         'inicio',
         'fim',
-        'coordenador_id'
+        'coordenador_id',
+        'atual'
     ];
 
     public function presidente() {
