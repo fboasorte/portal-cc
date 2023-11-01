@@ -16,9 +16,9 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                <label for="titulo" class="form-label">Título: </label>
+                <label for="titulo" class="form-label">Título*: </label>
                 <textarea name="titulo" id="titulo" required class="form-control @error('titulo') is-invalid @enderror">{{ old('titulo') ?? $projeto->titulo }}</textarea>
-                <small class="text-danger">* Campo obrigatório</small>
+                
                 @error('titulo')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -27,9 +27,9 @@
             </div>
 
             <div class="form-group">
-                <label for="descricao" class="form-label">Descrição: </label>
+                <label for="descricao" class="form-label">Descrição*: </label>
                 <textarea name="descricao" id="descricao" required class="form-control @error('descricao') is-invalid @enderror">{{ old('descricao') ?? $projeto->descricao }}</textarea>
-                <small class="text-danger">* Campo obrigatório</small>
+                
                 @error('descricao')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -38,10 +38,10 @@
             </div>
 
             <div class="form-group">
-                <label for="titulo" class="form-label">Data de Início: </label>
+                <label for="titulo" class="form-label">Data de Início*: </label>
                 <input value="{{ old('data_inicio') ?? $projeto->data_inicio }}" type="date" name="data_inicio"
                     id="data_inicio" class="form-control @error('data_inicio') is-invalid @enderror" required>
-                    <small class="text-danger">* Campo obrigatório</small>
+                    
                 @error('data_inicio')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -50,10 +50,10 @@
             </div>
 
             <div class="form-group">
-                <label for="titulo" class="form-label">Data de Termino: </label>
+                <label for="titulo" class="form-label">Data de Termino*: </label>
                 <input value="{{ old('data_termino') ?? $projeto->data_termino }}" type="date" name="data_termino"
                     id="data_termino" class="form-control @error('data_termino') is-invalid @enderror">
-                    <small class="text-danger">* Campo obrigatório</small>
+                    
                 @error('data_termino')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -87,11 +87,11 @@
             </div>
 
             <div class="form-group">
-                <label for="titulo" class="form-label">Palavras-Chave:</label>
+                <label for="titulo" class="form-label">Palavras-Chave*:</label>
                 <input value="{{ old('palavras_chave') ?? $projeto->palavras_chave }}" type="text"
                     class="form-control @error('palavras_chave') is-invalid @enderror" name="palavras_chave"
                     id="palavras_chave" placeholder="Palavras Chave">
-                    <small class="text-danger">* Campo obrigatório</small>
+                
                 @error('palavras_chave')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -126,13 +126,12 @@
             </div>
 
             <div class="form-group">
-                <label for="professor_id" class="form-label">Professor Responsável: </label>
+                <label for="professor_id" class="form-label">Professor Responsável*: </label>
                 <select class="form-control" name="professor_id" id="professor_id">
                     <option value="{{ $projeto->professor_id }}" selected>
                         {{ $projeto->professor->servidor->nome }}
                     </option>
                 </select>
-                <small class="text-danger">* Campo obrigatório</small>
                 @error('professor_id')
                     <div class="invalid-feedback">
                         {{ $message }}
