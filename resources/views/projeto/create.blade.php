@@ -20,7 +20,6 @@
                     class="form-control @error('titulo') is-invalid @enderror">{{ old('titulo') }}</textarea>
                 
                 
-
                 @error('titulo')
                     <div class="invalid-feedback">
                         {{ $message }}

@@ -176,6 +176,7 @@
 
                             @foreach($projetos as $projeto)
                                 @if(\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
+                                    
                                     <li class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
                                         <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
                                         
@@ -184,8 +185,8 @@
                                         @else
                                             <span class="badge bg-warning">Não concluído</span>
                                         @endif
-
                                     </li>
+
                                 @endif
                             @endforeach
 
