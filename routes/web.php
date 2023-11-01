@@ -69,8 +69,8 @@ Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
 Route::get('/professores/{id}', [ProfessorController::class, 'view'])->name('professor.view');
 
 //Projeto
-Route::get('/projetos', [ProjetoController::class, 'show'])->name('projetos.show');
-Route::get('/projetos/{id}', [ProjetoController::class, 'view'])->name('projeto.view');
+Route::get('/projetos', [ProjetoController::class, 'view'])->name('projetos.view');
+Route::get('/projeto/show/{id}', [ProjetoController::class, 'show'])->name('projeto.show');
 
 //Servidor
 Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);

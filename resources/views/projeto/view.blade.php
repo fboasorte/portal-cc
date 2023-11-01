@@ -1,237 +1,173 @@
 @extends('layouts.main')
-@section('title', 'Projeto')
+@section('title', 'projetos')
 @section('content')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-@php
-    $meses = [
-        1 => 'Janeiro',
-        2 => 'Fevereiro',
-        3 => 'Março',
-        4 => 'Abril',
-        5 => 'Maio',
-        6 => 'Junho',
-        7 => 'Julho',
-        8 => 'Agosto',
-        9 => 'Setembro',
-        10 => 'Outubro',
-        11 => 'Novembro',
-        12 => 'Dezembro',
-    ];
-@endphp
-<div class="custom-container">
-    <div>
+
+    <div class="custom-container">
         <div>
-            <i class="fas fa-envelopes-bulk fa-2x"></i>
-            <h3 class="smaller-font">Projeto</h3>
+            <div>
+                <i class="fas fa-envelopes-bulk fa-2x"></i>
+                <h3 class="smaller-font">Projetos</h3>
+            </div>
         </div>
     </div>
-</div>
-<br>
+    <br>
 
-<div class="container mt-5">
-    <div class="main-body">
-        <div class="row gutters-sm">
-            <div class="card mb-3">
-                <div class="card-body">
+    <ul class="nav nav-tabs container" id="myTabs">
+        <li class="nav-item nav-item-tcc">
+            <a class="nav-link active" id="professor-tab" data-toggle="tab" href="#professor" role="tab"
+                aria-controls="professor" aria-selected="true">Coordenador</a>
+        </li>
+        <li class="nav-item nav-item-tcc">
+            <a class="nav-link" id="ano-tab" data-toggle="tab" href="#ano" role="tab" aria-controls="ano"
+                aria-selected="false">Ano de início</a>
+        </li>
+    </ul>
 
-                
-                    
+    @php
+        $professores = [];
+        $datas = [];
+    @endphp
 
-                    <div class="row">
-                        
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Título:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{$projetos->titulo}}
-                        </div>
-                    </div>
+    @foreach ($projetos as $projeto)
+        @if (!in_array($projeto->professor->servidor->nome, $professores))
+            @php
+                array_push($professores, $projeto->professor->servidor->nome);
+            @endphp
+        @endif
+    @endforeach
 
-                    <hr>
+    @foreach ($projetos as $projeto)
+        @if (!in_array(\Carbon\Carbon::parse($projeto->data_inicio)->format('Y'), $datas))
+            @php
+                array_push($datas, \Carbon\Carbon::parse($projeto->data_inicio)->format('Y'));
+            @endphp
+        @endif
+    @endforeach
 
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Descrição:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ $projetos->descricao }}
-                        </div>
-                    </div>
+    <div class="tab-content " id="myTabContent">
+        <div class="tab-pane fade show active" id="professor" role="tabpanel" aria-labelledby="professor-tab">
+            <div class="event-schedule-area-two bg-color pad100">
+                <div class="container">
 
-                    <hr>
+                    @foreach ($professores as $professor)
+                        @php
+                            $quantidade_projetos_professor = 0;
+                        @endphp
+                        @foreach ($projetos as $projeto)
+                            @if ($projeto->professor->servidor->nome == $professor)
+                                @php
+                                    $quantidade_projetos_professor++;
+                                @endphp
+                            @endif
+                        @endforeach
 
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Data de Início:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{$projetos->data_inicio}}
-                        </div>
-                    </div>
+                        <div class="professor-section mt-4">
+                            <ul class="list-group custom-ul">
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                                    <span class="divisao-tcc text-wrap">
+                                        {{ $professor }}
+                                    </span>
+                                    <span class="badge badge-primary custom-badge">
+                                        {{ $quantidade_projetos_professor }}</span>
+                                </li>
 
-                    <hr>
+                                @foreach ($projetos as $projeto)
+                                    @if ($projeto->professor->servidor->nome == $professor)
+                                        <li
+                                            class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
+                                            <a
+                                                href="{{ route('projeto.show', ['id' => $projeto->id]) }}">{{ $projeto->titulo }}</a>
 
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Data de Termino:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{$projetos->data_termino}}
-                        </div>
-                    </div>
+                                            @if (date('Y-m-d') > $projeto->data_termino)
+                                                <span class="badge bg-success">Concluído</span>
+                                            @else
+                                                <span class="badge bg-warning">Não concluído</span>
+                                            @endif
 
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Coordenador:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{$projetos->nome_professor}}
-                        </div>
-                    </div>
-
-                    <hr>
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Professores Colaboradores:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                           
-                        @if (count($projetos->professoresColaboradores) > 0)
-                            
-                            @foreach ($projetos->professoresColaboradores as $key => $profColab)
-                                <span> {{ $profColab->servidor->nome }}@if ($key < count($projetos->professoresColaboradores) - 1), @else. @endif </span>
-                            @endforeach
-                            <br>
-
-                        @endif
-                        </div>
-                    </div>
-
-                    <hr>
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Professores Externos:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                    
-                        @if (count($projetos->professoresExternos) > 0)
-                            
-                            @foreach ($projetos->professoresExternos as $key => $profExterno)
-                                <span> {{ $profExterno->nome }}@if ($key < count($projetos->professoresExternos) - 1), @else. @endif </span>
-                            @endforeach
-                                <br>
-
-                        @endif
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Alunos Bolsistas:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                        
-                        @if (count($projetos->alunosBolsistas) > 0)
-                            @foreach ($projetos->alunosBolsistas as $key => $alunoBolsista)
-                                <span> {{ $alunoBolsista->nome }}@if ($key < count($projetos->alunosBolsistas) - 1), @else. @endif </span>
-                            @endforeach
-                            <br>
-                        @endif
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
 
                         </div>
-                    </div>
+                    @endforeach
 
-                    <hr>
+                </div>
+            </div>
+        </div>
 
-                     <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Alunos Voluntários:</h6>
+
+        <div class="tab-pane fade" id="ano" role="tabpanel" aria-labelledby="ano-tab">
+            <div class="event-schedule-area-two bg-color pad100">
+                <div class="container">
+
+                    @foreach ($datas as $data)
+                        @php
+                            $quantidade_datas = 0;
+                        @endphp
+                        @foreach ($projetos as $projeto)
+                            @if (\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
+                                @php
+                                    $quantidade_datas++;
+                                @endphp
+                            @endif
+                        @endforeach
+
+                        <div class="ano-section mt-4">
+                            <ul class="list-group">
+
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center custom-title-tcc">
+                                    <span class="divisao-tcc">
+                                        <span class="text-wrap">{{ $data }}</span>
+                                    </span>
+                                    <span class="badge badge-primary custom-badge"> {{ $quantidade_datas }}</span>
+
+                                </li>
+
+
+                                @foreach ($projetos as $projeto)
+                                    @if (\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
+                                        <li
+                                            class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
+                                            <a
+                                                href="{{ route('projeto.show', ['id' => $projeto->id]) }}">{{ $projeto->titulo }}</a>
+
+                                            @if (date('Y-m-d') > $projeto->data_termino)
+                                                <span class="badge bg-success">Concluído</span>
+                                            @else
+                                                <span class="badge bg-warning">Não concluído</span>
+                                            @endif
+
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                            </ul>
                         </div>
-                        <div class="col-sm-9 text-secondary">
-
-                        @if (count($projetos->alunosVoluntarios) > 0)
-                            @foreach ($projetos->alunosVoluntarios as $key => $alunoVoluntario)
-                                <span> {{ $alunoVoluntario->nome }}@if ($key < count($projetos->alunosVoluntarios) - 1), @else. @endif </span>
-                            @endforeach
-                            <br>
-                        @endif
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Resultados:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ $projetos->resultados }}
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Fomento:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ $projetos->fomento }}
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Página:</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ $projetos->link }}
-                        </div>
-
-                    <hr>
-
-                    <div class="row">
-                        
-                        <div class="col-sm-3">
-                            <h6 class="mb-0"></h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-
-                        @if (count($projetos->imagens) > 0)
-                            
-                            @foreach ($projetos->imagens as $img)
-                            <a href="{{ URL::asset('storage') }}/{{ $img->imagem }}" target="{{ URL::asset('storage') }}/{{ $img->imagem }}"><img src="{{ URL::asset('storage') }}/{{ $img->imagem }}" class="img-responsive"
-                            style="max-height:100px; max-width:100px;"></a> 
-                            @endforeach
-                            <br>
-
-                        @endif
-                        </div>
-                    </div>
-
-
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="text-center mt-4">
-    <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
-</div>
+
+    <script>
+        $(document).ready(function() {
+            $('.tcc-item').click(function() {
+                window.location = $(this).find('a').attr('href');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#myTabs a').on('click', function(e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
 
 @endsection
