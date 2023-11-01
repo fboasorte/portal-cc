@@ -56,7 +56,7 @@ Route::get('/postagem/show/{id}', [PostagemController::class, 'show'])->name('po
 
 //Sobre o curso
 Route::get('/curso/sobre', [CursoController::class, 'sobre'])->name('curso.sobre');
-Route::resource('curso', CursoController::class)->parameter('curso', 'id')->only(['show']);
+Route::get('/curso/show/{id}', [CursoController::class, 'show'])->name('curso.show');
 
 //Coordenador
 Route::get('/coordenador/{id}', [CoordenadorController::class, 'view'])->name('coordenador.display');
