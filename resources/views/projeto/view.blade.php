@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'projetos')
+@section('title', 'Lista de Projetos')
 @section('content')
 
     <div class="custom-container">
