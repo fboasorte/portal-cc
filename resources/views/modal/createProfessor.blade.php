@@ -81,7 +81,10 @@
 
                         // Atualize o <select> na página de edição
                         var $selectProfessor = $('#professor_id');
+                        var $selecionado = $selectProfessor.val();
                         $selectProfessor.empty(); // Limpe todas as opções
+                        $selectProfessor.append($('<option value="" disabled selected>Selecione um orientador</option>'));
+
 
                         // Adicione as opções atualizadas com base na resposta do servidor
                         $.each(response.professores, function(index, professor) {
@@ -90,6 +93,8 @@
                                 text: professor.nome
                             }));
                         });
+
+                        $selectProfessor.val($selecionado);
                     }
                 },
             });
