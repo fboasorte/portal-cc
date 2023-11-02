@@ -22,7 +22,7 @@ class ProjetoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => ['required', 'string',  'max:65535'],
+            'titulo' => ['required', 'string',  'max:255'],
             'descricao' => ['required', 'string', 'max:65535'],
             'resultados' => ['nullable', 'string',  'max:65535'],
             'data_inicio' => ['required', 'date', 'after:01/01/2013'],
@@ -40,7 +40,7 @@ class ProjetoRequest extends FormRequest
         return [
             'titulo' => [
                 'required' => 'O título é obrigatório',
-                'max' => 'O título pode ter no máximo 65535 caracteres',
+                'max' => 'O título pode ter no máximo 255 caracteres',
             ],
             'descricao' => [
                 'required' => 'A descrição é obrigatória',
