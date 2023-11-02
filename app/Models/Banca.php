@@ -10,7 +10,9 @@ class Banca extends Model
     protected $table = 'banca';
 
     protected $fillable = [
-        'data', 'local'
+        'data',
+        'local',
+        'professor_id'
     ];
 
     public function professoresExternos() {
@@ -19,5 +21,9 @@ class Banca extends Model
 
     public function professores() {
         return $this->belongsToMany(Professor::class, 'banca_professor', 'banca_id', 'professor_id');
+    }
+
+    public function presidente() {
+        return $this->hasOne(Professor::class, 'id', 'professor_id');
     }
 }

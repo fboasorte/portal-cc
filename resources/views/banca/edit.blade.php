@@ -20,11 +20,22 @@
         <label for="local" class="form-label">Local</label>
         <input type="text" name="local" id="local" class="form-control" value="{{$banca->local}}" placeholder="Local da banca" required>
 
+        <div class="form-group">
+            <label for="" class="form-label"> <br>Presidente*:</label>
+            <select name="presidente" id="presidente" class="form-select" required>
+                @foreach ($professores_internos as $professor)
+                <option value="{{ $professor->id }}" data-professor-id="{{ $professor->id }}"
+                    {{ $professor->id == $banca->presidente->id ? 'selected' : '' }}> {{$professor->nome}} </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="form-group" id="professores">
             <label for="professores" class="form-label">Professores internos</label>
             @foreach ($professores_internos as $professor_interno)
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}" value="{{$professor_interno->id}}" {{$banca->professores->contains($professor_interno->id) ? 'checked' : ''}}>
+                <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}"
+                    value="{{$professor_interno->id}}" {{$banca->professores->contains($professor_interno->id) ? 'checked' : ''}}>
                 <label for="professor_{{$professor_interno->id}}" class="form-check-label">{{$professor_interno->nome}} </label>
             </div>
             @endforeach
@@ -53,3 +64,25 @@
 @include('modal.createProfessor')
 @include('modal.createProfessorExterno')
 @stop
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Obtenha o ID do presidente atual
+        var presidenteId = $('#presidente').val();
+
+        $('#professor_' + presidenteId).prop('checked', true);
+        $('#professor_' + presidenteId).prop('disabled', true);
+
+        $('#presidente').change(function() {
+            var novoPresidenteId = $(this).val();
+
+            $('#professor_' + presidenteId).prop('checked', false);
+            $('#professor_' + presidenteId).prop('disabled', false);
+            $('#professor_' + novoPresidenteId).prop('checked', true);
+            $('#professor_' + novoPresidenteId).prop('disabled', true);
+
+            presidenteId = novoPresidenteId;
+        });
+    });
+</script>

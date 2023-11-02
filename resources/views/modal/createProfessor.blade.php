@@ -93,8 +93,27 @@
                                 text: professor.nome
                             }));
                         });
+                        // Atualize o <select> de presidente
+                        var $selectPresidente = $('#presidente');
+                        var $presidenteSelecionado = $selectPresidente.val();
+                        $selectPresidente.empty(); // Limpe todas as opções
+                        $selectPresidente.append($('<option value="" disabled selected>Selecione um orientador</option>'));
 
+
+                        // Adicione as opções atualizadas com base na resposta do servidor
+                        $.each(response.professores, function(index, professor) {
+                            $selectPresidente.append($('<option>', {
+                                value: professor.id,
+                                'data-professor-id': professor.id,
+                                text: professor.nome
+                            }));
+                        });
+                        $selectPresidente.val($presidenteSelecionado);
                         $selectProfessor.val($selecionado);
+
+                        var presidenteId = $('#presidente').val();
+                        $('#professor_' + presidenteId).prop('checked', true);
+                        $('#professor_' + presidenteId).prop('disabled', true);
                     }
                 },
             });

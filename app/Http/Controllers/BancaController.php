@@ -42,14 +42,15 @@ class BancaController extends Controller
         ]);
     }
 
-    /**p a
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $banca = Banca::create([
             'data' => $request->data,
-            'local' => $request->local
+            'local' => $request->local,
+            'professor_id' => $request->presidente
         ]);
 
         if ($request->professores_internos != null) {
@@ -117,7 +118,8 @@ class BancaController extends Controller
         $banca = Banca::findOrFail($id);
         $banca->update([
             'data' => $request->data,
-            'local' => $request->local
+            'local' => $request->local,
+            'professor_id' => $request->presidente
         ]);
 
         $banca->professoresExternos()->sync($request->professores_externos);

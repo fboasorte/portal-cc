@@ -48,6 +48,9 @@
                                 <td>{{ date('d/m/Y', strtotime($banca->data)) }}</td>
                                 <td class="text-wrap">{{ $banca->local }}</td>
                                 <td class="text-wrap">
+                                    <span style="font-weight: bold;"> Presidente da banca:</span><br>
+                                    <span>{{ $banca->presidente->servidor->nome }}</span><br>
+
                                     @if (count($banca->professoresExternos) > 0)
                                     <span style="font-weight: bold;"> Professores Externos:</span><br>
                                     @foreach ($banca->professoresExternos as $professor_externo)
@@ -62,7 +65,7 @@
                                     @foreach ($banca->professores as $professor)
                                     <span>{{ $professor->servidor->nome }}</span>
                                     <br>
-                                    
+
 
                                     @endforeach
                                     @endif
