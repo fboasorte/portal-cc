@@ -17,7 +17,6 @@ class ColegiadoController extends Controller
      */
     public function index()
     {
-        $colegiado_atual = new Colegiado();
         $colegiado_atual = Colegiado::where('atual', '=', 1)->first();
         $atas = [];
 

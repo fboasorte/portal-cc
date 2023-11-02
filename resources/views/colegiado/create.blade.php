@@ -28,12 +28,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="vigencia" class="form-label">Vigência*</label>
-                    <input type="date" name="vigencia_inicio" id="vigencia_incio" class="form-control" value="{{ date('Y-m-d', strtotime($hoje)) }}" required> até
-                    <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required min="{{ date('Y-m-d', strtotime($hoje . ' +1 day')) }}" required>
+                    <input type="date" name="vigencia_inicio" id="vigencia_inicio" class="form-control" required> até
+                    <input type="date" name="vigencia_fim" id="vigencia_fim" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="atual" class="form-label">Colegiado atual?</label>
                     <input type="checkbox" name="atual" id="atual" checked>
+                    <br>
+                    <span id="mensagem-data" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -88,7 +90,43 @@
 @include('modal.createAluno')
 @include('modal.createServidor')
 @stop
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function() {
+        var $vigenciaInicio = $('#vigencia_inicio');
+        var $vigenciaFim = $('#vigencia_fim');
+        var $atual = $('#atual');
+        var $mensagemData = $('#mensagem-data');
+
+        // Adicione um manipulador de evento aos campos de data
+        $vigenciaInicio.change(function() {
+            verificarDatas();
+        });
+
+        $vigenciaFim.change(function() {
+            verificarDatas();
+        });
+
+        // Função para verificar as datas e habilitar/desabilitar o checkbox
+        function verificarDatas() {
+            var dataInicio = new Date($vigenciaInicio.val());
+            var dataFim = new Date($vigenciaFim.val());
+            var hoje = new Date();
+
+            if (dataInicio <= hoje && dataFim >= hoje) {
+                $atual.prop('disabled', false);
+                $atual.prop('checked', true);
+                $mensagemData.text('');
+            } else {
+                $atual.prop('disabled', true);
+                $atual.prop('checked', false);
+                $mensagemData.text('A vigência selecionada não inclui a data atual.');
+            }
+        }
+        verificarDatas();
+    });
+
+
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById("form-colegiado");
 

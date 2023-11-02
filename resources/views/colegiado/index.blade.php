@@ -133,34 +133,117 @@
 
             @if ($colegiados != null)
             @foreach ($colegiados as $colegiado)
-            <div class="card">
+
+            <div class="mt-4 card">
                 <div class="card-header text-white div-form">
-                    Colegiado
                     <div>
-                        <strong>Portaria:
+                        <strong>
+                            Portaria vigente:
                             {{ $colegiado ? 'Nº ' . $colegiado->numero_portaria : 'Sem portaria vigente' }}
                         </strong>
                     </div>
                     <div>
                         {{ $colegiado
-                                            ? 'De ' . date('d/m/Y', strtotime($colegiado->inicio)) . ' até ' . date('d/m/Y', strtotime($colegiado->fim))
-                                            : '-' }}
-
+                                    ? 'De ' .
+                                        date('d/m/Y', strtotime($colegiado->inicio)) .
+                                        ' até ' .
+                                        date('d/m/Y', strtotime($colegiado->fim))
+                                    : '-' }}
                     </div>
                     <div id="pdf">
                         @if ($colegiado && $colegiado->arquivoPortaria)
-                        <a download href="{{ asset('storage') }}/{{ $colegiado->arquivoPortaria->path }}">Download
+                        <a href="{{ URL::asset('storage') }}/{{ $colegiado->arquivoPortaria->path }}" download style="color: #0088ff;">Download
                             portaria Nº {{ $colegiado->numero_portaria }}</a>
                         @else
                         Sem arquivo de portaria disponível
                         @endif
                     </div>
+                </div>
+                <div class="card-body">
+                    @if ($colegiado != null)
                     <form method="POST" action="{{ route('colegiado.destroy', $colegiado->id) }}">
                         @csrf
                         <input name="_method" type="hidden" value="DELETE">
                         <a href="{{ route('colegiado.edit', $colegiado->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
                         <button type="submit" class="btn btn-danger btn-sm" title='Delete' onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
                     </form>
+                    @endif
+
+                    <table class="table table-hover">
+                        <h5>Membros</h5>
+                        <p>{{ $totalMembros }}</p>
+                        <thead>
+                            <tr>
+                                <th>Presidente</th>
+                                <th>Docentes</th>
+                                <th>Discentes</th>
+                                <th>Técnico administrativo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $colegiado ? $colegiado->presidente->servidor->nome : '-' }}</td>
+                                <td>
+                                    @if ($colegiado)
+                                    @foreach ($colegiado->professores as $professor)
+                                    <p>{{ $professor->servidor->nome }}</p>
+                                    @endforeach
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($colegiado)
+                                    @foreach ($colegiado->alunos as $aluno)
+                                    <p>{{ $aluno->nome }}</p>
+                                    @endforeach
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($colegiado)
+                                    @foreach ($colegiado->tecnicosAdm as $tecnicoAdm)
+                                    <p>{{ $tecnicoAdm->nome }}</p>
+                                    @endforeach
+                                    @endif
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="atas">
+                        <table class="table table-hover">
+                            <h5>Atas</h5>
+                            @if ($colegiado && $colegiado->atas)
+                            <a href=" {{ route('ata.create') }} " class="btn btn-success btn-sm float-end">Nova
+                                ata</a>
+                            @endif
+                            <p>{{ $totalAtas }}</p>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($colegiado != null && $colegiado->atas)
+                                @foreach ($atas as $ata)
+                                <tr>
+                                    <td>
+                                        <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#showAta_{{ $ata->id }}">{{ date('d/m/Y', strtotime($ata->data)) }}</a>
+                                    </td>
+                                    @include('ata.show')
+                                    <td>
+                                        <form method="POST" action="{{ route('ata.destroy', $ata->id) }}">
+                                            @csrf
+                                            <a class="btn btn-success btn-sm" href="{{ route('ata.show', ['id' => $ata->id]) }}"><i class="fa-solid fa-eye"></i></a>
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <a href="{{ route('ata.edit', $ata->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                            <button type="submit" class="btn btn-danger btn-sm" title='Delete' onclick="return confirm('Deseja realmente excluir esse registro?')"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             @endforeach
