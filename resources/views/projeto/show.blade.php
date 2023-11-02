@@ -5,22 +5,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    @php
-        $meses = [
-            1 => 'Janeiro',
-            2 => 'Fevereiro',
-            3 => 'Março',
-            4 => 'Abril',
-            5 => 'Maio',
-            6 => 'Junho',
-            7 => 'Julho',
-            8 => 'Agosto',
-            9 => 'Setembro',
-            10 => 'Outubro',
-            11 => 'Novembro',
-            12 => 'Dezembro',
-        ];
-    @endphp
     <div class="custom-container">
         <div>
             <div>
@@ -215,21 +199,6 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
 
-                            @foreach($projetos as $projeto)
-                                @if(\Carbon\Carbon::parse($projeto->data_inicio)->format('Y') == $data)
-                                    
-                                    <li class="list-group-item tcc-item d-flex justify-content-between align-items-center text-wrap">
-                                        <a href="{{ route('projeto.view', ['id' => $projeto->id]) }}">{{$projeto->titulo}}</a>
-                                        
-                                        @if( date("Y-m-d") > $projeto->data_termino)
-                                            <span class="badge bg-success" >Concluído</span>
-                                        @else
-                                            <span class="badge bg-warning">Não concluído</span>
-                                        @endif
-                                    </li>
-
-                                @endif
-                            @endforeach
                                     @if (count($projeto->imagens) > 0)
 
                                         @foreach ($projeto->imagens as $img)
