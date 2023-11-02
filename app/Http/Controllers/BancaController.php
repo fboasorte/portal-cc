@@ -22,11 +22,8 @@ class BancaController extends Controller
             $bancas = Banca::all();
         }
 
-        $professores = Professor::join('servidor', 'professor.servidor_id', '=', 'servidor.id')->get();
-
         return view('banca.index', [
             'buscar' => $buscar,
-            'professores_internos' => $professores,
             'bancas' => $bancas
         ]);
     }
@@ -49,7 +46,7 @@ class BancaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);   
+        // dd($request);
         $banca = Banca::create([
             'data' => $request->data,
             'local' => $request->local

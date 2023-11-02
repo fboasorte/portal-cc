@@ -60,8 +60,10 @@
                                     @if (count($banca->professores) > 0)
                                     <span style="font-weight: bold;"> Professores Internos:</span><br>
                                     @foreach ($banca->professores as $professor)
-                                    <span>{{ $professores_internos->contains($professor->id) ? $professores_internos->where('id', $professor->id)->first()->nome: '' }} </span>
-                                    <span>{!! $professores_internos->contains($professor->id) ? '<br>' : '' !!}</span>
+                                    <span>{{ $professor->servidor->nome }}</span>
+                                    <br>
+                                    
+
                                     @endforeach
                                     @endif
                                 </td>
