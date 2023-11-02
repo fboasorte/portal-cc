@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banca;
 use App\Models\Professor;
 use App\Models\ProfessorExterno;
+use App\Models\Servidor;
 use Illuminate\Http\Request;
 
 class BancaController extends Controller
@@ -46,7 +47,6 @@ class BancaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $banca = Banca::create([
             'data' => $request->data,
             'local' => $request->local

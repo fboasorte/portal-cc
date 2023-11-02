@@ -64,7 +64,7 @@
                             var checkboxId = 'professor_externo_' + professor.id;
                             professoresCheckboxHTML +=
                             '<div class="form-check">' +
-                            '<input type="checkbox" class="form-check-input" name="professores[]" id="' + checkboxId + '" value="' + professor.id + '">' +
+                            '<input type="checkbox" class="form-check-input" name="professores_externos[]" id="' + checkboxId + '" value="' + professor.id + '">' +
                             '<label for= "' + checkboxId + '" class="form-check-label">' + professor.nome + ' - '  + professor.filiacao + '</label>' +
                             '</div>';
                         });
