@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use App\Models\ArquivoPortaria;
+use App\Models\Ata;
 use App\Models\Colegiado;
 use App\Models\Coordenador;
 use App\Models\Professor;
@@ -17,41 +18,23 @@ class ColegiadoController extends Controller
      */
     public function index()
     {
-        $colegiado_atual = Colegiado::where('atual', '=', 1)->first();
-        $atas = [];
+        $colegiado_atual = Colegiado::where('atual', '=', 1)
+            ->first();
 
         if ($colegiado_atual != null) {
             $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])
                 ->orderBy('numero_portaria', 'desc')
-                ->get();
-
-            $atas = $colegiado_atual->atas()
-                ->orderBy('data', 'desc')
                 ->get();
         } else {
             $colegiados = Colegiado::orderBy('numero_portaria', 'desc')
                 ->get();
         }
 
-        $totalMembros = 0;
-        $totalAtas = 0;
-        if ($colegiado_atual != null) {
-            $totalAtas = $colegiado_atual->atas()->count();
-        }
-
-
-        if ($colegiado_atual != null) {
-            $totalMembros++;
-            $totalMembros += $colegiado_atual->professores()->count();
-            $totalMembros += $colegiado_atual->alunos()->count();
-            $totalMembros += $colegiado_atual->tecnicosAdm()->count();
-        }
+        $atas = Ata::all();
 
 
         return view('colegiado.index', ['colegiados' => $colegiados,
         'colegiado_atual' => $colegiado_atual,
-        'totalMembros' => $totalMembros,
-        'totalAtas' => $totalAtas,
         'atas' => $atas]);
     }
 

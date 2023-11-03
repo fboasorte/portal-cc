@@ -12,14 +12,18 @@
     </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-3">
+    <a href=" {{ route('colegiado.create') }} " class="btn btn-success btn-sm">Novo colegiado</a>
+    <a href=" {{ route('ata.create') }} " class="btn btn-success btn-sm">Nova ata</a>
 
+</div>
+
+<div class="container mt-3">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header text-white div-form">
                     Colegiado Atual
-                    <a href=" {{ route('colegiado.create') }} " class="btn btn-success btn-sm float-end">Novo</a>
                     <div>
                         <strong>
                             Portaria vigente:
@@ -55,7 +59,6 @@
 
                     <table class="table table-hover">
                         <h5>Membros</h5>
-                        <p>{{ $totalMembros }}</p>
                         <thead>
                             <tr>
                                 <th>Presidente</th>
@@ -94,11 +97,6 @@
                     <div id="atas">
                         <table class="table table-hover">
                             <h5>Atas</h5>
-                            @if ($colegiado_atual && $colegiado_atual->atas)
-                            <a href=" {{ route('ata.create') }} " class="btn btn-success btn-sm float-end">Nova
-                                ata</a>
-                            @endif
-                            <p>{{ $totalAtas }}</p>
                             <thead>
                                 <tr>
                                     <th>Data</th>
@@ -107,7 +105,7 @@
                             </thead>
                             <tbody>
                                 @if ($colegiado_atual != null && $colegiado_atual->atas)
-                                @foreach ($atas as $ata)
+                                @foreach ($colegiado_atual->atas as $ata)
                                 <tr>
                                     <td>
                                         <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#showAta_{{ $ata->id }}">{{ date('d/m/Y', strtotime($ata->data)) }}</a>
@@ -171,7 +169,7 @@
 
                     <table class="table table-hover">
                         <h5>Membros</h5>
-                        <p>{{ $totalMembros }}</p>
+
                         <thead>
                             <tr>
                                 <th>Presidente</th>
@@ -210,11 +208,6 @@
                     <div id="atas">
                         <table class="table table-hover">
                             <h5>Atas</h5>
-                            @if ($colegiado && $colegiado->atas)
-                            <a href=" {{ route('ata.create') }} " class="btn btn-success btn-sm float-end">Nova
-                                ata</a>
-                            @endif
-                            <p>{{ $totalAtas }}</p>
                             <thead>
                                 <tr>
                                     <th>Data</th>
@@ -223,7 +216,7 @@
                             </thead>
                             <tbody>
                                 @if ($colegiado != null && $colegiado->atas)
-                                @foreach ($atas as $ata)
+                                @foreach ($colegiado->atas as $ata)
                                 <tr>
                                     <td>
                                         <a href="" class="btn custom-button modal-trigger" data-bs-toggle="modal" data-bs-target="#showAta_{{ $ata->id }}">{{ date('d/m/Y', strtotime($ata->data)) }}</a>

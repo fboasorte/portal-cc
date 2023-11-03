@@ -21,8 +21,10 @@ class AtaController extends Controller
      */
     public function create()
     {
+        $colegiados = Colegiado::orderBy('numero_portaria')
+            ->get();
         $hoje = date(now());
-        return view('ata.create', ['hoje' => $hoje]);
+        return view('ata.create', ['hoje' => $hoje,'colegiados' => $colegiados]);
     }
 
     /**
@@ -30,7 +32,7 @@ class AtaController extends Controller
      */
     public function store(Request $request)
     {
-        $colegiado = Colegiado::where('fim', '>', now())->first();
+        $colegiado = Colegiado::find($request->colegiado);
 
         if($colegiado) {
             $ata = new Ata([
@@ -62,8 +64,11 @@ class AtaController extends Controller
     public function edit(string $id)
     {
         $ata = Ata::findOrFail($id);
+        $colegiadoPertence = $ata->colegiado;
 
-        return view('ata.edit', ['ata' => $ata]);
+        $colegiados = Colegiado::orderBy('numero_portaria', 'asc')
+            ->get();
+        return view('ata.edit', ['ata' => $ata, 'colegiados' => $colegiados, 'colegiadoPertencente' => $colegiadoPertence]);
     }
 
     /**
@@ -72,11 +77,12 @@ class AtaController extends Controller
     public function update(Request $request, string $id)
     {
         $ata = Ata::findOrFail($id);
-        $colegiado = Colegiado::where('fim', '>', now())->first();
+        $colegiado = Colegiado::find($request->colegiado);
 
         $ata->update([
             'data' => $request->data,
-            'descricao' => $request->descricao
+            'descricao' => $request->descricao,
+            'colegiado_id' => $colegiado->id
         ]);
 
         return redirect('colegiado')->with('success', 'Ata atualizada com sucesso!');
