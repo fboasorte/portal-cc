@@ -115,7 +115,8 @@ class ColegiadoController extends Controller
         $servidores = Servidor::whereNotIn('id', function ($query) {
             $query->select('servidor_id')->from('professor');
         })->get();
-        $colegiado = Colegiado::findOrFail($id);
+
+        $colegiado = Colegiado::find($id);
 
         $hoje = date('d-m-Y');
 

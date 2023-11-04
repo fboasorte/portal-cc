@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="atual" class="form-label">Colegiado atual?</label>
-                    <input type="checkbox" name="atual" id="atual" {{ $colegiado->atual == 1 ? 'checked' : '' }}>
+                    <input type="checkbox" name="atual" id="atual" {{$colegiado->atual == 1 ? 'checked' : ''}}>
                     <br>
                     <span id="mensagem-data" class="text-danger"></span>
                 </div>
@@ -129,7 +129,7 @@
 
             if (dataInicio <= hoje && dataFim >= hoje) {
                 $atual.prop('disabled', false);
-                $atual.prop('checked', true);
+                // $atual.prop('checked', true);
                 $mensagemData.text('');
             } else {
                 $atual.prop('disabled', true);
