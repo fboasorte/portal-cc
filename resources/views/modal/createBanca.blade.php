@@ -17,12 +17,24 @@
                     <label for="local">Local</label>
                     <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca">
 
+                    <div class="form-group">
+                        <label for="" class="form-label"> <br>Presidente*:</label>
+                        <br>
+                        <span class="text-danger">O presidente da banca é o orientador selecionado anteriormente</span>
+                        <select name="presidente" id="presidente" class="form-select" required disabled>
+                            <option value="" disabled selected>Selecione um orientador</option>
+                            @foreach ($professores as $professor)
+                                <option value="{{ $professor->id }}" data-professor-id="{{ $professor->id }}"> {{$professor->nome}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group" id="professores">
                         <label for="professores">Professores internos</label>
                         @foreach ($professores as $professor_interno)
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}" value="{{$professor_interno->id}}">
-                            <label for="" class="form-check-label text-wrap">{{$professor_interno->nome}} </label>
+                            <label for="professor_{{$professor_interno->id}}" class="form-check-label text-wrap">{{$professor_interno->nome}} </label>
                         </div>
                         @endforeach
                     </div>
@@ -34,7 +46,7 @@
                         @foreach ($professores_externos as $professor_externo)
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="professores_externos[]" id="professor_externo_{{$professor_externo->id}}" value="{{$professor_externo->id}}">
-                            <label for="" class="form-check-label text-wrap">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
+                            <label for="professor_externo_{{$professor_externo->id}}" class="form-check-label text-wrap">{{$professor_externo->nome}} - {{$professor_externo->filiacao}}</label>
                         </div>
                         @endforeach
                     </div>
@@ -43,8 +55,15 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrarBancaButton">Cadastrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCancelBanca">Cancelar</button>
+                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrarBancaButton">
+                    Cadastrar
+                </button>
+                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrandoBancaButton" hidden disabled>
+                    <span id="iconLoadingBanca" class="spinner-border spinner-border-sm"
+                    data-bs-dismiss="modal" aria-hidden="true"></span>
+                    Cadastrando
+                </button>
             </div>
         </div>
     </div>
@@ -52,10 +71,33 @@
 
 
 <script>
+    $('#createBanca').on('show.bs.modal', function(event) {
+        var orientadorId = $('#professor_id').val();
+        $('#presidente').val(orientadorId);
+
+        var selectedPresidenteId = $(this).find(':selected').data('professor-id');
+
+        $('input[name="professores_internos[]"]').prop('checked', false);
+        $('input[name="professores_internos[]"]').prop('disabled', false);
+
+        // Marque o checkbox correspondente ao presidente selecionado
+        $('#professor_' + selectedPresidenteId).prop('checked', true);
+        $('#professor_' + selectedPresidenteId).prop('disabled', true);
+    });
+
       $(document).ready(function() {
-        $('#cadastrarBancaButton').click(function() {
+          $('#cadastrarBancaButton').click(function() {
+            console.log('cadastrando');
+
+            var buttonCadastrar = $('#cadastrarBancaButton');
+            var buttonCancelar = $('#buttonCancelBanca');
+            var buttonCadastrando = $('#cadastrandoBancaButton');
+            loading();
+
             var data = $('#data').val();
             var local = $('#local').val();
+            var presidente = $('#presidente').val();
+
 
             var professoresInternos = [];
             $('input[name="professores_internos[]"]:checked').each(function() {
@@ -67,6 +109,7 @@
                 professoresExternos.push($(this).val());
             });
 
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
@@ -75,6 +118,7 @@
                 local: local,
                 professores_internos: professoresInternos,
                 professores_externos: professoresExternos,
+                presidente: presidente,
                 contexto: 'modal'
             };
 
@@ -83,6 +127,7 @@
                 url: "{{ route('banca.store') }}",
                 data: data,
                 success: function(response) {
+                    loading();
                     console.log(response);
 
                     //Atualizar select de bancas
@@ -118,14 +163,28 @@
                             text: texto
                         }));
                     });
-                alert('Banca cadastrada com sucesso!');
-                $('#createBanca').modal('hide');
+                    loaded();
+                    alert('Banca cadastrada com sucesso!');
+                    $('#createBanca').modal('hide');
                 },
                 error: function(error) {
                     alert('Ocorreu um erro ao cadastrar a banca.');
                     $('#createBanca').modal('hide');
+                    loaded();
                 }
             });
+
+            function loading() {
+                buttonCadastrar.prop('hidden', true);
+                buttonCancelar.prop('disabled', true);
+                buttonCadastrando.prop('hidden', false);
+            }
+
+            function loaded() {
+                buttonCadastrar.prop('hidden', false);
+                buttonCancelar.prop('disabled', false);
+                buttonCadastrando.prop('hidden', true);
+            }
         });
     });
 </script>
