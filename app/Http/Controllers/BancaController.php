@@ -6,6 +6,7 @@ use App\Models\Banca;
 use App\Models\Professor;
 use App\Models\ProfessorExterno;
 use App\Models\Servidor;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class BancaController extends Controller
@@ -133,9 +134,17 @@ class BancaController extends Controller
      */
     public function destroy(string $id)
     {
-        $banca = Banca::findOrFail($id);
-        $banca->delete();
+        try {
+            $banca = Banca::findOrFail($id);
+            $banca->delete();
+            $tipo = "success";
+            $mensagem = 'Banca excluída com sucesso!';
 
-        return back()->with('success', 'Banca excluída com sucesso!');
+        } catch(QueryException){
+            $tipo = "error";
+            $mensagem = 'Banca utilizada no sistema!';
+        }
+
+        return back()->with($tipo, $mensagem);
     }
 }

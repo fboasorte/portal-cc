@@ -7,6 +7,8 @@ use App\Models\CurriculoProfessor;
 use App\Models\Professor;
 use App\Models\Servidor;
 use App\Models\User;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -146,13 +148,22 @@ class ProfessorController extends Controller
 
     public function destroy($servidor_id)
     {
-        $servidor = Servidor::where('id', $servidor_id)->first();
-        $professor = Professor::where('servidor_id', $servidor_id)->first();
-        Professor::destroy($professor->id);
-        Servidor::destroy($servidor->id);
-        User::destroy($servidor->user_id);
+        try {
+            $servidor = Servidor::where('id', $servidor_id)->first();
+            $professor = Professor::where('servidor_id', $servidor_id)->first();
+            Professor::destroy($professor->id);
+            Servidor::destroy($servidor->id);
+            User::destroy($servidor->user_id);
 
-        return redirect('/professor')->with('success', "Usuário removido com sucesso!");
+            $tipo = "success";
+            $mensagem = "Usuário removido com sucesso!";
+
+        } catch(QueryException){
+            $tipo = "error";
+            $mensagem = "Professor utilizado no sistema!";
+        }
+
+        return redirect('/professor')->with($tipo, $mensagem);
     }
 
     public function view($servidor_id)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TipoPostagemRequest;
 use App\Models\TipoPostagem;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class TipoPostagemController extends Controller
@@ -72,8 +73,16 @@ class TipoPostagemController extends Controller
      */
     public function destroy(string $id)
     {
-        $tipo_postagem =  TipoPostagem::findOrFail($id);
-        $tipo_postagem->delete();
-        return back()->with('success', 'Tipo de Postagem Excluido com Sucesso');
+        try {
+            $tipo_postagem =  TipoPostagem::findOrFail($id);
+            $tipo_postagem->delete();
+            $tipo = "success";
+            $mensagem = "Tipo de Postagem Excluido com Sucesso!";
+        } catch(QueryException){
+            $tipo = "error";
+            $mensagem = "Tipo de Postagem utilizado no sistema!";
+        }
+
+        return back()->with($tipo, $mensagem);
     }
 }
