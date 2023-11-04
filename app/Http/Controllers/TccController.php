@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TccRequest;
 use App\Models\Aluno;
 use App\Models\ArquivoTcc;
 use App\Models\Banca;
@@ -16,11 +17,8 @@ class TccController extends Controller
 {
     public function index(Request $request)
     {
-
         $tccs = Tcc::all();
         $professores = Servidor::join('professor', 'professor.servidor_id', '=', 'servidor.id')->get();
-
-        // return dd($tccs[0]->aluno);
 
         return view('tcc.index', ['tccs' => $tccs, 'professores' => $professores]);
     }
@@ -38,7 +36,7 @@ class TccController extends Controller
         return view('tcc.create', ['anoAtual' => $anoAtual, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $id]);
     }
 
-    public function store(Request $request)
+    public function store(TccRequest $request)
     {
         $orientador = Professor::find($request->professor_id);
 
@@ -83,11 +81,8 @@ class TccController extends Controller
         return view('tcc.edit', ['anoTcc' => $tcc->ano, 'tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $alunoId]);
     }
 
-    public function update(Request $request, $id)
+    public function update(TccRequest $request, $id)
     {
-
-        // return $request;
-
         $tcc = Tcc::find($request->id);
 
         if ($request->contexto === 'concluiTcc') {
@@ -204,8 +199,8 @@ class TccController extends Controller
             $tccsPorAno[$ano][] = $tcc;
         }
 
-        krsort($tccsPorAno); 
-        ksort($professores); 
+        krsort($tccsPorAno);
+        ksort($professores);
 
 
         return view('tcc.show', ['professores' => $professores, 'tccsPorAno' => $tccsPorAno]);
