@@ -34,7 +34,6 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                     @if ($colegiado)
-                                    <p><strong>ID:</strong> {{ $colegiado->id }}</p>
                                     <p><strong>Número de Portaria:</strong> {{ $colegiado->numero_portaria }}</p>
                                     <p><strong>Início:</strong> {{ date('d/m/Y', strtotime($colegiado->inicio)) }}</p>
                                     <p><strong>Fim:</strong> {{ date('d/m/Y', strtotime($colegiado->fim)) }}</p>
