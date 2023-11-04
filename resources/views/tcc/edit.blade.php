@@ -46,8 +46,7 @@
                         <option value="" disabled selected>Selecione um aluno</option>
                         @foreach ($alunos as $aluno)
                             <option value="{{ $aluno->id }}" {{ $aluno->id == $tcc->aluno_id ? 'selected' : '' }}>
-                                ({{ $aluno->id }})
-                                - {{ $aluno->nome }} </option>
+                                {{ $aluno->nome }} </option>
                         @endforeach
                     </select>
                     @error('aluno_id')
@@ -72,8 +71,7 @@
                         @foreach ($professores as $professor)
                             <option value="{{ $professor->id }}"
                                 {{ $professor->id == $tcc->professor_id ? 'selected' : '' }}>
-                                ({{ $professor->id }})
-                                - {{ $professor->nome }} </option>
+                                {{ $professor->nome }} </option>
                         @endforeach
                     </select>
                     @error('professor_id')
