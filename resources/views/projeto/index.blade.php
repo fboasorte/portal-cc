@@ -29,7 +29,6 @@
                     <table id="projetoTable" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Título</th>
                                 <th>Data Inicio</th>
                                 <th>Ação</th>
@@ -38,7 +37,6 @@
                         <tbody>
                             @foreach ($projetos as $projeto)
                             <tr>
-                                <td>{{ $projeto->id }}</td>
                                 <td class="text-wrap">{{ $projeto->titulo }}</td>
                                 <td>{{ date('d/m/Y', strtotime($projeto->data_inicio)) }}</td>
                                 <td>

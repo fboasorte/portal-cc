@@ -31,7 +31,6 @@
                         <table id="postagemTable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Título</th>
                                     <th>Criação</th>
                                     <th>Ação</th>
@@ -40,7 +39,6 @@
                             <tbody>
                                 @foreach ($postagens as $postagem)
                                 <tr>
-                                    <td>{{ $postagem->id }}</td>
                                     <td class="text-left text-wrap" data-toggle="tooltip" data-placement="top" title="{{ $postagem->titulo }}">
                                         {{ $postagem->titulo }}
                                     </td>

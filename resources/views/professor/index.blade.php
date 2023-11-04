@@ -29,7 +29,6 @@
                     <table id="professorTable" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Email</th>
                                 <th>Criação</th>
@@ -39,7 +38,6 @@
                         <tbody>
                             @foreach ($servidores as $servidor)
                             <tr>
-                                <td>{{ $servidor->id }}</td>
                                 <td class="text-wrap">{{ $servidor->nome }}</td>
                                 <td class="text-wrap">{{ $servidor->email }}</td>
                                 <td>{{ date_format($servidor->created_at, 'd/m/Y H:i:s') }}</td>

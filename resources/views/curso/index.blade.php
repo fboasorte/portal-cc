@@ -29,7 +29,6 @@
                     <table id="cursoTable" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Sigla</th>
                                 <th>Turno</th>
@@ -43,7 +42,6 @@
                         <tbody>
                             @foreach ($cursos as $curso)
                             <tr>
-                                <td>{{ $curso->id }}</td>
                                 <td>{{ $curso->nome }}</td>
                                 <td>{{ $curso->sigla }}</td>
                                 <td>{{ $curso->turno }}</td>

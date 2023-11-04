@@ -30,7 +30,6 @@
                         <table id="tipoPostagemTable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Nome</th>
                                     <th>Ação</th>
                                 </tr>
@@ -38,7 +37,6 @@
                             <tbody>
                                 @foreach ($tipo_postagens as $tipo_postagem)
                                 <tr>
-                                    <td>{{ $tipo_postagem->id }}</td>
                                     <td>{{ $tipo_postagem->nome }}</td>
                                     <td>
                                         <form method="POST" action="{{ route('tipo-postagem.destroy', $tipo_postagem->id) }}">

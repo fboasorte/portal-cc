@@ -34,7 +34,6 @@
                     <table id="bancaTable" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Data</th>
                                 <th>Local</th>
                                 <th>Membros</th>
@@ -44,7 +43,6 @@
                         <tbody>
                             @foreach ($bancas as $banca)
                             <tr>
-                                <td>{{ $banca->id }}</td>
                                 <td>{{ date('d/m/Y', strtotime($banca->data)) }}</td>
                                 <td class="text-wrap">{{ $banca->local }}</td>
                                 <td class="text-wrap">
