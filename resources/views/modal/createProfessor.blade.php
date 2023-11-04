@@ -19,9 +19,13 @@
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrarProfessorButton">Cadastrar</button>
+            <div class="modal-footer" id="buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCancel">Cancelar</button>
+                <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrarProfessorButton">
+                    <span id="iconLoading" class="spinner-border spinner-border-sm"
+                        data-bs-dismiss="modal" aria-hidden="true" hidden></span>
+                    <span id="textCadastrar"> Cadastrar </span>
+                </button>
             </div>
         </div>
     </div>
@@ -45,6 +49,18 @@
                 return;
             }
 
+            var iconLoading = $('#iconLoading');
+            iconLoading.removeAttr('hidden');
+            var buttonCadastrar = $('#cadastrarProfessorButton');
+            var buttonCancelar = $('#buttonCancel');
+            buttonCadastrar.prop('disabled', true);
+            buttonCancelar.prop('disabled', true);
+
+            var professoresSelecionadosAntes = [];
+            $('input[name="professores_internos[]"]:checked').each(function() {
+                professoresSelecionadosAntes.push($(this).val());
+            });
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
@@ -59,21 +75,27 @@
                 url: "{{ route('professor.store') }}",
                 data: data,
                 success: function(response) {
+
+                    loading();
                     if (response.error) {
+                        loaded();
                         alert(response.error);
                     } else {
                         // Feche o modal
                         $('#createProfessor').modal('hide');
 
+
                         // Atualiza os checkboxs na página colegiado em cadastrar professor
                         var professoresCheckboxHTML = '';
                         $.each(response.professores, function(index, professor) {
                             var checkboxId = 'professor_' + professor.id;
+                            var isChecked = professoresSelecionadosAntes.includes(professor.id.toString()) ? 'checked' : '';
                             professoresCheckboxHTML +=
-                            '<div class="form-check">' +
-                            '<input type="checkbox" class="form-check-input" name="professores_internos[]" id="' + checkboxId + '" value="' + professor.id + '">' +
-                            '<label for="' + checkboxId + '" class="form-check-label">' + professor.nome + '</label>' +
-                            '</div>';
+                                '<div class="form-check">' +
+                                '<input type="checkbox" class="form-check-input" name="professores_internos[]" id="' +
+                                    checkboxId + '" value="' + professor.id + '" ' + isChecked + '>' +
+                                '<label for="' + checkboxId + '" class="form-check-label">' + professor.nome + '</label>' +
+                                '</div>';
                         });
 
                         $('#professores .form-check').remove();
@@ -93,6 +115,7 @@
                                 text: professor.nome
                             }));
                         });
+
                         // Atualize o <select> de presidente
                         var $selectPresidente = $('#presidente');
                         var $presidenteSelecionado = $selectPresidente.val();
@@ -115,8 +138,24 @@
                         $('#professor_' + presidenteId).prop('checked', true);
                         $('#professor_' + presidenteId).prop('disabled', true);
                     }
+
+                    loaded();
                 },
             });
+
+            function loading() {
+                iconLoading.removeAttr('hidden');
+                buttonCadastrar.prop('disabled', true);
+                buttonCancelar.prop('disabled', true);
+            }
+
+            function loaded() {
+                iconLoading.attr('hidden', true);
+                buttonCadastrar.prop('disabled', false);
+                buttonCancelar.prop('disabled', false);
+            }
+
         });
+
     });
 </script>
