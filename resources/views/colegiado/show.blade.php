@@ -23,7 +23,7 @@
                                     <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-selected="true">Detalhes</a>
                                 </li>
                                 <li class="nav-item nav-item-colegiado" role="presentation">
-                                    <a class="nav-link" id="professores-tab" data-toggle="tab" href="#professores" role="tab" aria-selected="true">Professores</a>
+                                    <a class="nav-link" id="representantes-tab" data-toggle="tab" href="#representantes" role="tab" aria-selected="true">Representantes</a>
                                 </li>
                                 <li class="nav-item nav-item-colegiado" role="presentation">
                                     <a class="nav-link" id="ata-tab" data-toggle="tab" href="#ata" role="tab" aria-selected="true">Ata</a>
@@ -37,17 +37,38 @@
                                     <p><strong>Número de Portaria:</strong> {{ $colegiado->numero_portaria }}</p>
                                     <p><strong>Início:</strong> {{ date('d/m/Y', strtotime($colegiado->inicio)) }}</p>
                                     <p><strong>Fim:</strong> {{ date('d/m/Y', strtotime($colegiado->fim)) }}</p>
-                                    <p><strong>Coordenador:</strong> {{ $presidente->servidor->nome }}</p>
+                                    <p><strong>Presidente:</strong> {{ $presidente->servidor->nome }}</p>
                                     <p><strong>Arquivo de Portaria:</strong> <a download href="{{ asset('storage') }}/{{ $colegiado->arquivoPortaria->path }}">Download
                                             portaria Nº {{ $colegiado->numero_portaria }}</a></p>
                                     @endif
                                 </div>
-                                <div class="tab-pane fade" id="professores" role="tabpanel" aria-labelledby="professores-tab">
+                                <div class="tab-pane fade" id="representantes" role="tabpanel" aria-labelledby="representantes-tab">
+                                    
                                     <ul style="list-style-type: none; padding: 0;">
                                         @if ($professores)
-                                        <p><strong>Nome:</strong></p>
+                                        <p><strong>Professores:</strong></p>
                                         @foreach ($professores as $professor)
                                         <li>{{ $professor->servidor->nome }}</li>
+                                        <!-- Adicione mais detalhes do professor, se necessário -->
+
+                                        @endforeach
+                                        @endif
+                                    </ul>
+                                    <ul style="list-style-type: none; padding: 0;">
+                                        @if ($alunos)
+                                        <p><strong>Alunos:</strong></p>
+                                        @foreach ($alunos as $aluno)
+                                        <li>{{ $aluno->nome }}</li>
+                                        <!-- Adicione mais detalhes do professor, se necessário -->
+
+                                        @endforeach
+                                        @endif
+                                    </ul>
+                                    <ul style="list-style-type: none; padding: 0;">
+                                        @if ($tecnicosAdm)
+                                        <p><strong>Tecnicos Administrativo:</strong></p>
+                                        @foreach ($tecnicosAdm as $tecnicosAdm)
+                                        <li>{{ $tecnicosAdm->nome }}</li>
                                         <!-- Adicione mais detalhes do professor, se necessário -->
 
                                         @endforeach
@@ -78,33 +99,33 @@
     </div>
 </div>
 <script>
-    document.getElementById('professores-tab').addEventListener('click', function(e) {
+    document.getElementById('representantes-tab').addEventListener('click', function(e) {
         e.preventDefault(); // Impede que a aba ative a alteração da URL
         document.getElementById('details').classList.remove('show', 'active');
         document.getElementById('ata').classList.remove('show', 'active');
-        document.getElementById('professores').classList.add('show', 'active');
-        document.getElementById('professores-tab').classList.add('active');
+        document.getElementById('representantes').classList.add('show', 'active');
+        document.getElementById('representantes-tab').classList.add('active');
         document.getElementById('ata-tab').classList.remove('active');
         document.getElementById('details-tab').classList.remove('active');
     });
 
     document.getElementById('details-tab').addEventListener('click', function(e) {
         e.preventDefault(); // Impede que a aba ative a alteração da URL
-        document.getElementById('professores').classList.remove('show', 'active');
+        document.getElementById('representantes').classList.remove('show', 'active');
         document.getElementById('ata').classList.remove('show', 'active');
         document.getElementById('details').classList.add('show', 'active');
         document.getElementById('details-tab').classList.add('active');
         document.getElementById('ata-tab').classList.remove('active');
-        document.getElementById('professores-tab').classList.remove('active');
+        document.getElementById('representantes-tab').classList.remove('active');
     });
 
     document.getElementById('ata-tab').addEventListener('click', function(e) {
         e.preventDefault(); // Impede que a aba ative a alteração da URL
         document.getElementById('details').classList.remove('show', 'active');
-        document.getElementById('professores').classList.remove('show', 'active');
+        document.getElementById('representantes').classList.remove('show', 'active');
         document.getElementById('ata').classList.add('show', 'active');
         document.getElementById('ata-tab').classList.add('active');
-        document.getElementById('professores-tab').classList.remove('active');
+        document.getElementById('representantes-tab').classList.remove('active');
         document.getElementById('details-tab').classList.remove('active');
     });
 
