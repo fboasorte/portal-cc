@@ -181,7 +181,7 @@ class ColegiadoController extends Controller
 
         // Encontre o colegiado com base no ID
         $colegiado_atual = new Colegiado();
-        $colegiado_atual = Colegiado::where('fim', '>', now())->first();
+        $colegiado_atual = Colegiado::where('atual', '=', true)->first();
 
         if ($colegiado_atual != null) {
             $colegiados = Colegiado::whereNotIn('id', [$colegiado_atual->id])->get();
