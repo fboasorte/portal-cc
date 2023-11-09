@@ -159,6 +159,16 @@
                 </div>
                 <div class="card-body">
                     @if ($colegiado != null)
+                    <div class="float-end">
+                        <form action="{{ route('colegiado.update', [ $colegiado->id, 'update_to_atual' => '1']) }}" method="post">
+                            @method('PUT')
+                            @csrf
+                            <button class="btn btn-primary btn-sm" type="submit" {{ $colegiado->incio < now() && $colegiado->fim > now() ? '' : 'disabled' }}>
+                                Tornar atual
+                            </button>
+                        </form>
+                    </div>
+
                     <form method="POST" action="{{ route('colegiado.destroy', $colegiado->id) }}">
                         @csrf
                         <input name="_method" type="hidden" value="DELETE">

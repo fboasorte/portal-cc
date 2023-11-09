@@ -48,7 +48,7 @@
 
                 @foreach ($professores as $professor)
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="professores[]" id="professor_{{$professor->id}}" value="{{$professor->id}}">
+                    <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor->id}}" value="{{$professor->id}}">
                     <label for="professor_{{$professor->id}}" class="form-check-label">{{$professor->servidor->nome}}</label>
                 </div>
                 @endforeach
@@ -131,7 +131,7 @@
         const form = document.getElementById("form-colegiado");
 
         form.addEventListener("submit", function(event) {
-            const professores = document.querySelectorAll('input[name="professores[]"]:checked').length;
+            const professores = document.querySelectorAll('input[name="professores_internos[]"]:checked').length;
             const alunos = document.querySelectorAll('input[name="alunos[]"]:checked').length;
             const servidores = document.querySelectorAll('input[name="servidores[]"]:checked').length;
 

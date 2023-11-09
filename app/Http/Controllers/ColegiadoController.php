@@ -129,6 +129,23 @@ class ColegiadoController extends Controller
     public function update(Request $request, $id)
     {
         $colegiado = Colegiado::find($request->id);
+
+        if($request->update_to_atual) {
+            $colegiado_anterior = Colegiado::where('atual', '=', true)
+                ->first();
+
+            if ($colegiado_anterior) {
+                $colegiado_anterior->update([
+                    'atual' => false
+                ]);
+
+                $colegiado->update([
+                    'atual' => true
+                ]);
+            }
+            return redirect('colegiado')->with('success', 'Colegiado atualizado com sucesso');
+        }
+
         $coordenador = Coordenador::first();
         $atual = ($request->atual === 'on' ? 1 : 0);
 
