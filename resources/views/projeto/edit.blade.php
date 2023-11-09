@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-                <label for="titulo" class="form-label">Data de Termino*: </label>
+                <label for="titulo" class="form-label">Data de Termino: </label>
                 <input value="{{ old('data_termino') ?? $projeto->data_termino }}" type="date" name="data_termino"
                     id="data_termino" class="form-control @error('data_termino') is-invalid @enderror">
                     

@@ -56,7 +56,7 @@
             
 
             <div class="form-group">
-                <label for="data_termino" class="form-label">Data de Termino*: </label>
+                <label for="data_termino" class="form-label">Data de Termino: </label>
                 <input type="date" name="data_termino" id="data_termino" value="{{ old('data_termino') }}"
                     class="form-control @error('data_termino') is-invalid @enderror">
                 
