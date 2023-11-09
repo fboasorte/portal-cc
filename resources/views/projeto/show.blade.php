@@ -46,7 +46,7 @@
                                 <h6 class="mb-0">Data de Início:</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{ $projeto->data_inicio }}
+                                {{ date('d/m/Y', strtotime($projeto->data_inicio)) }}
                             </div>
                         </div>
 
@@ -54,10 +54,10 @@
 
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Data de Termino:</h6>
+                                <h6 class="mb-0">Data de Término:</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{ $projeto->data_termino }}
+                                {{ $projeto->data_termino ? date('d/m/Y', strtotime($projeto->data_termino)) : 'Não definido' }}
                             </div>
                         </div>
 
