@@ -17,16 +17,12 @@
                     <label for="local">Local</label>
                     <input type="text" name="local" id="local" class="form-control" placeholder="Local da banca">
 
-                    <div class="form-group">
-                        <label for="" class="form-label"> <br>Presidente*:</label>
-                        <br>
+                    <div class="mb-3 row">
+                        <label for="" class="form-label col-sm-2 col-form-label">Presidente:</label>
+                        <div class="col-sm-9">
+                            <input id="textPresidente" type="text" readonly class="form-control-plaintext" value="">
+                        </div>
                         <span class="text-danger">O presidente da banca é o orientador selecionado anteriormente</span>
-                        <select name="presidente" id="presidente" class="form-select" required disabled>
-                            <option value="" disabled selected>Selecione um orientador</option>
-                            @foreach ($professores as $professor)
-                                <option value="{{ $professor->id }}" data-professor-id="{{ $professor->id }}"> {{$professor->nome}} </option>
-                            @endforeach
-                        </select>
                     </div>
 
                     <div class="form-group" id="professores">
@@ -38,7 +34,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" >Cadastrar professor interno</a>
+                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor interno</a>
 
                     <div class="form-group" id="professores_externos">
                         <label for="professores">Professores externos</label>
@@ -50,7 +46,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno" >Cadastrar professor externo</a>
+                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno">Cadastrar professor externo</a>
                 </div>
 
             </div>
@@ -60,8 +56,7 @@
                     Cadastrar
                 </button>
                 <button type="button" class="btn custom-button" data-dismiss="modal" id="cadastrandoBancaButton" hidden disabled>
-                    <span id="iconLoadingBanca" class="spinner-border spinner-border-sm"
-                    data-bs-dismiss="modal" aria-hidden="true"></span>
+                    <span id="iconLoadingBanca" class="spinner-border spinner-border-sm" data-bs-dismiss="modal" aria-hidden="true"></span>
                     Cadastrando
                 </button>
             </div>
@@ -71,120 +66,130 @@
 
 
 <script>
-    $('#createBanca').on('show.bs.modal', function(event) {
-        var orientadorId = $('#professor_id').val();
-        $('#presidente').val(orientadorId);
+    $(document).ready(function() {
 
-        var selectedPresidenteId = $(this).find(':selected').data('professor-id');
+        $('#professor_id').on('change', function() {
+            var orientadorNome = $('#professor_id option:selected').text();
+            var orientadorId = $('#professor_id option:selected').val();
 
-        $('input[name="professores_internos[]"]').prop('checked', false);
-        $('input[name="professores_internos[]"]').prop('disabled', false);
+            $('#textPresidente').val(orientadorNome);
 
-        // Marque o checkbox correspondente ao presidente selecionado
-        $('#professor_' + selectedPresidenteId).prop('checked', true);
-        $('#professor_' + selectedPresidenteId).prop('disabled', true);
-    });
+            $('input[name="professores_internos[]"]').prop('checked', false);
+            $('input[name="professores_internos[]"]').prop('disabled', false);
 
-      $(document).ready(function() {
-          $('#cadastrarBancaButton').click(function() {
-            console.log('cadastrando');
+            // Marque o checkbox correspondente ao presidente selecionado
+            $('#professor_' + orientadorId).prop('checked', true);
+            $('#professor_' + orientadorId).prop('disabled', true);
+        });
 
-            var buttonCadastrar = $('#cadastrarBancaButton');
-            var buttonCancelar = $('#buttonCancelBanca');
-            var buttonCadastrando = $('#cadastrandoBancaButton');
-            loading();
+        $('#cadastrarBancaButton').click(function() {
+        var buttonCadastrar = $('#cadastrarBancaButton');
+        var buttonCancelar = $('#buttonCancelBanca');
+        var buttonCadastrando = $('#cadastrandoBancaButton');
+        var presidente = $('#professor_id option:selected').val();
 
-            var data = $('#data').val();
-            var local = $('#local').val();
-            var presidente = $('#presidente').val();
+        if (!presidente) {
+            alert("Por favor, selecione um orientador");
+            $('#createBanca').modal('hide');
+            return;
+        }
 
+        loading();
 
-            var professoresInternos = [];
-            $('input[name="professores_internos[]"]:checked').each(function() {
-                professoresInternos.push($(this).val());
-            });
-
-            var professoresExternos = [];
-            $('input[name="professores_externos[]"]:checked').each(function() {
-                professoresExternos.push($(this).val());
-            });
+        var data = $('#data').val();
+        var local = $('#local').val();
 
 
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var professoresInternos = [];
+        $('input[name="professores_internos[]"]:checked').each(function() {
+            professoresInternos.push($(this).val());
+        });
 
-            var data = {
-                _token: csrfToken,
-                data: data,
-                local: local,
-                professores_internos: professoresInternos,
-                professores_externos: professoresExternos,
-                presidente: presidente,
-                contexto: 'modal'
-            };
+        var professoresExternos = [];
+        $('input[name="professores_externos[]"]:checked').each(function() {
+            professoresExternos.push($(this).val());
+        });
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('banca.store') }}",
-                data: data,
-                success: function(response) {
-                    loading();
-                    console.log(response);
 
-                    //Atualizar select de bancas
-                    $selectBanca = $('#banca_id');
-                    $selectBanca.empty();
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                    $.each(response.bancas, function(index, banca) {
-                        var dataFormatada = new Date(banca.data);
-                        var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-                        var dataFormatadaTexto = dataFormatada.toLocaleDateString('pt-BR', options);
+        var data = {
+            _token: csrfToken,
+            data: data,
+            local: local,
+            professores_internos: professoresInternos,
+            professores_externos: professoresExternos,
+            presidente: presidente,
+            contexto: 'modal'
+        };
 
-                        var professoresExternosTexto = "";
-                        if (banca.professores_externos && banca.professores_externos.length > 0) {
-                            var professoresArray = banca.professores_externos.map(function(professor) {
-                                return professor.nome + " - " + professor.filiacao;
-                            });
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('banca.store') }}",
+            data: data,
+            success: function(response) {
+                loading();
+                console.log(response);
 
-                            professoresExternosTexto = professoresArray.join(", ");
-                        }
+                //Atualizar select de bancas
+                $selectBanca = $('#banca_id');
+                $selectBanca.empty();
 
-                        var professoresInternosTexto = "";
-                        if (banca.professores && banca.professores.length > 0) {
-                            var professoresInternosArray = banca.professores.map(function(professor) {
-                                return professor.servidor.nome + " - IFNMG";
-                            });
+                $.each(response.bancas, function(index, banca) {
+                    var dataFormatada = new Date(banca.data);
+                    var options = {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    };
+                    var dataFormatadaTexto = dataFormatada.toLocaleDateString('pt-BR', options);
 
-                            professoresInternosTexto = professoresInternosArray.join(", ");
-                        }
+                    var professoresExternosTexto = "";
+                    if (banca.professores_externos && banca.professores_externos.length > 0) {
+                        var professoresArray = banca.professores_externos.map(function(professor) {
+                            return professor.nome + " - " + professor.filiacao;
+                        });
 
-                        var texto = dataFormatadaTexto + " - " + banca.local + " - MEMBROS: " + professoresExternosTexto + ", " + professoresInternosTexto;
-                        $selectBanca.append($('<option>', {
-                            value: banca.id,
-                            text: texto
-                        }));
-                    });
-                    loaded();
-                    alert('Banca cadastrada com sucesso!');
-                    $('#createBanca').modal('hide');
-                },
-                error: function(error) {
-                    alert('Ocorreu um erro ao cadastrar a banca.');
-                    $('#createBanca').modal('hide');
-                    loaded();
-                }
-            });
+                        professoresExternosTexto = professoresArray.join(", ");
+                    }
 
-            function loading() {
-                buttonCadastrar.prop('hidden', true);
-                buttonCancelar.prop('disabled', true);
-                buttonCadastrando.prop('hidden', false);
-            }
+                    var professoresInternosTexto = "";
+                    if (banca.professores && banca.professores.length > 0) {
+                        var professoresInternosArray = banca.professores.map(function(professor) {
+                            return professor.servidor.nome + " - IFNMG";
+                        });
 
-            function loaded() {
-                buttonCadastrar.prop('hidden', false);
-                buttonCancelar.prop('disabled', false);
-                buttonCadastrando.prop('hidden', true);
+                        professoresInternosTexto = professoresInternosArray.join(", ");
+                    }
+
+                    var texto = dataFormatadaTexto + " - " + banca.local + " - MEMBROS: " + professoresExternosTexto + ", " + professoresInternosTexto;
+                    $selectBanca.append($('<option>', {
+                        value: banca.id,
+                        text: texto
+                    }));
+                });
+                loaded();
+                alert('Banca cadastrada com sucesso!');
+                $('#createBanca').modal('hide');
+            },
+            error: function(error) {
+                alert('Ocorreu um erro ao cadastrar a banca.');
+                $('#createBanca').modal('hide');
+                loaded();
             }
         });
+
+        function loading() {
+            buttonCadastrar.prop('hidden', true);
+            buttonCancelar.prop('disabled', true);
+            buttonCadastrando.prop('hidden', false);
+        }
+
+        function loaded() {
+            buttonCadastrar.prop('hidden', false);
+            buttonCancelar.prop('disabled', false);
+            buttonCadastrando.prop('hidden', true);
+        }
     });
+});
 </script>
