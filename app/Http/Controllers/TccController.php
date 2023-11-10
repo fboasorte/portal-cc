@@ -81,7 +81,7 @@ class TccController extends Controller
         return view('tcc.edit', ['anoTcc' => $tcc->ano, 'tcc' => $tcc, 'alunos' => $alunos, 'bancas' => $bancas, 'professores' => $professores, 'professores_externos' => $professoresExternos, 'id' => $alunoId]);
     }
 
-    public function update(TccRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $tcc = Tcc::find($request->id);
 

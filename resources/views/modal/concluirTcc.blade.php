@@ -19,12 +19,32 @@
                         <input type="file" name="arquivo" id="arquivo" class="form-control">
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn custom-button" data-bs-dismiss="modal" id="ConcluirTccButton">Concluir</button>
+                    <div class="modal-footer" id="controle">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Cancel">Cancelar</button>
+                        <button type="submit" class="btn custom-button" data-dismiss="modal" id="ConcluirTccButton">
+                            Concluir
+                        </button>
+                        <button type="button" class="btn custom-button" data-dismiss="modal" id="ConcluindoTccButton" hidden='true' disabled>
+                            <span id="loading" class="spinner-border spinner-border-sm" data-dismiss="modal"></span>
+                            Concluindo
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var buttonConcluir = $('#ConcluirTccButton');
+        var buttonConcluindo = $('#ConcluindoTccButton')
+        var buttonCancel = $('#Cancel')
+
+        $('#ConcluirTccButton').click(function() {
+            buttonCancel.prop('disabled', true);
+            buttonConcluindo.attr('hidden', false);
+            buttonConcluir.attr('hidden', true);
+        });
+    });
+</script>
