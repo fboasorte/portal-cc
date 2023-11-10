@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Http\Requests\AlunoRequest;
 use Illuminate\Http\Request;
+
 
 class AlunoController extends Controller
 {
-    public function store(Request $request)
+    public function store(AlunoRequest $request)
     {
         $aluno = new Aluno;
 

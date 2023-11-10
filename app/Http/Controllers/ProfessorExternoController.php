@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProfessorExterno;
+use App\Http\Requests\ProfessorExternoRequest;
 use Illuminate\Http\Request;
 
 use function Pest\Laravel\json;
@@ -33,8 +34,9 @@ class professorExternoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProfessorExternoRequest $request)
     {
+        
         ProfessorExterno::create([
             'nome' => $request->nome,
             'filiacao' => $request->filiacao

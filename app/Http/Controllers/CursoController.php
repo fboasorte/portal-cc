@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CursoRequest;
+use App\Http\Requests\CoordenadorRequest;
 use App\Models\Curso;
 use App\Models\Coordenador;
 use App\Models\Professor;
@@ -164,8 +165,10 @@ class CursoController extends Controller
         return view('curso.coordenador', compact('coordenador', 'id'));
     }
 
-    public function coordenadorStore(Request $request, $id)
+    public function coordenadorStore(CoordenadorRequest $request, $id)
     {
+        
+        // dd($request);
         $coordenador = Coordenador::where('curso_id', '=', $id)->first();
 
         if ($coordenador) {

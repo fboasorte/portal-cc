@@ -22,9 +22,9 @@ class PostagemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => ['required', 'max:255'],
-            'texto' => ['required'],
-            'tipo_postagem_id' => ['required'],
+            'titulo' => ['required','string', 'max:255'],
+            'texto' => ['required', 'string','max:65535' ],
+            'tipo_postagem_id' => ['required', 'integer'],
             'menu_inicial' => ['nullable'],
         ];
     }
@@ -37,10 +37,18 @@ class PostagemRequest extends FormRequest
     public function messages()
     {
         return [
-            'titulo.required' => 'O título é obrigatório',
-            'titulo.max' => 'O tamanho máximo do título é 255 caracteres',
-            'texto.required' => 'O texto é obrigatório',
-            'tipo_postagem_id' => 'O tipo de postagem é obrigatório',
+            'titulo' => [
+                'required' => 'O título é obrigatório',
+                'max' => 'O tamanho máximo do título é 255 caracteres',
+            ],
+            'texto' => [
+                'required' => 'O texto é obrigatório',
+                'max' => 'O tamanho máximo do texto é 65535 caracteres',
+            ],
+            'tipo_postagem_id' => [
+                'required' => 'O tipo de postagem é obrigatório',
+            ],
         ];
+           
     }
 }

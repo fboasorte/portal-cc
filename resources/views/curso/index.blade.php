@@ -24,7 +24,7 @@
                     Cursos
                     <a href="{{ route('curso.create') }}" class="btn btn-success btn-sm float-end">Cadastrar</a>
                 </div>
-                <div class="card-body">
+                <div class="table-responsive">
 
                     <table id="cursoTable" class="table table-hover">
                         <thead>

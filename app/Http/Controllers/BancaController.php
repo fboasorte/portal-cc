@@ -6,8 +6,10 @@ use App\Models\Banca;
 use App\Models\Professor;
 use App\Models\ProfessorExterno;
 use App\Models\Servidor;
+use App\Http\Requests\BancaRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+
 
 class BancaController extends Controller
 {
@@ -46,8 +48,9 @@ class BancaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BancaRequest $request)
     {
+        
         $banca = Banca::create([
             'data' => $request->data,
             'local' => $request->local,
@@ -114,7 +117,7 @@ class BancaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BancaRequest $request, string $id)
     {
         $banca = Banca::findOrFail($id);
         $banca->update([

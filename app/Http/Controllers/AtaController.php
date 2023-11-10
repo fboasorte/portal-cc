@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ata;
 use App\Models\Colegiado;
+use App\Http\Requests\AtaRequest;
 use Illuminate\Http\Request;
 
 class AtaController extends Controller
@@ -30,8 +31,9 @@ class AtaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AtaRequest $request)
     {
+        
         $colegiado = Colegiado::find($request->colegiado);
 
         if($colegiado) {

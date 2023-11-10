@@ -12,6 +12,14 @@
         </div>
     </div>
     <div class="container mt-4">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                            {{ $error }}
+                </div>
+            @endforeach
+        @endif
+
         <form method="post" action="{{ route('professor.update', ['id' => $servidor->id]) }}">
             @csrf
             @method('PUT')

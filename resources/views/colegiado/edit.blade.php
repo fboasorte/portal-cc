@@ -12,6 +12,13 @@
     </div>
 </div>
 <div class="container mt-4">
+    @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                            {{ $error }}
+                </div>
+            @endforeach
+        @endif
     <form method="post" action="{{ route('colegiado.update', [$colegiado->id]) }}" enctype="multipart/form-data" id="form-colegiado">
         @method('PUT')
         @csrf

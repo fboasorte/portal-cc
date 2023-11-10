@@ -7,6 +7,7 @@ use App\Models\CurriculoProfessor;
 use App\Models\Professor;
 use App\Models\Servidor;
 use App\Models\User;
+use App\Http\Requests\ProfessorRequest;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -55,8 +56,9 @@ class ProfessorController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(ProfessorRequest $request)
     {
+        
         $usuarioExists = User::where('email', $request->email)->exists();
         $servidorExists = Servidor::where('email', $request->email)->exists();
 
@@ -112,7 +114,7 @@ class ProfessorController extends Controller
         return view('professor.edit', ['usuario' => $usuario, 'servidor' => $servidor]);
     }
 
-    public function update(Request $request, $servidor_id)
+    public function update(ProfessorRequest $request, $servidor_id)
     {
 
         // Falta validação se o nome e email que vou alterar já existe em outo usuario;
