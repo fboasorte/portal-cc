@@ -90,7 +90,7 @@ class ColegiadoController extends Controller
         $colegiado->arquivo_portaria_id = $pdf->id;
         $colegiado->save();
 
-        foreach ($request->professores as $professor) {
+        foreach ($request->professores_internos as $professor) {
             $colegiado->professores()->attach($professor);
         }
         foreach ($request->alunos as $aluno) {

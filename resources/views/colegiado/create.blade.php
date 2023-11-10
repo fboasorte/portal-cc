@@ -135,7 +135,7 @@
             const alunos = document.querySelectorAll('input[name="alunos[]"]:checked').length;
             const servidores = document.querySelectorAll('input[name="servidores[]"]:checked').length;
 
-            if (professores !== 4) {
+            if (professores != 4) {
                 alert("Por favor, selecione exatamente 4 professores.");
                 event.preventDefault();
             }
