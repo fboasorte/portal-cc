@@ -11,7 +11,12 @@ class MatrizCurricular extends Model
 
     protected $fillable = [
         'path',
+        'nome',
         'ppc_id',
     ];
 
+    public function ppc()
+    {
+        return $this->belongsTo(PPC::class);
+    }
 }

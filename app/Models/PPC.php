@@ -10,8 +10,20 @@ class PPC extends Model{
 
     protected $fillable = [
         'periodo',
-        'status',
+        'vigente',
+        'path',
+        'nome',
         'curso_id',
     ];
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class,'curso_id');
+    }
+
+    public function matriz() 
+    {
+        return $this->hasOne(MatrizCurricular::class,'ppc_id');
+    }
 
 } 

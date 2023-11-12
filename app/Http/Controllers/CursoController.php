@@ -23,15 +23,15 @@ class CursoController extends Controller
         } else {
             $cursos = Curso::all();
         }
-
+        
         return view('curso.index', ['cursos' => $cursos, 'buscar' => $buscar]);
     }
-
+    
     public function create()
     {
         return view('curso.create');
     }
-
+    
     public function store(CursoRequest $request)
     {
 
@@ -47,17 +47,61 @@ class CursoController extends Controller
             $nomeHorario = $horario->store('ArquivoHorario');
         }
 
+        $nomeAtoAutorizacao = $request->ato_autorizacao;
+        if($request->hasFile("ato_autorizacao")) {
+            $ato_autorizacao = $request->file("ato_autorizacao");
+            $nomeAtoAutorizacao = $ato_autorizacao->store('ArquivoAtoAutorizacao');
+        }
+
         $curso = new Curso([
             'nome' => $request->nome,
+            'descricao' => $request->descricao,
             'turno' => $request->turno,
             'carga_horaria' => $request->carga_horaria,
             'sigla' => $request->sigla,
             'analytics' => $request->analytics,
             'calendario' => $nomeCalendario,
             'horario' => $nomeHorario,
+            'modalidade' => $request->modalidade,
+            'tipo' => $request->tipo, 
+            'habilitacao' => $request->habilitacao, 
+            'ano_implementacao' => $request->ano_implementacao, 
+            'vagas_ofertadas_anualmente' => $request->vagas_ofertadas_anualmente, 
+            'vagas_ofertadas_turma' => $request->vagas_ofertadas_turma, 
+            'periodicidade_ingresso' => $request->periodicidade_ingresso, 
+            'tempo_min_conclusao' => $request->tempo_min_conclusao, 
+            'tempo_max_conclusao' => $request->tempo_max_conclusao, 
+            'nota_enade' => $request->nota_enade, 
+            'nota_in_loco_SINAES' => $request->nota_in_loco_SINAES, 
         ]);
-
+        
         $curso->save();
+
+        if($request->hasFile("ato_autorizacao")) {
+            $curso->atoAutorizacao()->create([
+                'nome'=> $ato_autorizacao->getClientOriginalName(),
+                'path'=> $nomeAtoAutorizacao,
+            ]);
+        }
+        
+        $formasAcesso = $request->formas_acesso;
+
+        $percent = null;
+        if ($formasAcesso != null) {
+            foreach ($formasAcesso as $formaAcesso) {
+                if($formaAcesso == "SISU"){
+                    $percent = $request->sisu_percent;
+                }else if($formaAcesso == "Vestibular"){
+                    $percent = $request->vestibular_percent;
+                }
+
+                $curso->formasAcesso()->create([
+                    'forma_acesso' => $formaAcesso,
+                    'porcentagem_vagas' => $percent,
+                ]);
+
+            }
+        }
 
         return redirect('curso')->with('success', 'Curso adicionado com sucesso');
     }
@@ -76,6 +120,12 @@ class CursoController extends Controller
             return redirect('curso')->with('error', 'Curso não encontrado');
         }
 
+        $nomeAtoAutorizacao = $request->ato_autorizacao;
+        if($request->hasFile("ato_autorizacao")) {
+            $ato_autorizacao = $request->file("ato_autorizacao");
+            $nomeAtoAutorizacao = $ato_autorizacao->store('ArquivoAtoAutorizacao');
+        }
+
         $nomeCalendario = $curso->calendario;
         if ($request->hasFile("calendario")) {
             $calendario = $request->file("calendario");
@@ -88,21 +138,89 @@ class CursoController extends Controller
             $nomeHorario = $horario->store('ArquivoHorario');
         }
 
-        $curso->nome = $request->nome;
-        $curso->turno = $request->turno;
-        $curso->carga_horaria = $request->carga_horaria;
-        $curso->sigla = $request->sigla;
-        $curso->analytics = $request->analytics;
-        $curso->calendario = $nomeCalendario;
-        $curso->horario = $nomeHorario;
-        $curso->save();
+        $curso->update([
+            'nome' => $request->nome,
+            'descricao' => $request->descricao,
+            'turno' => $request->turno,
+            'carga_horaria' => $request->carga_horaria,
+            'sigla' => $request->sigla,
+            'analytics' => $request->analytics,
+            'calendario' => $nomeCalendario,
+            'horario' => $nomeHorario,
+            'modalidade' => $request->modalidade,
+            'tipo' => $request->tipo, 
+            'habilitacao' => $request->habilitacao, 
+            'ano_implementacao' => $request->ano_implementacao, 
+            'vagas_ofertadas_anualmente' => $request->vagas_ofertadas_anualmente, 
+            'vagas_ofertadas_turma' => $request->vagas_ofertadas_turma, 
+            'periodicidade_ingresso' => $request->periodicidade_ingresso, 
+            'tempo_min_conclusao' => $request->tempo_min_conclusao, 
+            'tempo_max_conclusao' => $request->tempo_max_conclusao, 
+            'nota_enade' => $request->nota_enade, 
+            'nota_in_loco_SINAES' => $request->nota_in_loco_SINAES, 
+        ]);
+
+        $this->updateFormasAcesso($curso, $request);
+
+        if($nomeAtoAutorizacao){
+            $curso->atoAutorizacao()->create([
+                'nome'=> $ato_autorizacao->getClientOriginalName(),
+                'path'=> $nomeAtoAutorizacao,
+            ]);
+        }
 
         return redirect('curso')->with('success', 'Curso atualizado com sucesso');
+    }
+
+    private function updateFormasAcesso(Curso $curso, CursoRequest $request)
+    {
+        $formasAcesso = $request->formas_acesso ?? [];
+
+        $curso->formasAcesso()->delete();
+
+        foreach ($formasAcesso as $formaAcesso) {
+            $percent = null;
+
+            if ($formaAcesso == "Vestibular") {
+                $percent = $request->vestibular_percent;
+            } elseif ($formaAcesso == "SISU") {
+                $percent = $request->sisu_percent;
+            }
+
+            $curso->formasAcesso()->create([
+                'forma_acesso' => $formaAcesso,
+                'porcentagem_vagas' => $percent,
+            ]);
+        }
     }
 
     public function destroy(string $id)
     {
         $curso =  Curso::findOrFail($id);
+
+        if (!$curso) {
+            return back()->with('error', 'Curso não encontrado');
+        }
+
+        $atoAutorizacao = $curso->atoAutorizacao;
+
+        if ($atoAutorizacao) {
+            $path = storage_path('app/public/' . $atoAutorizacao->path);
+        
+            if (File::exists($path)) {
+                File::delete($path);
+                $curso->atoAutorizacao()->delete();
+            }
+        }
+        $path = storage_path('app/public/' . $curso->calendario);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $path = storage_path('app/public/' . $curso->horario);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $curso->formasAcesso()->delete();
         $curso->delete();
         return back()->with('success', 'Curso excluído com sucesso');
     }
@@ -111,8 +229,8 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
 
-        if (File::exists(public_path("storage/" . $curso->calendario))) {
-            File::delete(public_path("storage/" . $curso->calendario));
+        if (File::exists(storage_path('app/public/' . $curso->calendario))) {
+            File::delete(storage_path('app/public/' . $curso->calendario));
             $curso->calendario = null;
             $curso->save();
         }
@@ -124,9 +242,22 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
 
-        if (File::exists(public_path("storage/" . $curso->horario))) {
-            File::delete(public_path("storage/" . $curso->horario));
+        if (File::exists(storage_path('app/public/' . $curso->horario))) {
+            File::delete(storage_path('app/public/' . $curso->horario));
             $curso->horario = null;
+            $curso->save();
+        }
+
+        return redirect()->back();
+    }
+
+    public function deleteAtoAutorizacao($id)
+    {
+        $curso = Curso::findOrFail($id);
+
+        if (File::exists(storage_path('app/public/' . $curso->atoAutorizacao->path))) {
+            File::delete(storage_path('app/public/' . $curso->atoAutorizacao->path));
+            $curso->atoAutorizacao()->delete();
             $curso->save();
         }
 
@@ -136,7 +267,7 @@ class CursoController extends Controller
     public function downloadCalendario($id)
     {
         $curso =  Curso::findOrFail($id);
-        $file = public_path() . '/storage/' . $curso->calendario;
+        $file = storage_path('app/public/' . $curso->calendario);
 
         $headers = array(
             'Content-Type: application/pdf',
@@ -148,7 +279,7 @@ class CursoController extends Controller
     public function downloadHorario($id)
     {
         $curso = Curso::findOrFail($id);
-        $file = public_path() . '/storage/' . $curso->horario;
+        $file = storage_path('app/public/' . $curso->horario);
 
         $headers = array(
             'Content-Type: application/pdf',
