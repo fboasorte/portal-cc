@@ -183,7 +183,7 @@
 
 
               <div class = "bloco101">
-                  <div style = "text-align:center; width:100%; margin-top:60px;">
+                  <div style = "text-align:center; width:100%; margin-top:80px;">
                         <span class = "title3">Conheça o curso {{$curso->nome}}, do Instituto Federal do Norte de Minas</span>
                   </div>
               </div>
@@ -264,17 +264,31 @@
                   <p>{{$curso->carga_horaria}} horas .</p>
                 </div>
 
+                <div class = "borda">
+                  <span class = "title borda2">Matriz curricular</span>
+                    <p>
+                      <a href = "#">link para o documento sobre a matriz curricular</a>
+                    </p>
+                </div>
+
+                <div class = "borda">
+                  <span class = "title borda2">Calendário acadêmico</span>
+                    <p>
+                        <a href = "#"> link para o calendário acadêmico</a>
+                    </p>
+                </div>
+
                 <br>
                 <br>
 
-                <span class = "title">Dados gerais</span>
+                <span class = "title">Mais informações</span>
                 <br>
                 <a href = "#">analytics</a>
             </div>
 
 
 
-
+            <!--
             <div class = "bloco1">
               <span class = "title">Matriz curricular</span>
                 <p>O curso de Ciências da Computação do IFNMG contém em sua grade matérias voltadas para o desenvolvimento profissionalizante...</p>
@@ -286,6 +300,7 @@
                 <p>Veja o calendário acadêmico no link</p>
                 <a href = "#">calendário acadêmico</a>
             </div>
+            -->
 
 
 
