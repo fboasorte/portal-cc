@@ -17,12 +17,12 @@
             @method('PUT')
             <form method="post">
                 <div class="mb-3">
-                    <label class="form-label" for="nome">Nome</label>
+                    <label class="form-label" for="nome">Nome*:</label>
                     <input value="{{ $servidor->nome }}" class="form-control" id="nome" name="nome" type="text"
                         required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="email">Email</label>
+                    <label class="form-label" for="email">Email*:</label>
                     <input value="{{ $servidor->email }}" class="form-control" id="email" name="email" type="email"
                         required>
                 </div>
