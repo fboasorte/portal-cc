@@ -17,7 +17,7 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="titulo" class="form-label"><br>Título:</label>
+                <label for="titulo" class="form-label"><br>Título*:</label>
                 <input type="text" value="{{ old('titulo') ?? $postagem->titulo }}" name="titulo" id="titulo"
                     required class="form-control @error('titulo') is-invalid @enderror" placeholder="Título da postagem">
 
@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                <label for="texto" class="form-label">Texto:</label>
+                <label for="texto" class="form-label">Texto*:</label>
                 <textarea name="texto" id="texto" class="form-control @error('texto') is-invalid @enderror"
                     placeholder="Texto da postagem" required>{{ old('texto') ?? $postagem->texto }}</textarea>
                 @error('texto')
@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group">
-                <label for="tipo_postagem" class="form-label">Tipo:</label>
+                <label for="tipo_postagem" class="form-label">Tipo*:</label>
                 <select name="tipo_postagem_id" id="tipo_postagem_id"
                     class="form-control @error('tipo_postagem_id') is-invalid @enderror" required>
                     @foreach ($tipo_postagens as $key => $value)
