@@ -28,7 +28,7 @@
                 <input class="form-control" type="text" id="nome" name="nome" placeholder="Informe o nome do Curso" required>
             </div>
             <div class="form-group mb-3">
-                <label for="titulo" class="form-label"> <br>Turno:</label>
+                <label for="titulo" class="form-label"> <br>Turno*:</label>
                 
                 <select class="form-control" id="turno" name="turno" required >
                     <option value="Matutino">Matutino</option>
@@ -39,12 +39,12 @@
             </div>
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Carga Horária:</label>
+                <label for="titulo" class="form-label"> <br>Carga Horária*:</label>
                 <input class="form-control" type="Number" id="carga_horaria" name="carga_horaria" placeholder="Informe a carga horária">
             </div>
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Sigla:</label>
+                <label for="titulo" class="form-label"> <br>Sigla*:</label>
                 <input class="form-control" type="text" id="sigla" name="sigla" placeholder="Informe a sigla"  maxlength="5">
             </div>
             <div class="form-group mb-3">

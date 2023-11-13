@@ -16,7 +16,7 @@
         @csrf
         <div class="form-group">
 
-            <label for="nome" class="form-label">Nome: </label>
+            <label for="nome" class="form-label">Nome*:</label>
             <input value="{{ old('nome') }}" type="text" name="nome" id="nome" placeholder="Nome do tipo de postagem" required class="form-control @error('nome') is-invalid @enderror">
 
             @error('nome')

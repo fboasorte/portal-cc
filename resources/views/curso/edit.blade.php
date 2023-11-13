@@ -26,12 +26,12 @@
 
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Nome:</label>
+                <label for="titulo" class="form-label"> <br>Nome*:</label>
                 <input class="form-control" type="text" id="nome" name="nome" value="{{ $curso->nome }}" placeholder="Informe o nome do Curso" required>
             </div>
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Turno:</label>
+                <label for="titulo" class="form-label"> <br>Turno*:</label>
                 <select class="form-control" id="turno" name="turno" required>
                     <option value="Matutino" @if($curso->turno == 'Matutino') selected @endif>Matutino</option>
                     <option value="Vespertino" @if($curso->turno == 'Vespertino') selected @endif>Vespertino</option>
@@ -41,12 +41,12 @@
             </div>
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Carga Horária:</label>
+                <label for="titulo" class="form-label"> <br>Carga Horária*:</label>
                 <input class="form-control" type="number" id="carga_horaria" name="carga_horaria" value="{{ $curso->carga_horaria }}" placeholder="Informe a carga horária">
             </div>
             <div class="form-group mb-3">
                  
-                <label for="titulo" class="form-label"> <br>Sigla:</label>
+                <label for="titulo" class="form-label"> <br>Sigla*:</label>
                 <input class="form-control" type="text" id="sigla" name="sigla" value="{{ $curso->sigla }}" placeholder="Informe a sigla" maxlength="5">
             </div>
             <div class="form-group mb-3">

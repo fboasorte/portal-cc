@@ -41,7 +41,7 @@
 
             <div class="row">
                 <div class="mb-3">
-                    <label for="aluno_id" class="form-label"> <br>Aluno:</label>
+                    <label for="aluno_id" class="form-label"> <br>Aluno*:</label>
                     <select name="aluno_id" id="aluno_id" class="form-select @error('aluno_id') is-invalid @enderror">
                         <option value="" disabled selected>Selecione um aluno</option>
                         @foreach ($alunos as $aluno)
@@ -64,7 +64,7 @@
 
             <div class="row">
                 <div class="mb-3">
-                    <label for="orientador_id" class="form-label"> <br>Orientador:</label>
+                    <label for="orientador_id" class="form-label"> <br>Orientador*:</label>
                     <select name="professor_id" id="professor_id"
                         class="form-select @error('professor_id') is-invalid @enderror">
                         <option value="" disabled selected>Selecione um orientador</option>
@@ -90,7 +90,7 @@
 
             <div class="row">
                 <div class="mb-3">
-                    <label for="banca_id" class="form-label"> <br>Banca:</label>
+                    <label for="banca_id" class="form-label"> <br>Banca*:</label>
                     <select name="banca_id" id="banca_id" class="form-select @error('banca_id') is-invalid @enderror">
 
                         <option value="" disabled selected>Selecione uma banca</option>

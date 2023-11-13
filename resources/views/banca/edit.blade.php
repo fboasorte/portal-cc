@@ -15,9 +15,10 @@
     <form method="post" action="{{ route('banca.update', ['id' => $banca->id]) }}">
         @csrf
         @method('PUT')
-        <label for="data" class="form-label">Data da banca</label>
+        <label for="data" class="form-label">Data da banca*:</label>
         <input type="date" name="data" id="data" class="form-control" value="{{date('Y-m-d', strtotime($banca->data))}}" required>
-        <label for="local" class="form-label">Local</label>
+        <br>
+        <label for="local" class="form-label">Local*:</label>
         <input type="text" name="local" id="local" class="form-control" value="{{$banca->local}}" placeholder="Local da banca" required>
 
         <div class="form-group">
@@ -31,7 +32,7 @@
         </div>
 
         <div class="form-group" id="professores">
-            <label for="professores" class="form-label">Professores internos</label>
+            <label for="professores" class="form-label">Professores internos:</label>
             @foreach ($professores_internos as $professor_interno)
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="professores_internos[]" id="professor_{{$professor_interno->id}}"
@@ -43,7 +44,8 @@
         <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor interno</a>
 
         <div class="form-group" id="professores_externos">
-            <label for="professores" class="form-label">Professores externos</label>
+            <br>
+            <label for="professores" class="form-label">Professores externos:</label>
             @foreach ($professores_externos as $professor_externo)
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="professores_externos[]" id="professor_externo_{{$professor_externo->id}}" value="{{$professor_externo->id}}" {{$banca->professoresExternos->contains($professor_externo->id) ? 'checked' : ''}}>
