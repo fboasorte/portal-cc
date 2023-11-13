@@ -197,6 +197,7 @@ class PostagemController extends Controller
     public function show(string $id)
     {
         $postagem =  Postagem::findOrFail($id);
-        return view('postagem.show', ['postagem' => $postagem]);
+        $tipo_postagem = TipoPostagem::findOrFail($postagem->tipo_postagem_id);
+        return view('postagem.show', ['postagem' => $postagem, 'tipo_postagem' => $tipo_postagem]);
     }
 }
