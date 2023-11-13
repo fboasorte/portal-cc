@@ -27,8 +27,9 @@
     <div class="container-2">
         <nav class="navbar bg-body-tertiary custom-navbar">
             <div class="container-fluid">
-                <img src="{{ asset('images/logo-criada.png') }}" alt="Ciência da Computação" class="logo">
-
+                <a class="navbar-brand" href="{{ route('postagem.display') }}">
+                    <img src="{{ asset('images/logo-criada.png') }}" alt="Ciência da Computação" class="logo">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
