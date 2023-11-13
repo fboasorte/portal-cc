@@ -160,7 +160,7 @@
     }
 
     .space{
-      margin-bottom:20px;
+      margin-bottom:40px;
     }
 
 
@@ -191,7 +191,7 @@
 
           <div class = "bloco10">
               <div class = "bloco101">
-                  <div style = "text-align:center; width:100%; margin-top:80px;">
+                  <div style = "text-align:center; width:100%; margin-top:50px;">
                         <span class = "title3">Conheça o curso {{$curso->nome}}, do Instituto Federal do Norte de Minas</span>
                   </div>
               </div>
@@ -440,7 +440,7 @@
       }
 
       let space = window.document.getElementsByClassName("space");
-      space[0].style.marginBottom = "40px";
+      space[0].style.marginBottom = "80px";
 
       for (let i = 0; i < elementos_bloco101.length; i++) {
         elementos_bloco101[i].style.top = (elementos_bloco10[i].offsetHeight)/3 +"px";
