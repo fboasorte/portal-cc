@@ -39,7 +39,7 @@
                             <h6 class="mb-0">Resumo:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {{$tcc->resumo}}
+                            {!! nl2br(str_replace(' ', '&nbsp;', e($tcc->resumo))) !!}
                         </div>
                     </div>
                     <hr>
