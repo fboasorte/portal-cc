@@ -401,19 +401,105 @@
 
   let a = window.innerWidth;
 
+
+
+  //alterações feitas quando o tamanho da página muda
+  function size_changed(){
+
+    a = window.innerWidth;
+
+    const elementos_bloco10 = document.getElementsByClassName("bloco10");
+
+    const elementos_bloco101 = document.getElementsByClassName("bloco101");
+
+    const elementos_title3 =  document.getElementsByClassName("title3");
+
+    const elementos_bloco2 = document.getElementsByClassName("bloco2");
+
+    const elementos_bloco1 = document.getElementsByClassName("bloco1");
+
+    const elementos_title = document.getElementsByClassName("title");
+
+    if(a < 600){
+
+
+        for (let i = 0; i < elementos_bloco10.length; i++) {
+          elementos_bloco10[i].style.height = (window.innerWidth*1.6 - 3000) +"px";
+        }
+
+        for (let i = 0; i < elementos_title3.length; i++) {
+          elementos_title3[i].style.fontSize = (window.innerWidth*0.032 + 5.5) +"px";
+        }
+
+        for (let i = 0; i < elementos_bloco2.length; i++) {
+          elementos_bloco2[i].style.padding = "0px 1% 0px 1%";
+        }
+
+        for (let i = 0; i < elementos_bloco1.length; i++) {
+          elementos_bloco1[i].style.margin = "40px 3% 40px 3%";
+        }
+
+        for (let i = 0; i < elementos_bloco10.length; i++) {
+          elementos_bloco10[i].style.margin = "0px 3% 0px 3%";
+        }
+
+        for (let i = 0; i < elementos_title.length; i++) {
+          elementos_title[i].style.fontSize = "16px";
+        }
+
+        let space = window.document.getElementsByClassName("space");
+        space[0].style.marginBottom = "80px";
+
+        for (let i = 0; i < elementos_bloco101.length; i++) {
+          elementos_bloco101[i].style.top = (elementos_bloco10[i].offsetHeight)/3 +"px";
+        }
+
+    }
+
+    else{
+
+      for (let i = 0; i < elementos_bloco101.length; i++) {
+        elementos_bloco101[i].style.top = (elementos_bloco10[i].offsetHeight)/3.75 +"px";
+      }
+
+      for (let i = 0; i < elementos_bloco2.length; i++) {
+        elementos_bloco2[i].style.padding = "0px 10% 0px 10%";
+      }
+
+      for (let i = 0; i < elementos_bloco1.length; i++) {
+        elementos_bloco1[i].style.margin = "40px";
+      }
+
+      for (let i = 0; i < elementos_title.length; i++) {
+        elementos_title[i].style.fontSize = "20px";
+      }
+
+    }
+
+    window.document.getElementById("o_que_e_o_curso").style.marginTop = elementos_bloco10[0].offsetHeight + (20000/(window.innerWidth)) + "px";
+
+  }
+
+
+
+
+  window.onresize = size_changed;
+
+
+
   const elementos_bloco10 = document.getElementsByClassName("bloco10");
 
   const elementos_bloco101 = document.getElementsByClassName("bloco101");
 
+  const elementos_title3 =  document.getElementsByClassName("title3");
+
+  const elementos_bloco2 = document.getElementsByClassName("bloco2");
+
+  const elementos_bloco1 = document.getElementsByClassName("bloco1");
+
+  const elementos_title = document.getElementsByClassName("title");
+
   if(a < 600){
-
-      const elementos_title3 =  document.getElementsByClassName("title3");
-
-      const elementos_bloco2 = document.getElementsByClassName("bloco2");
-
-      const elementos_bloco1 = document.getElementsByClassName("bloco1");
-
-      const elementos_title = document.getElementsByClassName("title");
 
       for (let i = 0; i < elementos_bloco10.length; i++) {
         elementos_bloco10[i].style.height = (window.innerWidth*1.6 - 3000) +"px";
@@ -452,6 +538,18 @@
 
     for (let i = 0; i < elementos_bloco101.length; i++) {
       elementos_bloco101[i].style.top = (elementos_bloco10[i].offsetHeight)/3.75 +"px";
+    }
+
+    for (let i = 0; i < elementos_bloco2.length; i++) {
+      elementos_bloco2[i].style.padding = "0px 10% 0px 10%";
+    }
+
+    for (let i = 0; i < elementos_bloco1.length; i++) {
+      elementos_bloco1[i].style.margin = "40px";
+    }
+
+    for (let i = 0; i < elementos_title.length; i++) {
+      elementos_title[i].style.fontSize = "20px";
     }
 
   }
