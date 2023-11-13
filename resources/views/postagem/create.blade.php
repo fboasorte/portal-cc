@@ -17,18 +17,18 @@
             @csrf
 
             <div class="form-group">
-                <label for="titulo" class="form-label"><br>Título:</label>
+                <label for="titulo" class="form-label"><br>Título*:</label>
                 <input value="{{ isset($postagem) ? $postagem['titulo'] : '' }}" type="text" name="titulo"
                     id="titulo" class="form-control" placeholder="Título da postagem" required>
             </div>
 
             <div class="form-group">
-                <label for="texto" class="form-label">Texto:</label>
+                <label for="texto" class="form-label">Texto*:</label>
                 <textarea name="texto" id="texto" class="form-control" placeholder="Texto da postagem" required>{{ isset($postagem) ? $postagem['texto'] : '' }}</textarea>
             </div>
 
             <div class="form-group">
-                <label for="tipo_postagem" class="form-label">Tipo:</label>
+                <label for="tipo_postagem" class="form-label">Tipo*:</label>
                 <select name="tipo_postagem_id" id="tipo_postagem_id" class="form-control" required>
                     @foreach ($tipo_postagens as $key => $value)
                         <option value="{{ $key }}" {{ $key == $id ? 'selected' : '' }}>
