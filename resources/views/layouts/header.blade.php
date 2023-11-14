@@ -23,6 +23,10 @@
                     <ul class="navbar-nav ms-auto">
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('curso.show', ['id' => '1']) }}">Sobre o curso</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('postagem.display') }}">Notícias</a>
                         </li>
 
