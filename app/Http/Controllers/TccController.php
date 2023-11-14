@@ -169,9 +169,7 @@ class TccController extends Controller
             ->leftJoin('banca', 'tcc.banca_id', '=', 'banca.id')
             ->leftJoin('professor', 'tcc.professor_id', '=', 'professor.id')
             ->leftJoin('servidor', 'professor.servidor_id', '=', 'servidor.id')
-            ->leftJoin('banca_professor_externo', 'banca.id', '=', 'banca_professor_externo.banca_id')
-            ->leftJoin('professor_externo', 'banca_professor_externo.professor_externo_id', '=', 'professor_externo.id')
-            ->select('tcc.*', 'aluno.nome', 'banca.local as local', 'servidor.nome as nome_professor', 'professor_externo.nome as nome_professor_externo')
+            ->select('tcc.*', 'aluno.nome', 'banca.local as local', 'servidor.nome as nome_professor')
             ->orderBy('tcc.ano', 'DESC')
             ->get();
 
