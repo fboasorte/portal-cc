@@ -9,6 +9,7 @@ use App\Models\Colegiado;
 use App\Models\Coordenador;
 use App\Models\Professor;
 use App\Models\Servidor;
+use App\Http\Requests\ColegiadoRequest;
 use Illuminate\Http\Request;
 
 class ColegiadoController extends Controller
@@ -57,8 +58,9 @@ class ColegiadoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ColegiadoRequest $request)
     {
+         
         $coordenador = Coordenador::first();
         $atual = $request->atual === 'on' ? 1 : 0;
 

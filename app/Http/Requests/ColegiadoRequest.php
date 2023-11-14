@@ -22,11 +22,14 @@ class ColegiadoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'numero_portaria' => ['required', 'string', 'max:255'],
+        //duvida em relação ao tipo de dado, 
+        // atual é tinyint
+        // numero_portaria é int
+        return [ 
+            'numero_portaria' => ['required', 'integer'],
             'vigencia_inicio' => ['required', 'date', 'after:01/01/2013'],
-            'vigencia_fim' => ['required', 'date', 'after:01/01/2013'],
-            'atual' => ['required', 'boolean'],
+            'vigencia_fim' => ['required', 'date', 'after:vigencia_inicio'],
+            'atual' => ['required', 'integer'],
             'professor_interno' => ['required', 'integer'],
             'alunos' => ['required', 'integer'],
             'servidores' => ['required', 'integer'],
@@ -50,23 +53,19 @@ class ColegiadoRequest extends FormRequest
             'vigencia_fim' => [
                 'required' => 'A vigência de fim é obrigatória',
                 'date' => 'A vigência de fim deve ser uma data válida',
-                'after' => 'A vigência de fim deve ser dos últimos 10 anos',
+                'after' => 'A vigência de fim deve ser depois da vigência de início',
             ],
             'atual' => [
                 'required' => 'O campo atual é obrigatório',
-                'boolean' => 'O campo atual deve ser um booleano',
             ],
             'professor_interno' => [
-                'required' => 'O professor interno é obrigatório',
-                'integer' => 'O professor interno deve ser um número inteiro',
+                'required' => 'É obrigatório 4 professores',
             ],
             'alunos' => [
-                'required' => 'O número de alunos é obrigatório',
-                'integer' => 'O número de alunos deve ser um número inteiro',
+                'required' => 'O número de alunos é 1 e no máximo 4 alunos',
             ],
             'servidores' => [
-                'required' => 'O número de servidores é obrigatório',
-                'integer' => 'O número de servidores deve ser um número inteiro',
+                'required' => 'O número de servidores é 1 e no máximo 4 para técnicos administrativos',
             ],
         ];
     }
