@@ -176,7 +176,7 @@ class ColegiadoController extends Controller
             $pdf->save();
         }
 
-        $colegiado->professores()->sync($request->professores);
+        $colegiado->professores()->sync($request->professores_internos);
         $colegiado->tecnicosAdm()->sync($request->servidores);
         $colegiado->alunos()->sync($request->alunos);
 
