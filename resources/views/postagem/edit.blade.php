@@ -58,12 +58,12 @@
             </div>
 
             <div class="form-group">
-                <label for="tipo_postagem" class="form-label">Exibe no menu inicial?</label>
+                <label for="tipo_postagem" class="form-label">Exibir na tela inicial com destaque? (necessário cadastrar imagem)</label>
                 <input type="checkbox" name="menu_inicial" id="menu_inicial" {{ $postagem->menu_inicial ? 'checked' : '' }}>
             </div>
 
             <div class="form-group">
-                <label for="imagem" class="form-label">Imagens (2700 x 660):</label>
+                <label for="imagem" class="form-label">Imagens (caso for exibir na tela inicial, a primeira imagem deve ter a dimensão: 2700 x 660):</label>
                 @if (count($postagem->imagens) > 0)
                     @foreach ($postagem->imagens as $img)
                         <button class="btn text-danger" type="submit" form="deletar-imagens{{ $img->id }}">X</button>

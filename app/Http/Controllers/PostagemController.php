@@ -74,6 +74,29 @@ class PostagemController extends Controller
             'menu_inicial' => $request->has('menu_inicial')
         ]);
 
+        $exibirMenuInicial = $request->has('menu_inicial');
+        
+        if ($exibirMenuInicial) {
+            if ($request->hasFile("imagens")) {
+
+                $imagens = $request->file("imagens");
+                $validacao = true; 
+                $dimensions = getimagesize($imagens[0]);
+                $largura = $dimensions[0];
+                $altura = $dimensions[1];
+
+                if ($largura !== 2700 || $altura !== 660) {
+                    $validacao = false;
+                }
+
+                if (!$validacao) {
+                    return redirect()->back()->withInput()->with('error', 'A primeira imagem para exibição no menu inicial deve ter as dimensões de 2700 x 660.');
+                }
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Foi solicitado que aparecesse na tela inicial com destaque, mas não teve uma imagem cadastrada.');
+            }
+        }
+
         $postagem->save();
 
         if ($request->hasFile("imagens")) {
@@ -126,6 +149,7 @@ class PostagemController extends Controller
             'titulo' => $request->titulo,
             'texto' => $request->texto,
             'tipo_postagem_id' => $request->tipo_postagem_id,
+            'menu_inicial' => $request->has('menu_inicial')
         ]);
 
         if ($request->hasFile("imagens")) {

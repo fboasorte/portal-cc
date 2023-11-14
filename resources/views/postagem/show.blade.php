@@ -12,7 +12,7 @@
                     <div class="badge bg-secondary text-decoration-none link-light">{{ $tipo_postagem->nome }}</div>
                 </header>
 
-                @if (count($postagem->imagens) > 0)
+                @if (count($postagem->imagens) > 0 && $postagem->menu_inicial)
                 <figure class="mb-4">
                     @php $firstImage = $postagem->imagens[0]; @endphp
                     @if (Storage::disk('public')->exists($firstImage->imagem))

@@ -47,6 +47,8 @@ foreach ($postagens as $postagem) {
     </button>
 </div>
 
+<br>
+
 <div class="container mt-5">
     <h3 class="text-left">Postagens Computação:</h3>
 </div>
@@ -59,9 +61,13 @@ foreach ($postagens as $postagem) {
                 <div class="card shadow-sm">
                     @if (count($postagem->imagens) > 0)
                     @php $firstImage = $postagem->imagens[0]; @endphp
-                    @if (Storage::disk('public')->exists($firstImage->imagem))
+                    @if (Storage::disk('public')->exists($firstImage->imagem) && $postagem->menu_inicial )
                     <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}">
                         <img src="{{ URL::asset('storage') }}/{{ $firstImage->imagem }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
+                    </a>
+                    @else
+                    <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}">
+                        <img src="{{ asset('images/postagem.png') }}" alt="{{ $postagem->titulo }}" class="bd-placeholder-img card-img-top" width="100%">
                     </a>
                     @endif
                     @else
