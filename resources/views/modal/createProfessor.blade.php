@@ -75,7 +75,6 @@
                 url: "{{ route('professor.store') }}",
                 data: data,
                 success: function(response) {
-
                     loading();
                     if (response.error) {
                         loaded();
@@ -83,7 +82,6 @@
                     } else {
                         // Feche o modal
                         $('#createProfessor').modal('hide');
-
 
                         // Atualiza os checkboxs na página colegiado em cadastrar professor
                         var professoresCheckboxHTML = '';
@@ -137,6 +135,12 @@
                         var presidenteId = $('#presidente').val();
                         $('#professor_' + presidenteId).prop('checked', true);
                         $('#professor_' + presidenteId).prop('disabled', true);
+
+                        var returnToModalSelector = $('#cadastrarProfessorModal').data('return-to-modal');
+                        if (returnToModalSelector) {
+                            $(returnToModalSelector).modal('show');  // Mostrar o modal de retorno
+                        }
+
                     }
 
                     loaded();

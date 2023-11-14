@@ -72,6 +72,11 @@
                         $('#professores_externos .form-check').remove();
                         $('#professores_externos').append(professoresCheckboxHTML);
 
+                        var returnToModalSelector = $('#cadastrarProfessorExternoModal').data('return-to-modal');
+                        if (returnToModalSelector) {
+                            $(returnToModalSelector).modal('show');  // Mostrar o modal de retorno
+                        }
+
                         // Atualize o <select> na página de edição
                         // var $selectProfessor = $('#professor_id');
                         // $selectProfessor.empty(); // Limpe todas as opções

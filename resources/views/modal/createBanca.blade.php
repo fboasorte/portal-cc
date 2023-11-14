@@ -34,7 +34,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor">Cadastrar professor interno</a>
+                    <a href="" id="cadastrarProfessorModal" class="modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" data-return-to-modal="#createBanca">Cadastrar professor interno</a>
 
                     <div class="form-group" id="professores_externos">
                         <label for="professores">Professores externos</label>
@@ -46,7 +46,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <a href="" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno">Cadastrar professor externo</a>
+                    <a href="" id="cadastrarProfessorExternoModal" class=" modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessorExterno" data-return-to-modal="#createBanca">Cadastrar professor externo</a>
                 </div>
 
             </div>
