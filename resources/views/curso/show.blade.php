@@ -195,9 +195,6 @@
                         <span class = "title3">Conheça o curso {{$curso->nome}}, do Instituto Federal do Norte de Minas</span>
                   </div>
               </div>
-
-
-
           </div>
 
 
