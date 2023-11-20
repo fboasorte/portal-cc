@@ -81,11 +81,9 @@
             </div>
 
             <div class="col-md-3 mb-3 d-flex align-items-end">
-                <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal"
-                    data-bs-target="#createProfessor">Cadastrar professor</a>
+                <a href="" id="cadastrarProfessorModal" class="btn btn-info modal-trigger" data-bs-toggle="modal"
+                    data-bs-target="#createProfessor" data-return-to-modal="#createTcc">Cadastrar professor</a>
             </div>
-            @include('modal.createProfessor')
-            @include('modal.createProfessorExterno')
 
             <div class="mb-3">
                 <label for="banca_id" class="form-label"> <br>Banca*:</label>
@@ -96,7 +94,7 @@
                             {{ date('d-m-Y', strtotime($banca->data)) }} - {{ $banca->local }} -
                             MEMBROS:
                             @foreach ($banca->professoresExternos as $professorExterno)
-                                {{ $professorExterno->nome }} - {{ $professorExterno->filiacao }},
+                            {{ $professorExterno->nome }} - {{ $professorExterno->filiacao }},
                             @endforeach
 
                             @foreach ($professores as $professor)
@@ -107,7 +105,7 @@
                 </select>
 
                 @error('banca_id')
-                    <div class="invalid-feedback">
+                <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
@@ -116,8 +114,11 @@
             <div class="col-md-3 mb-3 d-flex align-items-end">
                 <a href="" class="btn btn-info modal-trigger" data-bs-toggle="modal"
                     data-bs-target="#createBanca">Cadastrar banca</a>
-            </div>
-            @include('modal.createBanca')
+                </div>
+                @include('modal.createBanca')
+                @include('modal.createProfessor')
+                @include('modal.createProfessorBanca')
+                @include('modal.createProfessorExterno')
 
             <div class="mb-3">
                 <label for="ano" class="form-label"><br>Ano*:</label>

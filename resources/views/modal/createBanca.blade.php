@@ -34,8 +34,8 @@
                         </div>
                         @endforeach
                     </div>
-                    <a href="" id="cadastrarProfessorModal" class="modal-trigger" data-bs-toggle="modal" data-bs-target="#createProfessor" data-return-to-modal="#createBanca">Cadastrar professor interno</a>
-
+                    <a href="" id="cadastrarProfessorModalBanca" class="modal-trigger" data-bs-toggle="modal"
+                    data-bs-target="#createProfessorBanca" data-return-to-modal="#createBanca">Cadastrar professor interno</a>
                     <div class="form-group" id="professores_externos">
                         <label for="professores">Professores externos</label>
 
@@ -65,9 +65,9 @@
 </div>
 
 
+
 <script>
     $(document).ready(function() {
-
         $('#professor_id').on('change', function() {
             var orientadorNome = $('#professor_id option:selected').text();
             var orientadorId = $('#professor_id option:selected').val();
