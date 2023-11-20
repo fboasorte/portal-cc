@@ -45,6 +45,11 @@
                 return;
             }
 
+            var professoresSelecionadosAntes = [];
+            $('input[name="servidores[]"]:checked').each(function() {
+                professoresSelecionadosAntes.push($(this).val());
+            });
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
@@ -69,9 +74,10 @@
                         var servidoresCheckboxHTML = '';
                         $.each(response.servidores, function(index, servidor) {
                             var checkboxId = 'servidor_' + servidor.id;
+                            var isChecked = professoresSelecionadosAntes.includes(servidor.id.toString()) ? 'checked' : '';
                             servidoresCheckboxHTML +=
                             '<div class="form-check">' +
-                            '<input type="checkbox" class="form-check-input" name="servidores[]" id="' + checkboxId + '" value="' + servidor.id + '">' +
+                            '<input type="checkbox" class="form-check-input" name="servidores[]" id="' + checkboxId + '" value="' + servidor.id +'" ' + isChecked + '>' +
                             '<label for="' + checkboxId + '" class="form-check-label">' + servidor.nome + '</label>' +
                             '</div>';
                         });

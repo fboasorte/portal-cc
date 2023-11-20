@@ -35,6 +35,11 @@
                 return;
             }
 
+            var professoresSelecionadosAntes = [];
+            $('input[name="professores_externos[]"]:checked').each(function() {
+                professoresSelecionadosAntes.push($(this).val());
+            });
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
@@ -62,10 +67,12 @@
                         var professoresCheckboxHTML = '';
                         $.each(response.professores_externos, function(index, professor) {
                             var checkboxId = 'professor_externo_' + professor.id;
+                            var isChecked = professoresSelecionadosAntes.includes(professor.id.toString()) ? 'checked' : '';
                             professoresCheckboxHTML +=
                             '<div class="form-check">' +
-                            '<input type="checkbox" class="form-check-input" name="professores_externos[]" id="' + checkboxId + '" value="' + professor.id + '">' +
-                            '<label for= "' + checkboxId + '" class="form-check-label">' + professor.nome + ' - '  + professor.filiacao + '</label>' +
+                            '<input type="checkbox" class="form-check-input" name="professores_externos[]" id="' +
+                                checkboxId + '" value="' + professor.id +'" ' + isChecked + '>' +
+                            '   <label for= "' + checkboxId + '" class="form-check-label">' + professor.nome + ' - '  + professor.filiacao + '</label>' +
                             '</div>';
                         });
 

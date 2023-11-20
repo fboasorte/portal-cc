@@ -90,8 +90,8 @@
                             var isChecked = professoresSelecionadosAntes.includes(professor.id.toString()) ? 'checked' : '';
                             professoresCheckboxHTML +=
                                 '<div class="form-check">' +
-                                '   <input type="checkbox" class="form-check-input" name="professores_internos[]" id="' +
-                                        checkboxId + '" value="' + professor.id + '" ' + isChecked + '>' +
+                                '<input type="checkbox" class="form-check-input" name="professores_internos[]" id="' +
+                                    checkboxId + '" value="' + professor.id + '" ' + isChecked + '>' +
                                 '   <label for="' + checkboxId + '" class="form-check-label">' + professor.nome + '</label>' +
                                 '</div>';
                         });

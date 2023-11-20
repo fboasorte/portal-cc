@@ -31,6 +31,11 @@
                 return;
             }
 
+            var alunosSelecionadosAntes = [];
+            $('input[name="alunos[]"]:checked').each(function() {
+                alunosSelecionadosAntes.push($(this).val());
+            });
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             var data = {
@@ -56,9 +61,10 @@
                     // Adicione as checkboxes atualizadas com base na resposta do servidor
                     $.each(response.alunos, function(index, aluno) {
                         var checkboxId = 'aluno_' + aluno.id;
+                        var isChecked = alunosSelecionadosAntes.includes(aluno.id.toString()) ? 'checked' : '';
                         alunosCheckboxHTML +=
                         '<div class="form-check">' +
-                        '<input type="checkbox" class="form-check-input" name="alunos[]" id="' + checkboxId + '" value="' + aluno.id + '">' +
+                        '<input type="checkbox" class="form-check-input" name="alunos[]" id="' + checkboxId + '" value="' + aluno.id + '" '+ isChecked + '>' +
                         '<label for="' + checkboxId + '" class="form-check-label">' + aluno.nome + '</label>' +
                         '</div>';
                     });
