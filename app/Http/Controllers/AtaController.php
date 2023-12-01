@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AtaRequest;
 use App\Models\Ata;
 use App\Models\Colegiado;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class AtaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AtaRequest $request)
     {
         $colegiado = Colegiado::find($request->colegiado);
 
@@ -74,7 +75,7 @@ class AtaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AtaRequest $request, string $id)
     {
         $ata = Ata::findOrFail($id);
         $colegiado = Colegiado::find($request->colegiado);

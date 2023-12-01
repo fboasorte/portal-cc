@@ -35,9 +35,17 @@
                 <label for="data">Data</label>
                 <input type="date" name="data" id="data" class="form-control" value="{{ date('Y-m-d', strtotime($ata->data)) }}" required>
             </div>
-            <div>
-                <label for="descricao">Descrição</label>
-                <textarea name="descricao" id="descricao" cols="30" rows="10" class="form-control">{{ $ata->descricao }}</textarea>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição*: </label>
+                    <textarea name="descricao" id="descricao" cols="50" rows="10" placeholder="Descrição da ata" required
+                        class="form-control @error('descricao') is-invalid @enderror">{{ old('descricao') }}</textarea>
+
+
+                        @error('descricao')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
         </div>
         <button type="submit" class="btn custom-button custom-button-castastrar-tcc btn-default">Atualizar</button>
