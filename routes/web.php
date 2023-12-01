@@ -17,7 +17,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CoordenadorController;
 use Illuminate\Support\Facades\Route;
 
-/*  
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Route::get('/banca/show/{id}', [BancaController::class, 'show'])->name('banca.sh
 //Ata troca para o user logado
 Route::get('/ata/show/{id}', [AtaController::class, 'show'])->name('ata.view');
 
-//Colegiado 
+//Colegiado
 Route::get('/colegiados', [ColegiadoController::class, 'show'])->name('colegiado.show');
 
 //Postagem
@@ -64,6 +64,7 @@ Route::get('/coordenador/{id}', [CoordenadorController::class, 'view'])->name('c
 //TCC
 Route::get('/tccs', [TccController::class, 'show'])->name('tcc.display');;
 Route::get('/tccs/{id}', [TccController::class, 'view'])->name('tcc.view');
+Route::post('/tccs/concluiTcc/{id}', [TccController::class, 'concluiTcc'])->name('tcc.concluiTcc');
 
 //Professor
 Route::get('/professores/{id}', [ProfessorController::class, 'view'])->name('professor.view');
@@ -124,7 +125,7 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
     Route::get('/projeto/busca-aluno', [ProjetoController::class, 'buscaAluno']);
     Route::get('/projeto/busca-professor-externo', [ProjetoController::class, 'buscaProfessorExterno']);
     Route::delete('/projeto/delete_imagem/{id}', [ProjetoController::class, 'deleteImagem'])->name('projeto.delete_imagem');
-    
+
     // Professor
     Route::resource('professor', ProfessorController::class)->parameter('professor', 'id');
 

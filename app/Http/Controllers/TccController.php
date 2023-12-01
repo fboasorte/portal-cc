@@ -138,6 +138,24 @@ class TccController extends Controller
         return redirect('tcc')->with('success', 'TCC atualizado com sucesso');
     }
 
+    public function concluiTcc(Request $request)
+    {
+        $tcc = Tcc::find($request->id);
+
+        if ($request->hasFile("arquivo")) {
+            $pdf = new ArquivoTcc();
+            $pdf->nome = $request->arquivo->getClientOriginalName();
+            $pdf->path = $request->arquivo->store('ArquivoTcc/' . $tcc->id);
+            $pdf->save();
+
+            $tcc->arquivo_id = $pdf->id;
+        }
+        $tcc->status = true;
+
+        $tcc->save();
+        return redirect('tcc')->with('success', 'TCC concluído com sucesso');
+    }
+
     public function destroy($id)
     {
         $tcc = Tcc::findOrFail($id);

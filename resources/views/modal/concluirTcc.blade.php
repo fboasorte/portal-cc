@@ -10,13 +10,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tcc.update', [$tcc->id, 'contexto' => 'concluiTcc']) }}" method="POST" enctype="multipart/form-data">
-                    @method('PUT')
+                <form action="{{ route('tcc.concluiTcc', [$tcc->id]) }}" method="POST" enctype="multipart/form-data">
+                    @method('POST')
                     @csrf
 
                     <div class="mb-3" id="arquivo_id">
                         <h5 class="">Selecione o arquivo do TCC "{{$tcc->titulo}}"</h5>
-                        <input type="file" name="arquivo" id="arquivo" class="form-control">
+                        <input type="file" name="arquivo" id="arquivo" class="form-control" required>
                     </div>
 
                     <div class="modal-footer" id="controle">
@@ -40,8 +40,14 @@
         var buttonConcluir = $('#ConcluirTccButton');
         var buttonConcluindo = $('#ConcluindoTccButton')
         var buttonCancel = $('#Cancel')
+        var arquivo = $('#arquivo')
 
         $('#ConcluirTccButton').click(function() {
+            if(arquivo.val() === "") {
+                alert("Arquivo é obrigatório!")
+                return false
+            }
+
             buttonCancel.prop('disabled', true);
             buttonConcluindo.attr('hidden', false);
             buttonConcluir.attr('hidden', true);
