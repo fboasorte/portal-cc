@@ -13,10 +13,18 @@
     </div>
 </div>
 <div class="container">
+
     @if ($errors->any())
     @foreach ($errors->all() as $error)
     <div class="alert alert-danger">
-        {{ $error }}
+        @if(is_array($error))
+        @foreach($error as $e)
+            <div>{{ $e }}</div>
+        @endforeach
+        @else
+            {{ $error }}
+        @endif
+
     </div>
     @endforeach
     @endif
@@ -25,44 +33,44 @@
         @csrf
         <div class="form-group mb-3">
             <label for="nome" class="form-label"> <br>Nome*:</label>
-            <input class="form-control" type="text" id="nome" name="nome" placeholder="Informe o nome do Curso" maxlength="255" required>
+            <input value="{{ old('nome') }}" class="form-control" type="text" id="nome" name="nome" placeholder="Informe o nome do Curso" maxlength="255" required>
         </div>
 
         <div class="form-group mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="255"></textarea>
+            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="255">{{ old('descricao') }}</textarea>
         </div>
 
         <div class="form-group mb-3">
             <label for="turno" class="form-label"> <br>Turno:</label>
 
             <select class="form-control" id="turno" name="turno" required>
-                <option value="Matutino">Matutino</option>
-                <option value="Vespertino">Vespertino</option>
-                <option value="Noturno">Noturno</option>
-                <option value="Integral">Integral</option>
+                <option value="Matutino" {{ old('turno') == 'Matutino' ? 'selected' : '' }}>Matutino</option>
+                <option value="Vespertino" {{ old('turno') == 'Vespertino' ? 'selected' : '' }}>Vespertino</option>
+                <option value="Noturno" {{ old('turno') == 'Noturno' ? 'selected' : '' }}>Noturno</option>
+                <option value="Integral" {{ old('turno') == 'Integral' ? 'selected' : '' }}>Integral</option>
             </select>
         </div>
 
         <div class="form-group mb-3">
 
             <label for="carga_horaria" class="form-label"> <br>Carga Horária:</label>
-            <input class="form-control" type="Number" id="carga_horaria" name="carga_horaria" placeholder="Informe a carga horária" min="0" required>
+            <input value="{{ old('carga_horaria') }}" class="form-control" type="Number" id="carga_horaria" name="carga_horaria" placeholder="Informe a carga horária" min="0" max="10000" required>
         </div>
 
         <div class="form-group mb-3">
 
             <label for="sigla" class="form-label"> <br>Sigla:</label>
-            <input class="form-control" type="text" id="sigla" name="sigla" placeholder="Informe a sigla" maxlength="5" required>
+            <input value="{{ old('sigla') }}" class="form-control" type="text" id="sigla" name="sigla" placeholder="Informe a sigla" maxlength="5" required>
         </div>
 
         <div class="form-group mb-3">
             <label for="modalidade" class="form-label"> <br>Modalidade:</label>
 
             <select class="form-control" id="modalidade" name="modalidade" required>
-                <option value="presencial">Presencial</option>
-                <option value="ensino_a_distancia">Ensino a Distância (EAD)</option>
-                <option value="semipresencial">Semipresencial</option>
+                <option value="presencial" {{ old('modalidade') == 'presencial' ? 'selected' : '' }}>Presencial</option>
+                <option value="ensino_a_distancia" {{ old('modalidade') == 'ensino_a_distancia' ? 'selected' : '' }}>Ensino a Distância (EAD)</option>
+                <option value="semipresencial" {{ old('modalidade') == 'semipresencial' ? 'selected' : '' }}>Semipresencial</option>
             </select>
         </div>
 
@@ -70,60 +78,63 @@
             <label for="tipo" class="form-label"> <br>Tipo:</label>
 
             <select class="form-control" id="tipo" name="tipo" required>
-                <option value="bacharelado">Bacharelado</option>
-                <option value="licenciatura">Licenciatura</option>
+                <option value="bacharelado" {{ old('tipo') == 'bacharelado' ? 'selected' : '' }}>Bacharelado</option>
+                <option value="licenciatura" {{ old('tipo') == 'licenciatura' ? 'selected' : '' }}>Licenciatura</option>
             </select>
         </div>
 
         <div class="form-group mb-3">
             <label for="habilitacao" class="form-label"> <br>Habilitação:</label>
-            <input class="form-control" type="text" id="habilitacao" name="habilitacao" placeholder="Informe a habilitação do curso" maxlength="255" required>
+            <input value="{{ old('habilitacao') }}" class="form-control" type="text" id="habilitacao" name="habilitacao" placeholder="Informe a habilitação do curso" maxlength="255" required>
         </div>
 
 
         <div class="form-group mb-3">
 
             <label for="ano_implementacao" class="form-label"> <br>Ano de implementação:</label>
-            <input class="form-control" type="Number" id="ano_implementacao" name="ano_implementacao" placeholder="Informe o ano de implementação" min="1900" max="{{ date('Y') }}" required>
+            <input value="{{ old('ano_implementacao') }}" class="form-control" type="Number" id="ano_implementacao" name="ano_implementacao" placeholder="Informe o ano de implementação" min="1900" max="{{ date('Y') }}" required>
         </div>
 
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_anualmente" class="form-label"> <br>Vagas ofertadas anualmente:</label>
-            <input class="form-control" type="Number" id="vagas_ofertadas_anualmente" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0">
+            <input value="{{ old('vagas_ofertadas_anualmente') }}" class="form-control" type="Number" id="vagas_ofertadas_anualmente" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0">
         </div>
 
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_turma" class="form-label"> <br>Vagas ofertadas por turma:</label>
-            <input class="form-control" type="Number" id="vagas_ofertadas_turma" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0">
+            <input value="{{ old('vagas_ofertadas_turma') }}" class="form-control" type="Number" id="vagas_ofertadas_turma" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0">
         </div>
 
         <div class="form-group mb-3">
             <fieldset>
                 <legend class="form-label">Formas de Acesso:</legend>
+
                 <label for="vestibular">
-                    <input type="checkbox" id="vestibular" name="formas_acesso[]" value="Vestibular"> Vestibular
+                    <input type="checkbox" id="vestibular" name="formas_acesso[]" value="Vestibular" {{ in_array('Vestibular', old('formas_acesso', [])) ? 'checked' : '' }}> Vestibular
                 </label>
                 <br>
+
                 <label for="sisu">
-                    <input type="checkbox" id="sisu" name="formas_acesso[]" value="SISU"> SISU
+                    <input type="checkbox" id="sisu" name="formas_acesso[]" value="SISU" {{ in_array('SISU', old('formas_acesso', [])) ? 'checked' : '' }}> SISU
                 </label>
                 <br>
             </fieldset>
         </div>
+
 
         <div class="form-group mb-3" id="distribuicao_vagas">
             <fieldset>
                 <label class="form-label">Distribuição de Vagas (%):</label><br>
                 <div id="vestibular_fields">
                     <label class="form-label" for="vestibular">Vestibular</label>
-                    <input class="form-control " type="number" id="vestibular_percent" name="vestibular_percent" min="0" max="100" step="0.01">
+                    <input value="{{ old('vestibular_percent') }}" class="form-control " type="number" id="vestibular_percent" name="vestibular_percent" min="0" max="100" step="0.01">
                 </div>
                 <br>
                 <div id="sisu_fields">
                     <label class="form-label" for="sisu">SISU</label>
-                    <input class="form-control" type="number" id="sisu_percent" name="sisu_percent" min="0" max="100" step="0.01">
+                    <input value="{{ old('sisu_percent') }}" class="form-control" type="number" id="sisu_percent" name="sisu_percent" min="0" max="100" step="0.01">
                 </div>
                 <br>
             </fieldset>
@@ -133,54 +144,54 @@
             <label for="periodicidade_ingresso" class="form-label"> <br>Periodicidade de ingresso:</label>
 
             <select class="form-control" id="periodicidade_ingresso" name="periodicidade_ingresso" required>
-                <option value="anual">Anual</option>
-                <option value="semestral">Semestral</option>
-                <option value="trimestral">Trimestral</option>
-                <option value="mensal">Mensal</option>
+                <option value="anual" {{ old('periodicidade_ingresso') == 'anual' ? 'selected' : '' }}>Anual</option>
+                <option value="semestral" {{ old('periodicidade_ingresso') == 'semestral' ? 'selected' : '' }}>Semestral</option>
+                <option value="trimestral" {{ old('periodicidade_ingresso') == 'trimestral' ? 'selected' : '' }}>Trimestral</option>
+                <option value="mensal" {{ old('periodicidade_ingresso') == 'mensal' ? 'selected' : '' }}>Mensal</option>
             </select>
         </div>
 
         <div class="form-group mb-3">
             <label class="form-label" for="tempo_min_conclusao"><br>Tempo minímo para integralização (anos):</label>
-            <input class="form-control" type="number" id="tempo_min_conclusao" name="tempo_min_conclusao" min="0" step="0.5">
+            <input value="{{ old('tempo_min_conclusao') }}" class="form-control" type="number" id="tempo_min_conclusao" name="tempo_min_conclusao" min="1" step="0.5" max="10">
         </div>
 
         <div class="form-group mb-3">
             <label class="form-label" for="tempo_max_conclusao"><br>Tempo máximo para integralização (anos):</label>
-            <input class="form-control" type="number" id="tempo_max_conclusao" name="tempo_max_conclusao" min="0" step="0.5">
+            <input value="{{ old('tempo_max_conclusao') }}" class="form-control" type="number" id="tempo_max_conclusao" name="tempo_max_conclusao" min="1" step="0.5" max="20">
         </div>
 
         <div class="form-group mb-3">
             <label class="form-label" for="nota_enade"><br>Nota no ENADE:</label>
-            <input class="form-control" type="number" id="nota_enade" name="nota_enade" min="1" max="5" required>
+            <input value="{{ old('nota_enade') }}" class="form-control" type="number" id="nota_enade" name="nota_enade" min="1" max="5">
         </div>
 
         <div class="form-group mb-3">
             <label class="form-label" for="nota_in_loco_SINAES"><br>Nota no in loco –SINAES:</label>
-            <input class="form-control" type="number" id="nota_in_loco_SINAES" name="nota_in_loco_SINAES" min="1" max="5" required>
+            <input value="{{ old('nota_in_loco_SINAES') }}" class="form-control" type="number" id="nota_in_loco_SINAES" name="nota_in_loco_SINAES" min="1" max="5">
         </div>
 
         <div class="form-group mb-3">
 
             <label for="titulo" class="form-label"> <br>Analytics:</label>
-            <input class="form-control" type="text" id="analytics" name="analytics" placeholder="Informe o analytics">
+            <input value="{{ old('analytics') }}" class="form-control" type="text" id="analytics" name="analytics" placeholder="Informe o analytics">
         </div>
 
         <div class="form-group">
 
             <label for="titulo" class="form-label"> <br>Ato de autorização:</label>
-            <input type="file" name="ato_autorizacao" id="ato_autorizacao" class="form-control" required>
+            <input type="file" name="ato_autorizacao" id="ato_autorizacao" class="form-control" accept=".pdf" required>
         </div>
 
         <div class="form-group">
 
             <label for="calendario" class="form-label"> <br>Calendário:</label>
-            <input type="file" name="calendario" id="calendario" class="form-control">
+            <input type="file" name="calendario" id="calendario" class="form-control" accept=".pdf">
         </div>
         <div class="form-group">
 
             <label for="horario" class="form-label"> <br>Horário:</label>
-            <input type="file" name="horario" id="horario" class="form-control">
+            <input type="file" name="horario" id="horario" class="form-control" accept=".pdf">
         </div>
         <button type="submit" class="btn custom-button btn-default">Cadastrar</button>
         <button class="btn custom-button custom-button-castastrar-tcc btn-default"><a href="{{ route('curso.index') }} " class="btn-back">Cancelar</a></button>
@@ -231,25 +242,25 @@
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var vestibularCheckbox = document.getElementById('vestibular');
         var sisuCheckbox = document.getElementById('sisu');
         var vestibularPercentInput = document.getElementById('vestibular_percent');
         var sisuPercentInput = document.getElementById('sisu_percent');
 
-        vestibularCheckbox.addEventListener('change', function () {
+        vestibularCheckbox.addEventListener('change', function() {
             validatePercentages();
         });
 
-        sisuCheckbox.addEventListener('change', function () {
+        sisuCheckbox.addEventListener('change', function() {
             validatePercentages();
         });
 
-        vestibularPercentInput.addEventListener('input', function () {
+        vestibularPercentInput.addEventListener('input', function() {
             validatePercentages();
         });
 
-        sisuPercentInput.addEventListener('input', function () {
+        sisuPercentInput.addEventListener('input', function() {
             validatePercentages();
         });
 
@@ -276,9 +287,6 @@
             return (somaPercentagens === 100) && requiredFieldsFilled;
         }
     });
-
-
-
 </script>
 
 @stop

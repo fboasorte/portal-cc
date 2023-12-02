@@ -12,10 +12,18 @@
     </div>
 </div>
 <div class="container">
+
     @if ($errors->any())
     @foreach ($errors->all() as $error)
     <div class="alert alert-danger">
+        @if(is_array($error))
+        @foreach($error as $e)
+        <div>{{ $e }}</div>
+        @endforeach
+        @else
         {{ $error }}
+        @endif
+
     </div>
     @endforeach
     @endif
@@ -32,7 +40,7 @@
 
         <div class="form-group mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="255" >{{ $curso->descricao }}</textarea>
+            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="255">{{ $curso->descricao }}</textarea>
         </div>
 
         <div class="form-group mb-3">
@@ -48,7 +56,7 @@
         <div class="form-group mb-3">
 
             <label for="titulo" class="form-label"> <br>Carga Horária:</label>
-            <input class="form-control" type="number" id="carga_horaria" name="carga_horaria" value="{{ $curso->carga_horaria }}" placeholder="Informe a carga horária" required>
+            <input class="form-control" type="number" id="carga_horaria" min="0" max="10000" name="carga_horaria" value="{{ $curso->carga_horaria }}" placeholder="Informe a carga horária" required>
         </div>
         <div class="form-group mb-3">
 
@@ -141,12 +149,12 @@
 
         <div class="form-group mb-3">
             <label class="form-label" for="tempo_min_conclusao"><br>Tempo minímo para integralização (anos):</label>
-            <input class="form-control" type="number" id="tempo_min_conclusao" name="tempo_min_conclusao" min="0" step="0.5" value="{{ $curso->tempo_min_conclusao }}">
+            <input class="form-control" type="number" id="tempo_min_conclusao" name="tempo_min_conclusao" min="1" step="0.5" max="10" value="{{ $curso->tempo_min_conclusao }}">
         </div>
 
         <div class="form-group mb-3">
             <label class="form-label" for="tempo_max_conclusao"><br>Tempo máximo para integralização (anos):</label>
-            <input class="form-control" type="number" id="tempo_max_conclusao" name="tempo_max_conclusao" min="0" step="0.5" value="{{ $curso->tempo_max_conclusao }}">
+            <input class="form-control" type="number" id="tempo_max_conclusao" name="tempo_max_conclusao" min="1" step="0.5" max="20" value="{{ $curso->tempo_max_conclusao }}">
         </div>
 
         <div class="form-group mb-3">
@@ -166,11 +174,9 @@
 
         <div class="form-group">
             <label for="titulo" class="form-label"> <br>Ato de autorização:</label>
-            @if($curso->atoAutorizacao)
-            <button class="btn text-danger" type="submit" form="deletar-atoAutorizacao{{ $curso->id }}" onclick="return confirm('Deseja realmente excluir esse arquivo?')">X</button>
-            <a href="{{ asset('storage/' . $curso->atoAutorizacao->path) }}" target="_blank">Ver ato de autorizacao</a>
-            @else
-            <input type="file" name="ato_autorizacao" id="ato_autorizacao" class="form-control" required>
+            <input type="file" name="ato_autorizacao" id="ato_autorizacao" class="form-control" accept=".pdf">
+            @if($curso->atoAutorizacao && $curso->atoAutorizacao->path)
+            <p>Ato de autorização atual: <a href="{{ asset('storage/' . $curso->atoAutorizacao->path) }}" target="_blank">{{ $curso->atoAutorizacao->nome }}</a></p>
             @endif
         </div>
 
@@ -181,7 +187,7 @@
             <button class="btn text-danger" type="submit" form="deletar-calendario{{ $curso->id }}" onclick="return confirm('Deseja realmente excluir esse arquivo?')">X</button>
             <a href="{{ asset('storage/' . $curso->calendario) }}" target="_blank">Ver Calendário</a>
             @else
-            <input type="file" name="calendario" id="calendario" class="form-control">
+            <input type="file" name="calendario" id="calendario" class="form-control" accept=".pdf">
             @endif
         </div>
 
@@ -192,7 +198,7 @@
             <button class="btn text-danger" type="submit" form="deletar-horario{{ $curso->id }}" onclick="return confirm('Deseja realmente excluir esse arquivo?')">X</button>
             <a href="{{ URL::asset('storage/' . $curso->horario) }}" target="_blank">Ver Horário</a>
             @else
-            <input type="file" name="horario" id="horario" class="form-control">
+            <input type="file" name="horario" id="horario" class="form-control" accept=".pdf">
             @endif
         </div>
 

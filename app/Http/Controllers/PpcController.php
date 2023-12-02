@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\PpcRequest;
 use App\Models\PPC;
 use App\Models\Curso;
 use Illuminate\Http\Request;
@@ -25,7 +27,7 @@ class PpcController extends Controller
         return view('ppc.create',['cursoId' => $cursoId]);
     }
 
-    public function store(Request $request, $cursoId)
+    public function store(PpcRequest $request, $cursoId)
     {
         $curso = Curso::find($cursoId);
 
@@ -46,6 +48,15 @@ class PpcController extends Controller
         }
 
         if($ppcPath){
+
+            if($request->filled('vigente')) {
+                $ppc_antigo = PPC::where('vigente',true)->first();
+                if($ppc_antigo){
+                    $ppc_antigo->vigente = false;
+                    $ppc_antigo->save();
+                }
+            }
+
             $ppc_criado = $curso->ppc()->create([
                 'path' => $ppcPath,
                 'nome' => $ppc->getClientOriginalName(),
@@ -80,7 +91,7 @@ class PpcController extends Controller
         return view('ppc.edit', ['cursoId' => $curso->id, 'ppc' => $ppc]);
     }
 
-    public function update(Request $request, $cursoId, $ppcId){
+    public function update(PpcRequest $request, $cursoId, $ppcId){
 
         $curso = Curso::find($cursoId);
 
@@ -124,6 +135,14 @@ class PpcController extends Controller
         }
 
         $ppc->vigente = $request->has('vigente') ? true : false;
+
+        if($ppc->vigente) {
+            $ppc_antigo = PPC::where('vigente',true)->first();
+            if($ppc_antigo){
+                $ppc_antigo->vigente = false;
+                $ppc_antigo->save();
+            }
+        }
 
         $ppc->save();
 
