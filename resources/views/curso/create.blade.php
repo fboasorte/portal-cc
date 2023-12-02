@@ -98,13 +98,13 @@
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_anualmente" class="form-label"> <br>Vagas ofertadas anualmente:</label>
-            <input value="{{ old('vagas_ofertadas_anualmente') }}" class="form-control" type="Number" id="vagas_ofertadas_anualmente" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0">
+            <input value="{{ old('vagas_ofertadas_anualmente') }}" class="form-control" type="Number" id="vagas_ofertadas_anualmente" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0" max="1000">
         </div>
 
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_turma" class="form-label"> <br>Vagas ofertadas por turma:</label>
-            <input value="{{ old('vagas_ofertadas_turma') }}" class="form-control" type="Number" id="vagas_ofertadas_turma" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0">
+            <input value="{{ old('vagas_ofertadas_turma') }}" class="form-control" type="Number" id="vagas_ofertadas_turma" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0" max="1000">
         </div>
 
         <div class="form-group mb-3">

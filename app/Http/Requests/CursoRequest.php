@@ -76,8 +76,8 @@ class CursoRequest extends FormRequest
                 'max'  => 'O calendário deve ter no máximo 10 Mb',
             ],
             'analytics' => [
-                'string' => 'O nome deve conter texto',
-                'max' => 'O nome deve ter no máximo 255 caracteres',
+                'string' => 'O analytics deve conter texto',
+                'max' => 'O analytics deve ter no máximo 255 caracteres',
             ],
             'nota_in_loco_SINAES' => [
                 'integer' => 'A nota é um inteiro',

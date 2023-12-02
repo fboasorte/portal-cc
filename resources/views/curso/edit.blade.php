@@ -92,19 +92,19 @@
         <div class="form-group mb-3">
 
             <label for="ano_implementacao" class="form-label"> <br>Ano de implementação:</label>
-            <input class="form-control" type="Number" id="ano_implementacao" value="{{ $curso->ano_implementacao }}" name="ano_implementacao" placeholder="Informe o ano de implementação" min="1900" required>
+            <input class="form-control" type="Number" id="ano_implementacao" value="{{ $curso->ano_implementacao }}" name="ano_implementacao" placeholder="Informe o ano de implementação" min="1900" max="{{ date('Y') }}" required>
         </div>
 
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_anualmente" class="form-label"> <br>Vagas ofertadas anualmente:</label>
-            <input class="form-control" type="Number" id="vagas_ofertadas_anualmente" value="{{ $curso->vagas_ofertadas_anualmente }}" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0">
+            <input class="form-control" type="Number" id="vagas_ofertadas_anualmente" value="{{ $curso->vagas_ofertadas_anualmente }}" name="vagas_ofertadas_anualmente" placeholder="Informe o numero de vagas ofertadas anualmente" min="0" max="1000">
         </div>
 
         <div class="form-group mb-3">
 
             <label for="vagas_ofertadas_turma" class="form-label"> <br>Vagas ofertadas por turma:</label>
-            <input class="form-control" type="Number" id="vagas_ofertadas_turma" value="{{ $curso->vagas_ofertadas_turma }}" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0">
+            <input class="form-control" type="Number" id="vagas_ofertadas_turma" value="{{ $curso->vagas_ofertadas_turma }}" name="vagas_ofertadas_turma" placeholder="Informe o numero de vagas ofertadas por turma" min="0" max="1000">
         </div>
 
         <div class="form-group mb-3">

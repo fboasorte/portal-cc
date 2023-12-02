@@ -161,7 +161,9 @@ class CursoController extends Controller
 
         if ($ato_autorizacao && $ato_autorizacao->isValid()) {
 
-            File::delete(storage_path('app/public/' . $curso->atoAutorizacao->path));
+            if($curso->atoAutorizacao->path) {
+                File::delete(storage_path('app/public/' . $curso->atoAutorizacao->path));
+            }
 
             $diretorio = 'ArquivoAtoAutorizacao';
             $nomeAtoAutorizacao = $ato_autorizacao->store($diretorio);

@@ -18,7 +18,7 @@ class PpcController extends Controller
             abort(404, 'Curso não encontrado');
         }
 
-        $ppcs = $curso->ppc;
+        $ppcs = $curso->ppc()->orderByDesc('vigente')->get();
 
         return view('ppc.index', ['ppcs' => $ppcs, 'curso' => $curso]);
     }
