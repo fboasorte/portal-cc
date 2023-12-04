@@ -23,6 +23,8 @@ class CoordenadorSeeder extends Seeder
             'nome' => 'Ciência da Computação',
             'carga_horaria' => '3600',
             'sigla' => 'BCC',
+            'tipo' => 'Bacharelado',
+            'modalidade' => 'Presencial',
         ]);
 
         $user = User::create([
