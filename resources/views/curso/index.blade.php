@@ -65,6 +65,7 @@
                                         <a class="btn btn-primary btn-sm" href="{{ route('curso.edit', $curso->id) }}"><i class="fas fa-pencil-alt"></i></a>
                                         <button type="submit" class="btn btn-danger btn-sm" title='Delete' onclick="return confirm('Deseja realmente excluir esse curso?')"><i class="fas fa-trash"></i></button>
                                         <a class="btn btn-primary btn-sm" href="{{ route('curso.coordenador', $curso->id) }}">Coordenador</a>
+                                        <a href="{{ route('ppc.index', ['cursoId' => $curso->id]) }}" class="btn btn-primary">Ver PPCs</a>
                                     </form>
                                 </td>
                             </tr>

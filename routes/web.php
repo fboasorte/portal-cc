@@ -14,6 +14,7 @@ use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
 use App\Http\Controllers\MatrizController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\PpcController;
 use App\Http\Controllers\CoordenadorController;
 use Illuminate\Support\Facades\Route;
 
@@ -146,6 +147,8 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
     // Curso
     Route::resource('curso', CursoController::class)->parameter('curso', 'id')->except(['show']);
 
+    Route::delete('/curso/delete_atoAutorizacao/{id}', [CursoController::class, 'deleteAtoAutorizacao'])->name('curso.delete_atoAutorizacao');
+
     Route::delete('/curso/delete_calendario/{id}', [CursoController::class, 'deleteCalendario'])->name('curso.delete_calendario');
 
     Route::delete('/curso/delete_horario/{id}', [CursoController::class, 'deleteHorario'])->name('curso.delete_horario');
@@ -159,4 +162,9 @@ Route::middleware('auth', 'role:coordenador')->group(function () {
     Route::post('/curso/coordenador-store/{id}', [CursoController::class, 'coordenadorStore'])->name('curso.coordenador-store');
 
     Route::get('/curso/busca-professor', [CursoController::class, 'buscaProfessor']);
+
+    Route::prefix('/curso/{cursoId}')->group(function () {
+        Route::resource('/ppc', PpcController::class)->except(['show']);
+    });
+
 });

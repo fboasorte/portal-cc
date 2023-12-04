@@ -9,12 +9,24 @@ class Curso extends Model{
 
     protected $fillable = [
         'nome',
+        'descricao',
         'turno',
         'carga_horaria',
         'sigla',
         'analytics',
         'calendario',
         'horario',
+        'modalidade',
+        'tipo',
+        'habilitacao',
+        'ano_implementacao',
+        'vagas_ofertadas_anualmente',
+        'vagas_ofertadas_turma',
+        'periodicidade_ingresso',
+        'tempo_min_conclusao',
+        'tempo_max_conclusao',
+        'nota_enade',
+        'nota_in_loco_SINAES',
 
         /*
         - Nome do curso: Ciência da Computação
@@ -33,5 +45,20 @@ class Curso extends Model{
         - Resultados obtidos nas últimas avaliações realizadas pelo MEC: ( Quatro (4) na avaliação in loco –SINAES; Nota quatro (4) no ENADE)
         */
     ];
+
+    public function formasAcesso()
+    {
+        return $this->hasMany(FormaAcesso::class,'curso_id','id');
+    }
+
+    public function ppc()
+    {
+        return $this->hasMany(PPC::class,'curso_id','id');
+    }
+
+    public function atoAutorizacao()
+    {
+        return $this->hasOne(ArquivoAtoAutorizacao::class,'curso_id','id');
+    }
 
 }
