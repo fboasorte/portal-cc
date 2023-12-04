@@ -41,7 +41,6 @@ class PostagemController extends Controller
         $id = 1;
 
         if (old() && URL::previous() == route('tcc.create')) {
-
             $banca = Banca::findOrFail(old('banca_id'));
             $professor = Professor::findOrFail(old('professor_id'));
             $aluno = Aluno::findOrFail(old('aluno_id'));
@@ -51,7 +50,7 @@ class PostagemController extends Controller
                 'texto' =>
                 'Aluno: ' . $aluno->nome . "\n" .
                     'Título: ' . old('titulo') . "\n" .
-                    'Orientador: ' . $professor->nome . "\n" .
+                    'Orientador: ' . $professor->servidor->nome . "\n" .
                     'Data: ' . date('d/m/Y', strtotime($banca->data)) . "\n" .
                     'Local: ' . $banca->local
             ];
