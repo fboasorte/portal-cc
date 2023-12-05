@@ -11,7 +11,7 @@ export default defineConfig({
             refresh: true,
         }),
     ]
-    server:{
+    ,server:{
     port:80,
 },
 });
