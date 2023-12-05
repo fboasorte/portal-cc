@@ -39,6 +39,7 @@
                             <h6 class="mb-0">Professores Internos:</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
+                            {{ $banca->presidente->servidor->nome }} <br>
                             @foreach ($banca->professores as $professor)
                             <span>{{ $professores_internos->contains($professor->id) ? $professores_internos->where('id', $professor->id)->first()->nome : '' }} </span>
                             <span>{!! $professores_internos->contains($professor->id) ? '<br>' : '' !!}</span>
