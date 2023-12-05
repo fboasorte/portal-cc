@@ -250,12 +250,12 @@
 
                 <div class = "borda">
                   <span class = "title borda2">Ano de implementação do curso</span>
-                  <p>{{$curso->ano_implementacao}}</p>
+                  <p>{{$curso->ano_implementacao}}.</p>
                 </div>
 
                 <div class = "borda">
                   <span class = "title borda2">Modalidade</span>
-                  <p>{{$curso->modalidade}}</p>
+                  <p>{{$curso->modalidade}}.</p>
                 </div>
 
                 <div class = "borda">
@@ -265,12 +265,12 @@
 
                 <div class = "borda">
                   <span class = "title borda2">Tipo</span>
-                  <p>{{$curso->tipo}}</p>
+                  <p>{{$curso->tipo}}.</p>
                 </div>
 
                 <div class = "borda">
                   <span class = "title borda2">Habilitação</span>
-                  <p>{{$curso->habilitacao}}</p>
+                  <p>{{$curso->habilitacao}}.</p>
                 </div>
 
                 <div class = "borda">
@@ -361,7 +361,18 @@
                 <span class = "title">Periodicidade de ingresso</span>
                 <p>O ingresso no curso ocorre de forma {{$curso->periodicidade_ingresso}}</p>
 
+                <span class = "title">Formas de acesso</span>
+                <ul>
+                  @foreach($curso->formasAcesso as $formaAcesso)
+
+                    <li>{{$formaAcesso->forma_acesso}}, {{$formaAcesso->porcentagem_vagas}}% das vagas.</li>
+
+                  @endforeach
+
+                </ul>
+
                 <span><a href = "{{$curso->horario}}"> Veja os horários das disciplinas</a></span>
+
                 <br>
                 <br>
 
