@@ -192,7 +192,7 @@
           <div class = "bloco10">
               <div class = "bloco101">
                   <div style = "text-align:center; width:100%; margin-top:50px;">
-                        <span class = "title3">Conheça o curso {{$curso->nome}}, do Instituto Federal do Norte de Minas</span>
+                        <span class = "title3">Conheça o curso de {{$curso->nome}}, do Instituto Federal do Norte de Minas</span>
                   </div>
               </div>
           </div>
@@ -202,17 +202,18 @@
             <div id="o_que_e_o_curso" class = "bloco1" style= "margin-top:150px;">
 
                 <div style = "text-align:center;">
-                    <span class = "title">O que é o curso {{$curso->nome}}</span>
+                    <span class = "title">O que é o curso de {{$curso->nome}} ( {{$curso->sigla}} )</span>
                 </div>
 
                 <br>
-                <p>O curso de {{$curso->nome}}, fundado no ano de 2013 (...). No curso de bacharelado em Ciências da Computação o aluno desenvolverá as habilidades necessárias para (...) se profissionalizar e trabalhar em áreas como (...) </p>
+
+                <p>{{$curso->descricao}}</p>
                 <br>
                 <span> Nas últimas avaliações realizadas pelo MEC os resultados obtidos foram: </span>
 
                 <ul>
-                    <li> Quatro na avaliação in loco –SINAES </li>
-                    <li> Quatro no ENADE </li>
+                    <li> {{$curso->nota_in_loco_SINAES}} na avaliação in loco –SINAES </li>
+                    <li> {{$curso->nota_enade}} no ENADE </li>
                 </ul>
 
             </div>
@@ -244,12 +245,17 @@
 
                 <div class="borda">
                   <span class = "title borda2">Tempo para integração do curso</span>
-                  <p>O tempo mínimo necessário para concluir o curso é de cinco anos (10 semestres) e o tempo máximo é de sete anos e meio (15 semestres)</p>
+                  <p>O tempo mínimo necessário para concluir o curso é de {{$curso->tempo_min_conclusao}} anos e o tempo máximo é de {{$curso->tempo_max_conclusao}} anos. </p>
+                </div>
+
+                <div class = "borda">
+                  <span class = "title borda2">Ano de implementação do curso</span>
+                  <p>{{$curso->ano_implementacao}}</p>
                 </div>
 
                 <div class = "borda">
                   <span class = "title borda2">Modalidade</span>
-                  <p>Presencial</p>
+                  <p>{{$curso->modalidade}}</p>
                 </div>
 
                 <div class = "borda">
@@ -259,7 +265,12 @@
 
                 <div class = "borda">
                   <span class = "title borda2">Tipo</span>
-                  <p>Bacharelado</p>
+                  <p>{{$curso->tipo}}</p>
+                </div>
+
+                <div class = "borda">
+                  <span class = "title borda2">Habilitação</span>
+                  <p>{{$curso->habilitacao}}</p>
                 </div>
 
                 <div class = "borda">
@@ -277,7 +288,7 @@
                 <div class = "borda">
                   <span class = "title borda2">Calendário acadêmico</span>
                     <p>
-                        <a href = "#"> link para o calendário acadêmico</a>
+                        <a href = "{{$curso->calendario}}"> link para o calendário acadêmico</a>
                     </p>
                 </div>
 
@@ -286,7 +297,7 @@
 
                 <span class = "title">Mais informações</span>
                 <br>
-                <a href = "#">analytics</a>
+                <a href = "{{$curso->analytics}}">analytics</a>
             </div>
 
 
@@ -340,26 +351,18 @@
             <div class = "bloco1" style="flex:1;">
 
                 <span class = "title">Total de vagas ofertadas anualmente</span>
-                <p>São ofertadas 40 vagas anualmente.</p>
+                <p>São ofertadas {{$curso->vagas_ofertadas_anualmente}} vagas anualmente.</p>
 
 
                 <span class = "title">Total de vagas ofertadas por turma</span>
-                <p>São ofertadas 40 vagas por turma.</p>
+                <p>São ofertadas {{$curso->vagas_ofertadas_turma}}  vagas por turma.</p>
 
 
                 <span class = "title">Periodicidade de ingresso</span>
-                <p>O ingresso no curso ocorre anualmente</p>
+                <p>O ingresso no curso ocorre de forma {{$curso->periodicidade_ingresso}}</p>
 
-
-                <span class = "title">Formas de acesso</span>
-                <ul>
-                    <li>Vestibular</li>
-                    <li>SISU</li>
-                </ul>
-
-
-                <span class = "title">Número de vagas disponibilizadas</span>
-                <p>São ofertadas 40 vagas por turma.</p>
+                <span><a href = "{{$curso->horario}}"> Veja os horários das disciplinas</a></span>
+                <br>
                 <br>
 
 
