@@ -15,8 +15,5 @@ class ImagemProjeto extends Model
         'imagem',
         'projeto_id',
     ];
-    
-    public function postagem(){
-        return $this->belongsTo(Postagem::class);
-    }
+
 }

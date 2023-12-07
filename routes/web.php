@@ -12,7 +12,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\TccController;
-use App\Http\Controllers\MatrizController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\PpcController;
 use App\Http\Controllers\CoordenadorController;
@@ -76,9 +75,6 @@ Route::get('/projeto/show/{id}', [ProjetoController::class, 'show'])->name('proj
 
 //Servidor
 Route::resource('servidor', ServidorController::class)->parameter('servidor', 'id')->except(['show', 'edit', 'update', 'destroy']);
-
-//Matriz curricular
-Route::resource('matriz', MatrizController::class)->parameter('matriz', 'id');
 
 
 
