@@ -472,8 +472,8 @@ margin-top:60px;
 }
 
 .text-wrap {
-    
-    word-break: break-all;
+    /*word-wrap: break-all;*/
+    overflow-wrap: anywhere;
 }
 
 .title_arquivos {
