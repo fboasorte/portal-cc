@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-black-800 dark:text-black-200 leading-tight">
-            {{ __('Perfil') }}
-        </h2>
+        
 
         <!--Parte replicada que estava sendo sobreposta pelo fundo-->
         <div class="py-12">
@@ -36,13 +34,7 @@
             <a href="{{ url()->previous() }}" class="btn custom-button custom-button-castastrar-tcc btn-default">Voltar</a>
         </div>
 
-        <footer>
-            <p>&copy; 2023 Departamento de Ciência da Computação - IFNMG - Todos os direitos reservados</p>
-            <p>Endereço: Rua Dois, 300 - Village do Lago I - Montes Claros - MG – CEP 39.404-058</p>
-            <p>Telefone: (38) 2103-4141</p>
-            <p>E-mail: <a href="mailto:comunicacao.montesclaros@ifnmg.edu.br">comunicacao.montesclaros@ifnmg.edu.br</a></p>
-            <p>Página eletrônica: <a href="https://www.ifnmg.edu.br/montesclaros">www.ifnmg.edu.br/montesclaros</a></p>
-        </footer>
+        
         <!--Fim da parte replicada-->
 
     </x-slot>

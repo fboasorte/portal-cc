@@ -19,19 +19,19 @@
 
         <div>
             <x-input-label for="titulacao" :value="__('Titulação')" style="color:black;"/>
-            <x-text-input id="titulacao" name="titulacao" type="text" class="mt-1 block w-full" :value="old('titulacao', $user->titulacao)" autofocus autocomplete="titulacao" />
+            <x-text-input id="titulacao" name="titulacao" type="text" class="mt-1 block w-full input-field" :value="old('titulacao', $user->titulacao)" autofocus autocomplete="titulacao" />
             <x-input-error class="mt-2" :messages="$errors->get('titulacao')" />
         </div>
 
         <div>
             <x-input-label for="biografia" :value="__('Biografia')" style="color:black;"/>
-            <x-text-input id="biografia" name="biografia" type="text" class="mt-1 block w-full" :value="old('biografia', $user->biografia)" autofocus autocomplete="biografia" />
+            <x-text-input id="biografia" name="biografia" type="text" class="mt-1 block w-full input-field" :value="old('biografia', $user->biografia)" autofocus autocomplete="biografia" />
             <x-input-error class="mt-2" :messages="$errors->get('biografia')" />
         </div>
 
         <div>
             <x-input-label for="area" :value="__('Área')" style="color:black;"/>
-            <x-text-input id="area" name="area" type="text" class="mt-1 block w-full" :value="old('area', $user->area)" autofocus autocomplete="area" />
+            <x-text-input id="area" name="area" type="text" class="mt-1 block w-full input-field" :value="old('area', $user->area)" autofocus autocomplete="area" />
             <x-input-error class="mt-2" :messages="$errors->get('area')" />
         </div>
 
@@ -40,7 +40,7 @@
         <x-input-label for="links" :value="__('Links')" style="color:black;"/>
             <div id="links-container">
                 <div class="link-input-group">
-                    <x-text-input class="block mt-1 w-full" type="text" name="links[]" autocomplete="links" />
+                    <x-text-input class="block mt-1 w-full input-field" type="text" name="links[]" autocomplete="links" />
                 </div>
             </div>
             <button type="button" class="add-link" style="color:black;">+</button>
