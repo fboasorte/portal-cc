@@ -7,9 +7,9 @@
         <div class="col-lg-8">
             <article>
                 <header class="mb-4">
-                    <h1 class="fw-bolder mb-1">{{ $postagem->titulo }}</h1>
-                    <div class="text-muted small fst-italic mb-2">Publicado em {{ \Carbon\Carbon::parse($postagem->created_at)->isoFormat('DD [de] MMMM [de] YYYY, HH[h]mm') }} | Última atualização em {{ \Carbon\Carbon::parse($postagem->updated_at)->isoFormat('DD [de] MMMM [de] YYYY, HH[h]mm') }}</div>
-                    <div class="badge bg-secondary text-decoration-none link-light">{{ $tipo_postagem->nome }}</div>
+                    <h1 class="fw-bolder mb-1 text-wrap">{{ $postagem->titulo }}</h1>
+                    <div class="text-muted small fst-italic mb-2 text-wrap">Publicado em {{ \Carbon\Carbon::parse($postagem->created_at)->isoFormat('DD [de] MMMM [de] YYYY, HH[h]mm') }} | Última atualização em {{ \Carbon\Carbon::parse($postagem->updated_at)->isoFormat('DD [de] MMMM [de] YYYY, HH[h]mm') }}</div>
+                    <div class="badge bg-secondary text-decoration-none link-light text-wrap">{{ $tipo_postagem->nome }}</div>
                 </header>
 
                 @if (count($postagem->imagens) > 0 && $postagem->menu_inicial)
