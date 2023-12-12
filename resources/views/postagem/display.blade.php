@@ -5,13 +5,13 @@
 @php
 $imagensPostagens = [];
 foreach ($postagens as $postagem) {
-    $firstImage = $postagem->imagens->first();
-    if ($firstImage && Storage::disk('public')->exists($firstImage->imagem) && $postagem->menu_inicial) {
-        $imagensPostagens[] = [
-            'postagem' => $postagem,
-            'imagem' => $firstImage,
-        ];
-    }
+$firstImage = $postagem->imagens->first();
+if ($firstImage && Storage::disk('public')->exists($firstImage->imagem) && $postagem->menu_inicial) {
+$imagensPostagens[] = [
+'postagem' => $postagem,
+'imagem' => $firstImage,
+];
+}
 }
 @endphp
 
@@ -58,7 +58,7 @@ foreach ($postagens as $postagem) {
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @foreach($postagens_9 as $postagem)
             <div class="col">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm h-100">
                     @if (count($postagem->imagens) > 0)
                     @php $firstImage = $postagem->imagens[0]; @endphp
                     @if (Storage::disk('public')->exists($firstImage->imagem) && $postagem->menu_inicial )
@@ -76,9 +76,9 @@ foreach ($postagens as $postagem) {
                     </a>
                     @endif
 
-                    <div class="card-body">
-                        <p class="card-text">{{ $postagem->titulo }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text flex-grow-1">{{ $postagem->titulo }}</p>
+                        <div class="d-flex justify-content-between align-items-end">
                             <div class="btn-group">
                                 <a href="{{ route('postagem.show', ['id' => $postagem->id]) }}" class="btn btn-sm btn-outline-secondary">Visualizar</a>
                             </div>
@@ -93,12 +93,12 @@ foreach ($postagens as $postagem) {
 </div>
 
 @php
-    $paginatorText = $postagens_9->onEachSide(1)->links('pagination::bootstrap-5')->toHtml();
-    $translatedPaginatorText = str_replace(
-        ['Showing', 'to', 'of', 'results'],
-        ['Mostrando de', 'a', 'de', 'resultados'],
-        $paginatorText
-    );
+$paginatorText = $postagens_9->onEachSide(1)->links('pagination::bootstrap-5')->toHtml();
+$translatedPaginatorText = str_replace(
+['Showing', 'to', 'of', 'results'],
+['Mostrando de', 'a', 'de', 'resultados'],
+$paginatorText
+);
 @endphp
 
 <div class="container mt-5">
@@ -120,7 +120,6 @@ foreach ($postagens as $postagem) {
         border: 1px solid #e3e2e2;
         font-size: 14px;
     }
-    
 </style>
 
 @endsection
