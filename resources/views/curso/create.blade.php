@@ -38,7 +38,7 @@
 
         <div class="form-group mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="255">{{ old('descricao') }}</textarea>
+            <textarea name="descricao" id="descricao" cols="30" rows="5" class="form-control" maxlength="5000">{{ old('descricao') }}</textarea>
         </div>
 
         <div class="form-group mb-3">
