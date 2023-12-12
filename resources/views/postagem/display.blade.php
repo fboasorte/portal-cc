@@ -56,7 +56,7 @@ foreach ($postagens as $postagem) {
 <div class="album py-3 library">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            @foreach($postagens as $postagem)
+            @foreach($postagens_9 as $postagem)
             <div class="col">
                 <div class="card shadow-sm">
                     @if (count($postagem->imagens) > 0)
@@ -91,5 +91,36 @@ foreach ($postagens as $postagem) {
         </div>
     </div>
 </div>
+
+@php
+    $paginatorText = $postagens_9->onEachSide(1)->links('pagination::bootstrap-5')->toHtml();
+    $translatedPaginatorText = str_replace(
+        ['Showing', 'to', 'of', 'results'],
+        ['Mostrando de', 'a', 'de', 'resultados'],
+        $paginatorText
+    );
+@endphp
+
+<div class="container mt-5">
+    <nav aria-label="Navegação de página exemplo">
+        {!! $translatedPaginatorText !!}
+    </nav>
+</div>
+
+<style>
+    .page-item.active .page-link {
+        background-color: #283f6c;
+        border-color: #283f6c;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .page-item .page-link {
+        color: #283f6c;
+        border: 1px solid #e3e2e2;
+        font-size: 14px;
+    }
+    
+</style>
 
 @endsection

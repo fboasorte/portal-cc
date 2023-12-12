@@ -214,7 +214,9 @@ class PostagemController extends Controller
     public function display()
     {
         $postagens = Postagem::orderBy('created_at', 'desc')->get();
-        return view('postagem.display', ['postagens' => $postagens]);
+        $postagens_9 = Postagem::orderBy('created_at', 'desc')->paginate(9);
+        
+        return view('postagem.display', ['postagens' => $postagens, 'postagens_9' => $postagens_9]);
     }
 
     public function show(string $id)
