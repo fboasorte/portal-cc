@@ -10,21 +10,19 @@ class CredentialMail extends Controller
 {
     private $nome;
     private $email;
-    private $login;
     private $senha;
 
     public function __construct(Request $request)
     {
         $this->nome = $request->nome;
         $this->email = $request->email;
-        $this->login = $request->login;
-        $this->senha = $request->login;
+        $this->senha = $request->email;
     }
 
     public function sendMail(){
         $data = array(
             'nome'=> $this->nome,
-            'login'=> $this->login,
+            'email'=> $this->email,
             'senha'=> $this->senha
         );
 

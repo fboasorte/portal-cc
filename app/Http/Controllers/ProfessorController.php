@@ -71,7 +71,7 @@ class ProfessorController extends Controller
         }
 
         $user = User::create([
-            'password' => Hash::make($request->email),
+            'password' => Hash::make(strtolower($request->email)),
             'name' => $request->nome,
             'email' => strtolower($request->email),
         ]);
@@ -99,7 +99,7 @@ class ProfessorController extends Controller
         try {
             $email->sendMail();
         } catch (\Exception $error) {
-            return back()->with('error', "Ocorreu um erro inesperado! {$error->getMessage()}");
+            return redirect('/professor')->with('error', "Ocorreu um erro no envio automático de email! Envie o email manualmente para: $request->email {$error->getMessage()}");
         }
 
         return redirect('/professor')->with('success', "Usuário cadastrado com sucesso!");
